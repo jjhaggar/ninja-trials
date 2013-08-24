@@ -1,4 +1,4 @@
-# NinjaTrials
+# Ninja Trials
 
 
 Ninja Trials es un juego para Android al estilo de la vieja escuela, desarrollado específicamente para [Ouya](https://www.ouya.tv/ "Ouya console"), utilizando [AndEngine](https://github.com/nicolasgramlich/AndEngine " AndEngine por Nicolas Gramlich ").
@@ -37,7 +37,7 @@ Pensamos que sería una buena idea hacer que fuera de código abierto, para que 
 
 El código fuente está disponible en github, puedes clonar el árbol git haciendo:
 
-    git clone https://github.com/madwargo/ninjatrials.git
+    git clone https://github.com/jjhaggar/ninja-trials.git
 
 
 ## Compilación
@@ -67,7 +67,7 @@ Configuración de adb (adb es una herramienta de línea de comandos que te permi
 
 Descarga del proyecto, compilación y carga en el dispositivo:
 
-    git clone https://github.com/madwargo/ninjatrials.git
+    git clone https://github.com/jjhaggar/ninja-trials.git
     android update project --target target-id --name ninjatrials --path /path/to/project --library /relative/path/AndEngine
     cd ninjatrials
     ant debug or ant realease
@@ -82,11 +82,11 @@ Daremos por hecho que usas Windows 7 y que ya has instalado en vuestro equipo: [
 Mientras presionas SHIFT, haz click sobre la carpeta de tu "workspace" de Eclipse y selecciona "Abrir ventana de comandos aquí".
 Introduce la siguiente línea en la ventana de comandos: 
 
-	git clone https://github.com/madwargo/ninjatrials.git
+	git clone https://github.com/jjhaggar/ninja-trials.git
 
 La ventana debería mostrar algo semejante a esto:
 
-	C:\[...path_to_your_workspace...]\workspace>git clone https://github.com/madwargo/ninjatrials.git
+	C:\[...path_to_your_workspace...]\workspace>git clone https://github.com/jjhaggar/ninja-trials.git
 	Cloning into 'ninjatrials'...
 	remote: Counting objects: 600, done.
 	remote: Compressing objects: 100% (286/286), done.
@@ -137,7 +137,7 @@ Inglés (idioma predeterminado), **strings.xml**:
 
     <? Xml version = encoding "1.0" = "UTF-8">
     <Resources>
-	    <string name="title"> mi solicitud </ string>
+	    <string name="title"> My Application </ string>
 	    <string name="hello_world"> Hello World </ string>
     </ Resources>
 
@@ -160,7 +160,7 @@ Francés, **strings_fr.xml**:
 * En tercer y último lugar, envíanos un [e-mail](mailto:madgeargames@gmail.com) con el archivo de traducción adjunta.
 
 #### Corrige las traducciones actuales
-* ¡Los "Nazis gramáticales" son bienvenidos! XD ¡De hecho, los necesitamos! :D
+* ¡Los "Nazis gramáticales" son bienvenidos! XD ¡De hecho, os necesitamos! :D
 * Enviar un e-mail a [madgeargames@gmail.com](mailto:madgeargames@gmail.com) con el asunto "corrección traducción NinjaTrials (idioma)", y explicando ***en Español o en Inglés*** lo que crees que deberíamos corregir.
 
 Ejemplo de e-mail que nos gustaría recibir:
@@ -187,7 +187,7 @@ Ryu.
 Ejemplo de un correo que no sería de gran ayuda:
 
 > **Destinatario de correo electrónico (a)**: madgeargames@gmail.com
-<br> **asunto del correo electrónico**: Bad traducción! : P
+<br> **asunto del correo electrónico**: Mala traducción! : P
 <br> **cuerpo del correo electrónico**:
 <br> ¿Cómo habéis podido escribir mal esa palabra? Deberíais haber escrito コ al final y no ユ, ¡Baka! :P
  
@@ -197,7 +197,7 @@ Por favor, mandadnos correos como el primero :)
 
 Puedes ayudarnos a escribir y a mejorar nuestro código. Aquí están los pasos que debes seguir para colaborar puntualmente (si deseas ser un colaborador habitual, mándanos un e-mail).
 
-1. Haz un [Fork](http://help.github.com/forking/) del proyecto https://github.com/madwargo/ninjatrials/fork
+1. Haz un [Fork](http://help.github.com/forking/) del proyecto https://github.com/jjhaggar/ninja-trials/fork
 2. Haz un commit limpio y bien comentado en tu repositorio. Puedes hacer una nueva rama si crees que es necesario.
 3. Realiza una [pull request](http://help.github.com/pull-requests/) en la interfaz web de GitHub.
 
@@ -222,4 +222,4 @@ Véase la Licencia para consultar el texto específico relativo a los permisos y
 
 ## Contacto
 
-* Madgeargames@gmail.com
+* madgeargames@gmail.com
