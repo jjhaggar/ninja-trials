@@ -1,0 +1,41 @@
+Descripción de las categorias para el control de tiempos
+--------------------------------------------------------
+
+Análisis SW (ana)
+Comprende el análisis de requisitos de sw, modelado (clases, actividades, etc), prototipos, especificación.
+
+Diseño SW (dis)
+Comprende la arquitectura de sw, estructuras, componentes, modelado, interfaz de usuario.
+
+Implementación SW (imp)
+Escribir el código en base al análisis y el diseño.
+
+Pruebas (pru)
+Probar el código mediante baterías de pruebas para detectar errores y comprobar que el producto satisface la especificación.
+
+Documentación (doc)
+Se realiza durante todo el proceso y consiste en registrar la información util para el proyecto.
+
+Corrección de errores (err)
+Corregir los errores que se detecten en el producto tanto en las pruebas como después de su publicación.
+
+Graficos (gra)
+Creación de gráficos (idea, bocetos, etc).
+
+Sonido (son)
+Creación de sonidos.
+
+Música (mus)
+Creación de música.
+
+Diseño y desarrollo de juego (des)
+Comprende la creación de las reglas y mecánicas del juego, para producir una determinada experiencia en el usuario. Elaboración y concreción de dichas ideas.
+
+Formación (for)
+Aprendizaje de nuevas herramientas, lenguajes, entornos, etc.
+
+Planificación (pla)
+Planificación y coordinación de proyecto.
+
+Varios (var)
+Otras actividades que no esntran en las categorías anteriores.
