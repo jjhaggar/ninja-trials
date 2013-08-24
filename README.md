@@ -117,7 +117,7 @@ A window will appear, select the device from the list and click OK.
 That will generate the .apk into the bin folder of the project, and will upload & install it to the device you chose.
 
 
-## Contribution
+## Contribute
 
 You can contribute with Ninja Trials in several ways!! :D We'll appreciate any help!! :D All contributors will be in the credits section of the game!! :D You will be famous!! (well, maybe XD).
 
