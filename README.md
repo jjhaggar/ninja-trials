@@ -1,4 +1,4 @@
-# NinjaTrials Spanish version
+# Ninja Trials
 
 Ninja Trials is an old school style Android Game, developed specifically for [OUYA](https://www.ouya.tv/ "Ouya console"), using [AndEngine](https://github.com/nicolasgramlich/AndEngine "AndEngine by Nicolas Gramlich").
 
@@ -35,7 +35,7 @@ We thought it would be a good idea to make it Open Source, so people could use i
 
 The source code is available from github, you can clone the git tree by doing:
 
-    git clone https://github.com/madwargo/ninjatrials.git
+    git clone https://github.com/jjhaggar/ninja-trials.git
 
 
 ## Compilation
@@ -65,7 +65,7 @@ Configure adb (adb is a command line tool that lets you communicate with a conne
 
 Download project, compile and upload to device:
 
-    git clone https://github.com/madwargo/ninjatrials.git
+    git clone https://github.com/jjhaggar/ninja-trials.git
     android update project --target target-id --name ninjatrials --path /path/to/project --library /relative/path/AndEngine
     cd ninjatrials
     ant debug or ant realease
@@ -81,11 +81,11 @@ We will assume you are using Windows 7 and you already have installed in your sy
 While pressing SHIFT, click on the folder of your Eclipse workspace and select "Open Command Window Here".
 Introduce the next command in the command line: 
 
-	git clone https://github.com/madwargo/ninjatrials.git
+	git clone https://github.com/jjhaggar/ninja-trials.git
 
 The window should show something similar to this:
 
-	C:\[...path_to_your_workspace...]\workspace>git clone https://github.com/madwargo/ninjatrials.git
+	C:\[...path_to_your_workspace...]\workspace>git clone https://github.com/jjhaggar/ninja-trials.git
 	Cloning into 'ninjatrials'...
 	remote: Counting objects: 600, done.
 	remote: Compressing objects: 100% (286/286), done.
@@ -197,7 +197,7 @@ Please, stick to the first kind of e-mail :)
 
 You can help us to write / improve our code. Here you are the steps you should follow for punctual collaborations (if you'd like to be a regular collaborator, e-mail us).
 
-1.  [Fork](http://help.github.com/forking/) the project https://github.com/madwargo/ninjatrials/fork
+1.  [Fork](http://help.github.com/forking/) the project https://github.com/jjhaggar/ninja-trials/fork
 2.  Make one well commented and clean commit to the repository. You can make a new branch if you if you feel it necessary.
 3.  Perform a [pull request](http://help.github.com/pull-requests/) in github's web interface.
 
