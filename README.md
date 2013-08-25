@@ -197,10 +197,17 @@ Please, stick to the first kind of e-mail :)
 
 You can help us to write / improve our code. Here you are the steps you should follow for punctual collaborations (if you'd like to be a regular collaborator, e-mail us).
 
+#### Using github interface:
+
 1.  [Fork](http://help.github.com/forking/) the project https://github.com/jjhaggar/ninja-trials/fork
 2.  Make one well commented and clean commit to the repository. You can make a new branch if you if you feel it necessary.
 3.  Perform a [pull request](http://help.github.com/pull-requests/) in github's web interface.
 
+#### Sending us a patch via e-mail:
+
+1. git clone https://github.com/jjhaggar/ninja-trials.git
+2. Make one clean patch. 
+3. Send the patch (well commented) to [madgeargames@gmail.com](mailto:madgeargames@gmail.com). We'd prefer that the patch was generated using *format-patch* instead of *diff* command, but do as you wish, we aren't that picky ;)
 
 
 ## Bibliography

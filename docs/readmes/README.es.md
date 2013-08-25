@@ -197,10 +197,17 @@ Por favor, mandadnos correos como el primero :)
 
 Puedes ayudarnos a escribir y a mejorar nuestro código. Aquí están los pasos que debes seguir para colaborar puntualmente (si deseas ser un colaborador habitual, mándanos un e-mail).
 
+#### Utilizando la interfaz de GitHub:
+
 1. Haz un [Fork](http://help.github.com/forking/) del proyecto https://github.com/jjhaggar/ninja-trials/fork
 2. Haz un commit limpio y bien comentado en tu repositorio. Puedes hacer una nueva rama si crees que es necesario.
 3. Realiza una [pull request](http://help.github.com/pull-requests/) en la interfaz web de GitHub.
 
+#### Enviando un parche por correo:
+
+1. git clone https://github.com/jjhaggar/ninja-trials.git
+2. Haz un parche limpio.
+3. Envía el parche (bien comentado) a [madgeargames@gmail.com](mailto:madgeargames@gmail.com). Preferiríamos que el parche esté hecho con el comando *format-patch* en lugar de con *diff*, pero hacedlo como queráis, no somos tan quisquillosos ;)
 
 
 ## Bibliografía
