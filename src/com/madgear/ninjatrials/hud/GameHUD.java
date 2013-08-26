@@ -26,6 +26,10 @@ public class GameHUD extends HUD {
     private float width = ResourceManager.getInstance().cameraWidth;
     private float height = ResourceManager.getInstance().cameraHeight;
     private Text mTextComboMessage = null;
+    public final static float DEF_FADE_IN_TIME = 0.25f;
+    public final static float DEF_FADE_OUT_TIME = 0.25f;
+    public final static float DEF_MESS_STAND_TIME = 2.0f;
+    public final static float DEF_IN_DELAY_TIME = 0.01f;
 
     /**
      * GameHUD constructor
@@ -46,7 +50,8 @@ public class GameHUD extends HUD {
      * @param message The text we want to display.
      */
     public void showMessage(String message) {
-        showMessage(message, 0.25f, 2.0f, 0.25f);
+        showMessage(message, DEF_FADE_IN_TIME, DEF_MESS_STAND_TIME, DEF_FADE_OUT_TIME,
+                DEF_IN_DELAY_TIME);
     }
 
     /**
@@ -56,10 +61,12 @@ public class GameHUD extends HUD {
      * @param msgEnterTime Time for the fade in text.
      * @param msgDisplayTime Time for the text to stand in the screen.
      * @param msgExitTime Time for the fade out text.
+     * @param msgInDelayTime The time the message waits to be displayed.
      */
     public void showMessage(String message, float msgEnterTime, float msgDisplayTime,
-            float msgExitTime) {
-        showMessage(message, msgEnterTime, msgDisplayTime, msgExitTime, width / 2, height / 2);
+            float msgExitTime, float msgInDelayTime) {
+        showMessage(message, msgEnterTime, msgDisplayTime, msgExitTime, width / 2, height / 2,
+                msgInDelayTime);
     }
 
     /**
@@ -70,17 +77,25 @@ public class GameHUD extends HUD {
      * @param msgExitTime Time for the fade out text.
      * @param xPos The X position.
      * @param yPos The Y position.
+     * @param msgInDelayTime The time the message waits to be displayed.
      */
-    public void showMessage(String message, float msgEnterTime,
-            float msgDisplayTime, float msgExitTime, float xPos, float yPos) {
+    public void showMessage(String message, float msgEnterTime, float msgDisplayTime,
+            float msgExitTime, float xPos, float yPos, float msgInDelayTime) {
         final Text mTextMessage = new Text(xPos, yPos,
                 ResourceManager.getInstance().fontMedium, message,
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+        
+        if(msgDisplayTime <= 0) msgDisplayTime = 0.1f;
+        if(msgDisplayTime <= 0) msgDisplayTime = 0.1f;
+        if(msgExitTime <= 0) msgExitTime = 0.1f;
+        if(msgInDelayTime <= 0) msgInDelayTime = 0.1f;
+        
         attachChild(mTextMessage);
         mTextMessage.setAlpha(0);
-        mTextMessage.setScale(0.9f);
+        mTextMessage.setScale(0.9f);        
         mTextMessage.registerEntityModifier(new SequenceEntityModifier(
+                new DelayModifier(msgInDelayTime),
                 new ParallelEntityModifier(
                         new ScaleModifier(msgEnterTime, 0.9f, 1),
                         new FadeInModifier(msgEnterTime)),

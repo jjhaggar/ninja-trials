@@ -56,8 +56,8 @@ public class TrialSceneCut extends GameScene {
     private boolean cutEnabled = false;
     private TimerHandler trialTimerHandler;
     private IUpdateHandler trialUpdateHandler;
-    final private float readyTime = 3f;
-    final private float endingTime = 10f;
+    private final float readyTime = 4f;
+    private final float endingTime = 8f;
     private int score = 0;
 
     /**
@@ -157,8 +157,14 @@ public class TrialSceneCut extends GameScene {
             }
             @Override public void reset() {}
         };
+        /* "Ready" is displayed after 1 sec the scene is shown and ends 1 secs before the 
+         * action secuence begins. */
         registerUpdateHandler(trialUpdateHandler);
-        gameHUD.showMessage("Ready");
+        gameHUD.showMessage("Ready",
+                GameHUD.DEF_FADE_IN_TIME,
+                readyTime - 1 - GameHUD.DEF_FADE_IN_TIME - GameHUD.DEF_FADE_OUT_TIME,
+                GameHUD.DEF_FADE_OUT_TIME,
+                1f);
     }
 
     /**
@@ -176,7 +182,8 @@ public class TrialSceneCut extends GameScene {
             @Override public void reset() {}
         };
         registerUpdateHandler(trialUpdateHandler);
-        gameHUD.showMessage("Cut!");
+        gameHUD.showMessage("Cut!", GameHUD.DEF_FADE_IN_TIME, 1f,
+                GameHUD.DEF_FADE_OUT_TIME, GameHUD.DEF_IN_DELAY_TIME);
         chrono.start();
         powerBarCursor.start();
         cutEnabled = true;
@@ -232,7 +239,9 @@ public class TrialSceneCut extends GameScene {
         else {
             message = "MEDIUM, SCORE = " + score;
         }
-        gameHUD.showMessage(message, 0.25f, 5.0f, 0.25f);
+        gameHUD.showMessage(message, GameHUD.DEF_FADE_IN_TIME,
+                endingTime - GameHUD.DEF_FADE_IN_TIME -  GameHUD.DEF_FADE_OUT_TIME - 1f,
+                GameHUD.DEF_FADE_OUT_TIME, 1f);
         trialTimerHandler= new TimerHandler(endingTime, new ITimerCallback()
         {
             @Override
