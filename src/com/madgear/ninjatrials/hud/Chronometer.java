@@ -1,4 +1,4 @@
-package com.madgear.ninjatrials;
+package com.madgear.ninjatrials.hud;
 
 import java.text.DecimalFormat;
 
@@ -6,6 +6,8 @@ import org.andengine.entity.Entity;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
+
+import com.madgear.ninjatrials.ResourceManager;
 
 import android.util.Log;
 

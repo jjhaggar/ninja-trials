@@ -1,4 +1,4 @@
-package com.madgear.ninjatrials;
+package com.madgear.ninjatrials.hud;
 
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.modifier.AlphaModifier;
@@ -11,6 +11,8 @@ import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
+
+import com.madgear.ninjatrials.ResourceManager;
 
 
 /**

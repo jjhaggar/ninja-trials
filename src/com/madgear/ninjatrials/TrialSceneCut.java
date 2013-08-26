@@ -21,6 +21,9 @@ import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
 import com.madgear.ninjatrials.ResourceManager;
+import com.madgear.ninjatrials.hud.Chronometer;
+import com.madgear.ninjatrials.hud.GameHUD;
+import com.madgear.ninjatrials.hud.PrecisionBar;
 
 /**
  * Cut trial scene.
@@ -44,7 +47,7 @@ public class TrialSceneCut extends GameScene {
     private Tree mTree;
     private Candle candleLeft, candleRight;
     private GameHUD gameHUD;
-    private PowerBarCursor powerBarCursor;
+    private PrecisionBar powerBarCursor;
     private Chronometer chrono;
     private Character mCharacter;
     private Eyes mEyes;
@@ -97,7 +100,7 @@ public class TrialSceneCut extends GameScene {
         candleLeft = new Candle(width * 0.5f - 500, height * 0.5f + 200);
         candleRight = new Candle(width * 0.5f + 500, height * 0.5f + 200);
         gameHUD = new GameHUD();
-        powerBarCursor = new PowerBarCursor(200f, 200f, timeRound);
+        powerBarCursor = new PrecisionBar(200f, 200f, timeRound);
         chrono = new Chronometer(width - 200, height - 200, 10, 0);
         mCharacter = new Character(width / 2 - 120, height / 2);
         mEyes = new Eyes();

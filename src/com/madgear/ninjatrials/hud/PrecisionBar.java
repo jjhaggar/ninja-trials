@@ -1,7 +1,9 @@
-package com.madgear.ninjatrials;
+package com.madgear.ninjatrials.hud;
 
 import org.andengine.entity.Entity;
 import org.andengine.entity.sprite.Sprite;
+
+import com.madgear.ninjatrials.ResourceManager;
 
 
 /**
@@ -16,7 +18,7 @@ import org.andengine.entity.sprite.Sprite;
  * @author Madgear Games
  */
 @SuppressWarnings({ "static-access" })
-public class PowerBarCursor extends Entity {
+public class PrecisionBar extends Entity {
     private final float cursorMin = 0f;
     private final float cursorMax = 200f;
     private float cursorValue = 0f;
@@ -33,7 +35,7 @@ public class PowerBarCursor extends Entity {
      * @param timeRound Time in seconds the cursor takes in complete a whole cycle. It's used to
      * calculate the cursor speed.
      */
-    public PowerBarCursor(float posX, float posY, float timeRound) {
+    public PrecisionBar(float posX, float posY, float timeRound) {
         curXInit = posX - 100;
         bar = new Sprite(posX, posY,
                 ResourceManager.getInstance().hudPowerBarCursorTR,
