@@ -254,24 +254,6 @@ public class ResourceManager {
             cutSword1T.load();
         }
 
-        // Barra power
-        if(cutHudBarTR==null) {
-            BitmapTextureAtlas cutHudBarT = new BitmapTextureAtlas(textureManager, 240, 120,
-                    mTransparentTextureOption);
-            cutHudBarTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    cutHudBarT, activity, "cut_hud_bar.png", 0, 0);
-            cutHudBarT.load();
-        }
-
-        // Cursor power:
-        if(cutHudCursorTR==null) {
-            BitmapTextureAtlas cutHudCursorT = new BitmapTextureAtlas(textureManager, 59, 52,
-                    mTransparentTextureOption);
-            cutHudCursorTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    cutHudCursorT, activity, "cut_hud_cursor.png", 0, 0);
-            cutHudCursorT.load();
-        }
-
         // Sonido:
     }
 
@@ -341,18 +323,6 @@ public class ResourceManager {
             if(cutSwordSparkle2TR.getTexture().isLoadedToHardware()) {
                 cutSwordSparkle2TR.getTexture().unload();
                 cutSwordSparkle2TR = null;
-            }
-        }
-        if(cutHudBarTR!=null) {
-            if(cutHudBarTR.getTexture().isLoadedToHardware()) {
-                cutHudBarTR.getTexture().unload();
-                cutHudBarTR = null;
-            }
-        }
-        if(cutHudCursorTR!=null) {
-            if(cutHudCursorTR.getTexture().isLoadedToHardware()) {
-                cutHudCursorTR.getTexture().unload();
-                cutHudCursorTR = null;
             }
         }
 
