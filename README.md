@@ -216,15 +216,45 @@ You can help us to write / improve our code. Here you are the steps you should f
     * http://developer.android.com/tools/projects/projects-cmdline.html
     * http://stackoverflow.com/questions/2304863/how-to-write-a-good-readme
 
+
 ## License
+
+### Code license
 
 Copyright 2013 Mad Gear Games.
 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at 
+Code is licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at 
 
 [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
+[![CC-BY-SA](http://www.apache.org/images/feather-small.gif)](http://www.apache.org/licenses/LICENSE-2.0)
+
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+---
+
+### Graphics license
+
+Copyright 2013 Mad Gear Games.
+
+Graphics are licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported license ("CC-BY-SA").
+
+[http://creativecommons.org/licenses/by-sa/3.0/](http://creativecommons.org/licenses/by-sa/3.0/)
+
+[![CC-BY-SA](http://i.creativecommons.org/l/by-sa/3.0/88x31.png)](http://creativecommons.org/licenses/by-sa/3.0/es/)
+
+---
+
+### Music license
+
+Copyright 2013 Estudio Evergreen - Daniel Pellicer Garcia (Danpelgar) and Samuel Foeger (Musamic) [http://estudioevergreen.wordpress.com/](http://estudioevergreen.wordpress.com/)
+
+Music is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported license ("CC-BY-SA").
+
+[http://creativecommons.org/licenses/by-sa/3.0/](http://creativecommons.org/licenses/by-sa/3.0/)
+
+[![CC-BY-SA](http://i.creativecommons.org/l/by-sa/3.0/88x31.png)](http://creativecommons.org/licenses/by-sa/3.0/es/)
+
 
 ## Contact
 
