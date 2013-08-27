@@ -216,16 +216,45 @@ Puedes ayudarnos a escribir y a mejorar nuestro código. Aquí están los pasos 
     * http://developer.android.com/tools/projects/projects-cmdline.html
     * http://stackoverflow.com/questions/2304863/how-to-write-a-good-readme
 
+
 ## Licencia
+
+### Licencia del código
 
 Derechos de autor 2013 Mad Gear Games.
 
-Autorizado en virtud de la Licencia de Apache, Versión 2.0 (la "Licencia"); se prohíbe utilizar este archivo excepto en cumplimiento de la Licencia. Podrá obtener una copia de la Licencia en:
+Código autorizado en virtud de la Licencia de Apache, Versión 2.0 (la "Licencia"); se prohíbe utilizar este archivo excepto en cumplimiento de la Licencia. Podrá obtener una copia de la Licencia en:
 
 [Http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
+[![CC-BY-SA](http://www.apache.org/images/feather-small.gif)](http://www.apache.org/licenses/LICENSE-2.0)
+
 A menos que lo exijan las leyes pertinentes o se haya establecido por escrito, el software distribuido en virtud de la Licencia se distribuye “TAL CUAL”, SIN GARANTÍAS NI CONDICIONES DE NINGÚN TIPO, ya sean expresas o implícitas.
 Véase la Licencia para consultar el texto específico relativo a los permisos y limitaciones establecidos en la Licencia.
+
+---
+
+### Licencia de los gráficos
+
+Derechos de autor 2013 Mad Gear Games.
+
+Gráficos autorizados bajo una licencia de Creative Commons Attribución-Compartir igual 3.0 no portada ("CC-BY-SA").
+
+[http://creativecommons.org/licenses/by-sa/3.0/es/](http://creativecommons.org/licenses/by-sa/3.0/es/)
+
+[![CC-BY-SA](http://i.creativecommons.org/l/by-sa/3.0/88x31.png)](http://creativecommons.org/licenses/by-sa/3.0/es/)
+
+---
+
+### Music license
+
+Derechos de autor 2013 Estudio Evergreen - Daniel Pellicer García (Danpelgar) y Samuel Föger (Musamic) [http://estudioevergreen.wordpress.com/](http://estudioevergreen.wordpress.com/)
+
+Música autorizada bajo una licencia de Creative Commons Attribución-Compartir igual 3.0 no portada ("CC-BY-SA").
+
+[http://creativecommons.org/licenses/by-sa/3.0/es/](http://creativecommons.org/licenses/by-sa/3.0/es/)
+
+[![CC-BY-SA](http://i.creativecommons.org/l/by-sa/3.0/88x31.png)](http://creativecommons.org/licenses/by-sa/3.0/es/)
 
 ## Contacto
 
