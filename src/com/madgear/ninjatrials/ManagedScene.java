@@ -2,6 +2,8 @@ package com.madgear.ninjatrials;
 
 import org.andengine.entity.scene.Scene;
 
+import android.view.KeyEvent;
+
 
 public abstract class ManagedScene extends Scene {
     // Tells the Scene Manager that the managed scene either has or doesn't have a loading screen.
@@ -63,4 +65,7 @@ public abstract class ManagedScene extends Scene {
     public abstract void onShowScene();
     public abstract void onHideScene();
     public abstract void onUnloadScene();
+    
+    // Added to control volume keys:
+    public abstract boolean onKeyDown(int keyCode, KeyEvent event);
 }

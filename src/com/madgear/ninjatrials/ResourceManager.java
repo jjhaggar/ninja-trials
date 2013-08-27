@@ -45,6 +45,10 @@ public class ResourceManager {
     public float cameraHeight;
     public TextureManager textureManager;
 
+    // MAIN MENU:
+    public static ITextureRegion mainTitleTR;
+    public static ITextureRegion mainTitlePattern1TR;
+    
     // HUD:
     public static ITextureRegion hudPowerBarCursorTR;
     public static ITextureRegion hudCursorTR;
@@ -106,6 +110,56 @@ public class ResourceManager {
     // Cada escena debe tener sus métodos para cargar y descargar recursos (metodo load y unload).
     // tanto en gráficos como música y sonido.
     // Deben ser "synchronized".
+    
+    /**
+     * Loads the main menu resources.
+     */
+    public synchronized void loadMainMenuResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
+        
+        // Main Menu Ninja Trials Logo:
+        if(mainTitleTR==null) {
+            BitmapTextureAtlas mainTitleT = new BitmapTextureAtlas(
+                    textureManager, 756, 495, mTransparentTextureOption);
+            mainTitleTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    mainTitleT, activity, "menu_main_title.png", 0, 0);
+            mainTitleT.load();
+        }
+        
+        // Main Menu Pattern:
+        if (mainTitlePattern1TR == null) {
+            BuildableBitmapTextureAtlas mainTitlePattern1T = new BuildableBitmapTextureAtlas(
+                    textureManager, 400, 300, TextureOptions.REPEATING_BILINEAR);
+            mainTitlePattern1TR = BitmapTextureAtlasTextureRegionFactory
+                    .createFromAsset(mainTitlePattern1T, activity, "menu_main_pattern_1.png");
+            try {
+                mainTitlePattern1T.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+                mainTitlePattern1T.load();
+            } catch (TextureAtlasBuilderException e) {
+                Debug.e(e);
+            }
+        }
+    }
+    
+    /**
+     * Unloads the main menu resources.
+     */
+    public synchronized void unloadMainMenuResources() {
+        if(mainTitleTR!=null) {
+            if(mainTitleTR.getTexture().isLoadedToHardware()) {
+                mainTitleTR.getTexture().unload();
+                mainTitleTR = null;
+            }
+        }
+        if(mainTitlePattern1TR!=null) {
+            if(mainTitlePattern1TR.getTexture().isLoadedToHardware()) {
+                mainTitlePattern1TR.getTexture().unload();
+                mainTitlePattern1TR = null;
+            }
+        }
+    }
+    
     public synchronized void loadHUDResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/hud/");
 

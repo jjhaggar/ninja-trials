@@ -242,7 +242,7 @@ public class TrialSceneCut extends GameScene {
             {
                 TrialSceneCut.this.unregisterUpdateHandler(trialTimerHandler);
                 gameHUD.detachChildren();
-                SceneManager.getInstance().showScene(new DummyMenu());
+                SceneManager.getInstance().showScene(new MainMenuScene());
             }
         });
         registerUpdateHandler(trialTimerHandler);

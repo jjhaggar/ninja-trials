@@ -10,6 +10,8 @@ import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
+import android.view.KeyEvent;
+
 
 public class NinjaTrials extends BaseGameActivity {
 
@@ -93,7 +95,7 @@ public class NinjaTrials extends BaseGameActivity {
     @Override
     public void onPopulateScene(Scene pScene, OnPopulateSceneCallback pOnPopulateSceneCallback) {
         // Iniciamos a la primera escena:
-        SceneManager.getInstance().showScene(new DummyMenu());
+        SceneManager.getInstance().showScene(new MainMenuScene());
         pOnPopulateSceneCallback.onPopulateSceneFinished();
     }
 
@@ -148,4 +150,14 @@ public class NinjaTrials extends BaseGameActivity {
             System.exit(0);
         }
     }
+    
+    /**
+     * Detects if any key is pressed.
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return SceneManager.getInstance().mCurrentScene.onKeyDown(keyCode, event);
+    }
+    
+    // TODO controlar la salida del programa (dentro de onkeyDown)
 }
