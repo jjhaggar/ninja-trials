@@ -47,7 +47,7 @@ public class TrialSceneCut extends GameScene {
     private Tree mTree;
     private Candle candleLeft, candleRight;
     private GameHUD gameHUD;
-    private PrecisionBar powerBarCursor;
+    private PrecisionBar precisionBar;
     private Chronometer chrono;
     private Character mCharacter;
     private Eyes mEyes;
@@ -100,7 +100,7 @@ public class TrialSceneCut extends GameScene {
         candleLeft = new Candle(width * 0.5f - 500, height * 0.5f + 200);
         candleRight = new Candle(width * 0.5f + 500, height * 0.5f + 200);
         gameHUD = new GameHUD();
-        powerBarCursor = new PrecisionBar(200f, 200f, timeRound);
+        precisionBar = new PrecisionBar(200f, 200f, timeRound);
         chrono = new Chronometer(width - 200, height - 200, 10, 0);
         mCharacter = new Character(width / 2 - 120, height / 2);
         mEyes = new Eyes();
@@ -121,7 +121,7 @@ public class TrialSceneCut extends GameScene {
         attachChild(candleLeft);
         attachChild(candleRight);
         ResourceManager.getInstance().engine.getCamera().setHUD(gameHUD);
-        gameHUD.attachChild(powerBarCursor);
+        gameHUD.attachChild(precisionBar);
         gameHUD.attachChild(chrono);
         attachChild(mCharacter);
         attachChild(mEyes);
@@ -180,7 +180,7 @@ public class TrialSceneCut extends GameScene {
         registerUpdateHandler(trialUpdateHandler);
         gameHUD.showMessage("Cut!", 0, 1);
         chrono.start();
-        powerBarCursor.start();
+        precisionBar.start();
         cutEnabled = true;
     }
 
@@ -191,7 +191,7 @@ public class TrialSceneCut extends GameScene {
     public void cutSequence() {
         cutEnabled = false;
         chrono.stop();
-        powerBarCursor.stop();
+        precisionBar.stop();
         score = getScore();
         frameNum = 0;
         trialTimerHandler = new TimerHandler(0.1f, new ITimerCallback() {
@@ -253,7 +253,7 @@ public class TrialSceneCut extends GameScene {
      */
     private void timeOut() {
         cutEnabled = false;
-        powerBarCursor.stop();
+        precisionBar.stop();
         score = 0;
         endingSequence();
     }
@@ -283,10 +283,14 @@ public class TrialSceneCut extends GameScene {
 
     /**
      * Calculates the trial score.
+     * Score = 100 - abs(precision bar power value) - precision bar semicycle number * 3
      * @return The Trial Score (int from 0 to 100).
      */
     private int getScore() {
-        return Math.round(Math.abs(powerBarCursor.getPowerValue()) - (timeCounter * 3));
+        int trialScore;
+        trialScore = 100 - Math.abs(precisionBar.getPowerValue()) - precisionBar.getSemicycle() * 3;
+        if(trialScore < 0) trialScore = 0;
+        return trialScore;
     }
 
     /**

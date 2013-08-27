@@ -11,7 +11,7 @@ import com.madgear.ninjatrials.ResourceManager;
  * the cursor reach the right margin.
 
  * Cursor moves from a minimum value to the maximum value (from 0 to 200), taking all the range
- * of values. The cursos makes a whole cycle in a time "timeRound".
+ * of values. The cursor makes a whole cycle in a time "timeRound".
  *
  * The cursor speed is calculated based on timeRound.
  *
@@ -25,6 +25,7 @@ public class PrecisionBar extends Entity {
     private float speed;
     private int direction = 1;
     private float curXInit;
+    private int semicycle = 0;
     private Sprite bar, cursor;
 
     /**
@@ -37,6 +38,7 @@ public class PrecisionBar extends Entity {
      */
     public PrecisionBar(float posX, float posY, float timeRound) {
         curXInit = posX - 100;
+        semicycle = 0;
         bar = new Sprite(posX, posY,
                 ResourceManager.getInstance().hudPowerBarCursorTR,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
@@ -79,6 +81,15 @@ public class PrecisionBar extends Entity {
     public int getPowerValue() {
         return Math.round(cursorValue) - 100;
     }
+    
+    /**
+     * Gets the number of semi-cycles of the bar. A semi-cycle begins each time the cursor reach
+     * the bar edge and changes his direction. The first semi-cycle is 0;
+     * @return
+     */
+    public int getSemicycle() {
+        return semicycle;
+    }
 
     /**
      * Updates the value of the cursor position and controls when the cursor reach the left or
@@ -91,10 +102,14 @@ public class PrecisionBar extends Entity {
         if (pSecondsElapsed < 0.2)
             cursorValue += pSecondsElapsed * speed * direction;
         cursor.setX(curXInit + cursorValue);
-        if (cursorValue >= cursorMax)
+        if (cursorValue >= cursorMax) {
             direction = -1;
-        if (cursorValue <= cursorMin)
+            semicycle++;
+        }
+        if (cursorValue <= cursorMin) {
             direction = 1;
+            semicycle++;
+        }
         super.onManagedUpdate(pSecondsElapsed);
     }
 }
