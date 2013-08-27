@@ -57,7 +57,7 @@ public class TrialSceneCut extends GameScene {
     private TimerHandler trialTimerHandler;
     private IUpdateHandler trialUpdateHandler;
     private final float readyTime = 4f;
-    private final float endingTime = 8f;
+    private final float endingTime = 6f;
     private int score = 0;
 
     /**
@@ -142,9 +142,12 @@ public class TrialSceneCut extends GameScene {
     }
 
     /**
-     * Shows a Ready Message during readyTime seconds. Then calls actionSecuence().
+     * Shows a Ready Message, then calls actionSecuence().
+     * "Ready" is displayed 1 sec after the scene is shown and ends 1 secs before the 
+     * action secuence begins.
      */
     private void readySequence() {
+        gameHUD.showMessage("Ready", 1, readyTime - 1);
         timerStartedIn = ResourceManager.getInstance().engine.getSecondsElapsedTotal(); 
         trialUpdateHandler = new IUpdateHandler() {
             @Override
@@ -157,14 +160,7 @@ public class TrialSceneCut extends GameScene {
             }
             @Override public void reset() {}
         };
-        /* "Ready" is displayed after 1 sec the scene is shown and ends 1 secs before the 
-         * action secuence begins. */
         registerUpdateHandler(trialUpdateHandler);
-        gameHUD.showMessage("Ready",
-                GameHUD.DEF_FADE_IN_TIME,
-                readyTime - 1 - GameHUD.DEF_FADE_IN_TIME - GameHUD.DEF_FADE_OUT_TIME,
-                GameHUD.DEF_FADE_OUT_TIME,
-                1f);
     }
 
     /**
@@ -182,8 +178,7 @@ public class TrialSceneCut extends GameScene {
             @Override public void reset() {}
         };
         registerUpdateHandler(trialUpdateHandler);
-        gameHUD.showMessage("Cut!", GameHUD.DEF_FADE_IN_TIME, 1f,
-                GameHUD.DEF_FADE_OUT_TIME, GameHUD.DEF_IN_DELAY_TIME);
+        gameHUD.showMessage("Cut!", 0, 1);
         chrono.start();
         powerBarCursor.start();
         cutEnabled = true;
@@ -231,17 +226,15 @@ public class TrialSceneCut extends GameScene {
         String message;
         GameManager.getInstance().incrementScore(score);
         if(score <= SCORE_POOR) {
-            message = "POOR, SCORE = " + score;
+            message = "POOR " + score;
         }
         else if(score >= SCORE_GREAT) {
-            message = "GREAT! SCORE = " + score;
+            message = "GREAT! " + score;
         }
         else {
-            message = "MEDIUM, SCORE = " + score;
+            message = "MEDIUM " + score;
         }
-        gameHUD.showMessage(message, GameHUD.DEF_FADE_IN_TIME,
-                endingTime - GameHUD.DEF_FADE_IN_TIME -  GameHUD.DEF_FADE_OUT_TIME - 1f,
-                GameHUD.DEF_FADE_OUT_TIME, 1f);
+        gameHUD.showComboMessage("Your score is...\n" + message);
         trialTimerHandler= new TimerHandler(endingTime, new ITimerCallback()
         {
             @Override
