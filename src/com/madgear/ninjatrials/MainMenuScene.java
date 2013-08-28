@@ -106,5 +106,16 @@ public class MainMenuScene extends GameScene {
             break;
         }
     }
+    
+    @Override
+    public void onPressButtonMenu() {
+        if (ResourceManager.getInstance().engine != null) {
+            SceneManager.getInstance().mCurrentScene.onHideManagedScene();
+            SceneManager.getInstance().mCurrentScene.onUnloadManagedScene();
+            ResourceManager.getInstance().unloadHUDResources();
+            ResourceManager.getInstance().unloadFonts();
+            System.exit(0);
+        }
+    }
 
 }

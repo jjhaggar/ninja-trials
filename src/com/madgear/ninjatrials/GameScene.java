@@ -43,6 +43,10 @@ public abstract class GameScene extends ManagedScene implements IUserInput, IOnS
             onPressDpadLeft();
             return true;
         }
+        if ((keyCode == KeyEvent.KEYCODE_BACK)){
+            onPressButtonMenu();
+            return true;
+        }     
         return false;
     }   
     
