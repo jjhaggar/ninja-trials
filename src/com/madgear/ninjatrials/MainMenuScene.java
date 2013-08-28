@@ -1,6 +1,8 @@
 package com.madgear.ninjatrials;
 
+import org.andengine.entity.Entity;
 import org.andengine.entity.scene.Scene;
+import org.andengine.entity.scene.background.EntityBackground;
 import org.andengine.entity.scene.background.RepeatingSpriteBackground;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
@@ -17,7 +19,6 @@ import com.madgear.ninjatrials.hud.SelectionStripe;
 public class MainMenuScene extends GameScene {
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
-    private RepeatingSpriteBackground patternBg;
     private Sprite tittle;
     private SelectionStripe selectionStripe;
     private final String[] menuOptions = {"OPTIONS","PLAY","ACHIEVEMENTS"};
@@ -49,18 +50,22 @@ public class MainMenuScene extends GameScene {
     @SuppressWarnings("static-access")
     @Override
     public void onShowScene() {
+        // TODO shading background (from blue to white).
         // Background:
+        // Crate the background Pattern Sprite:
         ResourceManager.getInstance().mainTitlePattern1TR.setTextureSize(WIDTH, HEIGHT);
-        patternBg = new RepeatingSpriteBackground(WIDTH, HEIGHT,
+        Sprite patternSprite = new Sprite(WIDTH/2, HEIGHT/2,
                 ResourceManager.getInstance().mainTitlePattern1TR,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        // TODO shading background.
-        // TODO bug, el fondo no cambia de color.
-        getBackground().setColor(1f, 1f, 0f);
-        setBackground(patternBg);
-        
+        // Add pattern sprite to a new entity:
+        Entity backgroundEntity = new Entity();
+        backgroundEntity.attachChild(patternSprite);
+        // Create a new background from the entity (gray-blue):
+        EntityBackground background = new EntityBackground(0.42f, 0.57f, 0.67f, backgroundEntity);
+        setBackground(background);
+
         // NinjaTrials Logo:
-        tittle = new Sprite(WIDTH / 2, HEIGHT / 2 + 200,
+        tittle = new Sprite(WIDTH / 2, HEIGHT / 2 + 100,
                 ResourceManager.getInstance().mainTitleTR,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(tittle);
