@@ -55,7 +55,8 @@ public class MainMenuScene extends GameScene {
                 ResourceManager.getInstance().mainTitlePattern1TR,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         // TODO shading background.
-        getBackground().setColor(Color.WHITE);
+        // TODO bug, el fondo no cambia de color.
+        getBackground().setColor(1f, 1f, 0f);
         setBackground(patternBg);
         
         // NinjaTrials Logo:
@@ -65,7 +66,7 @@ public class MainMenuScene extends GameScene {
         attachChild(tittle);
         
         // Selection Stripe:
-        selectionStripe = new SelectionStripe(WIDTH / 2, HEIGHT / 2 - 200, menuOptions, 1);
+        selectionStripe = new SelectionStripe(WIDTH / 2, HEIGHT / 2 - 300, menuOptions, 1, 500);
         attachChild(selectionStripe);
     }
 
