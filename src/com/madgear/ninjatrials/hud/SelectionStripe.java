@@ -9,7 +9,12 @@ import org.andengine.util.adt.color.Color;
 
 import com.madgear.ninjatrials.ResourceManager;
 
-
+/**
+ * This class controls a stripe of text items displayed in the screen. The user can press right
+ * and left and the item selected changes the same way.
+ * @author Madgear Games
+ *
+ */
 public class SelectionStripe extends Entity {
     private static final float SCALE_INIT = 1f;
     private static final float SCALE_FINAL = 1.4f;
@@ -84,48 +89,73 @@ public class SelectionStripe extends Entity {
         select(itemSelectedIndex);
     }
     
+    /**
+     * Move the selected item to the left one.
+     */
     public void moveLeft() {
         if(selectedItem > 0) {
-            unselect(selectedItem);
+            deselect(selectedItem);
             selectedItem--;
             select(selectedItem);
         }
     }
     
+    /**
+     * Move the selected item to the right one.
+     */
     public void moveRight() {
         if(selectedItem < items.length - 1) {
-            unselect(selectedItem);
+            deselect(selectedItem);
             selectedItem++;
             select(selectedItem);
         }   
     }
     
+    /**
+     * Select an item.
+     * @param itemIndex The index of the item to be selected.
+     */
     public void setItemSelected(int itemIndex) {
-        unselect(selectedItem);
+        deselect(selectedItem);
         selectedItem = itemIndex;
         select(selectedItem);
     }
     
+    /**
+     * Return the index of the current selected item.
+     * @return The index of the current selected item.
+     */
     public int getSelectedIndex() {
         return selectedItem;
     }
     
+    /**
+     * Return the content of the string of the selected item.
+     * @return String of the selected item.
+     */
     public String getSelectedString() {
         return items[selectedItem];
     }
     
-    private void unselect(int selectedItem) {
+    /**
+     * Set the color and size of the text item to the initial values.
+     * @param selectedItem The index of the deselected item.
+     */
+    private void deselect(int selectedItem) {
         textItems[selectedItem].registerEntityModifier(
                 new ScaleModifier(SCALE_TIME, SCALE_FINAL, SCALE_INIT));
         textItems[selectedItem].setColor(android.graphics.Color.WHITE);
 
     }
 
+    /**
+     * Set the color and size of the text to the "selected" values.
+     * @param selectedItem The index of the selected item.
+     */
     private void select(int selectedItem) {
         textItems[selectedItem].clearEntityModifiers();
         textItems[selectedItem].registerEntityModifier(
                         new ScaleModifier(SCALE_TIME, SCALE_INIT, SCALE_FINAL));
         textItems[selectedItem].setColor(android.graphics.Color.YELLOW);
     }
-
 }
