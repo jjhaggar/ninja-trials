@@ -32,6 +32,14 @@ public class MainOptionsScene extends GameScene {
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
 
+    /**
+     * MainOptionsScene constructor.
+     * Disabled loading screen.
+     */
+    public MainOptionsScene() {
+        super(0f);
+    }
+    
     @Override
     public Scene onLoadingScreenLoadAndShown() {
         return null;

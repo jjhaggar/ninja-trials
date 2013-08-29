@@ -30,11 +30,19 @@ import android.view.KeyEvent;
 public abstract class GameScene extends ManagedScene implements IUserInput, IOnSceneTouchListener {
 
     /**
-     * Prueba de documentación.
+     * GameScene constructor that disables the loading screen.
      * @author MadGear Games
      */
     public GameScene(){
-        super(1f);
+        this(0f);
+    }
+    
+    /**
+     * GameScene constructor that enables the loading screen.
+     * @param pLoadingScreenMinimumSecondsShown The minimum time the loading scrren is shown.
+     */
+    public GameScene(float pLoadingScreenMinimumSecondsShown){
+        super(pLoadingScreenMinimumSecondsShown);
         setOnSceneTouchListener(this);
     }
 

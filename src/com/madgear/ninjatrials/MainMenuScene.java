@@ -40,6 +40,13 @@ public class MainMenuScene extends GameScene {
     private SelectionStripe selectionStripe;
     private final String[] menuOptions = {"OPTIONS","PLAY","ACHIEVEMENTS"};
 
+    /**
+     * MainMenuScene constructor.
+     * Loading scene is enabled by default.
+     */
+    public MainMenuScene() {
+        super(1f);
+    }
     
     @Override
     public Scene onLoadingScreenLoadAndShown() {
@@ -104,33 +111,23 @@ public class MainMenuScene extends GameScene {
     public void onUnloadScene() {
         ResourceManager.getInstance().unloadMainMenuResources();        
     }
-/*
+
     @Override
     public void onPressDpadLeft() {
         selectionStripe.movePrevious();
     }
-    
+
     @Override
     public void onPressDpadRight() {
         selectionStripe.moveNext();
-    }*/
-    
-    @Override
-    public void onPressDpadUp() {
-        selectionStripe.movePrevious();
     }
-    
-    @Override
-    public void onPressDpadDown() {
-        selectionStripe.moveNext();
-    }
-    
+
     @Override
     public void onPressButtonO() {
         int optionIndex = selectionStripe.getSelectedIndex();
         switch(optionIndex) {
         case 0:
-            SceneManager.getInstance().showScene(new DummyMenu());
+            SceneManager.getInstance().showScene(new DummyMenu(3f));
             break;
         case 1:
             SceneManager.getInstance().showScene(new TrialSceneCut());

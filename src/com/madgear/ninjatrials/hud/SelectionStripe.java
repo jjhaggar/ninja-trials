@@ -45,6 +45,7 @@ public class SelectionStripe extends Entity {
     private final static float SCALE_FINAL = 1.4f;
     private final static float SCALE_TIME = 0.05f;   
     private final static float BORDER_SIZE = 150;
+    private final static float PUSH_DELAY_TIME = 0.3f;
     private final static TextOptions textOps = new TextOptions(HorizontalAlign.CENTER);
     private int selectedItem;
     private String[] items;
@@ -224,7 +225,7 @@ public class SelectionStripe extends Entity {
 
     private void addDelay() {
         moveEnabled = false;
-        timerHandler = new TimerHandler(0.5f, true, new ITimerCallback() {
+        timerHandler = new TimerHandler(PUSH_DELAY_TIME, true, new ITimerCallback() {
             @Override
             public void onTimePassed(final TimerHandler pTimerHandler) {
                 moveEnabled = true;
