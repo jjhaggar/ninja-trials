@@ -19,7 +19,10 @@
 
 package com.madgear.ninjatrials.hud;
 
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.Entity;
+import org.andengine.entity.modifier.DelayModifier;
 import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
@@ -40,7 +43,7 @@ public class SelectionStripe extends Entity {
     public final static int TEXT_ALIGN_RIGHT = 1;
     private final static float SCALE_INIT = 1f;
     private final static float SCALE_FINAL = 1.4f;
-    private final static float SCALE_TIME = 0.1f;   
+    private final static float SCALE_TIME = 0.05f;   
     private final static float BORDER_SIZE = 150;
     private final static TextOptions textOps = new TextOptions(HorizontalAlign.CENTER);
     private int selectedItem;
@@ -50,6 +53,8 @@ public class SelectionStripe extends Entity {
     private float yPos;
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
+    private boolean moveEnabled = true;
+    private TimerHandler timerHandler;
     
     /**
      * Creates a stripe of text items.
@@ -150,7 +155,7 @@ public class SelectionStripe extends Entity {
      * Move the selected item to the left/up one.
      */
     public void movePrevious() {
-        if(selectedItem > 0) {
+        if(selectedItem > 0 && moveEnabled) {
             deselect(selectedItem);
             selectedItem--;
             select(selectedItem);
@@ -161,7 +166,7 @@ public class SelectionStripe extends Entity {
      * Move the selected item to the right/down one.
      */
     public void moveNext() {
-        if(selectedItem < items.length - 1) {
+        if(selectedItem < items.length - 1 && moveEnabled) {
             deselect(selectedItem);
             selectedItem++;
             select(selectedItem);
@@ -214,5 +219,18 @@ public class SelectionStripe extends Entity {
         textItems[selectedItem].registerEntityModifier(
                         new ScaleModifier(SCALE_TIME, SCALE_INIT, SCALE_FINAL));
         textItems[selectedItem].setColor(android.graphics.Color.YELLOW);
+        addDelay();
+    }
+
+    private void addDelay() {
+        moveEnabled = false;
+        timerHandler = new TimerHandler(0.5f, true, new ITimerCallback() {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                moveEnabled = true;
+                SelectionStripe.this.unregisterUpdateHandler(timerHandler);
+            } 
+        });
+        registerUpdateHandler(timerHandler);
     }
 }

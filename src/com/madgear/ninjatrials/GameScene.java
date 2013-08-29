@@ -40,10 +40,17 @@ public abstract class GameScene extends ManagedScene implements IUserInput, IOnS
 
     /**
      * Check if the screen is touched.
+     * The left part of the screen controls the Y axis of the game pad.
      */
     @Override
     public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-        onPressButtonO();
+        if(pSceneTouchEvent.getX() < 600)
+            if(pSceneTouchEvent.getY() > 540)
+                onPressDpadUp();
+            else
+                onPressDpadDown();
+        else
+            onPressButtonO();
         return true;
     }
 

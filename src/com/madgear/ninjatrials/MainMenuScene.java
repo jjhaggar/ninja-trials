@@ -104,7 +104,7 @@ public class MainMenuScene extends GameScene {
     public void onUnloadScene() {
         ResourceManager.getInstance().unloadMainMenuResources();        
     }
-
+/*
     @Override
     public void onPressDpadLeft() {
         selectionStripe.movePrevious();
@@ -112,6 +112,16 @@ public class MainMenuScene extends GameScene {
     
     @Override
     public void onPressDpadRight() {
+        selectionStripe.moveNext();
+    }*/
+    
+    @Override
+    public void onPressDpadUp() {
+        selectionStripe.movePrevious();
+    }
+    
+    @Override
+    public void onPressDpadDown() {
         selectionStripe.moveNext();
     }
     
