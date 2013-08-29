@@ -98,6 +98,8 @@ public class ResourceManager {
     public Font fontSmall;        // pequeño
     public Font fontMedium;        // mediano
     public Font fontBig;        // grande
+    public Font fontXBig;        // Extra grande
+
 
     //public BuildableBitmapTextureAtlas mBitmapTextureAtlas;
     public ITiledTextureRegion mTiledTextureRegion;
@@ -602,6 +604,12 @@ public class ResourceManager {
                 pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "go3v2.ttf",
                 128f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
         fontBig.load();
+        
+        // XBig = 192
+        fontXBig = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
+                pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "go3v2.ttf",
+                192f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
+        fontXBig.load();
     }
 
     /* If an unloadFonts() method is necessary, we can provide one

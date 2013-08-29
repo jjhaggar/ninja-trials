@@ -23,6 +23,11 @@ import org.andengine.entity.Entity;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.EntityBackground;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
+import org.andengine.entity.text.TextOptions;
+import org.andengine.util.adt.align.HorizontalAlign;
+
+import com.madgear.ninjatrials.hud.SelectionStripe;
 
 /**
  * Implements the main options scene (sound).
@@ -31,6 +36,9 @@ import org.andengine.entity.sprite.Sprite;
 public class MainOptionsScene extends GameScene {
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
+    private SelectionStripe selectionStripe;
+    private final String[] menuOptions = {"CONFIGURE CONTROLS","MUSIC VOLUME","SOUNDS VOLUME",
+            "MUSIC TEST", "SOUND TEST"};
 
     /**
      * MainOptionsScene constructor.
@@ -40,11 +48,17 @@ public class MainOptionsScene extends GameScene {
         super(0f);
     }
     
+    /**
+     * This class is not used (loading scene is disabled).
+     */
     @Override
     public Scene onLoadingScreenLoadAndShown() {
         return null;
     }
 
+    /**
+     * This class is not used (loading scene is disabled).
+     */
     @Override
     public void onLoadingScreenUnloadAndHidden() {}
 
@@ -64,22 +78,90 @@ public class MainOptionsScene extends GameScene {
         // Add pattern sprite to a new entity:
         Entity backgroundEntity = new Entity();
         backgroundEntity.attachChild(patternSprite);
-        // Create a new background from the entity (gray-blue):
-        EntityBackground background = new EntityBackground(0.42f, 0.57f, 0.67f, backgroundEntity);
+        // Create a new background from the entity ():
+        EntityBackground background = new EntityBackground(0.1f, 0.2f, 0.2f, backgroundEntity);
         setBackground(background);
         
-        // Selection group:
+        // Options tittle:
+        final Text tittle = new Text(WIDTH/2, HEIGHT - 150,
+                ResourceManager.getInstance().fontXBig, "OPTIONS",
+                new TextOptions(HorizontalAlign.CENTER),
+                ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+        attachChild(tittle);
+        
+        // SelectionStripe:
+        selectionStripe = new SelectionStripe(250, HEIGHT / 2 - 150, 
+                SelectionStripe.DISP_VERTICAL, 110f,
+                menuOptions, SelectionStripe.TEXT_ALIGN_LEFT, 0);
+        attachChild(selectionStripe);
     }
 
     @Override
     public void onHideScene() {
         // TODO Auto-generated method stub
-        
     }
 
     @Override
     public void onUnloadScene() {
-        // TODO Auto-generated method stub
-        
+        ResourceManager.getInstance().unloadOptionResources();        
+    }
+
+    @Override
+    public void onPressDpadUp() {
+        selectionStripe.movePrevious();
+    }
+
+    @Override
+    public void onPressDpadDown() {
+        selectionStripe.moveNext();
+    }
+    
+    @Override
+    public void onPressDpadLeft() {
+        int optionIndex = selectionStripe.getSelectedIndex();
+        switch(optionIndex) {
+        // MUSIC VOLUME-
+        case 1:
+            break;
+        // SOUND VOLUME-
+        case 2:
+            break;
+        }
+    }
+
+    @Override
+    public void onPressDpadRight() {
+        int optionIndex = selectionStripe.getSelectedIndex();
+        switch(optionIndex) {
+        // MUSIC VOLUME+
+        case 1:
+            break;
+        // SOUND VOLUME+
+        case 2:
+            break;
+        }
+    }
+
+    @Override
+    public void onPressButtonO() {
+        int optionIndex = selectionStripe.getSelectedIndex();
+        switch(optionIndex) {
+        // CONFIGURE CONTROLS
+        case 0:
+            //SceneManager.getInstance().showScene(new ConfigureControlsScene());
+            break;
+        // MUSIC TEST
+        case 3:
+            break;
+        // SOUND TEST
+        case 4:
+            break;
+        }
+    }
+
+    @Override
+    public void onPressButtonMenu() {
+        if (ResourceManager.getInstance().engine != null)
+            SceneManager.getInstance().showScene(new MainMenuScene());
     }
 }
