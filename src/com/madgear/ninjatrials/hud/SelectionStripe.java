@@ -33,38 +33,59 @@ import com.madgear.ninjatrials.ResourceManager;
  *
  */
 public class SelectionStripe extends Entity {
-    private static final float SCALE_INIT = 1f;
-    private static final float SCALE_FINAL = 1.4f;
-    private static final float SCALE_TIME = 0.1f;   
+    public final static int DISP_HORIZONTAL = 0;
+    public final static int DISP_VERTICAL = 1;
+    public final static int TEXT_ALIGN_LEFT = -1;
+    public final static int TEXT_ALIGN_CENTER = 0;
+    public final static int TEXT_ALIGN_RIGHT = 1;
+    private final static float SCALE_INIT = 1f;
+    private final static float SCALE_FINAL = 1.4f;
+    private final static float SCALE_TIME = 0.1f;   
     private final static float BORDER_SIZE = 150;
+    private final static TextOptions textOps = new TextOptions(HorizontalAlign.CENTER);
     private int selectedItem;
     private String[] items;
     private Text[] textItems;
     private float xPos;
     private float yPos;
+    private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
+    private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
     
     /**
      * Creates a stripe of text items.
      * The distance between the items is indicated in the constructor.
      * @param x X axis center of text items.
      * @param y Y axis center of text items.
-     * @param itemsArray Array of string with the text elements.
-     * @param itemSelectedIndex Initial item selected.
+     * @param disposition Must be DISP_HORIZONTAL or DISP_VERTICAL.
      * @param itemDistance Distance between two items.
+     * @param itemsArray Array of string with the text elements.
+     * @param textAlign Alignment of the text;
+     * @param itemSelectedIndex Initial item selected.
      */
-    public SelectionStripe(float x, float y, String[] itemsArray, int itemSelectedIndex,
-            float itemDistance) {
+    public SelectionStripe(float x, float y, int disposition, float itemDistance,
+            String[] itemsArray, int textAlign, int itemSelectedIndex) {
         int numItems = itemsArray.length;
         textItems = new Text[numItems];
-        float xItem;
+        float xItem = x;
         float yItem = y;
+        
         for(int i = 0; i < numItems; i++) {
-            xItem = x - ((numItems - 1) / 2) * itemDistance + (i* itemDistance);
+            if(disposition == DISP_HORIZONTAL)
+                xItem = x - ((numItems - 1) / 2) * itemDistance + (i * itemDistance);
+            else
+                yItem = y + ((numItems - 1) / 2) * itemDistance - (i * itemDistance);
+            
             Text itemText = new Text(xItem, yItem,
                     ResourceManager.getInstance().fontMedium,
                     itemsArray[i],
-                    new TextOptions(HorizontalAlign.CENTER),
+                    textOps,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+            
+            if(textAlign == TEXT_ALIGN_LEFT)
+                itemText.setX(itemText.getX() + itemText.getWidth()/2);
+            if(textAlign == TEXT_ALIGN_RIGHT)
+                itemText.setX(itemText.getX() - itemText.getWidth()/2);
+
             attachChild(itemText);
             textItems[i] = itemText;
         }
@@ -80,22 +101,41 @@ public class SelectionStripe extends Entity {
      * The elements are distributed along the whole screen width except for the border size.
      * @param x X axis center of text items.
      * @param y Y axis center of text items.
+     * @param disposition Must be DISP_HORIZONTAL or DISP_VERTICAL.
+     * @param itemDistance Distance between two items.
      * @param itemsArray Array of string with the text elements.
+     * @param textAlign Alignment of the text;
      * @param itemSelectedIndex Initial item selected.
      */
-    public SelectionStripe(float x, float y, String[] itemsArray, int itemSelectedIndex) {
+    public SelectionStripe(float x, float y, int disposition,
+            String[] itemsArray, int textAlign, int itemSelectedIndex) {
         int numItems = itemsArray.length;
         textItems = new Text[numItems];
-        float xItem;
+        float xItem = x;
         float yItem = y;
-        float s = (ResourceManager.getInstance().cameraWidth - BORDER_SIZE * 2)/ numItems;
+        float s;
+        if(disposition == DISP_HORIZONTAL)
+            s = (WIDTH - BORDER_SIZE * 2)/ numItems;
+        else
+            s = (HEIGHT - BORDER_SIZE * 2)/ numItems;
+        
         for(int i = 0; i < numItems; i++) {
-            xItem = BORDER_SIZE + s / 2 + s * i;
+            if(disposition == DISP_HORIZONTAL)
+                xItem = BORDER_SIZE + s / 2 + s * i;
+            else
+                yItem = BORDER_SIZE + s / 2 + s * i;
+            
             Text itemText = new Text(xItem, yItem,
                     ResourceManager.getInstance().fontMedium,
                     itemsArray[i],
-                    new TextOptions(HorizontalAlign.CENTER),
+                    textOps,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+            
+            if(textAlign == TEXT_ALIGN_LEFT)
+                itemText.setX(itemText.getX() + itemText.getWidth()/2);
+            if(textAlign == TEXT_ALIGN_RIGHT)
+                itemText.setX(itemText.getX() - itemText.getWidth()/2);
+            
             attachChild(itemText);
             textItems[i] = itemText;
         }
@@ -107,9 +147,9 @@ public class SelectionStripe extends Entity {
     }
     
     /**
-     * Move the selected item to the left one.
+     * Move the selected item to the left/up one.
      */
-    public void moveLeft() {
+    public void movePrevious() {
         if(selectedItem > 0) {
             deselect(selectedItem);
             selectedItem--;
@@ -118,9 +158,9 @@ public class SelectionStripe extends Entity {
     }
     
     /**
-     * Move the selected item to the right one.
+     * Move the selected item to the right/down one.
      */
-    public void moveRight() {
+    public void moveNext() {
         if(selectedItem < items.length - 1) {
             deselect(selectedItem);
             selectedItem++;

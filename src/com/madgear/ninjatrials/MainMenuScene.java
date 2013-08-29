@@ -88,7 +88,9 @@ public class MainMenuScene extends GameScene {
         attachChild(tittle);
         
         // Selection Stripe:
-        selectionStripe = new SelectionStripe(WIDTH / 2, HEIGHT / 2 - 300, menuOptions, 1, 500);
+        selectionStripe = new SelectionStripe(WIDTH / 2, HEIGHT / 2 - 300, 
+                SelectionStripe.DISP_HORIZONTAL, 500f,
+                menuOptions, SelectionStripe.TEXT_ALIGN_CENTER, 1);
         attachChild(selectionStripe);
     }
 
@@ -105,12 +107,12 @@ public class MainMenuScene extends GameScene {
 
     @Override
     public void onPressDpadLeft() {
-        selectionStripe.moveLeft();
+        selectionStripe.movePrevious();
     }
     
     @Override
     public void onPressDpadRight() {
-        selectionStripe.moveRight();
+        selectionStripe.moveNext();
     }
     
     @Override
