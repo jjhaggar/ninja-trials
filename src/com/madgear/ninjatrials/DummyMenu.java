@@ -78,6 +78,6 @@ public class DummyMenu extends GameScene {
      */
     @Override
     public void onPressButtonO() {
-        SceneManager.getInstance().showScene(new TrialSceneCut());
+        SceneManager.getInstance().showScene(new MainMenuScene());
     }
 }
