@@ -28,6 +28,7 @@ import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.hud.SelectionStripe;
+import com.madgear.ninjatrials.hud.VolumeBar;
 
 /**
  * Implements the main options scene (sound).
@@ -39,6 +40,16 @@ public class MainOptionsScene extends GameScene {
     private SelectionStripe selectionStripe;
     private final String[] menuOptions = {"CONFIGURE CONTROLS","MUSIC VOLUME","SOUNDS VOLUME",
             "MUSIC TEST", "SOUND TEST"};
+    private Text musicPercentageText;
+    private Text soundPercentageText;
+    private VolumeBar musicVB;
+    private VolumeBar soundVB;
+    private int musicPercentage = 90;
+    private int soundPercentage = 90;
+    private final static int VOLUME_INCREMENT_VAL = 10;
+    private final static float musicPercentageYPos = 500;
+    private final static float soundPercentageYPos = 400;
+
 
     /**
      * MainOptionsScene constructor.
@@ -94,6 +105,27 @@ public class MainOptionsScene extends GameScene {
                 SelectionStripe.DISP_VERTICAL, 110f,
                 menuOptions, SelectionStripe.TEXT_ALIGN_LEFT, 0);
         attachChild(selectionStripe);
+        
+        // Volume percentages:
+        musicPercentageText = new Text(WIDTH/2 + 200, musicPercentageYPos,
+                ResourceManager.getInstance().fontMedium, "100",
+                new TextOptions(HorizontalAlign.CENTER),
+                ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+        musicPercentageText.setText(String.valueOf(musicPercentage));
+        attachChild(musicPercentageText);
+        
+        soundPercentageText = new Text(WIDTH/2 + 200, soundPercentageYPos,
+                ResourceManager.getInstance().fontMedium, "100",
+                new TextOptions(HorizontalAlign.CENTER),
+                ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+        soundPercentageText.setText(String.valueOf(soundPercentage));
+        attachChild(soundPercentageText);
+        
+        // Volume Bars:
+        musicVB = new VolumeBar(WIDTH/2 + 600, musicPercentageYPos, musicPercentage);
+        attachChild(musicVB);
+        soundVB = new VolumeBar(WIDTH/2 + 600, soundPercentageYPos, soundPercentage);
+        attachChild(soundVB);
     }
 
     @Override
@@ -122,9 +154,13 @@ public class MainOptionsScene extends GameScene {
         switch(optionIndex) {
         // MUSIC VOLUME-
         case 1:
+            musicVB.addValue(-VOLUME_INCREMENT_VAL);
+            musicPercentageText.setText(String.valueOf(musicVB.getValue()));
             break;
         // SOUND VOLUME-
         case 2:
+            soundVB.addValue(-VOLUME_INCREMENT_VAL);
+            soundPercentageText.setText(String.valueOf(soundVB.getValue()));
             break;
         }
     }
@@ -135,9 +171,13 @@ public class MainOptionsScene extends GameScene {
         switch(optionIndex) {
         // MUSIC VOLUME+
         case 1:
+            musicVB.addValue(VOLUME_INCREMENT_VAL);
+            musicPercentageText.setText(String.valueOf(musicVB.getValue()));
             break;
         // SOUND VOLUME+
         case 2:
+            soundVB.addValue(VOLUME_INCREMENT_VAL);
+            soundPercentageText.setText(String.valueOf(soundVB.getValue()));
             break;
         }
     }

@@ -202,7 +202,7 @@ public class ResourceManager {
         mainOptionsSoundBarsActiveTR = TextureRegionFactory.
                 extractFromTexture(mainOptionsSoundBarsT, 0, 0, 575, 110, false);
         mainOptionsSoundBarsInactiveTR = TextureRegionFactory.
-                extractFromTexture(mainOptionsSoundBarsT, 0, 111, 575, 220, false);
+                extractFromTexture(mainOptionsSoundBarsT, 0, 111, 575, 109, false);
         
         // Option Menu Pattern:
         if (mainOptionsPatternTR == null) {
