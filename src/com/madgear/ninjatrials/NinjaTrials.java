@@ -175,7 +175,9 @@ public class NinjaTrials extends BaseGameActivity {
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return SceneManager.getInstance().mCurrentScene.onKeyDown(keyCode, event);
+        if(SceneManager.getInstance().mCurrentScene != null)
+            return SceneManager.getInstance().mCurrentScene.onKeyDown(keyCode, event);
+        return false;
     }
     
     // TODO controlar la salida del programa (dentro de onkeyDown)

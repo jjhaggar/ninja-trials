@@ -30,20 +30,35 @@ import android.view.KeyEvent;
 public abstract class GameScene extends ManagedScene implements IUserInput, IOnSceneTouchListener {
 
     /**
-     * Prueba de documentación.
+     * GameScene constructor that disables the loading screen.
      * @author MadGear Games
      */
     public GameScene(){
-        super(1f);
+        this(0f);
+    }
+    
+    /**
+     * GameScene constructor that enables the loading screen.
+     * @param pLoadingScreenMinimumSecondsShown The minimum time the loading scrren is shown.
+     */
+    public GameScene(float pLoadingScreenMinimumSecondsShown){
+        super(pLoadingScreenMinimumSecondsShown);
         setOnSceneTouchListener(this);
     }
 
     /**
      * Check if the screen is touched.
+     * The left part of the screen controls the Y axis of the game pad.
      */
     @Override
     public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-        onPressButtonO();
+        if(pSceneTouchEvent.getX() < 600)
+            if(pSceneTouchEvent.getY() > 540)
+                onPressDpadUp();
+            else
+                onPressDpadDown();
+        else
+            onPressButtonO();
         return true;
     }
 

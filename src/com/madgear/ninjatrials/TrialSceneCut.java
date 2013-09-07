@@ -81,9 +81,10 @@ public class TrialSceneCut extends GameScene {
 
     /**
      * Calls the super class constructor.
+     * Loading scene is enabled by default.
      */
     public TrialSceneCut() {
-        super();
+        super(1f);
     }
 
     @Override
