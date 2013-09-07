@@ -35,6 +35,10 @@ proguard-project.txt
 # Git repository
 .git/
 
+# Archivos temporales de OpenOffice
+.~lock.*
+
 # Others
 *zargo~
+*~lock
 
