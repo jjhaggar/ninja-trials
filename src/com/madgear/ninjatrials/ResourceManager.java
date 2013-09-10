@@ -78,8 +78,12 @@ public class ResourceManager {
     public static ITextureRegion hudPowerBarCursorTR;
     public static ITextureRegion hudCursorTR;
     public static ITextureRegion hudPowerBarPushTR;
+    public static ITextureRegion hudAngleBarCursorTR;
 
-    // CUT SCENE:
+    // JUMP TRIAL:
+    public static ITextureRegion jumpStatueTR;
+    
+    // CUT TRIAL:
     public static ITiledTextureRegion cutShoTR;
     public static ITextureRegion cutTreeTopTR;
     public static ITextureRegion cutTreeBottomTR;
@@ -255,6 +259,15 @@ public class ResourceManager {
                     hudPowerBarCursorT, activity, "power_bar_cursor.png", 0, 0);
             hudPowerBarCursorT.load();
         }
+        
+        // Angle Bar:
+        if (hudAngleBarCursorTR == null) {
+        	BitmapTextureAtlas hudAngleBarCursorT = new BitmapTextureAtlas(
+                    textureManager, 353, 257, mTransparentTextureOption);
+            hudAngleBarCursorTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            		hudAngleBarCursorT, activity, "jump_hud.png", 0, 0);
+            hudAngleBarCursorT.load();
+        }
 
         // Cursor:
         if(hudCursorTR==null) {
@@ -282,6 +295,12 @@ public class ResourceManager {
                 hudPowerBarCursorTR = null;
             }
         }
+        if(hudAngleBarCursorTR!=null) {
+            if(hudAngleBarCursorTR.getTexture().isLoadedToHardware()) {
+            	hudAngleBarCursorTR.getTexture().unload();
+            	hudAngleBarCursorTR = null;
+            }
+        }
         if(hudCursorTR!=null) {
             if(hudCursorTR.getTexture().isLoadedToHardware()) {
                 hudCursorTR.getTexture().unload();
@@ -296,6 +315,21 @@ public class ResourceManager {
         }
     }
 
+    public synchronized void loadJumpSceneResources() {
+    	//Texturas:
+    	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trial_jump/");
+    	
+    	//Statue:
+    	 BitmapTextureAtlas jumpStatueT = new BitmapTextureAtlas(textureManager, 442, 310,
+                 mTransparentTextureOption);
+         ITextureRegion jumpStatueAllTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                 jumpStatueT, activity, "jump_bg_1_stone_statues.png", 0, 0);
+         jumpStatueT.load();
+        // jumpStatueTR = TextureRegionFactory.extractFromTexture(jumpStatueT, 0, 0, 388, 380,
+        //         false);
+         jumpStatueTR = jumpStatueAllTR;
+    }
+    
     // Recursos para la escena de corte:
     public synchronized void loadCutSceneResources() {
         // Texturas:
@@ -395,6 +429,14 @@ public class ResourceManager {
         // Sonido:
     }
 
+    public synchronized void unloadJumpSceneResources() {
+    	if(jumpStatueTR != null){
+    		if(jumpStatueTR.getTexture().isLoadedToHardware()) {
+    			jumpStatueTR.getTexture().unload();
+    			jumpStatueTR = null;
+    		}
+    	}
+    }
     // Liberamos los recursos de la escena de corte:
     public synchronized void unloadCutSceneResources() {
         if(cutShoTR != null) {

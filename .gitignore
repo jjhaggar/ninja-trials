@@ -39,6 +39,7 @@ proguard-project.txt
 .~lock.*
 
 # Others
+src/com/madgear/ninjatrials/MainMenuScene.java
 *zargo~
 *~lock
 

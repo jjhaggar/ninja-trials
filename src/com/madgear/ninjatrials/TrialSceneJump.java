@@ -42,6 +42,7 @@ import org.andengine.util.adt.align.HorizontalAlign;
 import com.madgear.ninjatrials.ResourceManager;
 import com.madgear.ninjatrials.hud.Chronometer;
 import com.madgear.ninjatrials.hud.GameHUD;
+import com.madgear.ninjatrials.hud.PrecisionAngleBar;
 import com.madgear.ninjatrials.hud.PrecisionBar;
 
 /**
@@ -64,9 +65,11 @@ public class TrialSceneJump extends GameScene {
 
     private SpriteBackground bg;
     private Tree mTree;
+    private Statue mStatue;
     private Candle candleLeft, candleRight;
     private GameHUD gameHUD;
     private PrecisionBar precisionBar;
+    private PrecisionAngleBar angleBar;
     private Chronometer chrono;
     private Character mCharacter;
     private Eyes mEyes;
@@ -110,16 +113,19 @@ public class TrialSceneJump extends GameScene {
     @Override
     public void onLoadScene() {
         ResourceManager.getInstance().loadCutSceneResources();
+        ResourceManager.getInstance().loadJumpSceneResources();
         setTrialDiff(GameManager.getInstance().getSelectedDiff());
         bg = new SpriteBackground(new Sprite(width * 0.5f, height * 0.5f,
                 ResourceManager.getInstance().cutBackgroundTR,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager()));
         setBackground(bg);
         mTree = new Tree(width * 0.5f, height * 0.5f + 400);
+        mStatue = new Statue();
         candleLeft = new Candle(width * 0.5f - 500, height * 0.5f + 200);
         candleRight = new Candle(width * 0.5f + 500, height * 0.5f + 200);
         gameHUD = new GameHUD();
         precisionBar = new PrecisionBar(200f, 200f, timeRound);
+        angleBar = new PrecisionAngleBar(200f, 200f, timeRound);
         chrono = new Chronometer(width - 200, height - 200, 10, 0);
         mCharacter = new Character(width / 2 - 120, height / 2);
         mEyes = new Eyes();
@@ -139,8 +145,10 @@ public class TrialSceneJump extends GameScene {
         attachChild(mTree);
         attachChild(candleLeft);
         attachChild(candleRight);
+        attachChild(mStatue);
         ResourceManager.getInstance().engine.getCamera().setHUD(gameHUD);
         gameHUD.attachChild(precisionBar);
+        gameHUD.attachChild(angleBar);
         gameHUD.attachChild(chrono);
         attachChild(mCharacter);
         attachChild(mEyes);
@@ -158,6 +166,7 @@ public class TrialSceneJump extends GameScene {
     @Override
     public void onUnloadScene() {
         ResourceManager.getInstance().unloadCutSceneResources();
+        ResourceManager.getInstance().unloadJumpSceneResources();
     }
 
     /**
@@ -421,7 +430,17 @@ public class TrialSceneJump extends GameScene {
         }
 
     }
-
+    
+    private class Statue extends Entity {
+    	private Sprite statueSprite;
+    	
+    	public Statue() {
+    		statueSprite = new Sprite(100, 100, 
+    				ResourceManager.getInstance().jumpStatueTR,
+    				ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+    		attachChild(statueSprite);
+    	}
+    }
     /**
      * Eyes class.
      * @author Madgear Games
