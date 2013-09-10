@@ -20,6 +20,7 @@
 package com.madgear.ninjatrials;
 
 import org.andengine.entity.Entity;
+import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.EntityBackground;
 import org.andengine.entity.sprite.Sprite;
@@ -40,6 +41,13 @@ public class MainMenuScene extends GameScene {
     private SelectionStripe selectionStripe;
     private final String[] menuOptions = {"OPTIONS","PLAY","ACHIEVEMENTS"};
 
+    /**
+     * MainMenuScene constructor.
+     * Loading scene is enabled by default.
+     */
+    public MainMenuScene() {
+        super(1f);
+    }
     
     @Override
     public Scene onLoadingScreenLoadAndShown() {
@@ -86,9 +94,12 @@ public class MainMenuScene extends GameScene {
                 ResourceManager.getInstance().mainTitleTR,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(tittle);
+        tittle.registerEntityModifier(new ScaleModifier(6f, 0.95f, 1.1f));
         
         // Selection Stripe:
-        selectionStripe = new SelectionStripe(WIDTH / 2, HEIGHT / 2 - 300, menuOptions, 1, 500);
+        selectionStripe = new SelectionStripe(WIDTH / 2, HEIGHT / 2 - 300, 
+                SelectionStripe.DISP_HORIZONTAL, 500f,
+                menuOptions, SelectionStripe.TEXT_ALIGN_CENTER, 1);
         attachChild(selectionStripe);
     }
 
@@ -105,20 +116,20 @@ public class MainMenuScene extends GameScene {
 
     @Override
     public void onPressDpadLeft() {
-        selectionStripe.moveLeft();
+        selectionStripe.movePrevious();
     }
-    
+
     @Override
     public void onPressDpadRight() {
-        selectionStripe.moveRight();
+        selectionStripe.moveNext();
     }
-    
+
     @Override
     public void onPressButtonO() {
         int optionIndex = selectionStripe.getSelectedIndex();
         switch(optionIndex) {
         case 0:
-            SceneManager.getInstance().showScene(new DummyMenu());
+            SceneManager.getInstance().showScene(new MainOptionsScene());
             break;
         case 1:
             SceneManager.getInstance().showScene(new TrialSceneJump());
@@ -139,5 +150,4 @@ public class MainMenuScene extends GameScene {
             System.exit(0);
         }
     }
-
 }

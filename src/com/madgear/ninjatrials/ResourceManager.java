@@ -69,6 +69,11 @@ public class ResourceManager {
     public static ITextureRegion mainTitleTR;
     public static ITextureRegion mainTitlePattern1TR;
     
+    // MAIN OPTIONS MENU:
+    public static ITextureRegion mainOptionsPatternTR;
+    public static ITextureRegion mainOptionsSoundBarsActiveTR;
+    public static ITextureRegion mainOptionsSoundBarsInactiveTR;
+    
     // HUD:
     public static ITextureRegion hudPowerBarCursorTR;
     public static ITextureRegion hudCursorTR;
@@ -93,6 +98,8 @@ public class ResourceManager {
     public Font fontSmall;        // pequeño
     public Font fontMedium;        // mediano
     public Font fontBig;        // grande
+    public Font fontXBig;        // Extra grande
+
 
     //public BuildableBitmapTextureAtlas mBitmapTextureAtlas;
     public ITiledTextureRegion mTiledTextureRegion;
@@ -179,7 +186,64 @@ public class ResourceManager {
             }
         }
     }
-    
+
+    /**
+     * Loads the main option menu resources.
+     */
+    public synchronized void loadOptionResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
+
+        // Sound bars:
+        BitmapTextureAtlas mainOptionsSoundBarsT = new BitmapTextureAtlas(textureManager, 575, 220,
+                mTransparentTextureOption);
+        ITextureRegion mainOptionsSoundBarsTR = BitmapTextureAtlasTextureRegionFactory.
+                createFromAsset(mainOptionsSoundBarsT, activity, "menu_options_volume.png", 0, 0);
+        mainOptionsSoundBarsT.load();
+        mainOptionsSoundBarsActiveTR = TextureRegionFactory.
+                extractFromTexture(mainOptionsSoundBarsT, 0, 0, 575, 110, false);
+        mainOptionsSoundBarsInactiveTR = TextureRegionFactory.
+                extractFromTexture(mainOptionsSoundBarsT, 0, 111, 575, 109, false);
+        
+        // Option Menu Pattern:
+        if (mainOptionsPatternTR == null) {
+            BuildableBitmapTextureAtlas mainOptionsPatternT = new BuildableBitmapTextureAtlas(
+                    textureManager, 390, 361, TextureOptions.REPEATING_BILINEAR);
+            mainOptionsPatternTR = BitmapTextureAtlasTextureRegionFactory
+                    .createFromAsset(mainOptionsPatternT, activity, "menu_main_pattern_2.png");
+            try {
+                mainOptionsPatternT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+                mainOptionsPatternT.load();
+            } catch (TextureAtlasBuilderException e) {
+                Debug.e(e);
+            }
+        }
+    }
+
+    /**
+     * Unloads the option menu resources.
+     */
+    public synchronized void unloadOptionResources() {
+        if(mainOptionsSoundBarsActiveTR!=null) {
+            if(mainOptionsSoundBarsActiveTR.getTexture().isLoadedToHardware()) {
+                mainOptionsSoundBarsActiveTR.getTexture().unload();
+                mainOptionsSoundBarsActiveTR = null;
+            }
+        }
+        if(mainOptionsSoundBarsInactiveTR!=null) {
+            if(mainOptionsSoundBarsInactiveTR.getTexture().isLoadedToHardware()) {
+                mainOptionsSoundBarsInactiveTR.getTexture().unload();
+                mainOptionsSoundBarsInactiveTR = null;
+            }
+        }
+        if(mainOptionsPatternTR!=null) {
+            if(mainOptionsPatternTR.getTexture().isLoadedToHardware()) {
+                mainOptionsPatternTR.getTexture().unload();
+                mainOptionsPatternTR = null;
+            }
+        }
+    }
+
     public synchronized void loadHUDResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/hud/");
 
@@ -540,6 +604,12 @@ public class ResourceManager {
                 pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "go3v2.ttf",
                 128f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
         fontBig.load();
+        
+        // XBig = 192
+        fontXBig = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
+                pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "go3v2.ttf",
+                192f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
+        fontXBig.load();
     }
 
     /* If an unloadFonts() method is necessary, we can provide one
