@@ -29,6 +29,8 @@ import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.hud.SelectionStripe;
 import com.madgear.ninjatrials.hud.VolumeBar;
+import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SceneManager;
 
 /**
  * Implements the main options scene (sound).
