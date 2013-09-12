@@ -27,6 +27,8 @@ import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.hud.SelectionStripe;
+import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SceneManager;
 
 /**
  * This is a testing class for loading the Trial Scene.

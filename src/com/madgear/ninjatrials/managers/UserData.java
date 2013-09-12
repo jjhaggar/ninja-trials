@@ -17,7 +17,7 @@
  */
 
 
-package com.madgear.ninjatrials;
+package com.madgear.ninjatrials.managers;
 
 import android.content.Context;
 import android.content.SharedPreferences;

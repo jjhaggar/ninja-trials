@@ -17,7 +17,7 @@
  */
 
 
-package com.madgear.ninjatrials;
+package com.madgear.ninjatrials.trials;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.engine.handler.timer.ITimerCallback;
@@ -39,7 +39,12 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
-import com.madgear.ninjatrials.ResourceManager;
+
+import com.madgear.ninjatrials.managers.GameManager;
+import com.madgear.ninjatrials.GameScene;
+import com.madgear.ninjatrials.MainMenuScene;
+import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.hud.Chronometer;
 import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.hud.PrecisionBar;
@@ -50,7 +55,7 @@ import com.madgear.ninjatrials.hud.PrecisionBar;
  * @author Madgear Games
  *
  */
-public class TrialSceneCut extends GameScene {
+public class TrialSceneJump extends GameScene {
     private static final int SCORE_POOR = 20;
     private static final int SCORE_GREAT = 90;
     private float timeRound;  // tiempo para ciclo de powerbar
@@ -81,10 +86,9 @@ public class TrialSceneCut extends GameScene {
 
     /**
      * Calls the super class constructor.
-     * Loading scene is enabled by default.
      */
-    public TrialSceneCut() {
-        super(1f);
+    public TrialSceneJump() {
+        super();
     }
 
     @Override
@@ -174,7 +178,7 @@ public class TrialSceneCut extends GameScene {
             public void onUpdate(float pSecondsElapsed) {
                 if(ResourceManager.getInstance().engine.getSecondsElapsedTotal() >
                 timerStartedIn + readyTime) {
-                    TrialSceneCut.this.unregisterUpdateHandler(trialUpdateHandler);
+                    TrialSceneJump.this.unregisterUpdateHandler(trialUpdateHandler);
                     actionSequence();
                   }
             }
@@ -191,7 +195,7 @@ public class TrialSceneCut extends GameScene {
             @Override
             public void onUpdate(float pSecondsElapsed) {
                 if(chrono.isTimeOut()) {
-                    TrialSceneCut.this.unregisterUpdateHandler(trialUpdateHandler);
+                    TrialSceneJump.this.unregisterUpdateHandler(trialUpdateHandler);
                     timeOut();
                 }
             }
@@ -230,7 +234,7 @@ public class TrialSceneCut extends GameScene {
                     candleRight.cut();
                 }
                 if (frameNum == 60) {
-                    TrialSceneCut.this.unregisterUpdateHandler(trialTimerHandler);
+                    TrialSceneJump.this.unregisterUpdateHandler(trialTimerHandler);
                     endingSequence();
                 }
                 frameNum++;
@@ -260,7 +264,7 @@ public class TrialSceneCut extends GameScene {
             @Override
             public void onTimePassed(final TimerHandler pTimerHandler)
             {
-                TrialSceneCut.this.unregisterUpdateHandler(trialTimerHandler);
+                TrialSceneJump.this.unregisterUpdateHandler(trialTimerHandler);
                 gameHUD.detachChildren();
                 SceneManager.getInstance().showScene(new MainMenuScene());
             }

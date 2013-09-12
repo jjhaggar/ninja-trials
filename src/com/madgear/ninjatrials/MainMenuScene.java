@@ -29,6 +29,9 @@ import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.hud.SelectionStripe;
+import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.trials.TrialSceneJump;
 
 /**
  * Main Menu Scene. Displays a pattern background, a logo, and a selection stripe.
@@ -132,7 +135,7 @@ public class MainMenuScene extends GameScene {
             SceneManager.getInstance().showScene(new MainOptionsScene());
             break;
         case 1:
-            SceneManager.getInstance().showScene(new TrialSceneCut());
+            SceneManager.getInstance().showScene(new TrialSceneJump());
             break;
         case 2:
             SceneManager.getInstance().showScene(new DummyMenu());

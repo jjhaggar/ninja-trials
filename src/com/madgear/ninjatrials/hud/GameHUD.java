@@ -33,7 +33,7 @@ import org.andengine.entity.text.TextOptions;
 import org.andengine.opengl.font.Font;
 import org.andengine.util.adt.align.HorizontalAlign;
 
-import com.madgear.ninjatrials.ResourceManager;
+import com.madgear.ninjatrials.managers.ResourceManager;
 
 
 /**

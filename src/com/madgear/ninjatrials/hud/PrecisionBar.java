@@ -22,7 +22,7 @@ package com.madgear.ninjatrials.hud;
 import org.andengine.entity.Entity;
 import org.andengine.entity.sprite.Sprite;
 
-import com.madgear.ninjatrials.ResourceManager;
+import com.madgear.ninjatrials.managers.ResourceManager;
 
 
 /**

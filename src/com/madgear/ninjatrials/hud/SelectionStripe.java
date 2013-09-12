@@ -27,7 +27,7 @@ import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
-import com.madgear.ninjatrials.ResourceManager;
+import com.madgear.ninjatrials.managers.ResourceManager;
 
 /**
  * This class controls a stripe of text items displayed in the screen. The user can press right
