@@ -23,7 +23,7 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TextureRegionFactory;
 
-import com.madgear.ninjatrials.ResourceManager;
+import com.madgear.ninjatrials.managers.ResourceManager;
 
 /**
  * Draws a "volume" bar. It is composed by two bars, the background bar, and the active bar that

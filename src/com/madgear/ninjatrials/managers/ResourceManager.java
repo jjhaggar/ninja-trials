@@ -17,7 +17,7 @@
  */
 
 
-package com.madgear.ninjatrials;
+package com.madgear.ninjatrials.managers;
 
 import java.io.IOException;
 
@@ -43,6 +43,8 @@ import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.texture.region.TextureRegionFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.debug.Debug;
+
+import com.madgear.ninjatrials.NinjaTrials;
 
 import android.content.Context;
 import android.graphics.Typeface;

@@ -17,12 +17,15 @@
  */
 
 
-package com.madgear.ninjatrials;
+package com.madgear.ninjatrials.managers;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.scene.Scene;
+
+import com.madgear.ninjatrials.ManagedLayer;
+import com.madgear.ninjatrials.ManagedScene;
 
 
 public class SceneManager extends Object {

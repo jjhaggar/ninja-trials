@@ -17,7 +17,7 @@
  */
 
 
-package com.madgear.ninjatrials;
+package com.madgear.ninjatrials.managers;
 
 
 public class GameManager {
@@ -49,7 +49,7 @@ public class GameManager {
         return INSTANCE;
     }
 
-    // Métodos:
+    // Mï¿½todos:
 
     public int getSelectedCharacter() {
         return selectedCharacter;
