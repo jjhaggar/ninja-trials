@@ -28,7 +28,7 @@ import com.madgear.ninjatrials.managers.ResourceManager;
 public class TestGrid extends Entity {
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
-    private final static int COLS = 6;
+    private final static int COLS = 5;
     private final static float yGap = 100;
     private static float xGap =  WIDTH / COLS;
     private TestGridItem[] items;
