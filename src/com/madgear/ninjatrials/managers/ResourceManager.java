@@ -611,7 +611,7 @@ public class ResourceManager {
         fontXBig = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
                 pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "go3v2.ttf",
                 192f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
-        fontXBig.load();
+        fontXBig.load();        
     }
 
     /* If an unloadFonts() method is necessary, we can provide one
@@ -620,5 +620,7 @@ public class ResourceManager {
         fontSmall.unload();
         fontMedium.unload();
         fontBig.unload();
+        fontXBig.unload();
+
     }
 }
