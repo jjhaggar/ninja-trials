@@ -22,6 +22,7 @@ package com.madgear.ninjatrials.test;
 import org.andengine.entity.scene.Scene;
 
 import com.madgear.ninjatrials.GameScene;
+import com.madgear.ninjatrials.MainMenuScene;
 import com.madgear.ninjatrials.MainOptionsScene;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
@@ -79,6 +80,13 @@ public class TestingScene extends GameScene {
      */
     private void populateGrid() {
         testGrid.addItem(new TestGridItem("Main Menu") {
+            @Override
+            public void onAction() {
+                SceneManager.getInstance().showScene(new MainMenuScene());
+            }
+        });
+        
+        testGrid.addItem(new TestGridItem("Main Options") {
             @Override
             public void onAction() {
                 SceneManager.getInstance().showScene(new MainOptionsScene());
