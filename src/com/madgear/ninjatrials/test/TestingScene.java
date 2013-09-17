@@ -21,6 +21,7 @@ package com.madgear.ninjatrials.test;
 
 import org.andengine.entity.scene.Scene;
 
+import com.madgear.ninjatrials.ControllerOptionsScene;
 import com.madgear.ninjatrials.GameScene;
 import com.madgear.ninjatrials.MainMenuScene;
 import com.madgear.ninjatrials.MainOptionsScene;
@@ -86,10 +87,17 @@ public class TestingScene extends GameScene {
             }
         });
         
-        testGrid.addItem(new TestGridItem("Main Options") {
+        testGrid.addItem(new TestGridItem("Main Opts") {
             @Override
             public void onAction() {
                 SceneManager.getInstance().showScene(new MainOptionsScene());
+            }
+        });
+
+        testGrid.addItem(new TestGridItem("Ctrl. Opts") {
+            @Override
+            public void onAction() {
+                SceneManager.getInstance().showScene(new ControllerOptionsScene());
             }
         });
         

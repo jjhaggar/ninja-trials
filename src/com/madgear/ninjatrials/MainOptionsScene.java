@@ -131,9 +131,7 @@ public class MainOptionsScene extends GameScene {
     }
 
     @Override
-    public void onHideScene() {
-        // TODO Auto-generated method stub
-    }
+    public void onHideScene() {}
 
     @Override
     public void onUnloadScene() {
