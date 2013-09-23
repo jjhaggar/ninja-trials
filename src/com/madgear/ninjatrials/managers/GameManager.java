@@ -32,11 +32,12 @@ public class GameManager {
     public static final int DIFF_MEDIUM = 1;
     public static final int DIFF_HARD = 2;
 
-    // VALORES INICIALES:
-    private int currentScore = INITIAL_SCORE;
-    private int selectedCharacter = CHAR_SHO;    // Personaje seleccionado en el juego.
-    private int selectedDiff = DIFF_MEDIUM;        // Dificultad por defecto.
-    private String gameLanguage = "en";
+    private int currentScore;
+    private int selectedCharacter;
+    private int selectedDiff;
+    private String gameLanguage;
+    private float soundVolume;
+    private float musicVolume;
 
     // Contructor:
     GameManager(){
@@ -49,7 +50,7 @@ public class GameManager {
         return INSTANCE;
     }
 
-    // M�todos:
+    // Métodos:
 
     public int getSelectedCharacter() {
         return selectedCharacter;
@@ -70,10 +71,29 @@ public class GameManager {
     public void incrementScore(int pIncrementBy){
         currentScore += pIncrementBy;
     }
+    
+    public float getSoundVolume() {
+        return soundVolume;
+    }
+
+    public void setSoundVolume(float v) {
+        soundVolume = v;
+    }
+
+    public float getMusicVolume() {
+        return musicVolume;
+    }
+
+    public void setMusicVolume(float v) {
+        musicVolume = v;
+    }
 
     public void resetGame(){
         currentScore = INITIAL_SCORE;
         selectedCharacter = CHAR_SHO;
         selectedDiff = DIFF_MEDIUM;
+        gameLanguage = "en";
+        setSoundVolume(1f);
+        setMusicVolume(1f);
     }
 }
