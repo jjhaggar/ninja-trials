@@ -33,6 +33,7 @@ import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.managers.UserData;
+import com.madgear.ninjatrials.test.TestingScene;
 
 import android.view.KeyEvent;
 
@@ -119,7 +120,7 @@ public class NinjaTrials extends BaseGameActivity {
     @Override
     public void onPopulateScene(Scene pScene, OnPopulateSceneCallback pOnPopulateSceneCallback) {
         // Iniciamos a la primera escena:
-        SceneManager.getInstance().showScene(new MainMenuScene());
+        SceneManager.getInstance().showScene(new TestingScene());
         pOnPopulateSceneCallback.onPopulateSceneFinished();
     }
 

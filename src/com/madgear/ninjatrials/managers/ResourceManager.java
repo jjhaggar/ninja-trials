@@ -76,6 +76,12 @@ public class ResourceManager {
     public static ITextureRegion mainOptionsSoundBarsActiveTR;
     public static ITextureRegion mainOptionsSoundBarsInactiveTR;
     
+    // CONTROLLER OPTIONS MENU:
+    public static ITextureRegion controllerOptionsPatternTR;
+    public static ITextureRegion controllerOuyaTR;
+    public static ITextureRegion controllerMarksTR;
+
+    
     // HUD:
     public static ITextureRegion hudPowerBarCursorTR;
     public static ITextureRegion hudCursorTR;
@@ -246,6 +252,77 @@ public class ResourceManager {
         }
     }
 
+    /**
+     * Loads the main option menu resources.
+     *     public static ITextureRegion controllerOuyaTR;
+    public static ITextureRegion controllerMarksTR;
+     */
+    public synchronized void loadControllerOptionResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
+
+        // Controller ouya:
+        if(controllerOuyaTR==null) {
+            BitmapTextureAtlas controllerOuyaT = new BitmapTextureAtlas(textureManager, 1164, 791,
+                    mTransparentTextureOption);
+            controllerOuyaTR = BitmapTextureAtlasTextureRegionFactory.
+                    createFromAsset(
+                            controllerOuyaT, activity, "menu_options_controller_ouya.png", 0, 0);
+            controllerOuyaT.load();
+        }
+        
+        // Controller marks:
+        if(controllerMarksTR==null) {
+            BitmapTextureAtlas controllerMarksT = new BitmapTextureAtlas(textureManager, 1195, 717,
+                    mTransparentTextureOption);
+            controllerMarksTR = BitmapTextureAtlasTextureRegionFactory.
+                    createFromAsset(
+                            controllerMarksT, activity, "menu_options_controller_marks.png", 0, 0);
+            controllerMarksT.load();
+        }
+        
+        // Controller Option Pattern:
+        if (controllerOptionsPatternTR == null) {
+            BuildableBitmapTextureAtlas controllerOptionsPatternT = new BuildableBitmapTextureAtlas(
+                    textureManager, 319, 319, TextureOptions.REPEATING_BILINEAR);
+            controllerOptionsPatternTR = BitmapTextureAtlasTextureRegionFactory
+                    .createFromAsset(controllerOptionsPatternT, activity,
+                            "menu_main_pattern_3.png");
+            try {
+                controllerOptionsPatternT.build(
+                        new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                            BitmapTextureAtlas>(0, 0, 0));
+                controllerOptionsPatternT.load();
+            } catch (TextureAtlasBuilderException e) {
+                Debug.e(e);
+            }
+        }
+    }
+
+    /**
+     * Unloads the option menu resources.
+     */
+    public synchronized void unloadControllerOptionResources() {
+        if(controllerOuyaTR!=null) {
+            if(controllerOuyaTR.getTexture().isLoadedToHardware()) {
+                controllerOuyaTR.getTexture().unload();
+                controllerOuyaTR = null;
+            }
+        }        
+        if(controllerMarksTR!=null) {
+            if(controllerMarksTR.getTexture().isLoadedToHardware()) {
+                controllerMarksTR.getTexture().unload();
+                controllerMarksTR = null;
+            }
+        }        
+        if(controllerOptionsPatternTR!=null) {
+            if(controllerOptionsPatternTR.getTexture().isLoadedToHardware()) {
+                controllerOptionsPatternTR.getTexture().unload();
+                controllerOptionsPatternTR = null;
+            }
+        }
+    }
+    
+    
     public synchronized void loadHUDResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/hud/");
 
@@ -611,7 +688,7 @@ public class ResourceManager {
         fontXBig = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
                 pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "go3v2.ttf",
                 192f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
-        fontXBig.load();
+        fontXBig.load();        
     }
 
     /* If an unloadFonts() method is necessary, we can provide one
@@ -620,5 +697,7 @@ public class ResourceManager {
         fontSmall.unload();
         fontMedium.unload();
         fontBig.unload();
+        fontXBig.unload();
+
     }
 }

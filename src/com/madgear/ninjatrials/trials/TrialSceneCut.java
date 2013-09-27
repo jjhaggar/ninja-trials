@@ -48,6 +48,7 @@ import com.madgear.ninjatrials.hud.PrecisionBar;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.test.TestingScene;
 
 /**
  * Cut trial scene.
@@ -267,7 +268,7 @@ public class TrialSceneCut extends GameScene {
             {
                 TrialSceneCut.this.unregisterUpdateHandler(trialTimerHandler);
                 gameHUD.detachChildren();
-                SceneManager.getInstance().showScene(new MainMenuScene());
+                SceneManager.getInstance().showScene(new TestingScene());
             }
         });
         registerUpdateHandler(trialTimerHandler);
