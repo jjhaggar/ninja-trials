@@ -254,7 +254,7 @@ public class ResourceManager {
             BitmapTextureAtlas hudPowerBarCursorT = new BitmapTextureAtlas(
                     textureManager, 240, 120, mTransparentTextureOption);
             hudPowerBarCursorTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    hudPowerBarCursorT, activity, "power_bar_cursor.png", 0, 0);
+                    hudPowerBarCursorT, activity, "hud_precision_indicator.png", 0, 0);
             hudPowerBarCursorT.load();
         }
 
@@ -263,7 +263,7 @@ public class ResourceManager {
             BitmapTextureAtlas hudCursorT = new BitmapTextureAtlas(textureManager, 59, 52,
                     mTransparentTextureOption);
             hudCursorTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudCursorT,
-                    activity, "h_cursor.png", 0, 0);
+                    activity, "hud_precision_cursor.png", 0, 0);
             hudCursorT.load();
         }
 
@@ -272,7 +272,7 @@ public class ResourceManager {
             BitmapTextureAtlas hudPowerBarPushT = new BitmapTextureAtlas(textureManager, 120, 240,
                     mTransparentTextureOption);
             hudPowerBarPushTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    hudPowerBarPushT, activity, "power_bar_push.png", 0, 0);
+                    hudPowerBarPushT, activity, "hud_power_indicator.png", 0, 0);
             hudPowerBarPushT.load();
         }
     }

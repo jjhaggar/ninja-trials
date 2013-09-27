@@ -39,7 +39,7 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
-import com.madgear.ninjatrials.ResourceManager;
+import com.madgear.ninjatrials.managers.*; // ResourceManager;
 import com.madgear.ninjatrials.hud.Chronometer;
 import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.hud.PrecisionBar;
