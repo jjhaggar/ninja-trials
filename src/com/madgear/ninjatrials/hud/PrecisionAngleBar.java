@@ -23,7 +23,9 @@ import org.andengine.entity.Entity;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.sprite.Sprite;
 
-import com.madgear.ninjatrials.ResourceManager;
+import com.madgear.ninjatrials.managers.ResourceManager;
+
+
 
 
 /**
@@ -120,15 +122,21 @@ public class PrecisionAngleBar extends Entity {
     @Override
     protected void onManagedUpdate(final float pSecondsElapsed) {
     	//finish the rectangle movement.
-    	rectangleCursor = new Rectangle(0, 0, 70, 30,  
-    			ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-    	rectangleCursor.setRotationCenter(0.0f, 0.0f);
-    	rectangleCursor.setRotation(10);
+    	//rectangleCursor = new Rectangle(0, 0, 70, 30,  
+    	//		ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+    	//rectangleCursor.setRotationCenter(0.0f, 0.0f);
+    	//rectangleCursor.setRotation(10);
     	
         // controlamos que no se vaya el cursor por el retraso:
         if (pSecondsElapsed < 0.2)
             cursorValue += pSecondsElapsed * speed * direction;
-        cursor.setX(curXInit + cursorValue);
+        
+        //the position of Y it's done relative to X to form a semicircle
+        float posX = curXInit + cursorValue;
+        float posY = (float) Math.sqrt(Math.pow(cursorMax, 2) - Math.pow(posX, 2));
+        cursor.setX(posX);
+        cursor.setY(posY);
+        
         if (cursorValue >= cursorMax) {
             direction = -1;
             semicycle++;
