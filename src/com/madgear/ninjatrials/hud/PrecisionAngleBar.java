@@ -47,6 +47,7 @@ public class PrecisionAngleBar extends Entity {
     private float speed;
     private int direction = 1;
     private float curXInit;
+    private float curYInit;
     private int semicycle = 0;
     private Sprite angleBar, cursor;
 	private Rectangle rectangleCursor;
@@ -61,6 +62,7 @@ public class PrecisionAngleBar extends Entity {
      */
     public PrecisionAngleBar(float posX, float posY, float timeRound) {
         curXInit = posX - 100;
+        curYInit = posY;
         semicycle = 0;
         angleBar = new Sprite(posX, posY,
                 ResourceManager.getInstance().hudAngleBarCursorTR,
@@ -133,7 +135,7 @@ public class PrecisionAngleBar extends Entity {
         
         //the position of Y it's done relative to X to form a semicircle
         float posX = curXInit + cursorValue;
-        float posY = (float) Math.sqrt(Math.pow(cursorMax, 2) - Math.pow(posX, 2));
+        float posY = curYInit + (float) Math.sqrt(Math.pow(cursorMax, 2) - Math.pow(posX, 2));
         cursor.setX(posX);
         cursor.setY(posY);
         
