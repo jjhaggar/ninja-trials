@@ -214,6 +214,7 @@ public class TrialSceneJump extends GameScene {
         gameHUD.showMessage("Cut!", 0, 1);
         chrono.start();
         precisionBar.start();
+        angleBar.start();
         cutEnabled = true;
     }
 
@@ -225,6 +226,7 @@ public class TrialSceneJump extends GameScene {
         cutEnabled = false;
         chrono.stop();
         precisionBar.stop();
+        angleBar.stop();
         score = getScore();
         frameNum = 0;
         trialTimerHandler = new TimerHandler(0.1f, new ITimerCallback() {
@@ -287,6 +289,7 @@ public class TrialSceneJump extends GameScene {
     private void timeOut() {
         cutEnabled = false;
         precisionBar.stop();
+        angleBar.stop();
         score = 0;
         endingSequence();
     }
@@ -321,7 +324,8 @@ public class TrialSceneJump extends GameScene {
      */
     private int getScore() {
         int trialScore;
-        trialScore = 100 - Math.abs(precisionBar.getPowerValue()) - precisionBar.getSemicycle() * 3;
+        //trialScore = 100 - Math.abs(precisionBar.getPowerValue()) - precisionBar.getSemicycle() * 3;
+        trialScore = angleBar.getPowerValue();
         if(trialScore < 0) trialScore = 0;
         return trialScore;
     }
