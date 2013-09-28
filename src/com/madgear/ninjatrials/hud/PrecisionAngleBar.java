@@ -61,13 +61,13 @@ public class PrecisionAngleBar extends Entity {
      * calculate the cursor speed.
      */
     public PrecisionAngleBar(float posX, float posY, float timeRound) {
-        curXInit = posX - 100;
-        curYInit = posY;
+        curXInit = posX + 100;
+        curYInit = posY - 100;
         semicycle = 0;
         angleBar = new Sprite(posX, posY,
                 ResourceManager.getInstance().hudAngleBarCursorTR,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        cursor = new Sprite(curXInit, posY + 60,
+        cursor = new Sprite(curXInit, curYInit,
                 ResourceManager.getInstance().hudCursorTR,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(angleBar);
@@ -135,7 +135,7 @@ public class PrecisionAngleBar extends Entity {
         
         //the position of Y it's done relative to X to form a semicircle
         float posX = curXInit + cursorValue;
-        float posY = curYInit + (float) Math.sqrt(Math.pow(cursorMax, 2) - Math.pow(posX, 2));
+        float posY = curYInit + (float) Math.sqrt(Math.pow(cursorMax, 2) - Math.pow(cursorValue, 2));
         cursor.setX(posX);
         cursor.setY(posY);
         

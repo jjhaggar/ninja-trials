@@ -357,10 +357,11 @@ public class ResourceManager {
         	BitmapTextureAtlas hudAngleBarCursorT = new BitmapTextureAtlas(
                     textureManager, 353, 257, mTransparentTextureOption);
             hudAngleBarCursorTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-            		hudAngleBarCursorT, activity, "jump_hud.png", 0, 0);
+            		hudAngleBarCursorT, activity, "hud_angle_indicator.png", 0, 0);
             hudAngleBarCursorT.load();
         }
 
+        //TODO: import Cursor angle
         // Cursor:
         if(hudCursorTR==null) {
             BitmapTextureAtlas hudCursorT = new BitmapTextureAtlas(textureManager, 59, 52,
