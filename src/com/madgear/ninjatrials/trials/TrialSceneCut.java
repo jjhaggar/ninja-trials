@@ -153,7 +153,9 @@ public class TrialSceneCut extends GameScene {
         attachChild(mEyes);
         attachChild(blinkLayer);
         attachChild(mKatana);
-        //ResourceManager.getInstance().cutMusic.play();
+        if(ResourceManager.getInstance().cutMusic != null &&
+                !ResourceManager.getInstance().cutMusic.isPlaying())
+            ResourceManager.getInstance().cutMusic.play();
         readySequence();
     }
 

@@ -115,6 +115,13 @@ public class TestingScene extends GameScene {
             }
         });
         
+        testGrid.addItem(new TestGridItem("Music Test") {
+            @Override
+            public void onAction() {
+                SceneManager.getInstance().showScene(new MusicTest());
+            }
+        });
+        
     }
 
     @Override

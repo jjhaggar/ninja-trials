@@ -482,8 +482,9 @@ public class ResourceManager {
             cutSword1T.load();
         }
 
-        // Sonido:
+        // Músic & Sounds:
         SoundFactory.setAssetBasePath("sounds/");
+        MusicFactory.setAssetBasePath("music/");
         try {
             cutEyesZoom = SoundFactory.createSoundFromAsset(
                     activity.getSoundManager(), context, "trial_cut_eyes_zoom.ogg");
@@ -497,8 +498,8 @@ public class ResourceManager {
                     activity.getSoundManager(), context, "trial_cut_katana_whoosh.ogg");
             cutThud = SoundFactory.createSoundFromAsset(
                     activity.getSoundManager(), context, "trial_cut_thud.ogg");
-            /* cutMusic = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "trial_cut_music.ogg");*/
+            cutMusic = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "trial_cut_music.ogg");
         } catch (final IOException e) {
             Log.v("Sounds Load","Exception:" + e.getMessage());
         }
@@ -587,8 +588,8 @@ public class ResourceManager {
             cutKatanaWhoosh.release();
         if(!cutEyesZoom.isReleased())
             cutThud.release();
-       /* if(!cutMusic.isReleased())
-            cutMusic.release();*/
+        if(!cutMusic.isReleased())
+            cutMusic.release();
 
         // Garbage Collector:
         System.gc();
