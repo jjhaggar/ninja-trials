@@ -39,7 +39,7 @@ public abstract class GameScene extends ManagedScene implements IUserInput, IOnS
     
     /**
      * GameScene constructor that enables the loading screen.
-     * @param pLoadingScreenMinimumSecondsShown The minimum time the loading scrren is shown.
+     * @param pLoadingScreenMinimumSecondsShown The minimum time the loading screen is shown.
      */
     public GameScene(float pLoadingScreenMinimumSecondsShown){
         super(pLoadingScreenMinimumSecondsShown);
@@ -57,13 +57,15 @@ public abstract class GameScene extends ManagedScene implements IUserInput, IOnS
                 onPressDpadUp();
             else
                 onPressDpadDown();
-        else
+        else if (pSceneTouchEvent.isActionDown())
             onPressButtonO();
+        else if (pSceneTouchEvent.isActionUp())
+        	onReleaseButtonO();
         return true;
     }
 
     /**
-     * Check the key pressed and calls the apropiate method.
+     * Check the key pressed and calls the appropriate method.
      * @param keyCode
      * @param event
      * @return true
@@ -80,12 +82,57 @@ public abstract class GameScene extends ManagedScene implements IUserInput, IOnS
         if ((keyCode == KeyEvent.KEYCODE_BACK)){
             onPressButtonMenu();
             return true;
-        }     
+        }
+        /*
+         * <KEYBOARD SUPPORT>
+         * Default keys: W A S D, directional pads and delete for menu.
+         * Custom keys option might be included in the future.
+         */
+        if ((keyCode == KeyEvent.KEYCODE_DEL)){
+        	onPressButtonMenu();
+        	return true;
+    	}
+        if ((keyCode == KeyEvent.KEYCODE_S)){
+        	onPressButtonO();
+        	return true;
+    	}
+        if ((keyCode == KeyEvent.KEYCODE_A)){
+        	onPressButtonU();
+        	return true;
+    	}
+        if ((keyCode == KeyEvent.KEYCODE_W)){
+        	onPressButtonY();
+        	return true;
+    	}
+        if ((keyCode == KeyEvent.KEYCODE_D)){
+        	onPressButtonA();
+        	return true;
+    	}
+        if ((keyCode == KeyEvent.KEYCODE_DPAD_UP)){
+        	onPressDpadUp();
+        	return true;
+    	}
+        if ((keyCode == KeyEvent.KEYCODE_DPAD_DOWN)){
+        	onPressDpadDown();
+        	return true;
+    	}
+        if ((keyCode == KeyEvent.KEYCODE_DPAD_RIGHT)){
+        	onPressDpadRight();
+        	return true;
+    	}
+        if ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT)){
+        	onPressDpadLeft();
+        	return true;
+    	}
+        /*
+         * </KEYBOARD SUPPORT>
+         */
         return false;
     }   
     
     // Métodos que pueden ser sobreescritos por las subclases:
     public void onPressButtonO() {}
+    public void onReleaseButtonO() {}
     public void onPressButtonU() {}
     public void onPressButtonY() {}
     public void onPressButtonA() {}

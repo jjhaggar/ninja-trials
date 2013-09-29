@@ -19,6 +19,9 @@
 
 package com.madgear.ninjatrials.managers;
 
+import android.content.Context;
+import android.graphics.Typeface;
+import android.util.Log;
 import java.io.IOException;
 
 import org.andengine.audio.music.Music;
@@ -38,7 +41,7 @@ import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSourc
 import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtlasBuilder;
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
 import org.andengine.opengl.texture.bitmap.AssetBitmapTexture;
-import org.andengine.opengl.texture.bitmap.BitmapTextureFormat;
+import org.andengine.opengl.texture.bitmap.BitmapTexture;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.texture.region.TextureRegionFactory;
@@ -46,10 +49,6 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.debug.Debug;
 
 import com.madgear.ninjatrials.NinjaTrials;
-
-import android.content.Context;
-import android.graphics.Typeface;
-import android.util.Log;
 
 
 public class ResourceManager {
@@ -71,24 +70,34 @@ public class ResourceManager {
     // MAIN MENU:
     public static ITextureRegion mainTitleTR;
     public static ITextureRegion mainTitlePattern1TR;
-    
+
     // MAIN OPTIONS MENU:
     public static ITextureRegion mainOptionsPatternTR;
     public static ITextureRegion mainOptionsSoundBarsActiveTR;
     public static ITextureRegion mainOptionsSoundBarsInactiveTR;
-    
+
     // CONTROLLER OPTIONS MENU:
     public static ITextureRegion controllerOptionsPatternTR;
     public static ITextureRegion controllerOuyaTR;
     public static ITextureRegion controllerMarksTR;
 
-    
     // HUD:
     public static ITextureRegion hudPowerBarCursorTR;
     public static ITextureRegion hudCursorTR;
     public static ITextureRegion hudPowerBarPushTR;
 
-    // CUT SCENE:
+    public static ITextureRegion hudAngleBarCursorTR;
+
+    public static ITextureRegion runLineBar;
+    public static ITextureRegion runMarkP1;
+    public static ITextureRegion runMarkP2;
+    public static ITiledTextureRegion runHead;
+
+
+    // JUMP TRIAL:
+    public static ITextureRegion jumpStatueTR;
+    
+    // CUT TRIAL:
     public static ITiledTextureRegion cutShoTR;
     public static ITextureRegion cutTreeTopTR;
     public static ITextureRegion cutTreeBottomTR;
@@ -111,6 +120,18 @@ public class ResourceManager {
     public Sound cutKatana3;
     public Sound cutKatanaWhoosh;
     public Sound cutThud;    
+
+
+	// RUN SCENE
+    public static ITiledTextureRegion runSho;
+    public static ITiledTextureRegion runRyoko;
+    public static ITextureRegion runBgFloor;;
+    public static ITextureRegion runBgTreesFront;
+    public static ITextureRegion runBgTreesBack;
+    public static ITextureRegion runDushStart;
+    public static ITextureRegion runDushContinue;
+
+
     
     
     // FONTS:
@@ -156,13 +177,13 @@ public class ResourceManager {
     // Cada escena debe tener sus métodos para cargar y descargar recursos (metodo load y unload).
     // tanto en gráficos como música y sonido.
     // Deben ser "synchronized".
-    
+
     /**
      * Loads the main menu resources.
      */
     public synchronized void loadMainMenuResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
-        
+
         // Main Menu Ninja Trials Logo:
         if(mainTitleTR==null) {
             BitmapTextureAtlas mainTitleT = new BitmapTextureAtlas(
@@ -171,7 +192,7 @@ public class ResourceManager {
                     mainTitleT, activity, "menu_main_title.png", 0, 0);
             mainTitleT.load();
         }
-        
+
         // Main Menu Pattern:
         if (mainTitlePattern1TR == null) {
             BuildableBitmapTextureAtlas mainTitlePattern1T = new BuildableBitmapTextureAtlas(
@@ -187,7 +208,7 @@ public class ResourceManager {
             }
         }
     }
-    
+
     /**
      * Unloads the main menu resources.
      */
@@ -222,7 +243,7 @@ public class ResourceManager {
                 extractFromTexture(mainOptionsSoundBarsT, 0, 0, 575, 110, false);
         mainOptionsSoundBarsInactiveTR = TextureRegionFactory.
                 extractFromTexture(mainOptionsSoundBarsT, 0, 111, 575, 109, false);
-        
+
         // Option Menu Pattern:
         if (mainOptionsPatternTR == null) {
             BuildableBitmapTextureAtlas mainOptionsPatternT = new BuildableBitmapTextureAtlas(
@@ -280,7 +301,7 @@ public class ResourceManager {
                             controllerOuyaT, activity, "menu_options_controller_ouya.png", 0, 0);
             controllerOuyaT.load();
         }
-        
+
         // Controller marks:
         if(controllerMarksTR==null) {
             BitmapTextureAtlas controllerMarksT = new BitmapTextureAtlas(textureManager, 1195, 717,
@@ -290,7 +311,7 @@ public class ResourceManager {
                             controllerMarksT, activity, "menu_options_controller_marks.png", 0, 0);
             controllerMarksT.load();
         }
-        
+
         // Controller Option Pattern:
         if (controllerOptionsPatternTR == null) {
             BuildableBitmapTextureAtlas controllerOptionsPatternT = new BuildableBitmapTextureAtlas(
@@ -318,13 +339,13 @@ public class ResourceManager {
                 controllerOuyaTR.getTexture().unload();
                 controllerOuyaTR = null;
             }
-        }        
+        }
         if(controllerMarksTR!=null) {
             if(controllerMarksTR.getTexture().isLoadedToHardware()) {
                 controllerMarksTR.getTexture().unload();
                 controllerMarksTR = null;
             }
-        }        
+        }
         if(controllerOptionsPatternTR!=null) {
             if(controllerOptionsPatternTR.getTexture().isLoadedToHardware()) {
                 controllerOptionsPatternTR.getTexture().unload();
@@ -332,8 +353,7 @@ public class ResourceManager {
             }
         }
     }
-    
-    
+
     public synchronized void loadHUDResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/hud/");
 
@@ -342,16 +362,26 @@ public class ResourceManager {
             BitmapTextureAtlas hudPowerBarCursorT = new BitmapTextureAtlas(
                     textureManager, 240, 120, mTransparentTextureOption);
             hudPowerBarCursorTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    hudPowerBarCursorT, activity, "power_bar_cursor.png", 0, 0);
+                    hudPowerBarCursorT, activity, "hud_precision_indicator.png", 0, 0);
             hudPowerBarCursorT.load();
         }
+        
+        // Angle Bar:
+        if (hudAngleBarCursorTR == null) {
+        	BitmapTextureAtlas hudAngleBarCursorT = new BitmapTextureAtlas(
+                    textureManager, 353, 257, mTransparentTextureOption);
+            hudAngleBarCursorTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            		hudAngleBarCursorT, activity, "hud_angle_indicator.png", 0, 0);
+            hudAngleBarCursorT.load();
+        }
 
+        //TODO: import Cursor angle
         // Cursor:
         if(hudCursorTR==null) {
             BitmapTextureAtlas hudCursorT = new BitmapTextureAtlas(textureManager, 59, 52,
                     mTransparentTextureOption);
             hudCursorTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudCursorT,
-                    activity, "h_cursor.png", 0, 0);
+                    activity, "hud_precision_cursor.png", 0, 0);
             hudCursorT.load();
         }
 
@@ -360,8 +390,41 @@ public class ResourceManager {
             BitmapTextureAtlas hudPowerBarPushT = new BitmapTextureAtlas(textureManager, 120, 240,
                     mTransparentTextureOption);
             hudPowerBarPushTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    hudPowerBarPushT, activity, "power_bar_push.png", 0, 0);
+                    hudPowerBarPushT, activity, "hud_power_indicator.png", 0, 0);
             hudPowerBarPushT.load();
+        }
+        // LineBar
+        if (runLineBar == null) {
+            BitmapTextureAtlas runLineBarBit = new BitmapTextureAtlas(textureManager, 1012, 80,
+                    mTransparentTextureOption);
+            runLineBar = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    runLineBarBit, activity, "run_line_bar.png", 0, 0);
+            runLineBarBit.load();
+        }
+        // LineMark
+        BitmapTextureAtlas runMarkBit = new BitmapTextureAtlas(textureManager, 140, 116,
+                mTransparentTextureOption);
+        ITextureRegion runMark = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                runMarkBit, activity, "run_line_mark.png", 0, 0);
+        runMarkBit.load();
+        if (runMarkP1 == null)
+            runMarkP1 = TextureRegionFactory.extractFromTexture(runMarkBit, 0, 0, 70, 116, false);
+        if (runMarkP2 == null)
+            runMarkP2 = TextureRegionFactory.extractFromTexture(runMarkBit, 70, 0, 140, 116, false);
+        // RunHead
+        if (runHead == null) {
+            BuildableBitmapTextureAtlas runHeadBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 660, 440, mTransparentTextureOption);
+            runHead = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    runHeadBit, context, "hud_head_run.png", 3, 2);
+            try {
+                runHeadBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            runHeadBit.load();
         }
     }
 
@@ -370,6 +433,12 @@ public class ResourceManager {
             if(hudPowerBarCursorTR.getTexture().isLoadedToHardware()) {
                 hudPowerBarCursorTR.getTexture().unload();
                 hudPowerBarCursorTR = null;
+            }
+        }
+        if(hudAngleBarCursorTR!=null) {
+            if(hudAngleBarCursorTR.getTexture().isLoadedToHardware()) {
+            	hudAngleBarCursorTR.getTexture().unload();
+            	hudAngleBarCursorTR = null;
             }
         }
         if(hudCursorTR!=null) {
@@ -384,8 +453,39 @@ public class ResourceManager {
                 hudPowerBarPushTR = null;
             }
         }
+        if (runLineBar != null && runLineBar.getTexture().isLoadedToHardware()) {
+                runLineBar.getTexture().unload();
+                runLineBar = null;
+        }
+        if (runMarkP1 != null && runMarkP1.getTexture().isLoadedToHardware()) {
+                runMarkP1.getTexture().unload();
+                runMarkP1 = null;
+        }
+        if (runMarkP2 != null && runMarkP2.getTexture().isLoadedToHardware()) {
+                runMarkP2.getTexture().unload();
+                runMarkP2 = null;
+        }
+        if (runHead != null && runHead.getTexture().isLoadedToHardware()) {
+                runHead.getTexture().unload();
+                runHead = null;
+        }
     }
 
+    public synchronized void loadJumpSceneResources() {
+    	//Texturas:
+    	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trial_jump/");
+    	
+    	//Statue:
+    	 BitmapTextureAtlas jumpStatueT = new BitmapTextureAtlas(textureManager, 442, 310,
+                 mTransparentTextureOption);
+         ITextureRegion jumpStatueAllTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                 jumpStatueT, activity, "jump_bg_1_stone_statues.png", 0, 0);
+         jumpStatueT.load();
+        // jumpStatueTR = TextureRegionFactory.extractFromTexture(jumpStatueT, 0, 0, 388, 380,
+        //         false);
+         jumpStatueTR = jumpStatueAllTR;
+    }
+    
     // Recursos para la escena de corte:
     public synchronized void loadCutSceneResources() {
         // Texturas:
@@ -506,6 +606,14 @@ public class ResourceManager {
         
     }
 
+    public synchronized void unloadJumpSceneResources() {
+    	if(jumpStatueTR != null){
+    		if(jumpStatueTR.getTexture().isLoadedToHardware()) {
+    			jumpStatueTR.getTexture().unload();
+    			jumpStatueTR = null;
+    		}
+    	}
+    }
     // Liberamos los recursos de la escena de corte:
     public synchronized void unloadCutSceneResources() {
         if(cutShoTR != null) {
@@ -595,6 +703,114 @@ public class ResourceManager {
         System.gc();
     }
 
+    public synchronized void loadRunSceneResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trial_run/");
+        // Background
+        if (runBgFloor == null) {
+            BitmapTextureAtlas RunBg1 = new BitmapTextureAtlas(textureManager, 1024, 326,
+                    mTransparentTextureOption);
+            runBgFloor = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    RunBg1, activity, "run_background_floor.png", 0, 0);
+            RunBg1.load();
+        }
+        if (runBgTreesBack == null) {
+            BitmapTextureAtlas RunBg2 = new BitmapTextureAtlas(textureManager, 1021, 510,
+                    mTransparentTextureOption);
+            runBgTreesBack = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    RunBg2, activity, "run_background_trees_back.png", 0, 0);
+            RunBg2.load();
+        }
+        if (runBgTreesFront == null) {
+            BitmapTextureAtlas RunBg3 = new BitmapTextureAtlas(textureManager, 1024, 754,
+                    mTransparentTextureOption);
+            runBgTreesFront = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    RunBg3, activity, "run_background_trees_front.png", 0, 0);
+            RunBg3.load();
+        }
+
+        // Dush
+        if (runDushStart == null) {
+            BitmapTextureAtlas runDush = new BitmapTextureAtlas(textureManager, 1296, 1080,
+                    mTransparentTextureOption);
+            runDushStart = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    runDush, activity, "run_dust_start.png", 0, 0);
+            runDush.load();
+        }
+        if (runDushContinue == null) {
+            BitmapTextureAtlas runDush = new BitmapTextureAtlas(textureManager, 600, 600,
+                    mTransparentTextureOption);
+            runDushContinue = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    runDush, activity, "run_dust_continuous.png", 0, 0);
+            runDush.load();
+        }
+
+        // Sho
+        if (runSho == null) {
+            BuildableBitmapTextureAtlas runShoBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 2115, 2028, mTransparentTextureOption);
+            runSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    runShoBit, context, "run_ch_sho.png", 5, 4);
+            try {
+                runShoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            runShoBit.load();
+        }
+
+        // Ryoko
+        if (runRyoko == null) {
+            BuildableBitmapTextureAtlas runRyokoBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 2115, 2028, mTransparentTextureOption);
+            runRyoko = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    runRyokoBit, context, "run_ch_ryoko.png", 5, 4);
+            try {
+                runRyokoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            runRyokoBit.load();
+        }
+    }
+
+
+    public synchronized void unloadRunSceneResources() {
+        if (runSho != null && runSho.getTexture().isLoadedToHardware()) {
+                runSho.getTexture().unload();
+                runSho = null;
+        }
+        if (runRyoko != null && runRyoko.getTexture().isLoadedToHardware()) {
+                runRyoko.getTexture().unload();
+                runRyoko = null;
+        }
+        if (runBgFloor != null && runBgFloor.getTexture().isLoadedToHardware()) {
+                runBgFloor.getTexture().unload();
+                runBgFloor = null;
+        }
+        if (runBgTreesFront != null && runBgTreesFront.getTexture().isLoadedToHardware()) {
+                runBgTreesFront.getTexture().unload();
+                runBgTreesFront = null;
+        }
+        if (runBgTreesBack != null && runBgTreesBack.getTexture().isLoadedToHardware()) {
+                runBgTreesBack.getTexture().unload();
+                runBgTreesBack = null;
+        }
+        if (runDushStart != null && runDushStart.getTexture().isLoadedToHardware()) {
+                runDushStart.getTexture().unload();
+                runDushStart = null;
+        }
+        if (runDushContinue != null && runDushContinue.getTexture().isLoadedToHardware()) {
+                runDushContinue.getTexture().unload();
+                runDushContinue = null;
+        }
+        // Garbage Collector:
+        System.gc();
+    }
+
 
     /* Loads fonts resources
      */
@@ -618,12 +834,12 @@ public class ResourceManager {
                 pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "go3v2.ttf",
                 128f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
         fontBig.load();
-        
+
         // XBig = 192
         fontXBig = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
                 pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "go3v2.ttf",
                 192f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
-        fontXBig.load();        
+        fontXBig.load();
     }
 
     /* If an unloadFonts() method is necessary, we can provide one
@@ -633,6 +849,5 @@ public class ResourceManager {
         fontMedium.unload();
         fontBig.unload();
         fontXBig.unload();
-
     }
 }

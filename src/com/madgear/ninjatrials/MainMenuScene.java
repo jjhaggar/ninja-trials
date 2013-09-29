@@ -135,7 +135,7 @@ public class MainMenuScene extends GameScene {
             SceneManager.getInstance().showScene(new MainOptionsScene());
             break;
         case 1:
-            SceneManager.getInstance().showScene(new TrialSceneJump());
+            SceneManager.getInstance().showScene(new TrialSceneJump()); //to debug myself
             break;
         case 2:
             SceneManager.getInstance().showScene(new DummyMenu());
