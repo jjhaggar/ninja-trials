@@ -486,6 +486,17 @@ public class ResourceManager {
          jumpStatueTR = jumpStatueAllTR;
     }
     
+    
+    public synchronized void unloadJumpSceneResources() {
+        if(jumpStatueTR != null){
+            if(jumpStatueTR.getTexture().isLoadedToHardware()) {
+                jumpStatueTR.getTexture().unload();
+                jumpStatueTR = null;
+            }
+        }
+    }
+    
+    
     // Recursos para la escena de corte:
     public synchronized void loadCutSceneResources() {
         // Texturas:
@@ -595,25 +606,17 @@ public class ResourceManager {
             cutKatana3 = SoundFactory.createSoundFromAsset(
                     activity.getSoundManager(), context, "trial_cut_katana_cut3.ogg");
             cutKatanaWhoosh = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_katana_whoosh.ogg");
+                    activity.getSoundManager(), context, "trial_cut_katana_whoosh1.ogg");
             cutThud = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_thud.ogg");
+                    activity.getSoundManager(), context, "trial_cut_katana_whoosh2.ogg");
             cutMusic = MusicFactory.createMusicFromAsset(
                     activity.getMusicManager(), context, "trial_cut_music.ogg");
         } catch (final IOException e) {
             Log.v("Sounds Load","Exception:" + e.getMessage());
         }
-        
     }
 
-    public synchronized void unloadJumpSceneResources() {
-    	if(jumpStatueTR != null){
-    		if(jumpStatueTR.getTexture().isLoadedToHardware()) {
-    			jumpStatueTR.getTexture().unload();
-    			jumpStatueTR = null;
-    		}
-    	}
-    }
+
     // Liberamos los recursos de la escena de corte:
     public synchronized void unloadCutSceneResources() {
         if(cutShoTR != null) {
