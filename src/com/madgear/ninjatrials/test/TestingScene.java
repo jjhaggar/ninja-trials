@@ -25,6 +25,7 @@ import com.madgear.ninjatrials.ControllerOptionsScene;
 import com.madgear.ninjatrials.GameScene;
 import com.madgear.ninjatrials.MainMenuScene;
 import com.madgear.ninjatrials.MainOptionsScene;
+import com.madgear.ninjatrials.ResultLoseScene;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.trials.TrialSceneCut;
@@ -121,7 +122,13 @@ public class TestingScene extends GameScene {
                 SceneManager.getInstance().showScene(new MusicTest());
             }
         });
-        
+
+        testGrid.addItem(new TestGridItem("Lose Scene") {
+            @Override
+            public void onAction() {
+                SceneManager.getInstance().showScene(new ResultLoseScene());
+            }
+        });  
     }
 
     @Override

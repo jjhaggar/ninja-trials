@@ -31,8 +31,15 @@ public class GameManager {
     public static final int DIFF_EASY = 0;
     public static final int DIFF_MEDIUM = 1;
     public static final int DIFF_HARD = 2;
+    public static final int TRIAL_RUN = 1;
+    public static final int TRIAL_CUT = 2;
+    public static final int TRIAL_SHURIKEN = 3;
+    public static final int TRIAL_JUMP = 4;
+    public static final int LIVES_INIT = 5;
 
     private int currentScore;
+    private int currentTrial;
+    private int lives;
     private int selectedCharacter;
     private int selectedDiff;
     private String gameLanguage;
@@ -88,8 +95,26 @@ public class GameManager {
         musicVolume = v;
     }
 
+    public int getCurrentTrial() {
+        return currentTrial;
+    }
+    
+    public void setCurrentTrial(int t) {
+        currentTrial = t;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int t) {
+        lives = t;
+    }
+
     public void resetGame(){
         currentScore = INITIAL_SCORE;
+        currentTrial = TRIAL_RUN;
+        lives = LIVES_INIT;
         selectedCharacter = CHAR_SHO;
         selectedDiff = DIFF_MEDIUM;
         gameLanguage = "en";

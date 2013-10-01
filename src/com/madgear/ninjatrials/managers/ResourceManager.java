@@ -125,13 +125,20 @@ public class ResourceManager {
 	// RUN SCENE
     public static ITiledTextureRegion runSho;
     public static ITiledTextureRegion runRyoko;
-    public static ITextureRegion runBgFloor;;
+    public static ITextureRegion runBgFloor;
     public static ITextureRegion runBgTreesFront;
     public static ITextureRegion runBgTreesBack;
     public static ITextureRegion runDushStart;
     public static ITextureRegion runDushContinue;
 
 
+    // RESULTS SCENE LOSE
+    public static ITextureRegion loseCharRyokoTR;
+    public static ITextureRegion loseCharShoTR;
+    public static ITextureRegion loseBgTR;
+    
+    // RESULTS SCENE WIN
+    
     
     
     // FONTS:
@@ -809,6 +816,66 @@ public class ResourceManager {
         if (runDushContinue != null && runDushContinue.getTexture().isLoadedToHardware()) {
                 runDushContinue.getTexture().unload();
                 runDushContinue = null;
+        }
+        // Garbage Collector:
+        System.gc();
+    }
+
+/*    // RESULTS SCENE LOSE
+    public static ITextureRegion loseCharRyokoTR;
+    public static ITextureRegion loseCharShoTR;
+    public static ITextureRegion loseBgTR;
+    */
+    
+    public synchronized void loadResultLoseSceneResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/results/");
+
+        // Bg:
+        if(loseBgTR==null) {
+            BitmapTextureAtlas loseBgT =  new BitmapTextureAtlas(textureManager, 1920, 1080,
+                    mTransparentTextureOption);
+            loseBgTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    loseBgT, activity, "results_lose_background.png", 0, 0);
+            loseBgT.load();
+        }
+
+        // Sho:
+        if(loseCharShoTR==null) {
+            BitmapTextureAtlas loseCharShoT =  new BitmapTextureAtlas(textureManager, 797, 440,
+                    mTransparentTextureOption);
+            loseCharShoTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    loseCharShoT, activity, "results_lose_ch_sho.png", 0, 0);
+            loseCharShoT.load();
+        }
+
+        // Ryoko:
+        if(loseCharRyokoTR==null) {
+            BitmapTextureAtlas loseCharRyokoT =  new BitmapTextureAtlas(textureManager, 797, 440,
+                    mTransparentTextureOption);
+            loseCharRyokoTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    loseCharRyokoT, activity, "results_lose_ch_ryoko.png", 0, 0);
+            loseCharRyokoT.load();
+        }
+    }
+
+    public synchronized void unloadResultLoseSceneResources() {
+        if(loseBgTR!=null) {
+            if(loseBgTR.getTexture().isLoadedToHardware()) {
+                loseBgTR.getTexture().unload();
+                loseBgTR = null;
+            }
+        }
+        if(loseCharShoTR!=null) {
+            if(loseCharShoTR.getTexture().isLoadedToHardware()) {
+                loseCharShoTR.getTexture().unload();
+                loseCharShoTR = null;
+            }
+        }
+        if(loseCharRyokoTR!=null) {
+            if(loseCharRyokoTR.getTexture().isLoadedToHardware()) {
+                loseCharRyokoTR.getTexture().unload();
+                loseCharRyokoTR = null;
+            }
         }
         // Garbage Collector:
         System.gc();
