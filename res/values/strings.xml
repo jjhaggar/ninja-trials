@@ -16,10 +16,10 @@
     <!-- Achievements Menu Scene -->
 	<!-- Achievement 1 Name -->
     <string name="achievement_01">The runner</string>
-	<!-- Achievement 1 Description - RUN TRIAL: Run 200Km, we'll have to do something with unit conversions here ^^U -->
+	<!-- Achievement 1 Description - RUN TRIAL: Run 200Km, we\'ll have to do something with unit conversions here ^^U -->
 	<string name="achievement_01_desc">Run a total of 200 Km</string>
 	<!-- Achievement 2 Name -->
-    <string name="achievement_02">StrawMan's Massacre</string>
+    <string name="achievement_02">StrawMan\'s Massacre</string>
 	<!-- Achievement 2 Description - SHURIKEN TRIAL: Destroy 500 StrawMen -->
 	<string name="achievement_02_desc">Destroy 500 StrawMen</string>
 	<!-- Achievement 3 Name -->
@@ -46,10 +46,10 @@
         You both have completed your training, 
     </string>
     <string name="intro2_master_02">
-        now it's time you have your final test.
+        now it\'s time you have your final test.
     </string>
     <string name="intro2_master_03">
-        Prove you're worthy of being true KazenoKage ninjas.
+        Prove you\'re worthy of being true KazenoKage ninjas.
     </string>
     <!-- Sho answers to his master -->
 	<string name="intro2_sho_01">
@@ -61,7 +61,7 @@
     </string>
 	<!-- Intro 2 Scene - Sho exclusive part -->
     <string name="intro2_sho_02">
-        I'll be a ninja, so... (blah, blah)
+        I\'ll be a ninja, so... (blah, blah)
     </string>
 	<!-- Intro 2 Scene - Ryoko exclusive part -->
     <string name="intro2_ryoko_02">
@@ -71,11 +71,11 @@
 
     <!-- Ending Scene - Sho (Easy) -->
     <string name="ending_sho_easy_01">
-        Sho's my name and I'm a true ninja of KazenoKage clan!!
+        Sho\'s my name and I\'m a true ninja of KazenoKage clan!!
     </string>
     <!-- Ending Scene - Ryoko (Easy) -->
     <string name="ending_ryoko_easy_01">
-        Blah, blah, blah, I'm Ryoko and I've passed the tests, blah, blah...
+        Blah, blah, blah, I\'m Ryoko and I\'ve passed the tests, blah, blah...
     </string>
 
 </resources>
