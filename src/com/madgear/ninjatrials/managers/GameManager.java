@@ -22,10 +22,11 @@ package com.madgear.ninjatrials.managers;
 
 public class GameManager {
 
-    private static GameManager INSTANCE;
+    //private static GameManager INSTANCE;
 
     // GENERAL:
     public static final boolean DEBUG_MODE = true;
+
     private static final int INITIAL_SCORE = 0;
     public static final int CHAR_RYOKO = 0;
     public static final int CHAR_SHO = 1;
@@ -38,16 +39,17 @@ public class GameManager {
     public static final int TRIAL_JUMP = 4;
     public static final int LIVES_INIT = 5;
 
-    private int currentScore;
-    private int currentTrial;
-    private int lives;
-    private int selectedCharacter;
-    private int selectedDiff;
-    private String gameLanguage;
-    private float soundVolume;
-    private float musicVolume;
+    private static int score;
+    private static int currentTrial;
+    private static int lives;
+    private static int selectedCharacter;
+    private static int selectedDiff;
+    private static String gameLanguage;
+    private static float soundVolume;
+    private static float musicVolume;
 
-    // Contructor:
+    
+/*    // Contructor:
     GameManager(){
     }
 
@@ -56,64 +58,13 @@ public class GameManager {
             INSTANCE = new GameManager();
         }
         return INSTANCE;
-    }
+    }*/
 
+    
     // Métodos:
 
-    public int getSelectedCharacter() {
-        return selectedCharacter;
-    }
-
-    public int getSelectedDiff() {
-        return selectedDiff;
-    }
-
-    public int getCurrentScore(){
-        return currentScore;
-    }
-
-    public String getGameLanguage() {
-        return gameLanguage;
-    }
-
-    public void incrementScore(int pIncrementBy){
-        currentScore += pIncrementBy;
-    }
-    
-    public float getSoundVolume() {
-        return soundVolume;
-    }
-
-    public void setSoundVolume(float v) {
-        soundVolume = v;
-    }
-
-    public float getMusicVolume() {
-        return musicVolume;
-    }
-
-    public void setMusicVolume(float v) {
-        musicVolume = v;
-    }
-
-    public int getCurrentTrial() {
-        return currentTrial;
-    }
-    
-    public void setCurrentTrial(int t) {
-        currentTrial = t;
-    }
-
-    public int getLives() {
-        return lives;
-    }
-
-    public void setLives(int t) {
-        lives = t;
-    }
-
-    public void resetGame(){
-        currentScore = INITIAL_SCORE;
+    public static void resetGame(){
+        score = INITIAL_SCORE;
         currentTrial = TRIAL_CUT;
         lives = LIVES_INIT;
         selectedCharacter = CHAR_SHO;
@@ -121,5 +72,57 @@ public class GameManager {
         gameLanguage = "en";
         setSoundVolume(1f);
         setMusicVolume(1f);
+    }
+
+    public static int getSelectedCharacter() {
+        return selectedCharacter;
+    }
+
+    public static int getSelectedDiff() {
+        return selectedDiff;
+    }
+
+    public static int getCurrentScore(){
+        return score;
+    }
+
+    public static String getGameLanguage() {
+        return gameLanguage;
+    }
+
+    public static void incrementScore(int pIncrementBy){
+        score += pIncrementBy;
+    }
+    
+    public static float getSoundVolume() {
+        return soundVolume;
+    }
+
+    public static void setSoundVolume(float v) {
+        soundVolume = v;
+    }
+
+    public static float getMusicVolume() {
+        return musicVolume;
+    }
+
+    public static void setMusicVolume(float v) {
+        musicVolume = v;
+    }
+
+    public static int getCurrentTrial() {
+        return currentTrial;
+    }
+    
+    public static void setCurrentTrial(int t) {
+        currentTrial = t;
+    }
+
+    public static int getLives() {
+        return lives;
+    }
+
+    public static void setLives(int t) {
+        lives = t;
     }
 }

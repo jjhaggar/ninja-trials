@@ -39,10 +39,10 @@ public class HeadCharacter extends Entity {
         head = new AnimatedSprite(posX, posY, tiledTexture,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         // framePlus = 3 * GameManager.getInstance().getSelectedPlayer();
-        if (character == GameManager.getInstance().CHAR_SHO) {
+        if (character == GameManager.CHAR_SHO) {
             framePlus = 0;
         }
-        else if (character == GameManager.getInstance().CHAR_RYOKO) {
+        else if (character == GameManager.CHAR_RYOKO) {
             framePlus = 3;
         }
         attachChild(head);

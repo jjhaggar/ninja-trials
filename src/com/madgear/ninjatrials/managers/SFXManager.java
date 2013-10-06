@@ -24,13 +24,13 @@ import org.andengine.audio.sound.Sound;
 public class SFXManager {
     
     public static void playSound(Sound s) {
-        s.setVolume(GameManager.getInstance().getSoundVolume());
+        s.setVolume(GameManager.getSoundVolume());
         s.play();
     }
     
     public static void playMusic(Music m) {
         if(m != null && !m.isPlaying()) {
-            m.setVolume(GameManager.getInstance().getMusicVolume());
+            m.setVolume(GameManager.getMusicVolume());
             m.play();
         }
     }
@@ -41,7 +41,7 @@ public class SFXManager {
     }
     
     public static void resumeMusic (Music m) {
-        m.setVolume(GameManager.getInstance().getMusicVolume());
+        m.setVolume(GameManager.getMusicVolume());
         m.resume();
     }
 }

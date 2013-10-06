@@ -107,8 +107,8 @@ public class ResultLoseScene extends GameScene {
         attachChild(selectionStripe);
 
         // Character:
-        if(GameManager.getInstance().getSelectedCharacter() ==
-                GameManager.getInstance().CHAR_SHO) {
+        if(GameManager.getSelectedCharacter() ==
+                GameManager.CHAR_SHO) {
             characterSprite = new Sprite(youLostText.getX(), youLostText.getY() + 300,
                     ResourceManager.getInstance().loseCharShoTR,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
@@ -171,7 +171,7 @@ public class ResultLoseScene extends GameScene {
             switch(optionIndex) {
             case 0:
                 // Yes
-                GameManager.getInstance().setLives(GameManager.getInstance().getLives() - 1);
+                GameManager.setLives(GameManager.getLives() - 1);
                 // TODO Go to the map screen:
                 SceneManager.getInstance().showScene(new DummyMenu());
                 break;

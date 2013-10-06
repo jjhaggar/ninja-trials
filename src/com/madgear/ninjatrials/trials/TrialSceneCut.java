@@ -118,7 +118,7 @@ public class TrialSceneCut extends GameScene {
     @Override
     public void onLoadScene() {
         ResourceManager.getInstance().loadCutSceneResources();
-        setTrialDiff(GameManager.getInstance().getSelectedDiff());
+        setTrialDiff(GameManager.getSelectedDiff());
         bg = new SpriteBackground(new Sprite(width * 0.5f, height * 0.5f,
                 ResourceManager.getInstance().cutBackgroundTR,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager()));
@@ -257,7 +257,7 @@ public class TrialSceneCut extends GameScene {
      */
     private void endingSequence() {
         String message;
-        GameManager.getInstance().incrementScore(score);
+        GameManager.incrementScore(score);
         if(score <= SCORE_POOR) {
             message = "POOR " + score;
         }
@@ -306,11 +306,11 @@ public class TrialSceneCut extends GameScene {
      * @param diff The game difficulty.
      */
     private void setTrialDiff(int diff) {
-        if(diff == GameManager.getInstance().DIFF_EASY)
+        if(diff == GameManager.DIFF_EASY)
             timeRound = 4;
-        else if(diff == GameManager.getInstance().DIFF_MEDIUM)
+        else if(diff == GameManager.DIFF_MEDIUM)
             timeRound = 2;
-        else if(diff == GameManager.getInstance().DIFF_HARD)
+        else if(diff == GameManager.DIFF_HARD)
             timeRound = 1;
     }
 

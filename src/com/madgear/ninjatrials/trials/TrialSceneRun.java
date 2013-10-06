@@ -122,15 +122,15 @@ public class TrialSceneRun extends GameScene {
         chrono = new Chronometer(width - 200, height - 200, timeTrial, 0);
         powerBar = new PowerBar(330, 110, minPower, maxPower);
         head = new HeadCharacter(110, 110, ResourceManager.getInstance().runHead,
-                GameManager.getInstance().getSelectedCharacter());
+                GameManager.getSelectedCharacter());
         head.getFrame(0);
-        if (GameManager.getInstance().getSelectedCharacter() ==
-                GameManager.getInstance().CHAR_SHO) {
+        if (GameManager.getSelectedCharacter() ==
+                GameManager.CHAR_SHO) {
             character = new RunCharacter(width / 2, height / 2,
                     ResourceManager.getInstance().runSho);
         }
-        else if (GameManager.getInstance().getSelectedCharacter() ==
-                GameManager.getInstance().CHAR_RYOKO) {
+        else if (GameManager.getSelectedCharacter() ==
+                GameManager.CHAR_RYOKO) {
             character = new RunCharacter(width / 2, height / 2,
                     ResourceManager.getInstance().runRyoko);
         }

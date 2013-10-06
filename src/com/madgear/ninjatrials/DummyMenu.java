@@ -27,6 +27,7 @@ import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.hud.SelectionStripe;
+import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 
@@ -78,16 +79,19 @@ public class DummyMenu extends GameScene {
 
     @Override
     public void onShowScene() {
+        int i = GameManager.getSelectedDiff();
         this.getBackground().setColor(0.5f, 0.3f, 0.2f);
         final Text loadingText = new Text(
                 ResourceManager.getInstance().cameraWidth * 0.5f,
                 ResourceManager.getInstance().cameraHeight * 0.5f,
                 ResourceManager.getInstance().fontMedium,
                 "Press O for action\n" +
-                "You must wait for " + PUSH_DELAY_TIME + " seconds.",
+                "You must wait for " + PUSH_DELAY_TIME + " seconds.\n" +
+                "Selected Diff = " + i,
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         this.attachChild(loadingText);
+
     }
 
     @Override
