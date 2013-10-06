@@ -60,12 +60,12 @@ public class ResourceManager {
 
     /* The variables listed should be kept public, allowing us easy access
        to them when creating new Sprites, Text objects and to play sound files */
-    public NinjaTrials activity;
-    public Engine engine;
-    public Context context;
-    public float cameraWidth;
-    public float cameraHeight;
-    public TextureManager textureManager;
+    public static NinjaTrials activity;
+    public static Engine engine;
+    public static Context context;
+    public static float cameraWidth;
+    public static float cameraHeight;
+    public static TextureManager textureManager;
 
     // MAIN MENU:
     public static ITextureRegion mainTitleTR;
@@ -143,17 +143,29 @@ public class ResourceManager {
 
 
     // RESULTS SCENE WIN
+    public static ITextureRegion winBg;
+    public static ITextureRegion winScroll;
+    public static ITiledTextureRegion winDrawings;
+    public static ITextureRegion winCharSho;
+    public static ITextureRegion winCharRyoko;
+    public static ITiledTextureRegion winStampRanking;
+    public static final int WIN_STAMP_INDEX_THUG = 0;
+    public static final int WIN_STAMP_INDEX_NINJA = 1;
+    public static final int WIN_STAMP_INDEX_NINJA_MASTER = 2;
+    public static final int WIN_STAMP_INDEX_GRAND_MASTER = 3;
 
     // RESULTS SCENE WIN SOUNDS
     public static Music winMusic;
     public static Sound winYouWin;
+    public static Sound winPointsSum;
+    public static Sound winPointsTotal;
 
 
     // GAME OVER SOUNDS
     public static Music gameOverMusic;
     public static Sound gameOver;
-    
-    
+
+
     // FONTS:
     public Font fontSmall;        // pequeño
     public Font fontMedium;        // mediano
@@ -908,7 +920,141 @@ public class ResourceManager {
         System.gc();
     }
 
+    
+    public static synchronized void loadResultWinResources() {
+        // Bg:
+        if(winBg==null) {
+            BitmapTextureAtlas winBgT =  new BitmapTextureAtlas(textureManager, 1920, 1080,
+                    mTransparentTextureOption);
+            winBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    winBgT, activity, "results_win_background.png", 0, 0);
+            winBgT.load();
+        }
 
+        // Scroll:
+        if(winScroll==null) {
+            BitmapTextureAtlas winScrollT =  new BitmapTextureAtlas(textureManager, 1064, 1029,
+                    mTransparentTextureOption);
+            winScroll = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    winScrollT, activity, "results_win_scroll.png", 0, 0);
+            winScrollT.load();
+        }
+
+        // Sho:
+        if(winCharSho==null) {
+            BitmapTextureAtlas winCharShoT =  new BitmapTextureAtlas(textureManager, 437, 799,
+                    mTransparentTextureOption);
+            winCharSho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    winCharShoT, activity, "results_win_ch_sho.png", 0, 0);
+            winCharShoT.load();
+        }
+
+        // Ryoko:
+        if(winCharRyoko==null) {
+            BitmapTextureAtlas winCharRyokoT =  new BitmapTextureAtlas(textureManager, 395, 767,
+                    mTransparentTextureOption);
+            winCharRyoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    winCharRyokoT, activity, "results_win_ch_ryoko.png", 0, 0);
+            winCharRyokoT.load();
+        }
+
+        // Drawings:
+        if(winDrawings==null) {
+            BuildableBitmapTextureAtlas winDrawingsT = new BuildableBitmapTextureAtlas(
+                    textureManager, 1106, 962, mTransparentTextureOption);
+            winDrawings = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    winDrawingsT, context, "results_win_drawings.png", 2, 2);
+            try {
+                winDrawingsT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            } catch (TextureAtlasBuilderException e) { e.printStackTrace(); }
+            winDrawingsT.load();
+        }
+
+        // Stamps:
+        if(winStampRanking==null) {
+            BuildableBitmapTextureAtlas winStampRankingT = new BuildableBitmapTextureAtlas(
+                    textureManager, 780, 400, mTransparentTextureOption);
+            winStampRanking = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    winStampRankingT, context, "results_win_stamp_ranking.png", 2, 2);
+            try {
+                winStampRankingT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            } catch (TextureAtlasBuilderException e) { e.printStackTrace(); }
+            winStampRankingT.load();
+        }
+        
+        // Music & Sounds:
+        SoundFactory.setAssetBasePath("sounds/");
+        MusicFactory.setAssetBasePath("music/");
+        try {
+            winYouWin = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_you_win.ogg");
+            winPointsSum = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "menu_points_sum.ogg");
+            winPointsTotal = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "menu_points_total.ogg");
+            winMusic = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "result_win.ogg");
+        } catch (final IOException e) {
+            Log.v("Sounds Load","Exception:" + e.getMessage());
+        }
+    }
+
+
+    public static synchronized void unloadResultWinResources() {
+        if(winBg!=null) {
+            if(winBg.getTexture().isLoadedToHardware()) {
+                winBg.getTexture().unload();
+                winBg = null;
+            }
+        }
+        if(winScroll!=null) {
+            if(winScroll.getTexture().isLoadedToHardware()) {
+                winScroll.getTexture().unload();
+                winScroll = null;
+            }
+        }
+        if(winCharSho!=null) {
+            if(winCharSho.getTexture().isLoadedToHardware()) {
+                winCharSho.getTexture().unload();
+                winCharSho = null;
+            }
+        }
+        if(winCharRyoko!=null) {
+            if(winCharRyoko.getTexture().isLoadedToHardware()) {
+                winCharRyoko.getTexture().unload();
+                winCharRyoko = null;
+            }
+        }
+        if(winDrawings!=null) {
+            if(winDrawings.getTexture().isLoadedToHardware()) {
+                winDrawings.getTexture().unload();
+                winDrawings = null;
+            }
+        }
+        if(winStampRanking!=null) {
+            if(winStampRanking.getTexture().isLoadedToHardware()) {
+                winStampRanking.getTexture().unload();
+                winStampRanking = null;
+            }
+        }
+
+        // Music & Sounds:
+        if(!winYouWin.isReleased())
+            winYouWin.release();
+        if(!winPointsSum.isReleased())
+            winPointsSum.release();
+        if(!winPointsTotal.isReleased())
+            winPointsTotal.release();
+        if(!winMusic.isReleased())
+            winMusic.release();
+
+        // Garbage Collector:
+        System.gc();
+    }
+    
+    
     public synchronized void loadGameOverResources() {
         // Music & Sounds:
         SoundFactory.setAssetBasePath("sounds/");
