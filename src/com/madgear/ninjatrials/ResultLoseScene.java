@@ -20,12 +20,11 @@ package com.madgear.ninjatrials;
 
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
-import org.andengine.entity.modifier.DelayModifier;
 import org.andengine.entity.modifier.FadeInModifier;
-import org.andengine.entity.modifier.FadeOutModifier;
-import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
+import org.andengine.entity.scene.background.SpriteBackground;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
@@ -34,7 +33,7 @@ import com.madgear.ninjatrials.hud.SelectionStripe;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
-import com.madgear.ninjatrials.trials.*;
+
 
 public class ResultLoseScene extends GameScene {
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
@@ -44,9 +43,11 @@ public class ResultLoseScene extends GameScene {
     private Text countdownText;
     private Text youLostText;
     private Text gameOver;
+    private SpriteBackground bg;
+    private Sprite characterSprite;
     private TimerHandler timerHandler;
-    private final static int COUNT_INIT = 10;
-    private int count = COUNT_INIT;
+    private int count = 10;
+    private boolean pressEnabled = true;
     
     /**
      * Contructor (no loading screen).
@@ -70,9 +71,15 @@ public class ResultLoseScene extends GameScene {
 
     @Override
     public void onShowScene() {
+        // Background:
+        bg = new SpriteBackground(new Sprite(WIDTH * 0.5f, HEIGHT * 0.5f,
+                ResourceManager.getInstance().loseBgTR,
+                ResourceManager.getInstance().engine.getVertexBufferObjectManager()));
+        setBackground(bg);
+
         // Continue?
         continueText = new Text(WIDTH - 400, HEIGHT - 200,
-                ResourceManager.getInstance().fontXBig, "Continue?",
+                ResourceManager.getInstance().fontBig, "Continue?",
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(continueText);
@@ -85,20 +92,37 @@ public class ResultLoseScene extends GameScene {
         attachChild(countdownText);
 
         // You Lost
-        youLostText = new Text(300, 300,
-                ResourceManager.getInstance().fontXBig, "You Lost!!",
+        youLostText = new Text(400, 300,
+                ResourceManager.getInstance().fontBig, "You Lost!!",
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         youLostText.setColor(android.graphics.Color.YELLOW);
         attachChild(youLostText);
 
         // SelectionStripe:
-        selectionStripe = new SelectionStripe(continueText.getX(), continueText.getY() - 300, 
-                SelectionStripe.DISP_HORIZONTAL, 50f,
+        selectionStripe = new SelectionStripe(continueText.getX(), continueText.getY() - 200, 
+                SelectionStripe.DISP_HORIZONTAL, 200f,
                 new String[] {"yes", "no"}, SelectionStripe.TEXT_ALIGN_CENTER, 0);
         attachChild(selectionStripe);
-        
-        // Timer:
+
+        // Character:
+        if(GameManager.getInstance().getSelectedCharacter() ==
+                GameManager.getInstance().CHAR_SHO) {
+            characterSprite = new Sprite(youLostText.getX(), youLostText.getY() + 300,
+                    ResourceManager.getInstance().loseCharShoTR,
+                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+        }
+        else {
+            characterSprite = new Sprite(youLostText.getX(), youLostText.getY() + 300,
+                    ResourceManager.getInstance().loseCharRyokoTR,
+                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+        }
+        attachChild(characterSprite);
+
+        countdown();
+    }
+
+    void countdown() {
         timerHandler= new TimerHandler(1, new ITimerCallback()
         {
             @Override
@@ -107,7 +131,6 @@ public class ResultLoseScene extends GameScene {
                 count--;
                 if(count < 0) {
                     ResultLoseScene.this.unregisterUpdateHandler(timerHandler);
-                    // TODO Go to GameOver Scene!
                     gameOver();
                 }
                 else {
@@ -139,21 +162,25 @@ public class ResultLoseScene extends GameScene {
 
     @Override
     public void onPressButtonO() {
-        int optionIndex = selectionStripe.getSelectedIndex();
-        switch(optionIndex) {
-        case 0:
-            // Yes
-            GameManager.getInstance().setLives(GameManager.getInstance().getLives() - 1);
-            nextTrial(GameManager.getInstance().getCurrentTrial());
-            break;
-        case 4:
-            // No
-            gameOver();
-            break;
+        if(pressEnabled) {
+            int optionIndex = selectionStripe.getSelectedIndex();
+            switch(optionIndex) {
+            case 0:
+                // Yes
+                GameManager.getInstance().setLives(GameManager.getInstance().getLives() - 1);
+                // TODO Go to the map screen:
+                SceneManager.getInstance().showScene(new DummyMenu());
+                break;
+            case 1:
+                // No
+                ResultLoseScene.this.unregisterUpdateHandler(timerHandler);
+                gameOver();
+                break;
+            }
         }
     }
 
-    private void nextTrial(int currentTrial) {
+/*    private void nextTrial(int currentTrial) {
         switch(currentTrial) {
         case GameManager.TRIAL_RUN:
             SceneManager.getInstance().showScene(new TrialSceneRun());
@@ -168,9 +195,10 @@ public class ResultLoseScene extends GameScene {
             SceneManager.getInstance().showScene(new TrialSceneShuriken());
             break;
         }
-    }
+    }*/
 
-    protected void gameOver() {
+    private void gameOver() {
+        pressEnabled = false;
         Rectangle rec = new Rectangle(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         rec.setAlpha(0f);
@@ -184,5 +212,17 @@ public class ResultLoseScene extends GameScene {
         attachChild(gameOver);
         
         rec.registerEntityModifier(new FadeInModifier(5f));
+
+        // Timer:
+        timerHandler= new TimerHandler(8, new ITimerCallback()
+        {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler)
+            {
+                ResultLoseScene.this.unregisterUpdateHandler(timerHandler);
+                SceneManager.getInstance().showScene(new MainMenuScene());
+            }
+        });
+        registerUpdateHandler(timerHandler);
     }
 }

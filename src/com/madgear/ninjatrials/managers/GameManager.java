@@ -25,6 +25,7 @@ public class GameManager {
     private static GameManager INSTANCE;
 
     // GENERAL:
+    public static final boolean DEBUG_MODE = true;
     private static final int INITIAL_SCORE = 0;
     public static final int CHAR_RYOKO = 0;
     public static final int CHAR_SHO = 1;
@@ -113,7 +114,7 @@ public class GameManager {
 
     public void resetGame(){
         currentScore = INITIAL_SCORE;
-        currentTrial = TRIAL_RUN;
+        currentTrial = TRIAL_CUT;
         lives = LIVES_INIT;
         selectedCharacter = CHAR_SHO;
         selectedDiff = DIFF_MEDIUM;
