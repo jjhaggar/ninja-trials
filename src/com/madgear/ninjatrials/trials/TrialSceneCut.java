@@ -47,6 +47,7 @@ import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.hud.PrecisionBar;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.test.TestingScene;
 
@@ -153,9 +154,7 @@ public class TrialSceneCut extends GameScene {
         attachChild(mEyes);
         attachChild(blinkLayer);
         attachChild(mKatana);
-        if(ResourceManager.getInstance().cutMusic != null &&
-                !ResourceManager.getInstance().cutMusic.isPlaying())
-            ResourceManager.getInstance().cutMusic.play();
+        SFXManager.playMusic(ResourceManager.getInstance().cutMusic);
         readySequence();
     }
 
@@ -411,7 +410,7 @@ public class TrialSceneCut extends GameScene {
                             top.getY(),
                             top.getY() - 400, 100f),
                     new RotationByModifier(2f, (float) Math.random() * 180)));
-            ResourceManager.getInstance().cutThud.play();
+            SFXManager.playSound(ResourceManager.getInstance().cutThud);
         }
     }
 
