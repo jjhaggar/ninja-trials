@@ -136,11 +136,18 @@ public class ResourceManager {
     public static ITextureRegion loseCharRyokoTR;
     public static ITextureRegion loseCharShoTR;
     public static ITextureRegion loseBgTR;
-    
+
+    // RESULTS SCENE LOSE SOUNDS
+    public Music loseMusic;
+    public Sound loseYouLose;
+
     // RESULTS SCENE WIN
-    
-    
-    
+
+    // RESULTS SCENE WIN SOUNDS
+    public Music winMusic;
+    public Sound winYouWin;
+
+
     // FONTS:
     public Font fontSmall;        // pequeño
     public Font fontMedium;        // mediano
@@ -600,7 +607,7 @@ public class ResourceManager {
             cutSword1T.load();
         }
 
-        // Músic & Sounds:
+        // Music & Sounds:
         SoundFactory.setAssetBasePath("sounds/");
         MusicFactory.setAssetBasePath("music/");
         try {
@@ -693,7 +700,7 @@ public class ResourceManager {
             }
         }
 
-        // Sounds:
+        // Music & Sounds:
         if(!cutEyesZoom.isReleased())
             cutEyesZoom.release();
         if(!cutKatana1.isReleased())
@@ -821,12 +828,7 @@ public class ResourceManager {
         System.gc();
     }
 
-/*    // RESULTS SCENE LOSE
-    public static ITextureRegion loseCharRyokoTR;
-    public static ITextureRegion loseCharShoTR;
-    public static ITextureRegion loseBgTR;
-    */
-    
+
     public synchronized void loadResultLoseSceneResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/results/");
 
@@ -856,6 +858,18 @@ public class ResourceManager {
                     loseCharRyokoT, activity, "results_lose_ch_ryoko.png", 0, 0);
             loseCharRyokoT.load();
         }
+
+        // Music & Sounds:
+        SoundFactory.setAssetBasePath("sounds/");
+        MusicFactory.setAssetBasePath("music/");
+        try {
+            loseYouLose = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_you_lose.ogg");
+            loseMusic = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "result_lose.ogg");
+        } catch (final IOException e) {
+            Log.v("Sounds Load","Exception:" + e.getMessage());
+        }
     }
 
     public synchronized void unloadResultLoseSceneResources() {
@@ -877,6 +891,13 @@ public class ResourceManager {
                 loseCharRyokoTR = null;
             }
         }
+
+        // Music & Sounds:
+        if(!loseYouLose.isReleased())
+            loseYouLose.release();
+        if(!loseMusic.isReleased())
+            loseMusic.release();
+
         // Garbage Collector:
         System.gc();
     }

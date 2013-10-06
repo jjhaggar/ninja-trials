@@ -32,6 +32,7 @@ import org.andengine.util.adt.align.HorizontalAlign;
 import com.madgear.ninjatrials.hud.SelectionStripe;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 
 
@@ -119,6 +120,10 @@ public class ResultLoseScene extends GameScene {
         }
         attachChild(characterSprite);
 
+        // Music:
+        SFXManager.playMusic(ResourceManager.getInstance().loseMusic);
+        SFXManager.playSound(ResourceManager.getInstance().loseYouLose);
+
         countdown();
     }
 
@@ -130,7 +135,6 @@ public class ResultLoseScene extends GameScene {
             {
                 count--;
                 if(count < 0) {
-                    ResultLoseScene.this.unregisterUpdateHandler(timerHandler);
                     gameOver();
                 }
                 else {
@@ -173,7 +177,6 @@ public class ResultLoseScene extends GameScene {
                 break;
             case 1:
                 // No
-                ResultLoseScene.this.unregisterUpdateHandler(timerHandler);
                 gameOver();
                 break;
             }
@@ -198,6 +201,7 @@ public class ResultLoseScene extends GameScene {
     }*/
 
     private void gameOver() {
+        clearUpdateHandlers();
         pressEnabled = false;
         Rectangle rec = new Rectangle(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
