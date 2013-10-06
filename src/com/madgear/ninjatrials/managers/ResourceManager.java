@@ -113,13 +113,13 @@ public class ResourceManager {
     public static ITextureRegion cutHudCursorTR;
 
     // CUT SCENE SOUNDS:
-    public Music cutMusic;
-    public Sound cutEyesZoom;
-    public Sound cutKatana1;
-    public Sound cutKatana2;
-    public Sound cutKatana3;
-    public Sound cutKatanaWhoosh;
-    public Sound cutThud;    
+    public static Music cutMusic;
+    public static Sound cutEyesZoom;
+    public static Sound cutKatana1;
+    public static Sound cutKatana2;
+    public static Sound cutKatana3;
+    public static Sound cutKatanaWhoosh;
+    public static Sound cutThud;    
 
 
 	// RUN SCENE
@@ -138,16 +138,22 @@ public class ResourceManager {
     public static ITextureRegion loseBgTR;
 
     // RESULTS SCENE LOSE SOUNDS
-    public Music loseMusic;
-    public Sound loseYouLose;
+    public static Music loseMusic;
+    public static Sound loseYouLose;
+
 
     // RESULTS SCENE WIN
 
     // RESULTS SCENE WIN SOUNDS
-    public Music winMusic;
-    public Sound winYouWin;
+    public static Music winMusic;
+    public static Sound winYouWin;
 
 
+    // GAME OVER SOUNDS
+    public static Music gameOverMusic;
+    public static Sound gameOver;
+    
+    
     // FONTS:
     public Font fontSmall;        // pequeño
     public Font fontMedium;        // mediano
@@ -900,6 +906,30 @@ public class ResourceManager {
 
         // Garbage Collector:
         System.gc();
+    }
+
+
+    public synchronized void loadGameOverResources() {
+        // Music & Sounds:
+        SoundFactory.setAssetBasePath("sounds/");
+        MusicFactory.setAssetBasePath("music/");
+        try {
+            gameOver = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_game_over.ogg");
+            gameOverMusic = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "game_over.ogg");
+        } catch (final IOException e) {
+            Log.v("Sounds Load","Exception:" + e.getMessage());
+        }
+    }
+
+
+    public synchronized void unloadGameOverResources() {
+        // Music & Sounds:
+        if(!gameOver.isReleased())
+            gameOver.release();
+        if(!gameOverMusic.isReleased())
+            gameOverMusic.release();
     }
 
 

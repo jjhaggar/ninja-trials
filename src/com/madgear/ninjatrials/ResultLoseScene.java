@@ -30,6 +30,7 @@ import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.hud.SelectionStripe;
+import com.madgear.ninjatrials.layers.GameOverLayer;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
@@ -43,7 +44,6 @@ public class ResultLoseScene extends GameScene {
     private Text continueText;
     private Text countdownText;
     private Text youLostText;
-    private Text gameOver;
     private SpriteBackground bg;
     private Sprite characterSprite;
     private TimerHandler timerHandler;
@@ -183,50 +183,10 @@ public class ResultLoseScene extends GameScene {
         }
     }
 
-/*    private void nextTrial(int currentTrial) {
-        switch(currentTrial) {
-        case GameManager.TRIAL_RUN:
-            SceneManager.getInstance().showScene(new TrialSceneRun());
-            break;
-        case GameManager.TRIAL_CUT:
-            SceneManager.getInstance().showScene(new TrialSceneCut());
-            break;
-        case GameManager.TRIAL_JUMP:
-            SceneManager.getInstance().showScene(new TrialSceneJump());
-            break;
-        case GameManager.TRIAL_SHURIKEN:
-            SceneManager.getInstance().showScene(new TrialSceneShuriken());
-            break;
-        }
-    }*/
-
     private void gameOver() {
         clearUpdateHandlers();
-        pressEnabled = false;
-        Rectangle rec = new Rectangle(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT,
-                ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        rec.setAlpha(0f);
-        rec.setColor(0f, 0f, 0f);
-        attachChild(rec);
-
-        gameOver = new Text(WIDTH/2, HEIGHT/2,
-                ResourceManager.getInstance().fontXBig, "Game Over",
-                new TextOptions(HorizontalAlign.CENTER),
-                ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        attachChild(gameOver);
-        
-        rec.registerEntityModifier(new FadeInModifier(5f));
-
-        // Timer:
-        timerHandler= new TimerHandler(8, new ITimerCallback()
-        {
-            @Override
-            public void onTimePassed(final TimerHandler pTimerHandler)
-            {
-                ResultLoseScene.this.unregisterUpdateHandler(timerHandler);
-                SceneManager.getInstance().showScene(new MainMenuScene());
-            }
-        });
-        registerUpdateHandler(timerHandler);
+        SFXManager.pauseMusic(ResourceManager.getInstance().loseMusic);
+        //pressEnabled = false;
+        SceneManager.getInstance().showLayer(new GameOverLayer(), false, false, true);
     }
 }
