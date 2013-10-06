@@ -25,10 +25,10 @@ import android.content.SharedPreferences;
 
 public class UserData {
 
-    private static UserData INSTANCE;
+    //private static UserData INSTANCE;
 
     // Include a 'filename' for our shared preferences
-    private static final String PREFS_NAME = "GAME_USERDATA";
+    private static final String PREFS_NAME = "NINJATRIALS_USERDATA";
 
     /* These keys will tell the shared preferences editor which
        data we're trying to access */
@@ -38,27 +38,27 @@ public class UserData {
 
     /* Create our shared preferences object & editor which will
        be used to save and load data */
-    private SharedPreferences mSettings;
-    private SharedPreferences.Editor mEditor;
+    private static SharedPreferences mSettings;
+    private static SharedPreferences.Editor mEditor;
 
     // keep track of our max unlocked level
-    private int mUnlockedLevels;
+    private static int mUnlockedLevels;
 
     // keep track of whether or not sound is enabled
-    private boolean mSoundEnabled;
+    private static boolean mSoundEnabled;
 
     UserData() {
         // The constructor is of no use to us
     }
-
+/*
     public synchronized static UserData getInstance() {
         if(INSTANCE == null){
             INSTANCE = new UserData();
         }
         return INSTANCE;
-    }
+    }*/
 
-    public synchronized void init(Context pContext) {
+    public static synchronized void init(Context pContext) {
         if (mSettings == null) {
             /* Retrieve our shared preference file, or if it's not yet
              * created (first application execution) then create it now

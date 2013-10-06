@@ -93,7 +93,7 @@ public class NinjaTrials extends BaseGameActivity {
         GameManager.resetGame();
 
         // Se crea el fichero de datos del usuario si no existe:
-        UserData.getInstance().init(ResourceManager.getInstance().context);
+        UserData.init(ResourceManager.getInstance().context);
 
         // Cargamos las fuentes:
         ResourceManager.getInstance().loadFonts(
