@@ -460,7 +460,7 @@ public class TrialSceneCut extends GameScene {
                     new FadeInModifier(0.1f),
                     new DelayModifier(0.5f),
                     new FadeOutModifier(0.1f)));
-            ResourceManager.getInstance().cutEyesZoom.play();
+            SFXManager.playSound(ResourceManager.getInstance().cutEyesZoom);
         }
     }
 
@@ -504,8 +504,8 @@ public class TrialSceneCut extends GameScene {
             katanaSpriteRight.registerEntityModifier(new SequenceEntityModifier(
                     new FadeInModifier(0.05f), new DelayModifier(0.4f), new FadeOutModifier(0.1f)));
             katanaSpriteRight.animate(katanaAnimTime, 0, 3, false);
-            ResourceManager.getInstance().cutKatana1.play();
-            ResourceManager.getInstance().cutKatanaWhoosh.play();
+            SFXManager.playSound(ResourceManager.getInstance().cutKatana1);
+            SFXManager.playSound(ResourceManager.getInstance().cutKatanaWhoosh);
         }
 
         /**
@@ -515,7 +515,7 @@ public class TrialSceneCut extends GameScene {
             katanaSpriteLeft.registerEntityModifier(new SequenceEntityModifier(
                     new FadeInModifier(0.05f), new DelayModifier(0.4f), new FadeOutModifier(0.1f)));
             katanaSpriteLeft.animate(katanaAnimTime, 0, 3, false);
-            ResourceManager.getInstance().cutKatana2.play();
+            SFXManager.playSound(ResourceManager.getInstance().cutKatana2);
         }
 
         /**
@@ -524,7 +524,7 @@ public class TrialSceneCut extends GameScene {
         public void cutCenter() {
             katanaSpriteCenter.registerEntityModifier(new SequenceEntityModifier(
                     new FadeInModifier(0.1f), new DelayModifier(0.2f), new FadeOutModifier(0.1f)));
-            ResourceManager.getInstance().cutKatana3.play();
+            SFXManager.playSound(ResourceManager.getInstance().cutKatana3);
         }
     }
 }
