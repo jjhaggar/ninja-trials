@@ -1,7 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- App internal strings -->
     <string name="app_name">Ninja Trials</string>
+	<!-- Creo que la siguiente cadena no se usa, no? La purificamos con lanzallamas? -->
     <string name="action_settings">Settings</string>
+
+
+    <!-- Main Menu Scene  -->
+    <string name="main_menu_play">Play</string>
+    <string name="main_menu_options">Options</string>
+    <string name="main_menu_achievements">Achievements</string>
+
+
+    <!-- Achievements Menu Scene -->
+	<!-- Achievement 1 Name -->
+    <string name="achievement_01">The runner</string>
+	<!-- Achievement 1 Description - RUN TRIAL: Run 200Km, we\'ll have to do something with unit conversions here ^^U -->
+	<string name="achievement_01_desc">Run a total of 200 Km</string>
+	<!-- Achievement 2 Name -->
+    <string name="achievement_02">StrawMan\'s Massacre</string>
+	<!-- Achievement 2 Description - SHURIKEN TRIAL: Destroy 500 StrawMen -->
+	<string name="achievement_02_desc">Destroy 500 StrawMen</string>
+	<!-- Achievement 3 Name -->
+    <string name="achievement_03">Perfect Jumper</string>
+	<!-- Achievement 3 Description - JUMP: Perform 100 perfect jumps -->
+	<string name="achievement_03_desc">Perform 100 perfect jumps</string>
+	<!-- Achievement 4 Name -->
+    <string name="achievement_04">Master of Sword</string>
+	<!-- Achievement 4 Description - CUT TRIAL: Achieve a single cut with 100% precision -->
+	<string name="achievement_04_desc">Achieve a single cut with 100% precision</string>
+	<!-- Achievement 5 Name -->
+    <string name="achievement_05">A Ninja is One Who Endures</string>
+	<!-- Achievement 5 Description - GAME: Play the game for at least 100 hours -->
+	<string name="achievement_05_desc">Play the game for at least 100 hours</string>
+	<!-- Achievement 6 Name -->
+    <string name="achievement_06">All your records are belong to us</string>
+	<!-- Achievement 6 Description - GAME (SECRET): Get all default records replaced by players records -->
+	<string name="achievement_06_desc">Get all default records replaced by players records</string>
+
+
+    <!-- Intro 2 Scene - Common part -->
+    <!-- The master speaks to his young disciples Ryoko and Sho (next 3 lines) -->
+    <string name="intro2_master_01">
+        You both have completed your training, 
+    </string>
+    <string name="intro2_master_02">
+        now it\'s time you have your final test.
+    </string>
+    <string name="intro2_master_03">
+        Prove you\'re worthy of being true KazenoKage ninjas.
+    </string>
+    <!-- Sho answers to his master -->
+	<string name="intro2_sho_01">
+        Yes, master!
+    </string>
+	<!-- Ryoko answers to her master -->
+	<string name="intro2_ryoko_01">
+        Yes, master!
+    </string>
+	<!-- Intro 2 Scene - Sho exclusive part -->
+    <string name="intro2_sho_02">
+        I\'ll be a ninja, so... (blah, blah)
+    </string>
+	<!-- Intro 2 Scene - Ryoko exclusive part -->
+    <string name="intro2_ryoko_02">
+        Female ninjas are called kunoichi... (blah, blah)
+    </string>
+
+
+    <!-- Ending Scene - Sho (Easy) -->
+    <string name="ending_sho_easy_01">
+        Sho\'s my name and I\'m a true ninja of KazenoKage clan!!
+    </string>
+    <!-- Ending Scene - Ryoko (Easy) -->
+    <string name="ending_ryoko_easy_01">
+        Blah, blah, blah, I\'m Ryoko and I\'ve passed the tests, blah, blah...
+    </string>
 
 </resources>

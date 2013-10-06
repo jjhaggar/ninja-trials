@@ -30,6 +30,7 @@ import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.trials.TrialSceneCut;
 import com.madgear.ninjatrials.trials.TrialSceneJump;
+import com.madgear.ninjatrials.trials.TrialSceneShuriken;
 
 public class TestingScene extends GameScene {
     private TestGrid testGrid;
@@ -113,6 +114,13 @@ public class TestingScene extends GameScene {
             @Override
             public void onAction() {
                 SceneManager.getInstance().showScene(new TrialSceneJump());
+            }
+        });
+        
+        testGrid.addItem(new TestGridItem("Trial Shrkn") {
+            @Override
+            public void onAction() {
+                SceneManager.getInstance().showScene(new TrialSceneShuriken());
             }
         });
         
