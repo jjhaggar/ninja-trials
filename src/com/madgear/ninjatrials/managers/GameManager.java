@@ -19,6 +19,8 @@
 
 package com.madgear.ninjatrials.managers;
 
+import com.madgear.ninjatrials.ResultTrial;
+
 
 public class GameManager {
 
@@ -27,17 +29,27 @@ public class GameManager {
     // GENERAL:
     public static final boolean DEBUG_MODE = true;
 
-    private static final int INITIAL_SCORE = 0;
+    private static final int SCORE_INIT = 0;
+    public static final int LIVES_INIT = 5;
+
     public static final int CHAR_RYOKO = 0;
     public static final int CHAR_SHO = 1;
+    
+    public static final int PLAYER_LEFT = 0;
+    public static final int PLAYER_RIGHT = 1;
+    
     public static final int DIFF_EASY = 0;
     public static final int DIFF_MEDIUM = 1;
     public static final int DIFF_HARD = 2;
+    
     public static final int TRIAL_RUN = 1;
     public static final int TRIAL_CUT = 2;
     public static final int TRIAL_SHURIKEN = 3;
     public static final int TRIAL_JUMP = 4;
-    public static final int LIVES_INIT = 5;
+
+
+    public static ResultTrial player1result;
+    public static ResultTrial player2result;
 
     private static int score;
     private static int currentTrial;
@@ -48,7 +60,8 @@ public class GameManager {
     private static float soundVolume;
     private static float musicVolume;
 
-    
+
+
 /*    // Contructor:
     GameManager(){
     }
@@ -64,14 +77,16 @@ public class GameManager {
     // Métodos:
 
     public static void resetGame(){
-        score = INITIAL_SCORE;
-        currentTrial = TRIAL_CUT;
+        score = SCORE_INIT;
         lives = LIVES_INIT;
+        currentTrial = TRIAL_RUN;
         selectedCharacter = CHAR_SHO;
         selectedDiff = DIFF_MEDIUM;
         gameLanguage = "en";
         setSoundVolume(1f);
         setMusicVolume(1f);
+        player1result = new ResultTrial();
+        player2result = new ResultTrial();
     }
 
     public static int getSelectedCharacter() {

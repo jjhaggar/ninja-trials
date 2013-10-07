@@ -922,6 +922,8 @@ public class ResourceManager {
 
     
     public static synchronized void loadResultWinResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/results/");
+
         // Bg:
         if(winBg==null) {
             BitmapTextureAtlas winBgT =  new BitmapTextureAtlas(textureManager, 1920, 1080,
