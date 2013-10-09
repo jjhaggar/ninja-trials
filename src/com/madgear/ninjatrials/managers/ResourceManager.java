@@ -156,8 +156,8 @@ public class ResourceManager {
 
     // RESULTS SCENE WIN SOUNDS
     public static Music winMusic;
-    public static Sound winYouWin;
     public static Sound winPointsSum;
+    public static Sound winYouWin;
     public static Sound winPointsTotal;
 
 
@@ -1043,13 +1043,13 @@ public class ResourceManager {
         }
 
         // Music & Sounds:
-        if(!winYouWin.isReleased())
+        if(winYouWin != null && !winYouWin.isReleased())
             winYouWin.release();
-        if(!winPointsSum.isReleased())
+        if(winPointsSum != null && !winPointsSum.isReleased())
             winPointsSum.release();
-        if(!winPointsTotal.isReleased())
+        if(winPointsTotal != null && !winPointsTotal.isReleased())
             winPointsTotal.release();
-        if(!winMusic.isReleased())
+        if(winMusic != null && !winMusic.isReleased())
             winMusic.release();
 
         // Garbage Collector:

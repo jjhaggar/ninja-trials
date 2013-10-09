@@ -34,6 +34,7 @@ import android.util.Log;
 
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.test.TestingScene;
 import com.madgear.ninjatrials.trials.TrialSceneCut;
@@ -56,11 +57,11 @@ public class ResultWinScene extends GameScene {
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
     private static final int MAX_SCORE_ITEMS = 5;
     private static final float POS_X_LEFT_SCORE = 600f;
-    private static final float SCORE_ROW_HEIGHT = HEIGHT - 380;
+    private static final float SCORE_ROW_HEIGHT = HEIGHT - 320;
     protected static final float SCORE_ROW_GAP = 80;
+    private static final float WAITING_TIME = 2;
 
     private Text tittleText;
-    private String tittle;
     private SpriteBackground bg;
     private Sprite characterSprite;
     private Sprite scroll;
@@ -248,7 +249,19 @@ public class ResultWinScene extends GameScene {
             break;
         }
         
-        showResults();
+        waitForSoundsLoaded();
+        //showResults();
+    }
+
+    private void waitForSoundsLoaded() {
+        TimerHandler timerHandler = new TimerHandler(WAITING_TIME, new ITimerCallback() {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                ResultWinScene.this.unregisterUpdateHandler(pTimerHandler);
+                showResults();
+            }
+        });
+        registerUpdateHandler(timerHandler);        
     }
 
     /**
@@ -260,7 +273,7 @@ public class ResultWinScene extends GameScene {
         tittleText.setVisible(true);
         stamp.setVisible(true);
         scoreItemArrayIndex = 0;        
-        
+
         updateHandler = new IUpdateHandler() {
             @Override
             public void onUpdate(float pSecondsElapsed) {
@@ -283,6 +296,10 @@ public class ResultWinScene extends GameScene {
 
         // Add the trial score to the total score:
         GameManager.incrementScore(TrialSceneCut.getScore());
+        
+        // Sounds:
+        SFXManager.playSound(ResourceManager.getInstance().winYouWin);
+        SFXManager.playMusic(ResourceManager.getInstance().winMusic);
     }
 
     /**
@@ -290,6 +307,7 @@ public class ResultWinScene extends GameScene {
      * then go to the map scene (and set the current trial to the next one).
      */
     private void endingSequence() {
+        SFXManager.pauseMusic(ResourceManager.getInstance().winMusic);
         if(GameManager.getCurrentTrial() == GameManager.TRIAL_FINAL)
             // TODO:  SceneManager.getInstance().showScene(new EndingScene());
             SceneManager.getInstance().showScene(new TestingScene());
@@ -380,6 +398,7 @@ public class ResultWinScene extends GameScene {
             sumFinished = false;
             finalScore = (int)currentScore + points;
             setIgnoreUpdate(false);
+            SFXManager.playSoundLoop(ResourceManager.getInstance().winPointsSum);
         }
 
         /**
@@ -390,6 +409,8 @@ public class ResultWinScene extends GameScene {
             scoreText.setText(Integer.toString(currentScore));
             sumFinished = true;
             setIgnoreUpdate(true);
+            SFXManager.stopSound(ResourceManager.getInstance().winPointsSum);
+            SFXManager.playSound(ResourceManager.getInstance().winPointsTotal);
         }
 
         /**

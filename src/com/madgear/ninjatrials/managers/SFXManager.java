@@ -24,8 +24,24 @@ import org.andengine.audio.sound.Sound;
 public class SFXManager {
     
     public static void playSound(Sound s) {
-        s.setVolume(GameManager.getSoundVolume());
-        s.play();
+        if(s != null && s.isLoaded()) {
+            s.setVolume(GameManager.getSoundVolume());
+            s.play();
+        }
+    }
+    
+    public static void playSoundLoop(Sound s) {
+        if(s != null && s.isLoaded()) {
+            s.setVolume(GameManager.getSoundVolume());
+            s.setLooping(true);
+            s.play();
+        }
+    }
+    
+    public static void stopSound(Sound s) {
+        if(s != null && s.isLoaded()) {
+            s.stop();
+        }
     }
     
     public static void playMusic(Music m) {
