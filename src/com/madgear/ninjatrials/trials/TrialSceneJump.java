@@ -74,7 +74,7 @@ public class TrialSceneJump extends GameScene {
     private Candle candleLeft, candleRight;
     private GameHUD gameHUD;
     private PrecisionBar precisionBar;
-    private PrecisionAngleBar angleBar;
+    private static PrecisionAngleBar angleBar;
     private Chronometer chrono;
     private Character mCharacter;
     private Eyes mEyes;
@@ -322,7 +322,7 @@ public class TrialSceneJump extends GameScene {
      * Score = 100 - abs(precision bar power value) - precision bar semicycle number * 3
      * @return The Trial Score (int from 0 to 100).
      */
-    private int getScore() {
+    public static int getScore() {
         int trialScore;
         //trialScore = 100 - Math.abs(precisionBar.getPowerValue()) - precisionBar.getSemicycle() * 3;
         trialScore = angleBar.getPowerValue();
@@ -534,5 +534,25 @@ public class TrialSceneJump extends GameScene {
             katanaSpriteCenter.registerEntityModifier(new SequenceEntityModifier(
                     new FadeInModifier(0.1f), new DelayModifier(0.2f), new FadeOutModifier(0.1f)));
         }
+    }
+
+    public static int getStamp(int score2) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public static int getTimeScore() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public static int getPerfectJumpScore() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public static int getMaxPerfectJumpScore() {
+        // TODO Auto-generated method stub
+        return 0;
     }
 }

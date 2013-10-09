@@ -381,6 +381,29 @@ public class TrialSceneShuriken extends GameScene {
 			dianaSprite.setAlpha(0f);
 		}
 	}
+
+
+
+
+    public static int getScore() {
+        // TODO Auto-generated method stub
+        return 1;
+    }
+
+    public static int getStamp(int score2) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public static int getTimeScore() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public static int getPrecissionScore() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 	
 	
 	

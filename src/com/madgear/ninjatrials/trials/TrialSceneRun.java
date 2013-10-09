@@ -318,4 +318,34 @@ private void runFinish() {
 		}
 		return false;
     }
+
+    public static int getTimeScore() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public static int getMaxSpeedComboScore() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public static int getMaxSpeedComboTotalScore() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public static int getMaxSpeedScore() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public static int getScore() {
+        // TODO Auto-generated method stub
+        return 1;
+    }
+
+    public static int getStamp(int score) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

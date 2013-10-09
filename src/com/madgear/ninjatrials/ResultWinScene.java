@@ -37,6 +37,9 @@ import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.test.TestingScene;
 import com.madgear.ninjatrials.trials.TrialSceneCut;
+import com.madgear.ninjatrials.trials.TrialSceneJump;
+import com.madgear.ninjatrials.trials.TrialSceneRun;
+import com.madgear.ninjatrials.trials.TrialSceneShuriken;
 
 /**
  * This class shows the trial results, and adds the trial score to the total game score.
@@ -53,7 +56,8 @@ public class ResultWinScene extends GameScene {
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
     private static final int MAX_SCORE_ITEMS = 5;
     private static final float POS_X_LEFT_SCORE = 600f;
-    private static final float TIME_STARTING = 3f;
+    private static final float SCORE_ROW_HEIGHT = HEIGHT - 380;
+    protected static final float SCORE_ROW_GAP = 80;
 
     private Text tittleText;
     private String tittle;
@@ -187,14 +191,20 @@ public class ResultWinScene extends GameScene {
         case GameManager.TRIAL_RUN:
             tittleText.setText("Run Results");
             drawings.setCurrentTileIndex(2);
-            stamp.setCurrentTileIndex(TrialSceneCut.getStamp(TrialSceneCut.getScore()));
+            stamp.setCurrentTileIndex(TrialSceneRun.getStamp(TrialSceneRun.getScore()));
             scoreItemsNumber = 4;
-            scoreItemArray[0] = new ScoreItem("Rounds",
-                    String.valueOf(GameManager.player1result.cutRound),
-                    TrialSceneCut.getRoundScore());
-            scoreItemArray[1] = new ScoreItem("Concentratation",
-                    String.valueOf(GameManager.player1result.cutConcentration),
-                    TrialSceneCut.getConcentrationScore());
+            scoreItemArray[0] = new ScoreItem("Time",
+                    String.valueOf(GameManager.player1result.runTime),
+                    TrialSceneRun.getTimeScore());
+            scoreItemArray[1] = new ScoreItem("Max Speed Combo",
+                    String.valueOf(GameManager.player1result.runMaxSpeedCombo),
+                    TrialSceneRun.getMaxSpeedComboScore());
+            scoreItemArray[2] = new ScoreItem("Max Speed Combo Total",
+                    String.valueOf(GameManager.player1result.runMaxSpeedComboTotal),
+                    TrialSceneRun.getMaxSpeedComboTotalScore());
+            scoreItemArray[3] = new ScoreItem("Max Speed",
+                    String.valueOf(GameManager.player1result.runMaxSpeed),
+                    TrialSceneRun.getMaxSpeedScore());
             break;
 
         case GameManager.TRIAL_CUT:
@@ -211,16 +221,34 @@ public class ResultWinScene extends GameScene {
             break;
             
         case GameManager.TRIAL_JUMP:
-            drawingIndex = 0;
-            tittle = "Jump Results";
+            tittleText.setText("Jump Results");
+            drawings.setCurrentTileIndex(0);
+            stamp.setCurrentTileIndex(TrialSceneJump.getStamp(TrialSceneJump.getScore()));
+            scoreItemsNumber = 3;
+            scoreItemArray[0] = new ScoreItem("Time",
+                    String.valueOf(GameManager.player1result.jumpTime),
+                    TrialSceneJump.getTimeScore());
+            scoreItemArray[1] = new ScoreItem("Perfect Jump Combo",
+                    String.valueOf(GameManager.player1result.jumpPerfectJumpCombo),
+                    TrialSceneJump.getPerfectJumpScore());
+            scoreItemArray[2] = new ScoreItem("Max Perfect Jump Combo",
+                    String.valueOf(GameManager.player1result.jumpMaxPerfectJumpCombo),
+                    TrialSceneJump.getMaxPerfectJumpScore());
             break;
+            
         case GameManager.TRIAL_SHURIKEN:
-            drawingIndex = 1;
-            tittle = "Shuriken Results";
+            tittleText.setText("Shuriken Results");
+            drawings.setCurrentTileIndex(1);
+            stamp.setCurrentTileIndex(TrialSceneShuriken.getStamp(TrialSceneShuriken.getScore()));
+            scoreItemsNumber = 2;
+            scoreItemArray[0] = new ScoreItem("Rounds",
+                    String.valueOf(GameManager.player1result.shurikenTime),
+                    TrialSceneShuriken.getTimeScore());
+            scoreItemArray[1] = new ScoreItem("Concentratation",
+                    String.valueOf(GameManager.player1result.shurikenPrecission),
+                    TrialSceneShuriken.getPrecissionScore());
             break;
         }
-
-        showResults();
     }
 
     /**
@@ -239,7 +267,7 @@ public class ResultWinScene extends GameScene {
                 if(growingScore.isFinished())
                     if(scoreItemArrayIndex < scoreItemsNumber) {
                         growingScore.addScore(scoreItemArray[scoreItemArrayIndex].addedPoints);
-                        addScoreLine(HEIGHT - 380 - 100 * scoreItemArrayIndex,
+                        addScoreLine(SCORE_ROW_HEIGHT - SCORE_ROW_GAP * scoreItemArrayIndex,
                             scoreItemArray[scoreItemArrayIndex].description,
                             scoreItemArray[scoreItemArrayIndex].value);
                         scoreItemArrayIndex++;                    
