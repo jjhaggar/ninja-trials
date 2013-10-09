@@ -18,7 +18,10 @@
 
 package com.madgear.ninjatrials;
 
+import org.andengine.engine.handler.IUpdateHandler;
+import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.Entity;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.Sprite;
@@ -27,32 +30,50 @@ import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
 
+import android.util.Log;
+
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.test.TestingScene;
+import com.madgear.ninjatrials.trials.TrialSceneCut;
 
 /**
- * This class shows the trial results, and adds the trial score to the total score.
+ * This class shows the trial results, and adds the trial score to the total game score.
  * @author Madgear Games
  *
  */
 public class ResultWinScene extends GameScene {
+    public final static int STAMP_THUG = 0;
+    public final static int STAMP_NINJA = 1;
+    public final static int STAMP_NINJA_MASTER = 2;
+    public final static int STAMP_GRAND_MASTER = 3;
+    
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
-    private String trialName;
-    private Text trialNameText;
+    private static final int MAX_SCORE_ITEMS = 5;
+    private static final float POS_X_LEFT_SCORE = 600f;
+    private static final float TIME_STARTING = 3f;
+
+    private Text tittleText;
+    private String tittle;
     private SpriteBackground bg;
     private Sprite characterSprite;
     private Sprite scroll;
     private TiledSprite drawings;
     private TiledSprite stamp;
-    private TimerHandler timerHandler;
     private boolean pressEnabled = true;
+    private GrowingScore growingScore;
+    private int scoreItemsNumber;
+    private int scoreItemArrayIndex;
+    private ScoreItem[] scoreItemArray;
+    private TimerHandler timerHandler;
+    private IUpdateHandler updateHandler;
     private int drawingIndex;
 
-
+    
     public ResultWinScene() {
-        super(0f);
+        super(0f);  // 0 = no loading screen.
     }
 
     @Override
@@ -73,8 +94,8 @@ public class ResultWinScene extends GameScene {
     @Override
     public void onShowScene() {
 
-        testing();
-        setup();
+        if (GameManager.DEBUG_MODE == true)
+            loadTestData();
 
         // Background:
         bg = new SpriteBackground(new Sprite(WIDTH/2, HEIGHT/2,
@@ -92,23 +113,24 @@ public class ResultWinScene extends GameScene {
         drawings = new TiledSprite(WIDTH/2, HEIGHT/2,
                 ResourceManager.getInstance().winDrawings,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        drawings.setCurrentTileIndex(drawingIndex);
+        drawings.setVisible(false);
         attachChild(drawings);
         
         // Stamp:
         stamp = new TiledSprite(750, HEIGHT - 850,
                 ResourceManager.getInstance().winStampRanking,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        stamp.setVisible(true);
+        stamp.setVisible(false);
         attachChild(stamp);
         
         // Trial Name:
-        trialNameText = new Text(WIDTH/2, HEIGHT - 200,
-                ResourceManager.getInstance().fontBig, trialName,
+        tittleText = new Text(WIDTH/2, HEIGHT - 200,
+                ResourceManager.getInstance().fontBig, "TRIAL NAME PLACE HOLDER",
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        attachChild(trialNameText);
-        
+        tittleText.setVisible(false);
+        attachChild(tittleText);
+
         // Character:
         if(GameManager.getSelectedCharacter() ==
                 GameManager.CHAR_SHO) {
@@ -122,8 +144,14 @@ public class ResultWinScene extends GameScene {
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         }
         attachChild(characterSprite);
-    }
-
+        
+        // Total Score:
+        growingScore = new GrowingScore(POS_X_LEFT_SCORE, HEIGHT - 670, 0);
+        attachChild(growingScore);
+        
+        prepareResults();
+    }   
+    
     @Override
     public void onHideScene() {}
 
@@ -132,51 +160,254 @@ public class ResultWinScene extends GameScene {
     public void onUnloadScene() {
         ResourceManager.getInstance().unloadResultWinResources();
     }
+    
+    
+    // -------------------------------------------------------
 
-    /*
-     * Intialices some scene values.
+    /**
+     * Loads the testing data in debug mode.
      */
-    private void setup() {
+    private void loadTestData() {
+        GameManager.setCurrentTrial(GameManager.TRIAL_CUT);
+        GameManager.player1result.cutConcentration = 99;
+        GameManager.player1result.cutRound = 3;
+    }
+
+    /**
+     * Prepare the results data before showing them.
+     * We must keep control for the drawing in the scroll, trial name, type of stamp and number
+     * of rows for score items.
+     */
+    private void prepareResults() {
+        // Score Items:
+        // We store a row for each score line in the results (for example time, concentration...).
+        scoreItemArray = new ScoreItem[MAX_SCORE_ITEMS];
+
         switch(GameManager.getCurrentTrial()) {
         case GameManager.TRIAL_RUN:
-            drawingIndex = 2;
-            trialName = "Run Results";
+            tittleText.setText("Run Results");
+            drawings.setCurrentTileIndex(2);
+            stamp.setCurrentTileIndex(TrialSceneCut.getStamp(TrialSceneCut.getScore()));
+            scoreItemsNumber = 4;
+            scoreItemArray[0] = new ScoreItem("Rounds",
+                    String.valueOf(GameManager.player1result.cutRound),
+                    TrialSceneCut.getRoundScore());
+            scoreItemArray[1] = new ScoreItem("Concentratation",
+                    String.valueOf(GameManager.player1result.cutConcentration),
+                    TrialSceneCut.getConcentrationScore());
             break;
+
         case GameManager.TRIAL_CUT:
-            drawingIndex = 3;
-            trialName = "Cut Results";
+            tittleText.setText("Cut Results");
+            drawings.setCurrentTileIndex(3);
+            stamp.setCurrentTileIndex(TrialSceneCut.getStamp(TrialSceneCut.getScore()));
+            scoreItemsNumber = 2;
+            scoreItemArray[0] = new ScoreItem("Rounds",
+                    String.valueOf(GameManager.player1result.cutRound),
+                    TrialSceneCut.getRoundScore());
+            scoreItemArray[1] = new ScoreItem("Concentratation",
+                    String.valueOf(GameManager.player1result.cutConcentration),
+                    TrialSceneCut.getConcentrationScore());
             break;
+            
         case GameManager.TRIAL_JUMP:
             drawingIndex = 0;
-            trialName = "Jump Results";
+            tittle = "Jump Results";
             break;
         case GameManager.TRIAL_SHURIKEN:
             drawingIndex = 1;
-            trialName = "Shuriken Results";
+            tittle = "Shuriken Results";
             break;
         }
+
+        showResults();
     }
-    
-    private int getTrialScore() {
-        int score = 0;
-        return score;
+
+    /**
+     * Show one score item each time, and the growing score.
+     * Finally adds the score to the main game score.
+     */
+    private void showResults() {
+        drawings.setVisible(true);
+        tittleText.setVisible(true);
+        stamp.setVisible(true);
+        scoreItemArrayIndex = 0;        
+        
+        updateHandler = new IUpdateHandler() {
+            @Override
+            public void onUpdate(float pSecondsElapsed) {
+                if(growingScore.isFinished())
+                    if(scoreItemArrayIndex < scoreItemsNumber) {
+                        growingScore.addScore(scoreItemArray[scoreItemArrayIndex].addedPoints);
+                        addScoreLine(HEIGHT - 380 - 100 * scoreItemArrayIndex,
+                            scoreItemArray[scoreItemArrayIndex].description,
+                            scoreItemArray[scoreItemArrayIndex].value);
+                        scoreItemArrayIndex++;                    
+                    }
+                    else {
+                        // No more rows to show.
+                        ResultWinScene.this.unregisterUpdateHandler(updateHandler);
+                    }
+            }
+            @Override public void reset() {}
+        };
+        registerUpdateHandler(updateHandler);
+
+        // Add the trial score to the total score:
+        GameManager.incrementScore(TrialSceneCut.getScore());
     }
-    
-    private void testing() {
-        if (GameManager.DEBUG_MODE == true) {
-            GameManager.setCurrentTrial(GameManager.TRIAL_CUT);
-            GameManager.player1result.cutConcentration = 70;
-            GameManager.player1result.cutTime = 1.444f;
-        }
+
+    /**
+     * If it is the final trial then go to the ending scene. If there are more trials to complete
+     * then go to the map scene (and set the current trial to the next one).
+     */
+    private void endingSequence() {
+        if(GameManager.getCurrentTrial() == GameManager.TRIAL_FINAL)
+            // TODO:  SceneManager.getInstance().showScene(new EndingScene());
+            SceneManager.getInstance().showScene(new TestingScene());
+        else
+            // TODO:  SceneManager.getInstance().showScene(new MapScene());
+            GameManager.setCurrentTrial(GameManager.nextTrial(GameManager.getCurrentTrial()));
+            SceneManager.getInstance().showScene(new TestingScene());
     }
-    
+
+    /**
+     * Add a new score row to the scroll.
+     * @param y The Y position of the score line.
+     * @param description The score item description, like "Jump Time", "Shuriken Precission", etc.
+     * @param value The item value like "34 sec", or "67%".
+     */
+    private void addScoreLine(float y, String description, String value) {
+        Text descriptionText = new Text(WIDTH/2, y,
+                ResourceManager.getInstance().fontSmall,
+                description,
+                new TextOptions(HorizontalAlign.CENTER),
+                ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+        attachChild(descriptionText);
+        
+        Text valueText = new Text(POS_X_LEFT_SCORE, y,
+                ResourceManager.getInstance().fontSmall,
+                value,
+                new TextOptions(HorizontalAlign.CENTER),
+                ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+        attachChild(valueText);        
+    }
+
+
     // INTERFACE --------------------------------------------------------
 
+    /**
+     * If the score hasn't finished, then finalize it now, else go to the end sequence.
+     */
     @Override
     public void onPressButtonO() {
         if(pressEnabled) {
-            // TODO: Go to the map screen or ending screen.
-            SceneManager.getInstance().showScene(new DummyMenu());
+            if(growingScore.isFinished())
+                endingSequence();
+            else
+                growingScore.finalize();
+        }
+    }
+
+
+    // AUXILIARY CLASSES -------------------------------------------------
+
+    /**
+     * This class represents a score number that can grow along time and shows it in the screen.
+     * @author Madgear Games
+     */
+    private class GrowingScore extends Entity {
+        private int startingScore;
+        private int currentScore;
+        private int finalScore;
+        private Text scoreText;
+        private final static int POINTS_PER_SECOND = 1000;
+        private boolean sumFinished = true;
+
+        /**
+         * Create the text item and initializes the class fields.
+         * @param x The x position in the screen.
+         * @param y The y position in the screen.
+         * @param s Starting score (normally 0).
+         */
+        public GrowingScore(float x, float y, int s) {
+            startingScore = s;
+            currentScore = startingScore;
+            
+            scoreText = new Text(x, y,
+                    ResourceManager.getInstance().fontMedium,
+                    "GROWING SCORE PLACE HOLDER",
+                    new TextOptions(HorizontalAlign.CENTER),
+                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+            scoreText.setText(Integer.toString(startingScore));
+            attachChild(scoreText);
+            setIgnoreUpdate(true);
+        }
+
+        /**
+         * Adds points to the score. Tells the class than can be updated.
+         * @param points Number of points to add to the score.
+         */
+        public void addScore(int points) {
+            sumFinished = false;
+            finalScore = (int)currentScore + points;
+            setIgnoreUpdate(false);
+        }
+
+        /**
+         * Tell the class to end the update and set the score to the final value.
+         */
+        public void finalize() {
+            currentScore = finalScore;
+            scoreText.setText(Integer.toString(currentScore));
+            sumFinished = true;
+            setIgnoreUpdate(true);
+        }
+
+        /**
+         * Update the score and show it on the screen while it is growing.
+         * If it reach the final value then stops.
+         */
+        @Override
+        protected void onManagedUpdate(final float pSecondsElapsed) {
+            if(currentScore < finalScore) {
+                scoreText.setText(Integer.toString(currentScore));
+                currentScore = Math.round(currentScore + pSecondsElapsed * POINTS_PER_SECOND);
+            }
+            else {
+                finalize();
+            }
+            super.onManagedUpdate(pSecondsElapsed);
+        }
+
+        /**
+         * Tells us if all the points has been added.
+         * @return False if the score is growing yet, else return true.
+         */
+        public boolean isFinished() {
+            return sumFinished;
+        }
+    }
+
+
+    /**
+     * Keeps data about a score row. The scene uses an array of them to store the information
+     * about trial results.
+     * Example: in the cut scene, the score item "concentraton" whould be:
+     *  descripton = "Concentration"
+     *  value = "89%"
+     *  addedPoints = 8455
+     *  
+     * @author Madgear Games
+     */
+    private class ScoreItem {
+        String description, value;
+        int addedPoints;
+        
+        public ScoreItem(String d, String v, int p) {
+            description = d;
+            value = v;
+            addedPoints = p;
         }
     }
 }

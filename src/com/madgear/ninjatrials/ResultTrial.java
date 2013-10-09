@@ -35,7 +35,7 @@ public class ResultTrial {
     public int runMaxSpeed;
 
     // CUT
-    public float cutTime;
+    public int cutRound;
     public int cutConcentration;
 
     // JUMP

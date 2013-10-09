@@ -44,8 +44,10 @@ public class GameManager {
     
     public static final int TRIAL_RUN = 1;
     public static final int TRIAL_CUT = 2;
-    public static final int TRIAL_SHURIKEN = 3;
-    public static final int TRIAL_JUMP = 4;
+    public static final int TRIAL_JUMP = 3;
+    public static final int TRIAL_SHURIKEN = 4;
+    public static final int TRIAL_FINAL = TRIAL_SHURIKEN;
+    public static final int TRIAL_START = TRIAL_RUN;
 
 
     public static ResultTrial player1result;
@@ -79,7 +81,7 @@ public class GameManager {
     public static void resetGame(){
         score = SCORE_INIT;
         lives = LIVES_INIT;
-        currentTrial = TRIAL_RUN;
+        currentTrial = TRIAL_START;
         selectedCharacter = CHAR_SHO;
         selectedDiff = DIFF_MEDIUM;
         gameLanguage = "en";
@@ -131,6 +133,17 @@ public class GameManager {
     
     public static void setCurrentTrial(int t) {
         currentTrial = t;
+    }
+    
+    public static int nextTrial(int currentTrial) {
+        int nextTrial = TRIAL_RUN;
+        switch(currentTrial) {
+        case TRIAL_RUN: nextTrial = TRIAL_CUT; break;
+        case TRIAL_CUT: nextTrial = TRIAL_JUMP; break;
+        case TRIAL_JUMP: nextTrial = TRIAL_SHURIKEN; break;
+        case TRIAL_SHURIKEN: nextTrial = TRIAL_RUN; break;
+        }
+        return nextTrial;
     }
 
     public static int getLives() {

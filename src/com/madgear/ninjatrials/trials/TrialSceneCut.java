@@ -42,6 +42,8 @@ import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.GameScene;
 import com.madgear.ninjatrials.MainMenuScene;
+import com.madgear.ninjatrials.ResultLoseScene;
+import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.hud.Chronometer;
 import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.hud.PrecisionBar;
@@ -58,10 +60,17 @@ import com.madgear.ninjatrials.test.TestingScene;
  *
  */
 public class TrialSceneCut extends GameScene {
-    private static final int SCORE_POOR = 20;
-    private static final int SCORE_GREAT = 90;
+    public static final int SCORE_THUG = 5000;
+    public static final int SCORE_NINJA = 7000;
+    public static final int SCORE_NINJA_MASTER = 9000;
+    public static final int SCORE_GRAND_MASTER = 9500;
+    public static final int SCORE_ROUND_MAX = 500;
+    public static final int SCORE_ROUND_PENALTY = 50;
+    public static final int SCORE_CONCENTRATION_MAX = 9500;
+
     private float timeRound;  // tiempo para ciclo de powerbar
-    private float timeMax = 10; // Tiempo máximo para corte:
+    public static float timeMax = 10; // Tiempo máximo para corte:
+    public static int roundMax = (int)timeMax;
     private float timeCounter = timeMax; // Tiempo total que queda para el corte
     private int frameNum = 0; // Contador para la animación
     private float timerStartedIn = 0; // control de tiempo
@@ -220,7 +229,8 @@ public class TrialSceneCut extends GameScene {
         cutEnabled = false;
         chrono.stop();
         precisionBar.stop();
-        score = getScore();
+        //score = getScore();
+        saveTrialResults();
         frameNum = 0;
         trialTimerHandler = new TimerHandler(0.1f, new ITimerCallback() {
             @Override
@@ -247,27 +257,30 @@ public class TrialSceneCut extends GameScene {
         registerUpdateHandler(trialTimerHandler);
 
         // Stop music:
-        if(ResourceManager.getInstance().cutMusic != null &&
-                ResourceManager.getInstance().cutMusic.isPlaying())
-            ResourceManager.getInstance().cutMusic.pause();
+        SFXManager.pauseMusic(ResourceManager.getInstance().cutMusic);
     }
 
     /**
      * Shows the score and the final animation. Clean the HUD and calls to the next scene.
+     * Next scene is the LoseScene if the score is smaller than the minimum. If the score is greater
+     * then go to the winning scene.
      */
     private void endingSequence() {
-        String message;
-        GameManager.incrementScore(score);
-        if(score <= SCORE_POOR) {
-            message = "POOR " + score;
+        // TODO: ending animation. (drop and eye)
+        //GameManager.incrementScore(score);
+        score = getScore();
+        if(score >= SCORE_GRAND_MASTER) {
+            endingSequencePerfect();
         }
-        else if(score >= SCORE_GREAT) {
-            message = "GREAT! " + score;
+        else if(score >= SCORE_NINJA_MASTER) {
+            endingSequenceGreat();
         }
-        else {
-            message = "MEDIUM " + score;
+        else if(score >= SCORE_THUG) {
+            endingSequenceSuccess();
+        } else {
+            endingSequenceFail();
         }
-        gameHUD.showComboMessage("Your score is...\n" + message);
+
         trialTimerHandler= new TimerHandler(endingTime, new ITimerCallback()
         {
             @Override
@@ -275,19 +288,39 @@ public class TrialSceneCut extends GameScene {
             {
                 TrialSceneCut.this.unregisterUpdateHandler(trialTimerHandler);
                 gameHUD.detachChildren();
-                SceneManager.getInstance().showScene(new TestingScene());
+                if(score < SCORE_THUG)
+                    SceneManager.getInstance().showScene(new ResultLoseScene());
+                else
+                    SceneManager.getInstance().showScene(new ResultWinScene());
             }
         });
         registerUpdateHandler(trialTimerHandler);
     }
 
+    private void endingSequencePerfect() {
+        endingSequenceGreat();
+    }
+    
+    private void endingSequenceGreat() {
+        
+    }
+    
+    private void endingSequenceSuccess() {
+        endingSequenceGreat();
+    }
+    
+    private void endingSequenceFail() {
+        
+    }
+    
     /**
      * When time is out the cut is not enabled. Calls ending secuence.
      */
     private void timeOut() {
         cutEnabled = false;
         precisionBar.stop();
-        score = 0;
+        //score = 0;
+        saveTrialResults();
         endingSequence();
     }
 
@@ -314,16 +347,39 @@ public class TrialSceneCut extends GameScene {
             timeRound = 1;
     }
 
+
+    public static int getScore() {
+        return getConcentrationScore() + getRoundScore();
+    }
+    
+    
+    public static int getConcentrationScore() {
+        return GameManager.player1result.cutConcentration * SCORE_CONCENTRATION_MAX / 100;
+    }
+    
+    public static int getRoundScore() {
+        return SCORE_ROUND_MAX - GameManager.player1result.cutRound * SCORE_ROUND_PENALTY;
+    }
+    
+    public static int getStamp(int score) {
+        int stamp = ResultWinScene.STAMP_THUG;
+
+        if(score >= SCORE_GRAND_MASTER)
+            stamp = ResultWinScene.STAMP_GRAND_MASTER;
+        else if(score >= SCORE_NINJA_MASTER)
+            stamp = ResultWinScene.STAMP_NINJA_MASTER;
+        else if(score >= SCORE_NINJA)
+            stamp = ResultWinScene.STAMP_NINJA;
+
+        return stamp;
+    }
+    
     /**
-     * Calculates the trial score.
-     * Score = 100 - abs(precision bar power value) - precision bar semicycle number * 3
-     * @return The Trial Score (int from 0 to 100).
+     * Saves the trial results in the GameManager.
      */
-    private int getScore() {
-        int trialScore;
-        trialScore = 100 - Math.abs(precisionBar.getPowerValue()) - precisionBar.getSemicycle() * 3;
-        if(trialScore < 0) trialScore = 0;
-        return trialScore;
+    private void saveTrialResults() {
+        GameManager.player1result.cutRound = precisionBar.getSemicycle();
+        GameManager.player1result.cutConcentration = 100 - Math.abs(precisionBar.getPowerValue());
     }
 
     /**
