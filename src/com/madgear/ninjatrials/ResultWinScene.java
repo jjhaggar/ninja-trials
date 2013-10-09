@@ -71,9 +71,7 @@ public class ResultWinScene extends GameScene {
     private int scoreItemsNumber;
     private int scoreItemArrayIndex;
     private ScoreItem[] scoreItemArray;
-    private TimerHandler timerHandler;
     private IUpdateHandler updateHandler;
-    private int drawingIndex;
 
     
     public ResultWinScene() {
@@ -249,6 +247,8 @@ public class ResultWinScene extends GameScene {
                     TrialSceneShuriken.getPrecissionScore());
             break;
         }
+        
+        showResults();
     }
 
     /**
@@ -349,7 +349,7 @@ public class ResultWinScene extends GameScene {
         private int currentScore;
         private int finalScore;
         private Text scoreText;
-        private final static int POINTS_PER_SECOND = 1000;
+        private final static int POINTS_PER_SECOND = 1500;
         private boolean sumFinished = true;
 
         /**
