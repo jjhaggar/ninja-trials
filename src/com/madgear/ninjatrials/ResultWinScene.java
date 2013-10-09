@@ -241,10 +241,10 @@ public class ResultWinScene extends GameScene {
             drawings.setCurrentTileIndex(1);
             stamp.setCurrentTileIndex(TrialSceneShuriken.getStamp(TrialSceneShuriken.getScore()));
             scoreItemsNumber = 2;
-            scoreItemArray[0] = new ScoreItem("Rounds",
+            scoreItemArray[0] = new ScoreItem("Time",
                     String.valueOf(GameManager.player1result.shurikenTime),
                     TrialSceneShuriken.getTimeScore());
-            scoreItemArray[1] = new ScoreItem("Concentratation",
+            scoreItemArray[1] = new ScoreItem("Precission",
                     String.valueOf(GameManager.player1result.shurikenPrecission),
                     TrialSceneShuriken.getPrecissionScore());
             break;
