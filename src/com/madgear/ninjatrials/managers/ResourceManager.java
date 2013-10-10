@@ -107,6 +107,7 @@ public class ResourceManager {
     public static ITextureRegion cutEyesTR;
     public static ITextureRegion cutBackgroundTR;
     public static ITextureRegion cutSweatDropTR;
+    public static ITiledTextureRegion cutCharSparkleTR;
     public static ITextureRegion cutSwordSparkle1TR;
     public static ITiledTextureRegion cutSwordSparkle2TR;
     public static ITextureRegion cutHudBarTR;
@@ -616,6 +617,19 @@ public class ResourceManager {
             cutSweatDropT.load();
         }
 
+        // Character eye sparkle:
+        if(cutCharSparkleTR==null) {
+            BuildableBitmapTextureAtlas cutCharSparkleT = new BuildableBitmapTextureAtlas(
+                    textureManager, 300, 100, mTransparentTextureOption);
+            cutCharSparkleTR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    cutCharSparkleT, context, "cut_ch_sparkle.png", 3, 1);
+            try {
+                cutCharSparkleT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            } catch (TextureAtlasBuilderException e) { e.printStackTrace(); }
+            cutCharSparkleT.load();
+        }
+
         // Espada 1:
         if(cutSwordSparkle1TR==null) {
             BitmapTextureAtlas cutSword1T = new BitmapTextureAtlas(textureManager, 503, 345,
@@ -703,6 +717,12 @@ public class ResourceManager {
             if(cutSweatDropTR.getTexture().isLoadedToHardware()) {
                 cutSweatDropTR.getTexture().unload();
                 cutSweatDropTR = null;
+            }
+        }
+        if(cutCharSparkleTR!=null) {
+            if(cutCharSparkleTR.getTexture().isLoadedToHardware()) {
+                cutCharSparkleTR.getTexture().unload();
+                cutCharSparkleTR = null;
             }
         }
         if(cutSwordSparkle1TR!=null) {

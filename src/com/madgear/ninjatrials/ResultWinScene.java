@@ -135,8 +135,7 @@ public class ResultWinScene extends GameScene {
         attachChild(tittleText);
 
         // Character:
-        if(GameManager.getSelectedCharacter() ==
-                GameManager.CHAR_SHO) {
+        if(GameManager.getSelectedCharacter() == GameManager.CHAR_SHO) {
             characterSprite = new Sprite(300, HEIGHT - 690,
                     ResourceManager.getInstance().winCharSho,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());

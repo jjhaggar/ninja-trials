@@ -35,6 +35,7 @@ import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.AnimatedSprite;
+import org.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
@@ -60,6 +61,7 @@ import com.madgear.ninjatrials.test.TestingScene;
  *
  */
 public class TrialSceneCut extends GameScene {
+    
     public static final int SCORE_THUG = 5000;
     public static final int SCORE_NINJA = 7000;
     public static final int SCORE_NINJA_MASTER = 9000;
@@ -67,7 +69,17 @@ public class TrialSceneCut extends GameScene {
     public static final int SCORE_ROUND_MAX = 500;
     public static final int SCORE_ROUND_PENALTY = 50;
     public static final int SCORE_CONCENTRATION_MAX = 9500;
+    
+    private static final float SWEAT_DROP_X_SHIFT = 150;
+    private static final float SWEAT_DROP_Y_SHIFT = 300;
+    private final static float SWEAT_DROP_DISTANCE = 100;
+    private final static float SWEAT_DROP_TIME = 3;
+    private static final float SPARKLE_X_SHIFT = 105;
+    private static final float SPARKLE_Y_SHIFT = 105;
 
+    private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
+    private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
+    
     private float timeRound;  // tiempo para ciclo de powerbar
     public static float timeMax = 10; // Tiempo máximo para corte:
     public static int roundMax = (int)timeMax;
@@ -75,8 +87,6 @@ public class TrialSceneCut extends GameScene {
     private int frameNum = 0; // Contador para la animación
     private float timerStartedIn = 0; // control de tiempo
 
-    private float width = ResourceManager.getInstance().cameraWidth;
-    private float height = ResourceManager.getInstance().cameraHeight;
 
     private SpriteBackground bg;
     private Tree mTree;
@@ -87,6 +97,8 @@ public class TrialSceneCut extends GameScene {
     private Character mCharacter;
     private Eyes mEyes;
     private Katana mKatana;
+    private SweatDrop sweatDrop;
+    private CharSparkle charSparkle;
     private Rectangle blinkLayer;
     private boolean cutEnabled = false;
     private TimerHandler trialTimerHandler;
@@ -128,23 +140,27 @@ public class TrialSceneCut extends GameScene {
     public void onLoadScene() {
         ResourceManager.getInstance().loadCutSceneResources();
         setTrialDiff(GameManager.getSelectedDiff());
-        bg = new SpriteBackground(new Sprite(width * 0.5f, height * 0.5f,
+        bg = new SpriteBackground(new Sprite(WIDTH * 0.5f, HEIGHT * 0.5f,
                 ResourceManager.getInstance().cutBackgroundTR,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager()));
         setBackground(bg);
-        mTree = new Tree(width * 0.5f, height * 0.5f + 400);
-        candleLeft = new Candle(width * 0.5f - 500, height * 0.5f + 200);
-        candleRight = new Candle(width * 0.5f + 500, height * 0.5f + 200);
+        mTree = new Tree(WIDTH * 0.5f, HEIGHT * 0.5f + 400);
+        candleLeft = new Candle(WIDTH * 0.5f - 500, HEIGHT * 0.5f + 200);
+        candleRight = new Candle(WIDTH * 0.5f + 500, HEIGHT * 0.5f + 200);
         gameHUD = new GameHUD();
         precisionBar = new PrecisionBar(200f, 200f, timeRound);
-        chrono = new Chronometer(width - 200, height - 200, 10, 0);
-        mCharacter = new Character(width / 2 - 120, height / 2);
+        chrono = new Chronometer(WIDTH - 200, HEIGHT - 200, 10, 0);
+        mCharacter = new Character(WIDTH / 2 - 120, HEIGHT / 2);
         mEyes = new Eyes();
-        blinkLayer = new Rectangle(width / 2, height / 2, width, height,
+        blinkLayer = new Rectangle(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         blinkLayer.setAlpha(0f);
         blinkLayer.setColor(1.0f, 1.0f, 1.0f);
         mKatana = new Katana();
+        sweatDrop = new SweatDrop(mCharacter.getX() + SWEAT_DROP_X_SHIFT,
+                mCharacter.getY() + SWEAT_DROP_Y_SHIFT);
+        charSparkle = new CharSparkle(mCharacter.getX() + SPARKLE_X_SHIFT,
+                mCharacter.getY() + SPARKLE_Y_SHIFT);
     }
 
     /**
@@ -163,6 +179,8 @@ public class TrialSceneCut extends GameScene {
         attachChild(mEyes);
         attachChild(blinkLayer);
         attachChild(mKatana);
+        attachChild(sweatDrop);
+        attachChild(charSparkle);
         SFXManager.playMusic(ResourceManager.getInstance().cutMusic);
         readySequence();
     }
@@ -298,19 +316,19 @@ public class TrialSceneCut extends GameScene {
     }
 
     private void endingSequencePerfect() {
-        endingSequenceGreat();
+        endingSequenceSuccess();
     }
     
     private void endingSequenceGreat() {
-        
+        endingSequenceSuccess();
     }
     
     private void endingSequenceSuccess() {
-        endingSequenceGreat();
+        charSparkle.spark();
     }
     
     private void endingSequenceFail() {
-        
+        sweatDrop.drop(SWEAT_DROP_DISTANCE, SWEAT_DROP_TIME);
     }
     
     /**
@@ -490,7 +508,14 @@ public class TrialSceneCut extends GameScene {
         public void cut() {
             charSprite.animate(new long[] { 100, 50, 50, 1000 }, 0, 3, false);
         }
-
+        
+        public float getX() {
+            return charSprite.getX();
+        }
+        
+        public float getY() {
+            return charSprite.getY();
+        }
     }
 
     /**
@@ -501,7 +526,7 @@ public class TrialSceneCut extends GameScene {
         private Sprite eyesSprite;
 
         public Eyes() {
-            eyesSprite = new Sprite(width / 2, height / 2,
+            eyesSprite = new Sprite(WIDTH / 2, HEIGHT / 2,
                     ResourceManager.getInstance().cutEyesTR,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             eyesSprite.setAlpha(0f);
@@ -532,20 +557,20 @@ public class TrialSceneCut extends GameScene {
 
         public Katana() {
             // Right katana cut:
-            katanaSpriteRight = new AnimatedSprite(width / 2 + 300, height / 2,
+            katanaSpriteRight = new AnimatedSprite(WIDTH / 2 + 300, HEIGHT / 2,
                     ResourceManager.getInstance().cutSwordSparkle2TR,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             katanaSpriteRight.setAlpha(0f);
             attachChild(katanaSpriteRight);
             // Inverted left katana cut:
-            katanaSpriteLeft = new AnimatedSprite(width / 2 - 300, height / 2,
+            katanaSpriteLeft = new AnimatedSprite(WIDTH / 2 - 300, HEIGHT / 2,
                     ResourceManager.getInstance().cutSwordSparkle2TR,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             katanaSpriteLeft.setAlpha(0f);
             katanaSpriteLeft.setFlipped(true, true);
             attachChild(katanaSpriteLeft);
             // Central katana cut (tree):
-            katanaSpriteCenter = new Sprite(width / 2, height / 2 + 300,
+            katanaSpriteCenter = new Sprite(WIDTH / 2, HEIGHT / 2 + 300,
                     ResourceManager.getInstance().cutSwordSparkle1TR,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             katanaSpriteCenter.setAlpha(0f);
@@ -581,6 +606,77 @@ public class TrialSceneCut extends GameScene {
             katanaSpriteCenter.registerEntityModifier(new SequenceEntityModifier(
                     new FadeInModifier(0.1f), new DelayModifier(0.2f), new FadeOutModifier(0.1f)));
             SFXManager.playSound(ResourceManager.getInstance().cutKatana3);
+        }
+    }
+    
+    /**
+     * Sweat drop
+     * @author Madgear Games
+     */
+    private class SweatDrop extends Entity {
+        private final static float FADE_IN_TIME = 1f;
+        private Sprite sweatDropSprite;
+        float x, y;
+
+        public SweatDrop(float xPos, float yPos) {
+            x = xPos;
+            y = yPos;
+            sweatDropSprite = new Sprite(x, y,
+                    ResourceManager.getInstance().cutSweatDropTR,
+                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+            sweatDropSprite.setAlpha(0f);
+            attachChild(sweatDropSprite);
+        }
+
+        /**
+         * Sweat Drop animation.
+         */
+        public void drop(float distance, float time) {
+            sweatDropSprite.registerEntityModifier(new ParallelEntityModifier(
+                    new FadeInModifier(FADE_IN_TIME),
+                    new MoveModifier(time, x, y, x, y - distance)));
+        }
+    }
+    
+    /**
+     * Controls the character object in the scene
+     * @author Madgear Games
+     */
+    private class CharSparkle extends Entity {
+        private final static long SPARK_TIME = 200;
+        private AnimatedSprite charSparkleSprite;
+
+        public CharSparkle(float posX, float posY) {
+            charSparkleSprite = new AnimatedSprite(posX, posY,
+                    ResourceManager.getInstance().cutCharSparkleTR,
+                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+            charSparkleSprite.setVisible(false);
+            attachChild(charSparkleSprite);
+        }
+
+        public void spark() {
+            charSparkleSprite.setVisible(true);
+            charSparkleSprite.animate(SPARK_TIME, false, new IAnimationListener(){
+                    @Override
+                    public void onAnimationStarted(AnimatedSprite pAnimatedSprite,
+                            int pInitialLoopCount) {}
+                    @Override
+                    public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite,
+                            int pOldFrameIndex, int pNewFrameIndex) {}
+                    @Override
+                    public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite,
+                            int pRemainingLoopCount, int pInitialLoopCount) {}
+                    @Override
+                    public void onAnimationFinished(AnimatedSprite pAnimatedSprite)
+                    {
+                        // Reverse animation:
+                        charSparkleSprite.animate(
+                                new long[] {SPARK_TIME, SPARK_TIME, SPARK_TIME },
+                                new int[] {2,1,0},
+                                false);
+                    }
+                }
+            );
         }
     }
 }
