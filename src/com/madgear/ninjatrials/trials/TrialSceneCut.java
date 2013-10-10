@@ -71,8 +71,8 @@ public class TrialSceneCut extends GameScene {
     public static final int SCORE_CONCENTRATION_MAX = 9500;
     
     private static final float SWEAT_DROP_X_SHIFT = 150;
-    private static final float SWEAT_DROP_Y_SHIFT = 300;
-    private final static float SWEAT_DROP_DISTANCE = 100;
+    private static final float SWEAT_DROP_Y_SHIFT = 200;
+    private final static float SWEAT_DROP_DISTANCE = 150;
     private final static float SWEAT_DROP_TIME = 3;
     private static final float SPARKLE_X_SHIFT = 105;
     private static final float SPARKLE_Y_SHIFT = 105;
@@ -673,7 +673,23 @@ public class TrialSceneCut extends GameScene {
                         charSparkleSprite.animate(
                                 new long[] {SPARK_TIME, SPARK_TIME, SPARK_TIME },
                                 new int[] {2,1,0},
-                                false);
+                                false, new IAnimationListener(){
+                                    @Override
+                                    public void onAnimationStarted(AnimatedSprite pAnimatedSprite,
+                                            int pInitialLoopCount) {}
+                                    @Override
+                                    public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite,
+                                            int pOldFrameIndex, int pNewFrameIndex) {}
+                                    @Override
+                                    public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite,
+                                            int pRemainingLoopCount, int pInitialLoopCount) {}
+                                    @Override
+                                    public void onAnimationFinished(AnimatedSprite pAnimatedSprite)
+                                    {
+                                        // Hide sparkle:
+                                        charSparkleSprite.setVisible(false);
+                                    }
+                                });
                     }
                 }
             );
