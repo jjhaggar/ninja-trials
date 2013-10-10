@@ -112,6 +112,8 @@ public class ResourceManager {
     public static ITiledTextureRegion cutSwordSparkle2TR;
     public static ITextureRegion cutHudBarTR;
     public static ITextureRegion cutHudCursorTR;
+    public static ITiledTextureRegion cutHead;
+
 
     // CUT SCENE SOUNDS:
     public static Music cutMusic;
@@ -459,6 +461,21 @@ public class ResourceManager {
             }
             runHeadBit.load();
         }
+        // CutHead
+        if (cutHead == null) {
+            BuildableBitmapTextureAtlas cutHeadBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 660, 440, mTransparentTextureOption);
+            cutHead = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    cutHeadBit, context, "hud_head_cut.png", 3, 2);
+            try {
+                cutHeadBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            cutHeadBit.load();
+        }
     }
 
     public synchronized void unloadHUDResources() {
@@ -501,6 +518,10 @@ public class ResourceManager {
         if (runHead != null && runHead.getTexture().isLoadedToHardware()) {
                 runHead.getTexture().unload();
                 runHead = null;
+        }
+        if (cutHead != null && cutHead.getTexture().isLoadedToHardware()) {
+            cutHead.getTexture().unload();
+            cutHead = null;
         }
     }
 

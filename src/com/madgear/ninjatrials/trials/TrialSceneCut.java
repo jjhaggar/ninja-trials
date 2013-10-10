@@ -47,6 +47,7 @@ import com.madgear.ninjatrials.ResultLoseScene;
 import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.hud.Chronometer;
 import com.madgear.ninjatrials.hud.GameHUD;
+import com.madgear.ninjatrials.hud.HeadCharacter;
 import com.madgear.ninjatrials.hud.PrecisionBar;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
@@ -100,6 +101,7 @@ public class TrialSceneCut extends GameScene {
     private SweatDrop sweatDrop;
     private CharSparkle charSparkle;
     private Rectangle blinkLayer;
+    private HeadCharacter headCharacter;
     private boolean cutEnabled = false;
     private TimerHandler trialTimerHandler;
     private IUpdateHandler trialUpdateHandler;
