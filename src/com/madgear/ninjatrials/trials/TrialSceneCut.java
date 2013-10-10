@@ -101,7 +101,7 @@ public class TrialSceneCut extends GameScene {
     private SweatDrop sweatDrop;
     private CharSparkle charSparkle;
     private Rectangle blinkLayer;
-    private HeadCharacter headCharacter;
+    private HeadCharacterCut headCharacterCut;
     private boolean cutEnabled = false;
     private TimerHandler trialTimerHandler;
     private IUpdateHandler trialUpdateHandler;
@@ -150,7 +150,7 @@ public class TrialSceneCut extends GameScene {
         candleLeft = new Candle(WIDTH * 0.5f - 500, HEIGHT * 0.5f + 200);
         candleRight = new Candle(WIDTH * 0.5f + 500, HEIGHT * 0.5f + 200);
         gameHUD = new GameHUD();
-        precisionBar = new PrecisionBar(200f, 200f, timeRound);
+        precisionBar = new PrecisionBar(200f, 100f, timeRound);
         chrono = new Chronometer(WIDTH - 200, HEIGHT - 200, 10, 0);
         mCharacter = new Character(WIDTH / 2 - 120, HEIGHT / 2);
         mEyes = new Eyes();
@@ -163,6 +163,7 @@ public class TrialSceneCut extends GameScene {
                 mCharacter.getY() + SWEAT_DROP_Y_SHIFT);
         charSparkle = new CharSparkle(mCharacter.getX() + SPARKLE_X_SHIFT,
                 mCharacter.getY() + SPARKLE_Y_SHIFT);
+        headCharacterCut = new HeadCharacterCut(200f, 300f, GameManager.getSelectedCharacter());
     }
 
     /**
@@ -177,6 +178,7 @@ public class TrialSceneCut extends GameScene {
         ResourceManager.getInstance().engine.getCamera().setHUD(gameHUD);
         gameHUD.attachChild(precisionBar);
         gameHUD.attachChild(chrono);
+        gameHUD.attachChild(headCharacterCut);
         attachChild(mCharacter);
         attachChild(mEyes);
         attachChild(blinkLayer);
@@ -695,6 +697,28 @@ public class TrialSceneCut extends GameScene {
                     }
                 }
             );
+        }
+    }
+
+    /**
+     * HeadCharacterCut
+     * @author Madgear Games
+     */
+    private class HeadCharacterCut extends HeadCharacter {
+        private int character;
+
+        public HeadCharacterCut(float xPos, float yPos, int c) {
+            super(xPos, yPos, ResourceManager.getInstance().cutHead, c);
+            character = c;
+        }
+
+        /**
+         * Changes the face depending about the precission cursor position.
+         */
+        @Override
+        protected void onManagedUpdate(final float pSecondsElapsed) {
+
+            super.onManagedUpdate(pSecondsElapsed);
         }
     }
 }

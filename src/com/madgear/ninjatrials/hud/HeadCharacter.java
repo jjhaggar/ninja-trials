@@ -31,6 +31,7 @@ import com.madgear.ninjatrials.managers.ResourceManager;
 
 public class HeadCharacter extends Entity {
     public int framePlus = 0;
+    private int frameIndex = 0;
 
     private AnimatedSprite head;
 	private IAnimationListener ani;
@@ -48,6 +49,10 @@ public class HeadCharacter extends Entity {
         attachChild(head);
     }
 
+    // TODO: revisar esta clase:
+    // ani -> no hace nada y se puede quitar
+    // con setCurrentTileIndex se selecciona el frame deseado (x, y). -> no hace falta mantener
+    // una variable framePlus, sino una CHAR_INDEX
     public void getFrame(int frame) {
 		ani = new IAnimationListener() {
             @Override
@@ -71,6 +76,19 @@ public class HeadCharacter extends Entity {
         else {
             Log.v("updateState", "IndexError" + frame);
         }
+    }
+    
+    public int getFrameIndex() {
+        return frameIndex;
+    }
+    
+    public void setFrame(int i) {
+        if(i >= 0 && i < 3) {
+            frameIndex = i;
+            head.setCurrentTileIndex(i + framePlus);
+        }
+        else
+            Log.v("updateState", "IndexError " + i);
     }
 }
 
