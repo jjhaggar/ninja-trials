@@ -60,12 +60,12 @@ public class ResourceManager {
 
     /* The variables listed should be kept public, allowing us easy access
        to them when creating new Sprites, Text objects and to play sound files */
-    public static NinjaTrials activity;
-    public static Engine engine;
-    public static Context context;
-    public static float cameraWidth;
-    public static float cameraHeight;
-    public static TextureManager textureManager;
+    public NinjaTrials activity;
+    public Engine engine;
+    public Context context;
+    public float cameraWidth;
+    public float cameraHeight;
+    public TextureManager textureManager;
 
     // MAIN MENU:
     public static ITextureRegion mainTitleTR;
@@ -962,7 +962,7 @@ public class ResourceManager {
     }
 
     
-    public static synchronized void loadResultWinResources() {
+    public synchronized void loadResultWinResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/results/");
 
         // Bg:
@@ -1045,7 +1045,7 @@ public class ResourceManager {
     }
 
 
-    public static synchronized void unloadResultWinResources() {
+    public synchronized void unloadResultWinResources() {
         if(winBg!=null) {
             if(winBg.getTexture().isLoadedToHardware()) {
                 winBg.getTexture().unload();
