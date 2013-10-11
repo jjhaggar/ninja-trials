@@ -163,11 +163,46 @@ public class ResourceManager {
     public static Sound winYouWin;
     public static Sound winPointsTotal;
 
+    // INTRO1
+    public static ITextureRegion intro1Gradient;
+    public static ITextureRegion intro1Logo;
+    public static ITextureRegion intro1Ryoko;
+    public static ITextureRegion intro1Shapes;
+    public static ITextureRegion intro1Sho;
+    public static ITextureRegion intro1TrialCut;
+    public static ITextureRegion intro1TrialJump;
+    public static ITextureRegion intro1TrialRun;
+    public static ITextureRegion intro1TrialThrow;
+
+    // INTRO2
+    public static ITextureRegion intro2CommonBg;
+    public static ITextureRegion intro2CommonMaster;
+    public static ITextureRegion intro2CommonMasterTextBalloon;
+    public static ITextureRegion intro2CommonRyoko;
+    public static ITextureRegion intro2CommonRyokoTextBalloon;
+    public static ITextureRegion intro2CommonSho;
+    public static ITextureRegion intro2CommonShoTextBalloon;
+    public static ITextureRegion intro2RyokoBalloonText;
+    public static ITextureRegion intro2RyokoBg;
+    public static ITextureRegion intro2Ryoko;
+    public static ITextureRegion intro2ShoBalloonText;
+    public static ITextureRegion intro2ShoBg;
+    public static ITextureRegion intro2Sho;
+
 
     // GAME OVER SOUNDS
     public static Music gameOverMusic;
     public static Sound gameOver;
 
+    // ENDING
+    public static ITextureRegion endingCreditsBackground;
+    public static ITextureRegion endingCreditsCategories;
+    public static ITextureRegion endingCreditsLogoAndengine;
+    public static ITextureRegion endingCreditsLogoEstudioevergreen;
+    public static ITextureRegion endingRyokoEasyBg;
+    public static ITextureRegion endingRyokoEasy;
+    public static ITextureRegion endingShoEasyBg;
+    public static ITextureRegion endingShoEasy;
 
     // FONTS:
     public Font fontSmall;        // pequeño
@@ -882,6 +917,380 @@ public class ResourceManager {
         if (runDushContinue != null && runDushContinue.getTexture().isLoadedToHardware()) {
                 runDushContinue.getTexture().unload();
                 runDushContinue = null;
+        }
+        // Garbage Collector:
+        System.gc();
+    }
+
+    public synchronized void loadIntro1Resources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/intro_1/");
+
+        if (intro1Gradient == null) {
+            BitmapTextureAtlas intro1GradientT = new BitmapTextureAtlas(textureManager, 1900, 1651,
+                    mTransparentTextureOption);
+            intro1Gradient = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro1GradientT, activity, "intro1_gradient.jpg", 0, 0);
+            intro1GradientT.load();
+        }
+        if (intro1Logo == null) {
+            BitmapTextureAtlas intro1LogoT = new BitmapTextureAtlas(textureManager, 756, 495,
+                    mTransparentTextureOption);
+            intro1Logo = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro1LogoT, activity, "intro1_logo.png", 0, 0);
+            intro1LogoT.load();
+        }
+        if (intro1Ryoko == null) {
+            BitmapTextureAtlas intro1RyokoT = new BitmapTextureAtlas(textureManager, 706, 1563,
+                    mTransparentTextureOption);
+            intro1Ryoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro1RyokoT, activity, "intro1_ryoko.png", 0, 0);
+            intro1RyokoT.load();
+        }
+        if (intro1Shapes == null) {
+            BitmapTextureAtlas intro1ShapesT = new BitmapTextureAtlas(textureManager, 1900, 1651,
+                    mTransparentTextureOption);
+            intro1Shapes = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro1ShapesT, activity, "intro1_shapes.png", 0, 0);
+            intro1ShapesT.load();
+        }
+        if (intro1Sho == null) {
+            BitmapTextureAtlas intro1ShoT = new BitmapTextureAtlas(textureManager, 981, 1734,
+                    mTransparentTextureOption);
+            intro1Sho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro1ShoT, activity, "intro1_sho.png", 0, 0);
+            intro1ShoT.load();
+        }
+        if (intro1TrialCut == null) {
+            BitmapTextureAtlas intro1TrialCutT = new BitmapTextureAtlas(textureManager, 1260, 641,
+                    mTransparentTextureOption);
+            intro1TrialCut = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro1TrialCutT, activity, "intro1_trial_cut.jpg", 0, 0);
+            intro1TrialCutT.load();
+        }
+        if (intro1TrialJump == null) {
+            BitmapTextureAtlas intro1TrialJumpT = new BitmapTextureAtlas(textureManager, 1240, 637,
+                    mTransparentTextureOption);
+            intro1TrialJump = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro1TrialJumpT, activity, "intro1_trial_jump.jpg", 0, 0);
+            intro1TrialJumpT.load();
+        }
+        if (intro1TrialRun == null) {
+            BitmapTextureAtlas intro1TrialRunT = new BitmapTextureAtlas(textureManager, 1258, 643,
+                    mTransparentTextureOption);
+            intro1TrialRun = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro1TrialRunT, activity, "intro1_trial_run.jpg", 0, 0);
+            intro1TrialRunT.load();
+        }
+        if (intro1TrialThrow == null) {
+            BitmapTextureAtlas intro1TrialThrowT = new BitmapTextureAtlas(textureManager, 1242, 643,
+                    mTransparentTextureOption);
+            intro1TrialThrow = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro1TrialThrowT, activity, "intro1_trial_throw.jpg", 0, 0);
+            intro1TrialThrowT.load();
+        }
+    }
+
+
+    public synchronized void unloadIntro1Resources() {
+        if (intro1Gradient != null && intro1Gradient.getTexture().isLoadedToHardware()) {
+                intro1Gradient.getTexture().unload();
+                intro1Gradient = null;
+        }
+        if (intro1Logo != null && intro1Logo.getTexture().isLoadedToHardware()) {
+                intro1Logo.getTexture().unload();
+                intro1Logo = null;
+        }
+        if (intro1Ryoko != null && intro1Ryoko.getTexture().isLoadedToHardware()) {
+                intro1Ryoko.getTexture().unload();
+                intro1Ryoko = null;
+        }
+        if (intro1Shapes != null && intro1Shapes.getTexture().isLoadedToHardware()) {
+                intro1Shapes.getTexture().unload();
+                intro1Shapes = null;
+        }
+        if (intro1Sho != null && intro1Sho.getTexture().isLoadedToHardware()) {
+                intro1Sho.getTexture().unload();
+                intro1Sho = null;
+        }
+        if (intro1TrialCut != null && intro1TrialCut.getTexture().isLoadedToHardware()) {
+                intro1TrialCut.getTexture().unload();
+                intro1TrialCut = null;
+        }
+        if (intro1TrialJump != null && intro1TrialJump.getTexture().isLoadedToHardware()) {
+                intro1TrialJump.getTexture().unload();
+                intro1TrialJump = null;
+        }
+        if (intro1TrialRun != null && intro1TrialRun.getTexture().isLoadedToHardware()) {
+                intro1TrialRun.getTexture().unload();
+                intro1TrialRun = null;
+        }
+        if (intro1TrialThrow != null && intro1TrialThrow.getTexture().isLoadedToHardware()) {
+                intro1TrialThrow.getTexture().unload();
+                intro1TrialThrow = null;
+        }
+        // Garbage Collector:
+        System.gc();
+    }
+
+    public synchronized void loadIntro2Resources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/intro_2/");
+
+        if (intro2CommonBg == null) {
+            BitmapTextureAtlas intro2CommonBgT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+                    mTransparentTextureOption);
+            intro2CommonBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro2CommonBgT, activity, "intro2_common_bg.png", 0, 0);
+            intro2CommonBgT.load();
+        }
+        if (intro2CommonMaster == null) {
+            BitmapTextureAtlas intro2CommonMasterT = new BitmapTextureAtlas(textureManager, 698, 374,
+                    mTransparentTextureOption);
+            intro2CommonMaster = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro2CommonMasterT, activity, "intro2_common_master.png", 0, 0);
+            intro2CommonMasterT.load();
+        }
+        if (intro2CommonMasterTextBalloon == null) {
+            BitmapTextureAtlas intro2CommonMasterTextBalloonT = new BitmapTextureAtlas(textureManager, 502, 236,
+                    mTransparentTextureOption);
+            intro2CommonMasterTextBalloon = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro2CommonMasterTextBalloonT, activity, "intro2_common_master_text_balloon.png", 0, 0);
+            intro2CommonMasterTextBalloonT.load();
+        }
+        if (intro2CommonRyoko == null) {
+            BitmapTextureAtlas intro2CommonRyokoT = new BitmapTextureAtlas(textureManager, 586, 764,
+                    mTransparentTextureOption);
+            intro2CommonRyoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro2CommonRyokoT, activity, "intro2_common_ryoko.png", 0, 0);
+            intro2CommonRyokoT.load();
+        }
+        if (intro2CommonRyokoTextBalloon == null) {
+            BitmapTextureAtlas intro2CommonRyokoTextBalloonT = new BitmapTextureAtlas(textureManager, 598, 436,
+                    mTransparentTextureOption);
+            intro2CommonRyokoTextBalloon = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro2CommonRyokoTextBalloonT, activity, "intro2_common_ryoko_text_balloon.png", 0, 0);
+            intro2CommonRyokoTextBalloonT.load();
+        }
+        if (intro2CommonSho == null) {
+            BitmapTextureAtlas intro2CommonShoT = new BitmapTextureAtlas(textureManager, 586, 764,
+                    mTransparentTextureOption);
+            intro2CommonSho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro2CommonShoT, activity, "intro2_common_sho.png", 0, 0);
+            intro2CommonShoT.load();
+        }
+        if (intro2CommonShoTextBalloon == null) {
+            BitmapTextureAtlas intro2CommonShoTextBalloonT = new BitmapTextureAtlas(textureManager, 598, 436,
+                    mTransparentTextureOption);
+            intro2CommonShoTextBalloon = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro2CommonShoTextBalloonT, activity, "intro2_common_sho_text_balloon.png", 0, 0);
+            intro2CommonShoTextBalloonT.load();
+        }
+        if (intro2RyokoBalloonText == null) {
+            BitmapTextureAtlas intro2RyokoBalloonTextT = new BitmapTextureAtlas(textureManager, 987, 505,
+                    mTransparentTextureOption);
+            intro2RyokoBalloonText = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro2RyokoBalloonTextT, activity, "intro2_ryoko_balloon_text.png", 0, 0);
+            intro2RyokoBalloonTextT.load();
+        }
+        if (intro2RyokoBg == null) {
+            BitmapTextureAtlas intro2RyokoBgT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+                    mTransparentTextureOption);
+            intro2RyokoBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro2RyokoBgT, activity, "intro2_ryoko_bg.png", 0, 0);
+            intro2RyokoBgT.load();
+        }
+        if (intro2Ryoko == null) {
+            BitmapTextureAtlas intro2RyokoT = new BitmapTextureAtlas(textureManager, 633, 989,
+                    mTransparentTextureOption);
+            intro2Ryoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro2RyokoT, activity, "intro2_ryoko.png", 0, 0);
+            intro2RyokoT.load();
+        }
+        if (intro2ShoBalloonText == null) {
+            BitmapTextureAtlas intro2ShoBalloonTextT = new BitmapTextureAtlas(textureManager, 987, 505,
+                    mTransparentTextureOption);
+            intro2ShoBalloonText = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro2ShoBalloonTextT, activity, "intro2_sho_balloon_text.png", 0, 0);
+            intro2ShoBalloonTextT.load();
+        }
+        if (intro2ShoBg == null) {
+            BitmapTextureAtlas intro2ShoBgT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+                    mTransparentTextureOption);
+            intro2ShoBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro2ShoBgT, activity, "intro2_sho_bg.png", 0, 0);
+            intro2ShoBgT.load();
+        }
+        if (intro2Sho == null) {
+            BitmapTextureAtlas intro2ShoT = new BitmapTextureAtlas(textureManager, 813, 1049,
+                    mTransparentTextureOption);
+            intro2Sho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro2ShoT, activity, "intro2_sho.png", 0, 0);
+            intro2ShoT.load();
+        }
+    }
+    //    if (AAA == null) {
+    //        BitmapTextureAtlas BBB = new BitmapTextureAtlas(textureManager, 1920, 1080,
+    //                mTransparentTextureOption);
+    //        AAA = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+    //                BBB, activity, "CCC", 0, 0);
+    //        BBB.load();
+    //    }
+
+    //    if (AAA != null && AAA.getTexture().isLoadedToHardware()) {
+    //            AAA.getTexture().unload();
+    //            AAA = null;
+    //    }
+
+
+    public synchronized void unloadIntro2Resources() {
+        if (intro2CommonBg != null && intro2CommonBg.getTexture().isLoadedToHardware()) {
+                intro2CommonBg.getTexture().unload();
+                intro2CommonBg = null;
+        }
+        if (intro2CommonMaster != null && intro2CommonMaster.getTexture().isLoadedToHardware()) {
+                intro2CommonMaster.getTexture().unload();
+                intro2CommonMaster = null;
+        }
+        if (intro2CommonMasterTextBalloon != null && intro2CommonMasterTextBalloon.getTexture().isLoadedToHardware()) {
+                intro2CommonMasterTextBalloon.getTexture().unload();
+                intro2CommonMasterTextBalloon = null;
+        }
+        if (intro2CommonRyoko != null && intro2CommonRyoko.getTexture().isLoadedToHardware()) {
+                intro2CommonRyoko.getTexture().unload();
+                intro2CommonRyoko = null;
+        }
+        if (intro2CommonRyokoTextBalloon != null && intro2CommonRyokoTextBalloon.getTexture().isLoadedToHardware()) {
+                intro2CommonRyokoTextBalloon.getTexture().unload();
+                intro2CommonRyokoTextBalloon = null;
+        }
+        if (intro2CommonSho != null && intro2CommonSho.getTexture().isLoadedToHardware()) {
+                intro2CommonSho.getTexture().unload();
+                intro2CommonSho = null;
+        }
+        if (intro2CommonShoTextBalloon != null && intro2CommonShoTextBalloon.getTexture().isLoadedToHardware()) {
+                intro2CommonShoTextBalloon.getTexture().unload();
+                intro2CommonShoTextBalloon = null;
+        }
+        if (intro2RyokoBalloonText != null && intro2RyokoBalloonText.getTexture().isLoadedToHardware()) {
+                intro2RyokoBalloonText.getTexture().unload();
+                intro2RyokoBalloonText = null;
+        }
+        if (intro2RyokoBg != null && intro2RyokoBg.getTexture().isLoadedToHardware()) {
+                intro2RyokoBg.getTexture().unload();
+                intro2RyokoBg = null;
+        }
+        if (intro2Ryoko != null && intro2Ryoko.getTexture().isLoadedToHardware()) {
+                intro2Ryoko.getTexture().unload();
+                intro2Ryoko = null;
+        }
+        if (intro2ShoBalloonText != null && intro2ShoBalloonText.getTexture().isLoadedToHardware()) {
+                intro2ShoBalloonText.getTexture().unload();
+                intro2ShoBalloonText = null;
+        }
+        if (intro2ShoBg != null && intro2ShoBg.getTexture().isLoadedToHardware()) {
+                intro2ShoBg.getTexture().unload();
+                intro2ShoBg = null;
+        }
+        if (intro2Sho != null && intro2Sho.getTexture().isLoadedToHardware()) {
+                intro2Sho.getTexture().unload();
+                intro2Sho = null;
+        }
+        // Garbage Collector:
+        System.gc();
+    }
+
+    public synchronized void loadEndingResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/endings/");
+        if (endingCreditsBackground == null) {
+            BitmapTextureAtlas endingCreditsBackgroundT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+                    mTransparentTextureOption);
+            endingCreditsBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    endingCreditsBackgroundT, activity, "ending_credits_background.png", 0, 0);
+            endingCreditsBackgroundT.load();
+        }
+        if (endingCreditsCategories == null) {
+            BitmapTextureAtlas endingCreditsCategoriesT = new BitmapTextureAtlas(textureManager, 1200, 1020,
+                    mTransparentTextureOption);
+            endingCreditsCategories = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    endingCreditsCategoriesT, activity, "ending_credits_categories.png", 0, 0);
+            endingCreditsCategoriesT.load();
+        }
+        if (endingCreditsLogoAndengine == null) {
+            BitmapTextureAtlas endingCreditsLogoAndengineT = new BitmapTextureAtlas(textureManager, 389, 389,
+                    mTransparentTextureOption);
+            endingCreditsLogoAndengine = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    endingCreditsLogoAndengineT, activity, "ending_credits_logo_andengine.png", 0, 0);
+            endingCreditsLogoAndengineT.load();
+        }
+        if (endingCreditsLogoEstudioevergreen == null) {
+            BitmapTextureAtlas endingCreditsLogoEstudioevergreenT = new BitmapTextureAtlas(textureManager, 389, 389,
+                    mTransparentTextureOption);
+            endingCreditsLogoEstudioevergreen = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    endingCreditsLogoEstudioevergreenT, activity, "ending_credits_logo_estudioevergreen.png", 0, 0);
+            endingCreditsLogoEstudioevergreenT.load();
+        }
+        if (endingRyokoEasyBg == null) {
+            BitmapTextureAtlas endingRyokoEasyBgT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+                    mTransparentTextureOption);
+            endingRyokoEasyBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    endingRyokoEasyBgT, activity, "ending_ryoko_easy_bg.png", 0, 0);
+            endingRyokoEasyBgT.load();
+        }
+        if (endingRyokoEasy == null) {
+            BitmapTextureAtlas endingRyokoEasyT = new BitmapTextureAtlas(textureManager, 633, 989,
+                    mTransparentTextureOption);
+            endingRyokoEasy = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    endingRyokoEasyT, activity, "ending_ryoko_easy.png", 0, 0);
+            endingRyokoEasyT.load();
+        }
+        if (endingShoEasyBg == null) {
+            BitmapTextureAtlas endingShoEasyBgT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+                    mTransparentTextureOption);
+            endingShoEasyBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    endingShoEasyBgT, activity, "ending_sho_easy_bg.png", 0, 0);
+            endingShoEasyBgT.load();
+        }
+        if (endingShoEasy == null) {
+            BitmapTextureAtlas endingShoEasyT = new BitmapTextureAtlas(textureManager, 813, 1049,
+                    mTransparentTextureOption);
+            endingShoEasy = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    endingShoEasyT, activity, "ending_sho_easy.png", 0, 0);
+            endingShoEasyT.load();
+        }
+    }
+
+
+    public synchronized void unloadEndingResources() {
+        if (endingCreditsBackground != null && endingCreditsBackground.getTexture().isLoadedToHardware()) {
+                endingCreditsBackground.getTexture().unload();
+                endingCreditsBackground = null;
+        }
+        if (endingCreditsCategories != null && endingCreditsCategories.getTexture().isLoadedToHardware()) {
+                endingCreditsCategories.getTexture().unload();
+                endingCreditsCategories = null;
+        }
+        if (endingCreditsLogoAndengine != null && endingCreditsLogoAndengine.getTexture().isLoadedToHardware()) {
+                endingCreditsLogoAndengine.getTexture().unload();
+                endingCreditsLogoAndengine = null;
+        }
+        if (endingCreditsLogoEstudioevergreen != null && endingCreditsLogoEstudioevergreen.getTexture().isLoadedToHardware()) {
+                endingCreditsLogoEstudioevergreen.getTexture().unload();
+                endingCreditsLogoEstudioevergreen = null;
+        }
+        if (endingRyokoEasyBg != null && endingRyokoEasyBg.getTexture().isLoadedToHardware()) {
+                endingRyokoEasyBg.getTexture().unload();
+                endingRyokoEasyBg = null;
+        }
+        if (endingRyokoEasy != null && endingRyokoEasy.getTexture().isLoadedToHardware()) {
+                endingRyokoEasy.getTexture().unload();
+                endingRyokoEasy = null;
+        }
+        if (endingShoEasyBg != null && endingShoEasyBg.getTexture().isLoadedToHardware()) {
+                endingShoEasyBg.getTexture().unload();
+                endingShoEasyBg = null;
+        }
+        if (endingShoEasy != null && endingShoEasy.getTexture().isLoadedToHardware()) {
+                endingShoEasy.getTexture().unload();
+                endingShoEasy = null;
         }
         // Garbage Collector:
         System.gc();
