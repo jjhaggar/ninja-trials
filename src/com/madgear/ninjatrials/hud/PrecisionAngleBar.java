@@ -103,8 +103,14 @@ public class PrecisionAngleBar extends Entity {
      * Gets the power value.
      * @return An integer value from -100 (left) to 100 (right). 0 is the center value.
      */
-    public int getPowerValue() {
-        return Math.round(cursorValue) - 100;
+    public float[] getPowerValue() {
+    	if (cursorValue == 0 )
+    		cursorValue = 0.001f;
+    	if (cursorValue == cursorMax )
+    		cursorValue = cursorMax - 0.001f;
+    	
+    	return new float[] {cursorValue, (float) Math.sqrt(Math.pow(cursorMax, 2) - Math.pow(cursorValue, 2))};
+        
     }
     
     /**
@@ -143,7 +149,7 @@ public class PrecisionAngleBar extends Entity {
             direction = -1;
             semicycle++;
         }
-        if (cursorValue <= cursorMin) {
+        if (cursorValue <= (cursorMax / 2.0f)) {
             direction = 1;
             semicycle++;
         }

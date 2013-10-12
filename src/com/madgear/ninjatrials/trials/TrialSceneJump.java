@@ -29,6 +29,8 @@ import org.andengine.entity.modifier.FadeOutModifier;
 import org.andengine.entity.modifier.JumpModifier;
 import org.andengine.entity.modifier.MoveModifier;
 import org.andengine.entity.modifier.ParallelEntityModifier;
+import org.andengine.entity.modifier.PathModifier;
+import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.entity.modifier.RotationByModifier;
 import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.primitive.Rectangle;
@@ -64,10 +66,15 @@ public class TrialSceneJump extends GameScene {
     private float timeCounter = timeMax; // Tiempo total que queda para el corte
     private int frameNum = 0; // Contador para la animación
     private float timerStartedIn = 0; // control de tiempo
+    private float origX, origY = 0.0f;
+    
+    private float[] destiny = {0, 0};
+    
 
     private float width = ResourceManager.getInstance().cameraWidth;
     private float height = ResourceManager.getInstance().cameraHeight;
 
+    private float[] origin = {width / 2 - 120, height / 2};
     private SpriteBackground bg;
     private Tree mTree;
     private Statue mStatue;
@@ -86,6 +93,7 @@ public class TrialSceneJump extends GameScene {
     private final float readyTime = 4f;
     private final float endingTime = 6f;
     private int score = 0;
+    private float[] scoreJump;
 
     /**
      * Calls the super class constructor.
@@ -181,6 +189,7 @@ public class TrialSceneJump extends GameScene {
      */
     private void readySequence() {
         gameHUD.showMessage("Ready", 1, readyTime - 1);
+       // mCharacter.start();
         timerStartedIn = ResourceManager.getInstance().engine.getSecondsElapsedTotal(); 
         trialUpdateHandler = new IUpdateHandler() {
             @Override
@@ -203,15 +212,15 @@ public class TrialSceneJump extends GameScene {
         trialUpdateHandler = new IUpdateHandler() {
             @Override
             public void onUpdate(float pSecondsElapsed) {
-                if(chrono.isTimeOut()) {
-                    TrialSceneJump.this.unregisterUpdateHandler(trialUpdateHandler);
-                    timeOut();
-                }
+               // if(chrono.isTimeOut()) {
+                 //   TrialSceneJump.this.unregisterUpdateHandler(trialUpdateHandler);
+                  //  timeOut();
+               // }
             }
             @Override public void reset() {}
         };
         registerUpdateHandler(trialUpdateHandler);
-        gameHUD.showMessage("Cut!", 0, 1);
+        gameHUD.showMessage("Jump!", 0, 1);
         chrono.start();
         precisionBar.start();
         angleBar.start();
@@ -227,7 +236,7 @@ public class TrialSceneJump extends GameScene {
         chrono.stop();
         precisionBar.stop();
         angleBar.stop();
-        score = getScore();
+        scoreJump = getScoreJump();
         frameNum = 0;
         trialTimerHandler = new TimerHandler(0.1f, new ITimerCallback() {
             @Override
@@ -252,6 +261,27 @@ public class TrialSceneJump extends GameScene {
             }
         });
         registerUpdateHandler(trialTimerHandler);
+    }
+    public void jumpSequence() {
+        cutEnabled = false;
+        chrono.stop();
+        precisionBar.stop();
+        angleBar.stop();
+        scoreJump = getScoreJump();
+        frameNum = 0;
+        origin = mCharacter.jump(origin, scoreJump);
+        trialTimerHandler = new TimerHandler(0.1f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                pTimerHandler.reset();  // new frame each 0.1 second !
+                if (frameNum == 10) 
+                
+                frameNum++;
+            }
+        });
+        actionSequence();
+        registerUpdateHandler(trialTimerHandler);
+        cutEnabled = true;
     }
 
     /**
@@ -300,7 +330,8 @@ public class TrialSceneJump extends GameScene {
     @Override
     public void onPressButtonO() {
         if (cutEnabled) {
-            cutSequence();
+      //      cutSequence();
+        	jumpSequence();
         }
     }
 
@@ -323,10 +354,21 @@ public class TrialSceneJump extends GameScene {
      * @return The Trial Score (int from 0 to 100).
      */
     public static int getScore() {
-        int trialScore;
+        float[] trialScore;
         //trialScore = 100 - Math.abs(precisionBar.getPowerValue()) - precisionBar.getSemicycle() * 3;
         trialScore = angleBar.getPowerValue();
-        if(trialScore < 0) trialScore = 0;
+        return (int)trialScore[0];
+    }
+    
+    /**
+     * Calculates the trial score.
+     * Score = 100 - abs(precision bar power value) - precision bar semicycle number * 3
+     * @return The Trial Score (int from 0 to 100).
+     */
+    public static float[] getScoreJump() {
+        float[] trialScore;
+        //trialScore = 100 - Math.abs(precisionBar.getPowerValue()) - precisionBar.getSemicycle() * 3;
+        trialScore = angleBar.getPowerValue();
         return trialScore;
     }
 
@@ -436,6 +478,33 @@ public class TrialSceneJump extends GameScene {
          */
         public void cut() {
             charSprite.animate(new long[] { 100, 50, 50, 1000 }, 0, 3, false);
+        }
+        
+        public void start() {
+        	Path path = new Path(2).to(0f, 0f).to(0f,0f);
+        	
+        	charSprite.registerEntityModifier(new PathModifier(.0f, path));
+        }
+        
+        public float[] jump(float[] origin, float[] score) {
+        	float angle = (float) Math.atan(score[0]/score[1]);
+        	float[] destiny = {0, 0};
+        	float xDistance = width - 50;
+        	// x will be 0 or 100 always
+        	if (origin[0] == 50f)	destiny[0] = xDistance;
+        	else destiny[0] = 50f;
+        	
+        	destiny[1] = ((float) (Math.tan(angle) * xDistance)) * 0.1f + origin[1]; // its correct (float) (Math.tan(angle) * xDistance) + origin[1];
+        	
+        	//erase later
+        	if (destiny[1] > 1800f)
+        		destiny[1] = 0f;
+        	
+        	Path path = new Path(2).to(origin[0], origin[1])
+        			.to(destiny[0],destiny[1]);
+        	
+        	charSprite.registerEntityModifier(new PathModifier(.2f, path));
+        	return destiny;
         }
 
     }

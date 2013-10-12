@@ -96,6 +96,7 @@ public class ResourceManager {
 
     // JUMP TRIAL:
     public static ITextureRegion jumpStatueTR;
+    public static ITiledTextureRegion jumpShoTR;
     
     // CUT TRIAL:
     public static ITiledTextureRegion cutShoTR;
@@ -573,6 +574,17 @@ public class ResourceManager {
         // jumpStatueTR = TextureRegionFactory.extractFromTexture(jumpStatueT, 0, 0, 388, 380,
         //         false);
          jumpStatueTR = jumpStatueAllTR;
+         
+         //Sho:
+       //  BuildableBitmapTextureAtlas jumpShoT = new BuildableBitmapTextureAtlas(
+         //        textureManager, 1742, 1720, mTransparentTextureOption);
+         //cutShoTR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+          //       cutShoT, context, "cut_ch_sho_cut_anim.png", 2, 2);
+         //try {
+          //   cutShoT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+          //           BitmapTextureAtlas>(0, 0, 0));
+         //} catch (TextureAtlasBuilderException e) { e.printStackTrace(); }
+         //cutShoT.load();
     }
     
     
