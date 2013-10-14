@@ -97,7 +97,7 @@ public class ResourceManager {
     // JUMP TRIAL:
     public static ITextureRegion jumpStatueTR;
     public static ITiledTextureRegion jumpShoTR;
-    
+
     // CUT TRIAL:
     public static ITiledTextureRegion cutShoTR;
     public static ITextureRegion cutTreeTopTR;
@@ -123,7 +123,7 @@ public class ResourceManager {
     public static Sound cutKatana2;
     public static Sound cutKatana3;
     public static Sound cutKatanaWhoosh;
-    public static Sound cutThud;    
+    public static Sound cutThud;
 
 
 	// RUN SCENE
@@ -135,6 +135,44 @@ public class ResourceManager {
     public static ITextureRegion runDushStart;
     public static ITextureRegion runDushContinue;
 
+    // HOW TO PLAY
+    public static ITextureRegion howToPlayArrow;
+    public static ITextureRegion howToPlayButton;
+    public static ITextureRegion howToPlayDigitalPad;
+
+    // CHARACTER PROFILE
+    public static ITextureRegion characterProfileBackground1;
+    public static ITextureRegion characterProfileBackground2;
+    public static ITextureRegion characterProfileRyoko;
+    public static ITextureRegion characterProfileSho;
+
+    // MENU ACHIEVEMENTS
+    public static ITextureRegion menuAchievementsContainerDescription;
+    public static ITextureRegion menuAchievementsContainerIcons;
+    public static ITextureRegion menuAchievementsIconsBig;
+    public static ITextureRegion menuAchievementsIconsSmall;
+    public static ITextureRegion menuAchievementsIngameContainer;
+    public static ITextureRegion menuAchievementsSuccessStamp;
+
+    // MENU MAP
+    public static ITextureRegion menuMapBackgroundMarks;
+    public static ITextureRegion menuMapBackground;
+    public static ITextureRegion menuMapChRyoko;
+    public static ITextureRegion menuMapChSho;
+    public static ITextureRegion menuMapDrawings;
+    public static ITextureRegion menuMapScroll;
+
+    // MENU PAUSE
+    public static ITextureRegion menuPauseBambooFrame;
+
+    // MENU SELECTED
+    public static ITextureRegion menuSelectChRyoko;
+    public static ITextureRegion menuSelectChSho;
+    public static ITextureRegion menuSelectClouds;
+    public static ITextureRegion menuSelectDifficulty;
+    public static ITextureRegion menuSelectMoon;
+    public static ITextureRegion menuSelectRoof;
+    public static ITextureRegion menuSelectSky;
 
     // RESULTS SCENE LOSE
     public static ITextureRegion loseCharRyokoTR;
@@ -446,7 +484,14 @@ public class ResourceManager {
             hudAngleBarCursorT.load();
         }
 
-        //TODO: import Cursor angle
+        if(hudCursorTR==null) {
+            BitmapTextureAtlas hudCursorT = new BitmapTextureAtlas(textureManager, 59, 52,
+                    mTransparentTextureOption);
+            hudCursorTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudCursorT,
+                    activity, "hud_angle_cursor.png", 0, 0);
+            hudCursorT.load();
+        }
+
         // Cursor:
         if(hudCursorTR==null) {
             BitmapTextureAtlas hudCursorT = new BitmapTextureAtlas(textureManager, 59, 52,
@@ -1139,18 +1184,6 @@ public class ResourceManager {
             intro2ShoT.load();
         }
     }
-    //    if (AAA == null) {
-    //        BitmapTextureAtlas BBB = new BitmapTextureAtlas(textureManager, 1920, 1080,
-    //                mTransparentTextureOption);
-    //        AAA = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-    //                BBB, activity, "CCC", 0, 0);
-    //        BBB.load();
-    //    }
-
-    //    if (AAA != null && AAA.getTexture().isLoadedToHardware()) {
-    //            AAA.getTexture().unload();
-    //            AAA = null;
-    //    }
 
 
     public synchronized void unloadIntro2Resources() {
@@ -1270,7 +1303,6 @@ public class ResourceManager {
         }
     }
 
-
     public synchronized void unloadEndingResources() {
         if (endingCreditsBackground != null && endingCreditsBackground.getTexture().isLoadedToHardware()) {
                 endingCreditsBackground.getTexture().unload();
@@ -1308,6 +1340,387 @@ public class ResourceManager {
         System.gc();
     }
 
+    public synchronized void loadHowToPlayResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+        if (howToPlayArrow == null) {
+            BitmapTextureAtlas howToPlayArrowT = new BitmapTextureAtlas(textureManager, 149, 203,
+                    mTransparentTextureOption);
+            howToPlayArrow = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    howToPlayArrowT, activity, "how_to_play_arrow.png", 0, 0);
+            howToPlayArrowT.load();
+        }
+
+        if (howToPlayButton == null) {
+            BitmapTextureAtlas howToPlayButtonT = new BitmapTextureAtlas(textureManager, 182, 254,
+                    mTransparentTextureOption);
+            howToPlayButton = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    howToPlayButtonT, activity, "how_to_play_button.png", 0, 0);
+            howToPlayButtonT.load();
+        }
+
+        if (howToPlayDigitalPad == null) {
+            BitmapTextureAtlas howToPlayDigitalPadT = new BitmapTextureAtlas(textureManager, 471, 334,
+                    mTransparentTextureOption);
+            howToPlayDigitalPad = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    howToPlayDigitalPadT, activity, "how_to_play_digital_pad.png", 0, 0);
+            howToPlayDigitalPadT.load();
+        }
+    }
+
+    public synchronized void unloadHowToPlayResources() {
+        if (howToPlayArrow != null && howToPlayArrow.getTexture().isLoadedToHardware()) {
+                howToPlayArrow.getTexture().unload();
+                howToPlayArrow = null;
+        }
+
+        if (howToPlayButton != null && howToPlayButton.getTexture().isLoadedToHardware()) {
+                howToPlayButton.getTexture().unload();
+                howToPlayButton = null;
+        }
+
+        if (howToPlayDigitalPad != null && howToPlayDigitalPad.getTexture().isLoadedToHardware()) {
+                howToPlayDigitalPad.getTexture().unload();
+                howToPlayDigitalPad = null;
+        }
+    }
+
+    public synchronized void loadCharacterProfileResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+        if (characterProfileBackground1 == null) {
+            BitmapTextureAtlas characterProfileBackground1T = new BitmapTextureAtlas(textureManager, 1920, 1080,
+                    mTransparentTextureOption);
+            characterProfileBackground1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    characterProfileBackground1T, activity, "character_profile_background_1.png", 0, 0);
+            characterProfileBackground1T.load();
+        }
+
+        if (characterProfileBackground2 == null) {
+            BitmapTextureAtlas characterProfileBackground2T = new BitmapTextureAtlas(textureManager, 1920, 1080,
+                    mTransparentTextureOption);
+            characterProfileBackground2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    characterProfileBackground2T, activity, "character_profile_background_2.png", 0, 0);
+            characterProfileBackground2T.load();
+        }
+
+        if (characterProfileRyoko == null) {
+            BitmapTextureAtlas characterProfileRyokoT = new BitmapTextureAtlas(textureManager, 706, 1563,
+                    mTransparentTextureOption);
+            characterProfileRyoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    characterProfileRyokoT, activity, "character_profile_ryoko.png", 0, 0);
+            characterProfileRyokoT.load();
+        }
+
+        if (characterProfileSho == null) {
+            BitmapTextureAtlas characterProfileShoT = new BitmapTextureAtlas(textureManager, 981, 1734,
+                    mTransparentTextureOption);
+            characterProfileSho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    characterProfileShoT, activity, "character_profile_sho.png", 0, 0);
+            characterProfileShoT.load();
+        }
+    }
+
+    public synchronized void unloadCharacterProfileResources() {
+        if (characterProfileBackground1 != null && characterProfileBackground1.getTexture().isLoadedToHardware()) {
+                characterProfileBackground1.getTexture().unload();
+                characterProfileBackground1 = null;
+        }
+
+        if (characterProfileBackground2 != null && characterProfileBackground2.getTexture().isLoadedToHardware()) {
+                characterProfileBackground2.getTexture().unload();
+                characterProfileBackground2 = null;
+        }
+
+        if (characterProfileRyoko != null && characterProfileRyoko.getTexture().isLoadedToHardware()) {
+                characterProfileRyoko.getTexture().unload();
+                characterProfileRyoko = null;
+        }
+
+        if (characterProfileSho != null && characterProfileSho.getTexture().isLoadedToHardware()) {
+                characterProfileSho.getTexture().unload();
+                characterProfileSho = null;
+        }
+    }
+
+    public synchronized void loadMenuAchievementsResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
+        if (menuAchievementsContainerDescription == null) {
+            BitmapTextureAtlas menuAchievementsContainerDescriptionT = new BitmapTextureAtlas(textureManager, 438, 284,
+                    mTransparentTextureOption);
+            menuAchievementsContainerDescription = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuAchievementsContainerDescriptionT, activity, "menu_achievements_container_description.png", 0, 0);
+            menuAchievementsContainerDescriptionT.load();
+        }
+
+        if (menuAchievementsContainerIcons == null) {
+            BitmapTextureAtlas menuAchievementsContainerIconsT = new BitmapTextureAtlas(textureManager, 1063, 820,
+                    mTransparentTextureOption);
+            menuAchievementsContainerIcons = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuAchievementsContainerIconsT, activity, "menu_achievements_container_icons.png", 0, 0);
+            menuAchievementsContainerIconsT.load();
+        }
+
+        if (menuAchievementsIconsBig == null) {
+            BitmapTextureAtlas menuAchievementsIconsBigT = new BitmapTextureAtlas(textureManager, 1140, 1080,
+                    mTransparentTextureOption);
+            menuAchievementsIconsBig = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuAchievementsIconsBigT, activity, "menu_achievements_icons_big.png", 0, 0);
+            menuAchievementsIconsBigT.load();
+        }
+
+        if (menuAchievementsIconsSmall == null) {
+            BitmapTextureAtlas menuAchievementsIconsSmallT = new BitmapTextureAtlas(textureManager, 2040, 952,
+                    mTransparentTextureOption);
+            menuAchievementsIconsSmall = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuAchievementsIconsSmallT, activity, "menu_achievements_icons_small.png", 0, 0);
+            menuAchievementsIconsSmallT.load();
+        }
+
+        if (menuAchievementsIngameContainer == null) {
+            BitmapTextureAtlas menuAchievementsIngameContainerT = new BitmapTextureAtlas(textureManager, 806, 192,
+                    mTransparentTextureOption);
+            menuAchievementsIngameContainer = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuAchievementsIngameContainerT, activity, "menu_achievements_ingame_container.png", 0, 0);
+            menuAchievementsIngameContainerT.load();
+        }
+
+        if (menuAchievementsSuccessStamp == null) {
+            BitmapTextureAtlas menuAchievementsSuccessStampT = new BitmapTextureAtlas(textureManager, 260, 260,
+                    mTransparentTextureOption);
+            menuAchievementsSuccessStamp = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuAchievementsSuccessStampT, activity, "menu_achievements_success_stamp.png", 0, 0);
+            menuAchievementsSuccessStampT.load();
+        }
+    }
+
+    public synchronized void unloadMenuAchievementsResources() {
+        if (menuAchievementsContainerDescription != null && menuAchievementsContainerDescription.getTexture().isLoadedToHardware()) {
+                menuAchievementsContainerDescription.getTexture().unload();
+                menuAchievementsContainerDescription = null;
+        }
+
+        if (menuAchievementsContainerIcons != null && menuAchievementsContainerIcons.getTexture().isLoadedToHardware()) {
+                menuAchievementsContainerIcons.getTexture().unload();
+                menuAchievementsContainerIcons = null;
+        }
+
+        if (menuAchievementsIconsBig != null && menuAchievementsIconsBig.getTexture().isLoadedToHardware()) {
+                menuAchievementsIconsBig.getTexture().unload();
+                menuAchievementsIconsBig = null;
+        }
+
+        if (menuAchievementsIconsSmall != null && menuAchievementsIconsSmall.getTexture().isLoadedToHardware()) {
+                menuAchievementsIconsSmall.getTexture().unload();
+                menuAchievementsIconsSmall = null;
+        }
+
+        if (menuAchievementsIngameContainer != null && menuAchievementsIngameContainer.getTexture().isLoadedToHardware()) {
+                menuAchievementsIngameContainer.getTexture().unload();
+                menuAchievementsIngameContainer = null;
+        }
+
+        if (menuAchievementsSuccessStamp != null && menuAchievementsSuccessStamp.getTexture().isLoadedToHardware()) {
+                menuAchievementsSuccessStamp.getTexture().unload();
+                menuAchievementsSuccessStamp = null;
+        }
+    }
+
+    public synchronized void loadMenuMapResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
+        if (menuMapBackgroundMarks == null) {
+            BitmapTextureAtlas menuMapBackgroundMarksT = new BitmapTextureAtlas(textureManager, 94, 152,
+                    mTransparentTextureOption);
+            menuMapBackgroundMarks = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuMapBackgroundMarksT, activity, "menu_map_background_marks.png", 0, 0);
+            menuMapBackgroundMarksT.load();
+        }
+
+        if (menuMapBackground == null) {
+            BitmapTextureAtlas menuMapBackgroundT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+                    mTransparentTextureOption);
+            menuMapBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuMapBackgroundT, activity, "menu_map_background.png", 0, 0);
+            menuMapBackgroundT.load();
+        }
+
+        if (menuMapChRyoko == null) {
+            BitmapTextureAtlas menuMapChRyokoT = new BitmapTextureAtlas(textureManager, 192, 330,
+                    mTransparentTextureOption);
+            menuMapChRyoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuMapChRyokoT, activity, "menu_map_ch_ryoko.png", 0, 0);
+            menuMapChRyokoT.load();
+        }
+
+        if (menuMapChSho == null) {
+            BitmapTextureAtlas menuMapChShoT = new BitmapTextureAtlas(textureManager, 192, 330,
+                    mTransparentTextureOption);
+            menuMapChSho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuMapChShoT, activity, "menu_map_ch_sho.png", 0, 0);
+            menuMapChShoT.load();
+        }
+
+        if (menuMapDrawings == null) {
+            BitmapTextureAtlas menuMapDrawingsT = new BitmapTextureAtlas(textureManager, 1106, 962,
+                    mTransparentTextureOption);
+            menuMapDrawings = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuMapDrawingsT, activity, "menu_map_drawings.png", 0, 0);
+            menuMapDrawingsT.load();
+        }
+
+        if (menuMapScroll == null) {
+            BitmapTextureAtlas menuMapScrollT = new BitmapTextureAtlas(textureManager, 1568, 1632,
+                    mTransparentTextureOption);
+            menuMapScroll = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuMapScrollT, activity, "menu_map_scroll.png", 0, 0);
+            menuMapScrollT.load();
+        }
+    }
+
+    public synchronized void unloadMenuMapResources() {
+        if (menuMapBackgroundMarks != null && menuMapBackgroundMarks.getTexture().isLoadedToHardware()) {
+                menuMapBackgroundMarks.getTexture().unload();
+                menuMapBackgroundMarks = null;
+        }
+
+        if (menuMapBackground != null && menuMapBackground.getTexture().isLoadedToHardware()) {
+                menuMapBackground.getTexture().unload();
+                menuMapBackground = null;
+        }
+
+        if (menuMapChRyoko != null && menuMapChRyoko.getTexture().isLoadedToHardware()) {
+                menuMapChRyoko.getTexture().unload();
+                menuMapChRyoko = null;
+        }
+
+        if (menuMapChSho != null && menuMapChSho.getTexture().isLoadedToHardware()) {
+                menuMapChSho.getTexture().unload();
+                menuMapChSho = null;
+        }
+
+        if (menuMapDrawings != null && menuMapDrawings.getTexture().isLoadedToHardware()) {
+                menuMapDrawings.getTexture().unload();
+                menuMapDrawings = null;
+        }
+
+        if (menuMapScroll != null && menuMapScroll.getTexture().isLoadedToHardware()) {
+                menuMapScroll.getTexture().unload();
+                menuMapScroll = null;
+        }
+    }
+
+    public synchronized void loadMenuPauseResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
+        if (menuPauseBambooFrame == null) {
+            BitmapTextureAtlas menuPauseBambooFrameT = new BitmapTextureAtlas(textureManager, 1192, 171,
+                    mTransparentTextureOption);
+            menuPauseBambooFrame = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuPauseBambooFrameT, activity, "menu_pause_bamboo_frame.png", 0, 0);
+            menuPauseBambooFrameT.load();
+        }
+    }
+
+    public synchronized void unloadMenuPauseResources() {
+        if (menuPauseBambooFrame != null && menuPauseBambooFrame.getTexture().isLoadedToHardware()) {
+                menuPauseBambooFrame.getTexture().unload();
+                menuPauseBambooFrame = null;
+        }
+    }
+
+    public synchronized void loadMenuSelectedResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
+        if (menuSelectChRyoko == null) {
+            BitmapTextureAtlas menuSelectChRyokoT = new BitmapTextureAtlas(textureManager, 870, 1028,
+                    mTransparentTextureOption);
+            menuSelectChRyoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuSelectChRyokoT, activity, "menu_select_ch_ryoko.png", 0, 0);
+            menuSelectChRyokoT.load();
+        }
+
+        if (menuSelectChSho == null) {
+            BitmapTextureAtlas menuSelectChShoT = new BitmapTextureAtlas(textureManager, 1310, 1120,
+                    mTransparentTextureOption);
+            menuSelectChSho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuSelectChShoT, activity, "menu_select_ch_sho.png", 0, 0);
+            menuSelectChShoT.load();
+        }
+
+        if (menuSelectClouds == null) {
+            BitmapTextureAtlas menuSelectCloudsT = new BitmapTextureAtlas(textureManager, 1422, 537,
+                    mTransparentTextureOption);
+            menuSelectClouds = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuSelectCloudsT, activity, "menu_select_clouds.png", 0, 0);
+            menuSelectCloudsT.load();
+        }
+
+        if (menuSelectDifficulty == null) {
+            BitmapTextureAtlas menuSelectDifficultyT = new BitmapTextureAtlas(textureManager, 1649, 633,
+                    mTransparentTextureOption);
+            menuSelectDifficulty = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuSelectDifficultyT, activity, "menu_select_difficulty.png", 0, 0);
+            menuSelectDifficultyT.load();
+        }
+
+        if (menuSelectMoon == null) {
+            BitmapTextureAtlas menuSelectMoonT = new BitmapTextureAtlas(textureManager, 940, 905,
+                    mTransparentTextureOption);
+            menuSelectMoon = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuSelectMoonT, activity, "menu_select_moon.png", 0, 0);
+            menuSelectMoonT.load();
+        }
+
+        if (menuSelectRoof == null) {
+            BitmapTextureAtlas menuSelectRoofT = new BitmapTextureAtlas(textureManager, 1585, 385,
+                    mTransparentTextureOption);
+            menuSelectRoof = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuSelectRoofT, activity, "menu_select_roof.png", 0, 0);
+            menuSelectRoofT.load();
+        }
+
+        if (menuSelectSky == null) {
+            BitmapTextureAtlas menuSelectSkyT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+                    mTransparentTextureOption);
+            menuSelectSky = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuSelectSkyT, activity, "menu_select_sky.png", 0, 0);
+            menuSelectSkyT.load();
+        }
+
+    }
+
+    public synchronized void unloadMenuSelectedResources() {
+        if (menuSelectChRyoko != null && menuSelectChRyoko.getTexture().isLoadedToHardware()) {
+                menuSelectChRyoko.getTexture().unload();
+                menuSelectChRyoko = null;
+        }
+
+        if (menuSelectChSho != null && menuSelectChSho.getTexture().isLoadedToHardware()) {
+                menuSelectChSho.getTexture().unload();
+                menuSelectChSho = null;
+        }
+
+        if (menuSelectClouds != null && menuSelectClouds.getTexture().isLoadedToHardware()) {
+                menuSelectClouds.getTexture().unload();
+                menuSelectClouds = null;
+        }
+
+        if (menuSelectDifficulty != null && menuSelectDifficulty.getTexture().isLoadedToHardware()) {
+                menuSelectDifficulty.getTexture().unload();
+                menuSelectDifficulty = null;
+        }
+
+        if (menuSelectMoon != null && menuSelectMoon.getTexture().isLoadedToHardware()) {
+                menuSelectMoon.getTexture().unload();
+                menuSelectMoon = null;
+        }
+
+        if (menuSelectRoof != null && menuSelectRoof.getTexture().isLoadedToHardware()) {
+                menuSelectRoof.getTexture().unload();
+                menuSelectRoof = null;
+        }
+
+        if (menuSelectSky != null && menuSelectSky.getTexture().isLoadedToHardware()) {
+                menuSelectSky.getTexture().unload();
+                menuSelectSky = null;
+        }
+    }
 
     public synchronized void loadResultLoseSceneResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/results/");
@@ -1582,3 +1995,15 @@ public class ResourceManager {
         fontXBig.unload();
     }
 }
+        //if (AAA == null) {
+        //    BitmapTextureAtlas BBB = new BitmapTextureAtlas(textureManager, 1920, 1080,
+        //            mTransparentTextureOption);
+        //    AAA = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+        //            BBB, activity, "CCC", 0, 0);
+        //    BBB.load();
+        //}
+
+        //if (AAA != null && AAA.getTexture().isLoadedToHardware()) {
+        //        AAA.getTexture().unload();
+        //        AAA = null;
+        //}
