@@ -341,6 +341,7 @@ public class TrialSceneCut extends GameScene {
     private void timeOut() {
         cutEnabled = false;
         precisionBar.stop();
+        precisionBar.setCursorValue(100);
         //score = 0;
         saveTrialResults();
         endingSequence();
