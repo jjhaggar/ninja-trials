@@ -91,7 +91,10 @@ public class ResourceManager {
     public static ITextureRegion runLineBar;
     public static ITextureRegion runMarkP1;
     public static ITextureRegion runMarkP2;
+    public static ITiledTextureRegion cutHead;
+    public static ITiledTextureRegion jumpHead;
     public static ITiledTextureRegion runHead;
+    public static ITiledTextureRegion shurikenHead;
 
 
     // JUMP TRIAL:
@@ -127,7 +130,6 @@ public class ResourceManager {
     public static ITiledTextureRegion cutSwordSparkle2TR;
     public static ITextureRegion cutHudBarTR;
     public static ITextureRegion cutHudCursorTR;
-    public static ITiledTextureRegion cutHead;
 
 
     // CUT SCENE SOUNDS:
@@ -586,6 +588,36 @@ public class ResourceManager {
             }
             cutHeadBit.load();
         }
+        // JumpHead
+        if (jumpHead == null) {
+            BuildableBitmapTextureAtlas jumpHeadBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 660, 440, mTransparentTextureOption);
+            jumpHead = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    jumpHeadBit, context, "hud_head_jump.png", 3, 2);
+            try {
+                jumpHeadBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            jumpHeadBit.load();
+        }
+        // ShurikenHead
+        if (shurikenHead == null) {
+            BuildableBitmapTextureAtlas shurikenHeadBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 660, 440, mTransparentTextureOption);
+            shurikenHead = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    shurikenHeadBit, context, "hud_head_shuriken.png", 3, 2);
+            try {
+                shurikenHeadBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            shurikenHeadBit.load();
+        }
     }
 
     public synchronized void unloadHUDResources() {
@@ -632,6 +664,14 @@ public class ResourceManager {
         if (cutHead != null && cutHead.getTexture().isLoadedToHardware()) {
             cutHead.getTexture().unload();
             cutHead = null;
+        }
+        if (jumpHead != null && jumpHead.getTexture().isLoadedToHardware()) {
+            jumpHead.getTexture().unload();
+            jumpHead = null;
+        }
+        if (shurikenHead != null && shurikenHead.getTexture().isLoadedToHardware()) {
+            shurikenHead.getTexture().unload();
+            shurikenHead = null;
         }
     }
 
@@ -1163,6 +1203,7 @@ public class ResourceManager {
     }
 
     public synchronized void loadShurikenSceneResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trial_shuriken/");
         if (shurikenBackground == null) {
             BitmapTextureAtlas shurikenBackgroundT = new BitmapTextureAtlas(textureManager, 1920, 1080,
                     mTransparentTextureOption);
@@ -1227,7 +1268,7 @@ public class ResourceManager {
             shurikenStrawman1T.load();
         }
         if (shurikenStrawman2 == null) {
-            BitmapTextureAtlas shurikenStrawman2T = new BitmapTextureAtlas(textureManager, 1088, 1056,
+            BitmapTextureAtlas shurikenStrawman2T = new BitmapTextureAtlas(textureManager, 1688, 1056,
                     mTransparentTextureOption);
             shurikenStrawman2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     shurikenStrawman2T, activity, "shuriken_strawman_2.png", 0, 0);
@@ -1776,7 +1817,7 @@ public class ResourceManager {
     public synchronized void loadMenuAchievementsResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
         if (menuAchievementsContainerDescription == null) {
-            BitmapTextureAtlas menuAchievementsContainerDescriptionT = new BitmapTextureAtlas(textureManager, 438, 284,
+            BitmapTextureAtlas menuAchievementsContainerDescriptionT = new BitmapTextureAtlas(textureManager, 438, 285,
                     mTransparentTextureOption);
             menuAchievementsContainerDescription = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     menuAchievementsContainerDescriptionT, activity, "menu_achievements_container_description.png", 0, 0);
@@ -1942,7 +1983,7 @@ public class ResourceManager {
     public synchronized void loadMenuPauseResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
         if (menuPauseBambooFrame == null) {
-            BitmapTextureAtlas menuPauseBambooFrameT = new BitmapTextureAtlas(textureManager, 1192, 171,
+            BitmapTextureAtlas menuPauseBambooFrameT = new BitmapTextureAtlas(textureManager, 1192, 717,
                     mTransparentTextureOption);
             menuPauseBambooFrame = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     menuPauseBambooFrameT, activity, "menu_pause_bamboo_frame.png", 0, 0);
@@ -1966,7 +2007,6 @@ public class ResourceManager {
                     menuSelectChRyokoT, activity, "menu_select_ch_ryoko.png", 0, 0);
             menuSelectChRyokoT.load();
         }
-
         if (menuSelectChSho == null) {
             BitmapTextureAtlas menuSelectChShoT = new BitmapTextureAtlas(textureManager, 1310, 1120,
                     mTransparentTextureOption);
@@ -1974,7 +2014,6 @@ public class ResourceManager {
                     menuSelectChShoT, activity, "menu_select_ch_sho.png", 0, 0);
             menuSelectChShoT.load();
         }
-
         if (menuSelectClouds == null) {
             BitmapTextureAtlas menuSelectCloudsT = new BitmapTextureAtlas(textureManager, 1422, 537,
                     mTransparentTextureOption);
@@ -1982,7 +2021,6 @@ public class ResourceManager {
                     menuSelectCloudsT, activity, "menu_select_clouds.png", 0, 0);
             menuSelectCloudsT.load();
         }
-
         if (menuSelectDifficulty == null) {
             BitmapTextureAtlas menuSelectDifficultyT = new BitmapTextureAtlas(textureManager, 1649, 633,
                     mTransparentTextureOption);
@@ -1990,7 +2028,6 @@ public class ResourceManager {
                     menuSelectDifficultyT, activity, "menu_select_difficulty.png", 0, 0);
             menuSelectDifficultyT.load();
         }
-
         if (menuSelectMoon == null) {
             BitmapTextureAtlas menuSelectMoonT = new BitmapTextureAtlas(textureManager, 940, 905,
                     mTransparentTextureOption);
@@ -1998,7 +2035,6 @@ public class ResourceManager {
                     menuSelectMoonT, activity, "menu_select_moon.png", 0, 0);
             menuSelectMoonT.load();
         }
-
         if (menuSelectRoof == null) {
             BitmapTextureAtlas menuSelectRoofT = new BitmapTextureAtlas(textureManager, 1585, 385,
                     mTransparentTextureOption);
@@ -2006,7 +2042,6 @@ public class ResourceManager {
                     menuSelectRoofT, activity, "menu_select_roof.png", 0, 0);
             menuSelectRoofT.load();
         }
-
         if (menuSelectSky == null) {
             BitmapTextureAtlas menuSelectSkyT = new BitmapTextureAtlas(textureManager, 1920, 1080,
                     mTransparentTextureOption);
@@ -2014,7 +2049,6 @@ public class ResourceManager {
                     menuSelectSkyT, activity, "menu_select_sky.png", 0, 0);
             menuSelectSkyT.load();
         }
-
     }
 
     public synchronized void unloadMenuSelectedResources() {
