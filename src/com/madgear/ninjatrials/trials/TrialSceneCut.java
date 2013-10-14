@@ -660,56 +660,45 @@ public class TrialSceneCut extends GameScene {
 
         public void spark() {
             charSparkleSprite.setVisible(true);
-            charSparkleSprite.animate(SPARK_TIME, false, new IAnimationListener(){
-                    @Override
-                    public void onAnimationStarted(AnimatedSprite pAnimatedSprite,
-                            int pInitialLoopCount) {}
-                    @Override
-                    public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite,
-                            int pOldFrameIndex, int pNewFrameIndex) {}
-                    @Override
-                    public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite,
-                            int pRemainingLoopCount, int pInitialLoopCount) {}
-                    @Override
-                    public void onAnimationFinished(AnimatedSprite pAnimatedSprite)
-                    {
-                        // Reverse animation:
-                        charSparkleSprite.animate(
-                                new long[] {SPARK_TIME, SPARK_TIME, SPARK_TIME },
-                                new int[] {2,1,0},
-                                false, new IAnimationListener(){
-                                    @Override
-                                    public void onAnimationStarted(AnimatedSprite pAnimatedSprite,
-                                            int pInitialLoopCount) {}
-                                    @Override
-                                    public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite,
-                                            int pOldFrameIndex, int pNewFrameIndex) {}
-                                    @Override
-                                    public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite,
-                                            int pRemainingLoopCount, int pInitialLoopCount) {}
-                                    @Override
-                                    public void onAnimationFinished(AnimatedSprite pAnimatedSprite)
-                                    {
-                                        // Hide sparkle:
-                                        charSparkleSprite.setVisible(false);
-                                    }
-                                });
-                    }
-                }
-            );
+            charSparkleSprite.animate(
+                    new long[] {SPARK_TIME, SPARK_TIME, SPARK_TIME, SPARK_TIME, SPARK_TIME },
+                    new int[] {0,1,2,1,0},
+                    false, new IAnimationListener(){
+                        @Override
+                        public void onAnimationStarted(AnimatedSprite pAnimatedSprite,
+                                int pInitialLoopCount) {}
+                        @Override
+                        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite,
+                                int pOldFrameIndex, int pNewFrameIndex) {}
+                        @Override
+                        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite,
+                                int pRemainingLoopCount, int pInitialLoopCount) {}
+                        @Override
+                        public void onAnimationFinished(AnimatedSprite pAnimatedSprite)
+                        {
+                            // Hide sparkle:
+                            charSparkleSprite.setVisible(false);
+                        }
+            });
         }
     }
+            
+        
+    
 
     /**
      * HeadCharacterCut
      * @author Madgear Games
      */
     private class HeadCharacterCut extends HeadCharacter {
-        private int character;
+        private final static int HEAD_CENTER_MAX_CURSOR_VALUE = 20;
+        private final static int HEAD_MIDDLE_MAX_CURSOR_VALUE = 60;
+        private int currentIndex = 0;
+        private int newIndex = 0;
+
 
         public HeadCharacterCut(float xPos, float yPos, int c) {
             super(xPos, yPos, ResourceManager.getInstance().cutHead, c);
-            character = c;
         }
 
         /**
@@ -717,7 +706,19 @@ public class TrialSceneCut extends GameScene {
          */
         @Override
         protected void onManagedUpdate(final float pSecondsElapsed) {
-
+            int power = Math.abs(precisionBar.getPowerValue());
+            currentIndex = getIndex();
+            
+            if(power <= HEAD_CENTER_MAX_CURSOR_VALUE)
+                newIndex  = 0;
+            else if(power <= HEAD_MIDDLE_MAX_CURSOR_VALUE)
+                newIndex  = 1;
+            else
+                newIndex  = 2;
+            
+            if(newIndex != currentIndex)
+                setIndex(newIndex);
+            
             super.onManagedUpdate(pSecondsElapsed);
         }
     }
