@@ -23,6 +23,7 @@ import android.util.Log;
 import org.andengine.entity.Entity;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
+import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 
 import com.madgear.ninjatrials.managers.GameManager;
@@ -30,62 +31,52 @@ import com.madgear.ninjatrials.managers.ResourceManager;
 
 
 public class HeadCharacter extends Entity {
-    public int framePlus = 0;
-    private int frameIndex = 0;
+    public static final int HEAD_INDEX_SHO = 0;
+    public static final int HEAD_INDEX_RYOKO = 1;
+    private static final int TILE_NUM = 3;
+    private int charIndex = HEAD_INDEX_SHO;
+    private int tileIndex = 0;
+    private int character;
 
-    private AnimatedSprite head;
-	private IAnimationListener ani;
+    private TiledSprite head;
 
-    public HeadCharacter(float posX, float posY, ITiledTextureRegion tiledTexture, int character) {
-        head = new AnimatedSprite(posX, posY, tiledTexture,
+    public HeadCharacter(float posX, float posY, ITiledTextureRegion tiledTexture, int pChar) {
+        head = new TiledSprite(posX, posY, tiledTexture,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        // framePlus = 3 * GameManager.getInstance().getSelectedPlayer();
-        if (character == GameManager.CHAR_SHO) {
-            framePlus = 0;
-        }
-        else if (character == GameManager.CHAR_RYOKO) {
-            framePlus = 3;
-        }
+        if (pChar == GameManager.CHAR_SHO)
+            charIndex = HEAD_INDEX_SHO;
+        else if (pChar == GameManager.CHAR_RYOKO)
+            charIndex = HEAD_INDEX_RYOKO;
         attachChild(head);
-    }
-
-    // TODO: revisar esta clase:
-    // ani -> no hace nada y se puede quitar
-    // con setCurrentTileIndex se selecciona el frame deseado (x, y). -> no hace falta mantener
-    // una variable framePlus, sino una CHAR_INDEX
-    public void getFrame(int frame) {
-		ani = new IAnimationListener() {
-            @Override
-			public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-			}
-			@Override
-            public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int
-                    pRemainingLoopCount, int pInitialLoopCount) {
-			}
-			@Override
-			public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex,
-                    int pNewFrameIndex) {
-			}
-			@Override
-			public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-			}
-        };
-        if (0 <= frame + framePlus && frame + framePlus < 3) {
-            head.animate(new long[]{100}, new int[]{frame + framePlus}, false, ani);
-        }
-        else {
-            Log.v("updateState", "IndexError" + frame);
-        }
+        character = pChar;
+    }    
+    
+    /**
+     * 
+     * @return The current index of the head tile. (0 to 2)
+     */
+    public int getIndex() {
+        return tileIndex;
     }
     
-    public int getFrameIndex() {
-        return frameIndex;
+    
+    /**
+     * @return The character head offset.
+     */
+    public int getCharIndex() {
+        return charIndex;
     }
     
-    public void setFrame(int i) {
+    
+    /**
+     * Sets the tile index of the head.
+     * @param i The index of the tile. (0 to 2)
+     */
+    public void setIndex(int i) {
         if(i >= 0 && i < 3) {
-            frameIndex = i;
-            head.setCurrentTileIndex(i + framePlus);
+            tileIndex = i;
+            head.setCurrentTileIndex(charIndex * TILE_NUM + tileIndex);
+            // no funciona  setCurrentTileIndex(x,y)!!!    :(
         }
         else
             Log.v("updateState", "IndexError " + i);
