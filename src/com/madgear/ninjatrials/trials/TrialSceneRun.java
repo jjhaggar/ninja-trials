@@ -123,7 +123,7 @@ public class TrialSceneRun extends GameScene {
         powerBar = new PowerBar(330, 110, minPower, maxPower);
         head = new HeadCharacter(110, 110, ResourceManager.getInstance().runHead,
                 GameManager.getSelectedCharacter());
-        head.getFrame(0);
+        head.setIndex(0);
         if (GameManager.getSelectedCharacter() ==
                 GameManager.CHAR_SHO) {
             character = new RunCharacter(width / 2, height / 2,
@@ -235,13 +235,13 @@ public class TrialSceneRun extends GameScene {
             }
             powerBar.update(power);
             if (power <= 50) {
-                head.getFrame(0);
+                head.setIndex(0);
             }
             else if (50 <= power && power < 90) {
-                head.getFrame(1);
+                head.setIndex(1);
             }
             else if ( 90 <= power) {
-                head.getFrame(2);
+                head.setIndex(2);
             }
         }
 	}
