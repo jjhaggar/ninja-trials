@@ -38,9 +38,9 @@ import com.madgear.ninjatrials.managers.ResourceManager;
  */
 @SuppressWarnings({ "static-access" })
 public class PrecisionBar extends Entity {
-    private final float cursorMin = 0f;
-    private final float cursorMax = 200f;
-    private float cursorValue = 0f;
+    public static final float CURSOR_MIN_VALUE = 0f;
+    public static final float CURSOR_MAX_VALUE = 200f;
+    private float cursorValue = CURSOR_MIN_VALUE;
     private float speed;
     private int direction = 1;
     private float curXInit;
@@ -66,7 +66,7 @@ public class PrecisionBar extends Entity {
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(bar);
         attachChild(cursor);
-        speed = 2 * (cursorMax - cursorMin) / timeRound;
+        speed = 2 * (CURSOR_MAX_VALUE - CURSOR_MIN_VALUE) / timeRound;
         setIgnoreUpdate(true);
     }
 
@@ -75,7 +75,7 @@ public class PrecisionBar extends Entity {
      * @param value The new cursor value.
      */
     public void setCursorValue(float value) {
-        if (value >= cursorMin && value <= cursorMax)
+        if (value >= CURSOR_MIN_VALUE && value <= CURSOR_MAX_VALUE)
             cursorValue = value;
     }
 
@@ -121,11 +121,11 @@ public class PrecisionBar extends Entity {
         if (pSecondsElapsed < 0.2)
             cursorValue += pSecondsElapsed * speed * direction;
         cursor.setX(curXInit + cursorValue);
-        if (cursorValue >= cursorMax) {
+        if (cursorValue >= CURSOR_MAX_VALUE) {
             direction = -1;
             semicycle++;
         }
-        if (cursorValue <= cursorMin) {
+        if (cursorValue <= CURSOR_MIN_VALUE) {
             direction = 1;
             semicycle++;
         }

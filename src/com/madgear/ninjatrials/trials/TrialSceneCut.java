@@ -77,6 +77,11 @@ public class TrialSceneCut extends GameScene {
     private final static float SWEAT_DROP_TIME = 3;
     private static final float SPARKLE_X_SHIFT = 105;
     private static final float SPARKLE_Y_SHIFT = 105;
+    
+    private static final float TIME_MAX_EASY = 10;
+    private static final float TIME_MAX_MEDIUM = 8;
+    private static final float TIME_MAX_HARD = 4;
+
 
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
@@ -108,7 +113,9 @@ public class TrialSceneCut extends GameScene {
     private final float readyTime = 4f;
     private final float endingTime = 6f;
     private int score = 0;
+    private boolean isTimeOut = false;
 
+    
     /**
      * Calls the super class constructor.
      * Loading scene is enabled by default.
@@ -251,7 +258,6 @@ public class TrialSceneCut extends GameScene {
         cutEnabled = false;
         chrono.stop();
         precisionBar.stop();
-        //score = getScore();
         saveTrialResults();
         frameNum = 0;
         trialTimerHandler = new TimerHandler(0.1f, new ITimerCallback() {
@@ -291,13 +297,13 @@ public class TrialSceneCut extends GameScene {
         // TODO: ending animation. (drop and eye)
         //GameManager.incrementScore(score);
         score = getScore();
-        if(score >= SCORE_GRAND_MASTER) {
+        if(score >= SCORE_GRAND_MASTER && !isTimeOut) {
             endingSequencePerfect();
         }
-        else if(score >= SCORE_NINJA_MASTER) {
+        else if(score >= SCORE_NINJA_MASTER && !isTimeOut) {
             endingSequenceGreat();
         }
-        else if(score >= SCORE_THUG) {
+        else if(score >= SCORE_THUG && !isTimeOut) {
             endingSequenceSuccess();
         } else {
             endingSequenceFail();
@@ -339,12 +345,10 @@ public class TrialSceneCut extends GameScene {
      * When time is out the cut is not enabled. Calls ending secuence.
      */
     private void timeOut() {
-        cutEnabled = false;
+        isTimeOut = true;
         precisionBar.stop();
-        precisionBar.setCursorValue(100);
-        //score = 0;
-        saveTrialResults();
-        endingSequence();
+        precisionBar.setCursorValue(PrecisionBar.CURSOR_MIN_VALUE);
+        cutSequence();
     }
 
     /**
@@ -362,12 +366,18 @@ public class TrialSceneCut extends GameScene {
      * @param diff The game difficulty.
      */
     private void setTrialDiff(int diff) {
-        if(diff == GameManager.DIFF_EASY)
+        if(diff == GameManager.DIFF_EASY) {
             timeRound = 4;
-        else if(diff == GameManager.DIFF_MEDIUM)
+            timeMax = TIME_MAX_EASY;
+        }
+        else if(diff == GameManager.DIFF_MEDIUM) {
             timeRound = 2;
-        else if(diff == GameManager.DIFF_HARD)
+            timeMax = TIME_MAX_MEDIUM;
+        }
+        else if(diff == GameManager.DIFF_HARD) {
             timeRound = 1;
+            timeMax = TIME_MAX_HARD;
+        }
     }
 
 
