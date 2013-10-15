@@ -74,7 +74,7 @@ public class ResultLoseScene extends GameScene {
     public void onShowScene() {
         // Background:
         bg = new SpriteBackground(new Sprite(WIDTH * 0.5f, HEIGHT * 0.5f,
-                ResourceManager.getInstance().loseBgTR,
+                ResourceManager.getInstance().loseBg,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager()));
         setBackground(bg);
 
@@ -110,12 +110,12 @@ public class ResultLoseScene extends GameScene {
         if(GameManager.getSelectedCharacter() ==
                 GameManager.CHAR_SHO) {
             characterSprite = new Sprite(youLostText.getX(), youLostText.getY() + 300,
-                    ResourceManager.getInstance().loseCharShoTR,
+                    ResourceManager.getInstance().loseCharSho,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         }
         else {
             characterSprite = new Sprite(youLostText.getX(), youLostText.getY() + 300,
-                    ResourceManager.getInstance().loseCharRyokoTR,
+                    ResourceManager.getInstance().loseCharRyoko,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         }
         attachChild(characterSprite);

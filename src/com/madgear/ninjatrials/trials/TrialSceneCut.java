@@ -150,7 +150,7 @@ public class TrialSceneCut extends GameScene {
         ResourceManager.getInstance().loadCutSceneResources();
         setTrialDiff(GameManager.getSelectedDiff());
         bg = new SpriteBackground(new Sprite(WIDTH * 0.5f, HEIGHT * 0.5f,
-                ResourceManager.getInstance().cutBackgroundTR,
+                ResourceManager.getInstance().cutBackground,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager()));
         setBackground(bg);
         mTree = new Tree(WIDTH * 0.5f, HEIGHT * 0.5f + 400);
@@ -434,16 +434,16 @@ public class TrialSceneCut extends GameScene {
         // Space in pixles between the top and bottom parts:
         private final float gap = 160;
         // Adjust the tree bottom position:
-        private float offset = (ResourceManager.getInstance().cutTreeTopTR.getHeight() / 2f +
-                ResourceManager.getInstance().cutTreeBottomTR.getHeight() / 2f) - gap;
+        private float offset = (ResourceManager.getInstance().cutTreeTop.getHeight() / 2f +
+                ResourceManager.getInstance().cutTreeBottom.getHeight() / 2f) - gap;
         private Sprite top, bottom;
         
         public Tree(float posX, float posY) {
             top = new Sprite(posX, posY,
-                    ResourceManager.getInstance().cutTreeTopTR,
+                    ResourceManager.getInstance().cutTreeTop,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             bottom = new Sprite(posX, posY - offset,
-                    ResourceManager.getInstance().cutTreeBottomTR,
+                    ResourceManager.getInstance().cutTreeBottom,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             attachChild(bottom);
             attachChild(top);
@@ -466,19 +466,19 @@ public class TrialSceneCut extends GameScene {
         // Space in pixles between the top and bottom parts:
         private final float gap = 40;
         // Space in pixles between the top and bottom parts:
-        private float offset = (ResourceManager.getInstance().cutCandleTopTR.getHeight() / 2f +
-                ResourceManager.getInstance().cutCandleBottomTR .getHeight() / 2f) - gap;
+        private float offset = (ResourceManager.getInstance().cutCandleTop.getHeight() / 2f +
+                ResourceManager.getInstance().cutCandleBottom .getHeight() / 2f) - gap;
         private Sprite top, bottom, light;
 
         public Candle(float posX, float posY) {
             top = new Sprite(posX, posY,
-                    ResourceManager.getInstance().cutCandleTopTR,
+                    ResourceManager.getInstance().cutCandleTop,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             bottom = new Sprite(posX, posY - offset,
-                    ResourceManager.getInstance().cutCandleBottomTR,
+                    ResourceManager.getInstance().cutCandleBottom,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             light = new Sprite(posX, posY,
-                    ResourceManager.getInstance().cutCandleLightTR,
+                    ResourceManager.getInstance().cutCandleLight,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             light.setAlpha(0.6f);
             attachChild(bottom);
@@ -512,7 +512,7 @@ public class TrialSceneCut extends GameScene {
 
         public Character(float posX, float posY) {
             charSprite = new AnimatedSprite(posX, posY,
-                    ResourceManager.getInstance().cutShoTR,
+                    ResourceManager.getInstance().cutSho,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             attachChild(charSprite);
         }
@@ -542,7 +542,7 @@ public class TrialSceneCut extends GameScene {
 
         public Eyes() {
             eyesSprite = new Sprite(WIDTH / 2, HEIGHT / 2,
-                    ResourceManager.getInstance().cutEyesTR,
+                    ResourceManager.getInstance().cutEyes,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             eyesSprite.setAlpha(0f);
             attachChild(eyesSprite);
@@ -573,20 +573,20 @@ public class TrialSceneCut extends GameScene {
         public Katana() {
             // Right katana cut:
             katanaSpriteRight = new AnimatedSprite(WIDTH / 2 + 300, HEIGHT / 2,
-                    ResourceManager.getInstance().cutSwordSparkle2TR,
+                    ResourceManager.getInstance().cutSwordSparkle2,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             katanaSpriteRight.setAlpha(0f);
             attachChild(katanaSpriteRight);
             // Inverted left katana cut:
             katanaSpriteLeft = new AnimatedSprite(WIDTH / 2 - 300, HEIGHT / 2,
-                    ResourceManager.getInstance().cutSwordSparkle2TR,
+                    ResourceManager.getInstance().cutSwordSparkle2,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             katanaSpriteLeft.setAlpha(0f);
             katanaSpriteLeft.setFlipped(true, true);
             attachChild(katanaSpriteLeft);
             // Central katana cut (tree):
             katanaSpriteCenter = new Sprite(WIDTH / 2, HEIGHT / 2 + 300,
-                    ResourceManager.getInstance().cutSwordSparkle1TR,
+                    ResourceManager.getInstance().cutSwordSparkle1,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             katanaSpriteCenter.setAlpha(0f);
             katanaSpriteCenter.setFlippedHorizontal(true);
@@ -637,7 +637,7 @@ public class TrialSceneCut extends GameScene {
             x = xPos;
             y = yPos;
             sweatDropSprite = new Sprite(x, y,
-                    ResourceManager.getInstance().cutSweatDropTR,
+                    ResourceManager.getInstance().cutSweatDrop,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             sweatDropSprite.setAlpha(0f);
             attachChild(sweatDropSprite);
@@ -663,7 +663,7 @@ public class TrialSceneCut extends GameScene {
 
         public CharSparkle(float posX, float posY) {
             charSparkleSprite = new AnimatedSprite(posX, posY,
-                    ResourceManager.getInstance().cutCharSparkleTR,
+                    ResourceManager.getInstance().cutCharSparkle,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             charSparkleSprite.setVisible(false);
             attachChild(charSparkleSprite);

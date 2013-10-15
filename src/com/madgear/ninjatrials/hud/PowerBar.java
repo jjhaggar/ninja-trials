@@ -38,7 +38,7 @@ public class PowerBar extends Entity {
     public PowerBar(float posX, float posY, int minPower, int maxPower) {
         this.minPower = minPower;
         this.maxPower = maxPower;
-		bar = new Sprite(posX, posY, ResourceManager.getInstance().hudPowerBarPushTR,
+		bar = new Sprite(posX, posY, ResourceManager.getInstance().hudPowerBarPush,
                ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         rect = new Rectangle(posX, posY, rectWidth, rectHeight,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());

@@ -68,25 +68,25 @@ public class ResourceManager {
     public TextureManager textureManager;
 
     // MAIN MENU:
-    public static ITextureRegion mainTitleTR;
-    public static ITextureRegion mainTitlePattern1TR;
+    public static ITextureRegion mainTitle;
+    public static ITextureRegion mainTitlePattern1;
 
     // MAIN OPTIONS MENU:
-    public static ITextureRegion mainOptionsPatternTR;
-    public static ITextureRegion mainOptionsSoundBarsActiveTR;
-    public static ITextureRegion mainOptionsSoundBarsInactiveTR;
+    public static ITextureRegion mainOptionsPattern;
+    public static ITextureRegion mainOptionsSoundBarsActive;
+    public static ITextureRegion mainOptionsSoundBarsInactive;
 
     // CONTROLLER OPTIONS MENU:
-    public static ITextureRegion controllerOptionsPatternTR;
-    public static ITextureRegion controllerOuyaTR;
-    public static ITextureRegion controllerMarksTR;
+    public static ITextureRegion controllerOptionsPattern;
+    public static ITextureRegion controllerOuya;
+    public static ITextureRegion controllerMarks;
 
     // HUD:
-    public static ITextureRegion hudPowerBarCursorTR;
-    public static ITextureRegion hudCursorTR;
-    public static ITextureRegion hudPowerBarPushTR;
+    public static ITextureRegion hudPowerBarCursor;
+    public static ITextureRegion hudCursor;
+    public static ITextureRegion hudPowerBarPush;
 
-    public static ITextureRegion hudAngleBarCursorTR;
+    public static ITextureRegion hudAngleBarCursor;
 
     public static ITextureRegion runLineBar;
     public static ITextureRegion runMarkP1;
@@ -114,20 +114,20 @@ public class ResourceManager {
     public static ITiledTextureRegion jumpEffectWallKick;
 
     // CUT TRIAL:
-    public static ITiledTextureRegion cutShoTR;
-    public static ITextureRegion cutTreeTopTR;
-    public static ITextureRegion cutTreeBottomTR;
-    public static ITextureRegion cutCandleTopTR;
-    public static ITextureRegion cutCandleBottomTR;
-    public static ITextureRegion cutCandleLightTR;
-    public static ITextureRegion cutEyesTR;
-    public static ITextureRegion cutBackgroundTR;
-    public static ITextureRegion cutSweatDropTR;
-    public static ITiledTextureRegion cutCharSparkleTR;
-    public static ITextureRegion cutSwordSparkle1TR;
-    public static ITiledTextureRegion cutSwordSparkle2TR;
-    public static ITextureRegion cutHudBarTR;
-    public static ITextureRegion cutHudCursorTR;
+    public static ITiledTextureRegion cutSho;
+    public static ITextureRegion cutTreeTop;
+    public static ITextureRegion cutTreeBottom;
+    public static ITextureRegion cutCandleTop;
+    public static ITextureRegion cutCandleBottom;
+    public static ITextureRegion cutCandleLight;
+    public static ITextureRegion cutEyes;
+    public static ITextureRegion cutBackground;
+    public static ITextureRegion cutSweatDrop;
+    public static ITiledTextureRegion cutCharSparkle;
+    public static ITextureRegion cutSwordSparkle1;
+    public static ITiledTextureRegion cutSwordSparkle2;
+    public static ITextureRegion cutHudBar;
+    public static ITextureRegion cutHudCursor;
 
 
     // CUT SCENE SOUNDS:
@@ -204,9 +204,9 @@ public class ResourceManager {
     public static ITextureRegion menuSelectSky;
 
     // RESULTS SCENE LOSE
-    public static ITextureRegion loseCharRyokoTR;
-    public static ITextureRegion loseCharShoTR;
-    public static ITextureRegion loseBgTR;
+    public static ITextureRegion loseCharRyoko;
+    public static ITextureRegion loseCharSho;
+    public static ITextureRegion loseBg;
 
     // RESULTS SCENE LOSE SOUNDS
     public static Music loseMusic;
@@ -423,19 +423,19 @@ public class ResourceManager {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
 
         // Main Menu Ninja Trials Logo:
-        if(mainTitleTR==null) {
+        if(mainTitle==null) {
             BitmapTextureAtlas mainTitleT = new BitmapTextureAtlas(
                     textureManager, 756, 495, mTransparentTextureOption);
-            mainTitleTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            mainTitle = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     mainTitleT, activity, "menu_main_title.png", 0, 0);
             mainTitleT.load();
         }
 
         // Main Menu Pattern:
-        if (mainTitlePattern1TR == null) {
+        if (mainTitlePattern1 == null) {
             BuildableBitmapTextureAtlas mainTitlePattern1T = new BuildableBitmapTextureAtlas(
                     textureManager, 400, 300, TextureOptions.REPEATING_BILINEAR);
-            mainTitlePattern1TR = BitmapTextureAtlasTextureRegionFactory
+            mainTitlePattern1 = BitmapTextureAtlasTextureRegionFactory
                     .createFromAsset(mainTitlePattern1T, activity, "menu_main_pattern_1.png");
             try {
                 mainTitlePattern1T.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
@@ -451,16 +451,16 @@ public class ResourceManager {
      * Unloads the main menu resources.
      */
     public synchronized void unloadMainMenuResources() {
-        if(mainTitleTR!=null) {
-            if(mainTitleTR.getTexture().isLoadedToHardware()) {
-                mainTitleTR.getTexture().unload();
-                mainTitleTR = null;
+        if(mainTitle!=null) {
+            if(mainTitle.getTexture().isLoadedToHardware()) {
+                mainTitle.getTexture().unload();
+                mainTitle = null;
             }
         }
-        if(mainTitlePattern1TR!=null) {
-            if(mainTitlePattern1TR.getTexture().isLoadedToHardware()) {
-                mainTitlePattern1TR.getTexture().unload();
-                mainTitlePattern1TR = null;
+        if(mainTitlePattern1!=null) {
+            if(mainTitlePattern1.getTexture().isLoadedToHardware()) {
+                mainTitlePattern1.getTexture().unload();
+                mainTitlePattern1 = null;
             }
         }
     }
@@ -477,16 +477,16 @@ public class ResourceManager {
         ITextureRegion mainOptionsSoundBarsTR = BitmapTextureAtlasTextureRegionFactory.
                 createFromAsset(mainOptionsSoundBarsT, activity, "menu_options_volume.png", 0, 0);
         mainOptionsSoundBarsT.load();
-        mainOptionsSoundBarsActiveTR = TextureRegionFactory.
+        mainOptionsSoundBarsActive = TextureRegionFactory.
                 extractFromTexture(mainOptionsSoundBarsT, 0, 0, 575, 110, false);
-        mainOptionsSoundBarsInactiveTR = TextureRegionFactory.
+        mainOptionsSoundBarsInactive = TextureRegionFactory.
                 extractFromTexture(mainOptionsSoundBarsT, 0, 111, 575, 109, false);
 
         // Option Menu Pattern:
-        if (mainOptionsPatternTR == null) {
+        if (mainOptionsPattern == null) {
             BuildableBitmapTextureAtlas mainOptionsPatternT = new BuildableBitmapTextureAtlas(
                     textureManager, 390, 361, TextureOptions.REPEATING_BILINEAR);
-            mainOptionsPatternTR = BitmapTextureAtlasTextureRegionFactory
+            mainOptionsPattern = BitmapTextureAtlasTextureRegionFactory
                     .createFromAsset(mainOptionsPatternT, activity, "menu_main_pattern_2.png");
             try {
                 mainOptionsPatternT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
@@ -502,59 +502,59 @@ public class ResourceManager {
      * Unloads the option menu resources.
      */
     public synchronized void unloadOptionResources() {
-        if(mainOptionsSoundBarsActiveTR!=null) {
-            if(mainOptionsSoundBarsActiveTR.getTexture().isLoadedToHardware()) {
-                mainOptionsSoundBarsActiveTR.getTexture().unload();
-                mainOptionsSoundBarsActiveTR = null;
+        if(mainOptionsSoundBarsActive!=null) {
+            if(mainOptionsSoundBarsActive.getTexture().isLoadedToHardware()) {
+                mainOptionsSoundBarsActive.getTexture().unload();
+                mainOptionsSoundBarsActive = null;
             }
         }
-        if(mainOptionsSoundBarsInactiveTR!=null) {
-            if(mainOptionsSoundBarsInactiveTR.getTexture().isLoadedToHardware()) {
-                mainOptionsSoundBarsInactiveTR.getTexture().unload();
-                mainOptionsSoundBarsInactiveTR = null;
+        if(mainOptionsSoundBarsInactive!=null) {
+            if(mainOptionsSoundBarsInactive.getTexture().isLoadedToHardware()) {
+                mainOptionsSoundBarsInactive.getTexture().unload();
+                mainOptionsSoundBarsInactive = null;
             }
         }
-        if(mainOptionsPatternTR!=null) {
-            if(mainOptionsPatternTR.getTexture().isLoadedToHardware()) {
-                mainOptionsPatternTR.getTexture().unload();
-                mainOptionsPatternTR = null;
+        if(mainOptionsPattern!=null) {
+            if(mainOptionsPattern.getTexture().isLoadedToHardware()) {
+                mainOptionsPattern.getTexture().unload();
+                mainOptionsPattern = null;
             }
         }
     }
 
     /**
      * Loads the main option menu resources.
-     *     public static ITextureRegion controllerOuyaTR;
-    public static ITextureRegion controllerMarksTR;
+     *     public static ITextureRegion controllerOuya;
+    public static ITextureRegion controllerMarks;
      */
     public synchronized void loadControllerOptionResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
 
         // Controller ouya:
-        if(controllerOuyaTR==null) {
+        if(controllerOuya==null) {
             BitmapTextureAtlas controllerOuyaT = new BitmapTextureAtlas(textureManager, 1164, 791,
                     mTransparentTextureOption);
-            controllerOuyaTR = BitmapTextureAtlasTextureRegionFactory.
+            controllerOuya = BitmapTextureAtlasTextureRegionFactory.
                     createFromAsset(
                             controllerOuyaT, activity, "menu_options_controller_ouya.png", 0, 0);
             controllerOuyaT.load();
         }
 
         // Controller marks:
-        if(controllerMarksTR==null) {
+        if(controllerMarks==null) {
             BitmapTextureAtlas controllerMarksT = new BitmapTextureAtlas(textureManager, 1195, 717,
                     mTransparentTextureOption);
-            controllerMarksTR = BitmapTextureAtlasTextureRegionFactory.
+            controllerMarks = BitmapTextureAtlasTextureRegionFactory.
                     createFromAsset(
                             controllerMarksT, activity, "menu_options_controller_marks.png", 0, 0);
             controllerMarksT.load();
         }
 
         // Controller Option Pattern:
-        if (controllerOptionsPatternTR == null) {
+        if (controllerOptionsPattern == null) {
             BuildableBitmapTextureAtlas controllerOptionsPatternT = new BuildableBitmapTextureAtlas(
                     textureManager, 319, 319, TextureOptions.REPEATING_BILINEAR);
-            controllerOptionsPatternTR = BitmapTextureAtlasTextureRegionFactory
+            controllerOptionsPattern = BitmapTextureAtlasTextureRegionFactory
                     .createFromAsset(controllerOptionsPatternT, activity,
                             "menu_main_pattern_3.png");
             try {
@@ -572,22 +572,22 @@ public class ResourceManager {
      * Unloads the option menu resources.
      */
     public synchronized void unloadControllerOptionResources() {
-        if(controllerOuyaTR!=null) {
-            if(controllerOuyaTR.getTexture().isLoadedToHardware()) {
-                controllerOuyaTR.getTexture().unload();
-                controllerOuyaTR = null;
+        if(controllerOuya!=null) {
+            if(controllerOuya.getTexture().isLoadedToHardware()) {
+                controllerOuya.getTexture().unload();
+                controllerOuya = null;
             }
         }
-        if(controllerMarksTR!=null) {
-            if(controllerMarksTR.getTexture().isLoadedToHardware()) {
-                controllerMarksTR.getTexture().unload();
-                controllerMarksTR = null;
+        if(controllerMarks!=null) {
+            if(controllerMarks.getTexture().isLoadedToHardware()) {
+                controllerMarks.getTexture().unload();
+                controllerMarks = null;
             }
         }
-        if(controllerOptionsPatternTR!=null) {
-            if(controllerOptionsPatternTR.getTexture().isLoadedToHardware()) {
-                controllerOptionsPatternTR.getTexture().unload();
-                controllerOptionsPatternTR = null;
+        if(controllerOptionsPattern!=null) {
+            if(controllerOptionsPattern.getTexture().isLoadedToHardware()) {
+                controllerOptionsPattern.getTexture().unload();
+                controllerOptionsPattern = null;
             }
         }
     }
@@ -596,45 +596,45 @@ public class ResourceManager {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/hud/");
 
         // Barra power cursor:
-        if(hudPowerBarCursorTR==null) {
+        if(hudPowerBarCursor==null) {
             BitmapTextureAtlas hudPowerBarCursorT = new BitmapTextureAtlas(
                     textureManager, 240, 120, mTransparentTextureOption);
-            hudPowerBarCursorTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            hudPowerBarCursor = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     hudPowerBarCursorT, activity, "hud_precision_indicator.png", 0, 0);
             hudPowerBarCursorT.load();
         }
         
         // Angle Bar:
-        if (hudAngleBarCursorTR == null) {
+        if (hudAngleBarCursor == null) {
         	BitmapTextureAtlas hudAngleBarCursorT = new BitmapTextureAtlas(
                     textureManager, 353, 257, mTransparentTextureOption);
-            hudAngleBarCursorTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            hudAngleBarCursor = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
             		hudAngleBarCursorT, activity, "hud_angle_indicator.png", 0, 0);
             hudAngleBarCursorT.load();
         }
 
-        if(hudCursorTR==null) {
+        if(hudCursor==null) {
             BitmapTextureAtlas hudCursorT = new BitmapTextureAtlas(textureManager, 59, 52,
                     mTransparentTextureOption);
-            hudCursorTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudCursorT,
+            hudCursor = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudCursorT,
                     activity, "hud_angle_cursor.png", 0, 0);
             hudCursorT.load();
         }
 
         // Cursor:
-        if(hudCursorTR==null) {
+        if(hudCursor==null) {
             BitmapTextureAtlas hudCursorT = new BitmapTextureAtlas(textureManager, 59, 52,
                     mTransparentTextureOption);
-            hudCursorTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudCursorT,
+            hudCursor = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudCursorT,
                     activity, "hud_precision_cursor.png", 0, 0);
             hudCursorT.load();
         }
 
         // Barra power push:
-        if(hudPowerBarPushTR==null) {
+        if(hudPowerBarPush==null) {
             BitmapTextureAtlas hudPowerBarPushT = new BitmapTextureAtlas(textureManager, 120, 240,
                     mTransparentTextureOption);
-            hudPowerBarPushTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            hudPowerBarPush = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     hudPowerBarPushT, activity, "hud_power_indicator.png", 0, 0);
             hudPowerBarPushT.load();
         }
@@ -719,28 +719,28 @@ public class ResourceManager {
     }
 
     public synchronized void unloadHUDResources() {
-        if(hudPowerBarCursorTR!=null) {
-            if(hudPowerBarCursorTR.getTexture().isLoadedToHardware()) {
-                hudPowerBarCursorTR.getTexture().unload();
-                hudPowerBarCursorTR = null;
+        if(hudPowerBarCursor!=null) {
+            if(hudPowerBarCursor.getTexture().isLoadedToHardware()) {
+                hudPowerBarCursor.getTexture().unload();
+                hudPowerBarCursor = null;
             }
         }
-        if(hudAngleBarCursorTR!=null) {
-            if(hudAngleBarCursorTR.getTexture().isLoadedToHardware()) {
-            	hudAngleBarCursorTR.getTexture().unload();
-            	hudAngleBarCursorTR = null;
+        if(hudAngleBarCursor!=null) {
+            if(hudAngleBarCursor.getTexture().isLoadedToHardware()) {
+            	hudAngleBarCursor.getTexture().unload();
+            	hudAngleBarCursor = null;
             }
         }
-        if(hudCursorTR!=null) {
-            if(hudCursorTR.getTexture().isLoadedToHardware()) {
-                hudCursorTR.getTexture().unload();
-                hudCursorTR = null;
+        if(hudCursor!=null) {
+            if(hudCursor.getTexture().isLoadedToHardware()) {
+                hudCursor.getTexture().unload();
+                hudCursor = null;
             }
         }
-        if(hudPowerBarPushTR!=null) {
-            if(hudPowerBarPushTR.getTexture().isLoadedToHardware()) {
-                hudPowerBarPushTR.getTexture().unload();
-                hudPowerBarPushTR = null;
+        if(hudPowerBarPush!=null) {
+            if(hudPowerBarPush.getTexture().isLoadedToHardware()) {
+                hudPowerBarPush.getTexture().unload();
+                hudPowerBarPush = null;
             }
         }
         if (runLineBar != null && runLineBar.getTexture().isLoadedToHardware()) {
@@ -974,10 +974,10 @@ public class ResourceManager {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trial_cut/");
 
         // Sho:
-        if(cutShoTR==null) {
+        if(cutSho==null) {
             BuildableBitmapTextureAtlas cutShoT = new BuildableBitmapTextureAtlas(
                     textureManager, 1742, 1720, mTransparentTextureOption);
-            cutShoTR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+            cutSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
                     cutShoT, context, "cut_ch_sho_cut_anim.png", 2, 2);
             try {
                 cutShoT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
@@ -992,8 +992,8 @@ public class ResourceManager {
         ITextureRegion cutTreeTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                 cutTreeT, activity, "cut_breakable_tree.png", 0, 0);
         cutTreeT.load();
-        cutTreeTopTR = TextureRegionFactory.extractFromTexture(cutTreeT, 0, 0, 640, 403, false);
-        cutTreeBottomTR = TextureRegionFactory.extractFromTexture(cutTreeT, 0, 404, 640, 546,
+        cutTreeTop = TextureRegionFactory.extractFromTexture(cutTreeT, 0, 0, 640, 403, false);
+        cutTreeBottom = TextureRegionFactory.extractFromTexture(cutTreeT, 0, 404, 640, 546,
                 false);
 
         // Farol:
@@ -1002,8 +1002,8 @@ public class ResourceManager {
         ITextureRegion cutCandleTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                 cutCandleT, activity, "cut_breakable_candle_base.png", 0, 0);
         cutCandleT.load();
-        cutCandleTopTR = TextureRegionFactory.extractFromTexture(cutCandleT, 0, 0, 310, 515, false);
-        cutCandleBottomTR = TextureRegionFactory.extractFromTexture(cutCandleT, 0, 516, 310, 344,
+        cutCandleTop = TextureRegionFactory.extractFromTexture(cutCandleT, 0, 0, 310, 515, false);
+        cutCandleBottom = TextureRegionFactory.extractFromTexture(cutCandleT, 0, 516, 310, 344,
                 false);
 
         // Luz del farol:
@@ -1012,14 +1012,14 @@ public class ResourceManager {
         ITextureRegion cutCandleLightAllTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                 cutCandleLightT, activity, "cut_breakable_candle_light.png", 0, 0);
         cutCandleLightT.load();
-        cutCandleLightTR = TextureRegionFactory.extractFromTexture(cutCandleLightT, 0, 0, 388, 380,
+        cutCandleLight = TextureRegionFactory.extractFromTexture(cutCandleLightT, 0, 0, 388, 380,
                 false);
 
         // Espada 2:
-        if(cutSwordSparkle2TR==null) {
+        if(cutSwordSparkle2==null) {
             BuildableBitmapTextureAtlas cutSword2T = new BuildableBitmapTextureAtlas(
                     textureManager, 1358, 1034, mTransparentTextureOption);
-            cutSwordSparkle2TR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+            cutSwordSparkle2 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
                     cutSword2T, context, "cut_sword_sparkle2.png", 2, 2);
             try {
                 cutSword2T.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
@@ -1029,37 +1029,37 @@ public class ResourceManager {
         }
 
         // Ojos:
-        if(cutEyesTR==null) {
+        if(cutEyes==null) {
             BitmapTextureAtlas cutEyesT =  new BitmapTextureAtlas(textureManager, 1416, 611,
                     mTransparentTextureOption);
-            cutEyesTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            cutEyes = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     cutEyesT, activity, "cut_ch_sho_eyes.png", 0, 0);
             cutEyesT.load();
         }
 
         // Fondo:
-        if(cutBackgroundTR==null) {
+        if(cutBackground==null) {
             BitmapTextureAtlas cutBackgroundT = new BitmapTextureAtlas(textureManager, 1920, 1080,
                     mTransparentTextureOption);
-            cutBackgroundTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            cutBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     cutBackgroundT, activity, "cut_background.png", 0, 0);
             cutBackgroundT.load();
         }
 
         // Gota:
-        if(cutSweatDropTR==null) {
+        if(cutSweatDrop==null) {
             BitmapTextureAtlas cutSweatDropT = new BitmapTextureAtlas(textureManager, 46, 107,
                     mTransparentTextureOption);
-            cutSweatDropTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            cutSweatDrop = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     cutSweatDropT, activity, "cut_ch_sweatdrop.png", 0, 0);
             cutSweatDropT.load();
         }
 
         // Character eye sparkle:
-        if(cutCharSparkleTR==null) {
+        if(cutCharSparkle==null) {
             BuildableBitmapTextureAtlas cutCharSparkleT = new BuildableBitmapTextureAtlas(
                     textureManager, 300, 100, mTransparentTextureOption);
-            cutCharSparkleTR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+            cutCharSparkle = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
                     cutCharSparkleT, context, "cut_ch_sparkle.png", 3, 1);
             try {
                 cutCharSparkleT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
@@ -1069,10 +1069,10 @@ public class ResourceManager {
         }
 
         // Espada 1:
-        if(cutSwordSparkle1TR==null) {
+        if(cutSwordSparkle1==null) {
             BitmapTextureAtlas cutSword1T = new BitmapTextureAtlas(textureManager, 503, 345,
                     mTransparentTextureOption);
-            cutSwordSparkle1TR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            cutSwordSparkle1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     cutSword1T, activity, "cut_sword_sparkle1.png", 0, 0);
             cutSword1T.load();
         }
@@ -1103,76 +1103,76 @@ public class ResourceManager {
 
     // Liberamos los recursos de la escena de corte:
     public synchronized void unloadCutSceneResources() {
-        if(cutShoTR != null) {
-            if(cutShoTR.getTexture().isLoadedToHardware()) {
-                cutShoTR.getTexture().unload();
-                cutShoTR = null;
+        if(cutSho != null) {
+            if(cutSho.getTexture().isLoadedToHardware()) {
+                cutSho.getTexture().unload();
+                cutSho = null;
             }
         }
-        if(cutTreeTopTR!=null) {
-            if(cutTreeTopTR.getTexture().isLoadedToHardware()) {
-                cutTreeTopTR.getTexture().unload();
-                cutTreeTopTR = null;
+        if(cutTreeTop!=null) {
+            if(cutTreeTop.getTexture().isLoadedToHardware()) {
+                cutTreeTop.getTexture().unload();
+                cutTreeTop = null;
             }
         }
-        if(cutTreeBottomTR!=null) {
-            if(cutTreeBottomTR.getTexture().isLoadedToHardware()) {
-                cutTreeBottomTR.getTexture().unload();
-                cutTreeBottomTR = null;
+        if(cutTreeBottom!=null) {
+            if(cutTreeBottom.getTexture().isLoadedToHardware()) {
+                cutTreeBottom.getTexture().unload();
+                cutTreeBottom = null;
             }
         }
-        if(cutCandleTopTR!=null) {
-            if(cutCandleTopTR.getTexture().isLoadedToHardware()) {
-                cutCandleTopTR.getTexture().unload();
-                cutCandleTopTR = null;
+        if(cutCandleTop!=null) {
+            if(cutCandleTop.getTexture().isLoadedToHardware()) {
+                cutCandleTop.getTexture().unload();
+                cutCandleTop = null;
             }
         }
-        if(cutCandleBottomTR!=null) {
-            if(cutCandleBottomTR.getTexture().isLoadedToHardware()) {
-                cutCandleBottomTR.getTexture().unload();
-                cutCandleBottomTR = null;
+        if(cutCandleBottom!=null) {
+            if(cutCandleBottom.getTexture().isLoadedToHardware()) {
+                cutCandleBottom.getTexture().unload();
+                cutCandleBottom = null;
             }
         }
-        if(cutCandleLightTR!=null) {
-            if(cutCandleLightTR.getTexture().isLoadedToHardware()) {
-                cutCandleLightTR.getTexture().unload();
-                cutCandleLightTR = null;
+        if(cutCandleLight!=null) {
+            if(cutCandleLight.getTexture().isLoadedToHardware()) {
+                cutCandleLight.getTexture().unload();
+                cutCandleLight = null;
             }
         }
-        if(cutEyesTR!=null) {
-            if(cutEyesTR.getTexture().isLoadedToHardware()) {
-                cutEyesTR.getTexture().unload();
-                cutEyesTR = null;
+        if(cutEyes!=null) {
+            if(cutEyes.getTexture().isLoadedToHardware()) {
+                cutEyes.getTexture().unload();
+                cutEyes = null;
             }
         }
-        if(cutBackgroundTR!=null) {
-            if(cutBackgroundTR.getTexture().isLoadedToHardware()) {
-                cutBackgroundTR.getTexture().unload();
-                cutBackgroundTR = null;
+        if(cutBackground!=null) {
+            if(cutBackground.getTexture().isLoadedToHardware()) {
+                cutBackground.getTexture().unload();
+                cutBackground = null;
             }
         }
-        if(cutSweatDropTR!=null) {
-            if(cutSweatDropTR.getTexture().isLoadedToHardware()) {
-                cutSweatDropTR.getTexture().unload();
-                cutSweatDropTR = null;
+        if(cutSweatDrop!=null) {
+            if(cutSweatDrop.getTexture().isLoadedToHardware()) {
+                cutSweatDrop.getTexture().unload();
+                cutSweatDrop = null;
             }
         }
-        if(cutCharSparkleTR!=null) {
-            if(cutCharSparkleTR.getTexture().isLoadedToHardware()) {
-                cutCharSparkleTR.getTexture().unload();
-                cutCharSparkleTR = null;
+        if(cutCharSparkle!=null) {
+            if(cutCharSparkle.getTexture().isLoadedToHardware()) {
+                cutCharSparkle.getTexture().unload();
+                cutCharSparkle = null;
             }
         }
-        if(cutSwordSparkle1TR!=null) {
-            if(cutSwordSparkle1TR.getTexture().isLoadedToHardware()) {
-                cutSwordSparkle1TR.getTexture().unload();
-                cutSwordSparkle1TR = null;
+        if(cutSwordSparkle1!=null) {
+            if(cutSwordSparkle1.getTexture().isLoadedToHardware()) {
+                cutSwordSparkle1.getTexture().unload();
+                cutSwordSparkle1 = null;
             }
         }
-        if(cutSwordSparkle2TR!=null) {
-            if(cutSwordSparkle2TR.getTexture().isLoadedToHardware()) {
-                cutSwordSparkle2TR.getTexture().unload();
-                cutSwordSparkle2TR = null;
+        if(cutSwordSparkle2!=null) {
+            if(cutSwordSparkle2.getTexture().isLoadedToHardware()) {
+                cutSwordSparkle2.getTexture().unload();
+                cutSwordSparkle2 = null;
             }
         }
 
@@ -2346,28 +2346,28 @@ public class ResourceManager {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/results/");
 
         // Bg:
-        if(loseBgTR==null) {
+        if(loseBg==null) {
             BitmapTextureAtlas loseBgT =  new BitmapTextureAtlas(textureManager, 1920, 1080,
                     mTransparentTextureOption);
-            loseBgTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            loseBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     loseBgT, activity, "results_lose_background.png", 0, 0);
             loseBgT.load();
         }
 
         // Sho:
-        if(loseCharShoTR==null) {
+        if(loseCharSho==null) {
             BitmapTextureAtlas loseCharShoT =  new BitmapTextureAtlas(textureManager, 797, 440,
                     mTransparentTextureOption);
-            loseCharShoTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            loseCharSho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     loseCharShoT, activity, "results_lose_ch_sho.png", 0, 0);
             loseCharShoT.load();
         }
 
         // Ryoko:
-        if(loseCharRyokoTR==null) {
+        if(loseCharRyoko==null) {
             BitmapTextureAtlas loseCharRyokoT =  new BitmapTextureAtlas(textureManager, 797, 440,
                     mTransparentTextureOption);
-            loseCharRyokoTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            loseCharRyoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     loseCharRyokoT, activity, "results_lose_ch_ryoko.png", 0, 0);
             loseCharRyokoT.load();
         }
@@ -2386,22 +2386,22 @@ public class ResourceManager {
     }
 
     public synchronized void unloadResultLoseSceneResources() {
-        if(loseBgTR!=null) {
-            if(loseBgTR.getTexture().isLoadedToHardware()) {
-                loseBgTR.getTexture().unload();
-                loseBgTR = null;
+        if(loseBg!=null) {
+            if(loseBg.getTexture().isLoadedToHardware()) {
+                loseBg.getTexture().unload();
+                loseBg = null;
             }
         }
-        if(loseCharShoTR!=null) {
-            if(loseCharShoTR.getTexture().isLoadedToHardware()) {
-                loseCharShoTR.getTexture().unload();
-                loseCharShoTR = null;
+        if(loseCharSho!=null) {
+            if(loseCharSho.getTexture().isLoadedToHardware()) {
+                loseCharSho.getTexture().unload();
+                loseCharSho = null;
             }
         }
-        if(loseCharRyokoTR!=null) {
-            if(loseCharRyokoTR.getTexture().isLoadedToHardware()) {
-                loseCharRyokoTR.getTexture().unload();
-                loseCharRyokoTR = null;
+        if(loseCharRyoko!=null) {
+            if(loseCharRyoko.getTexture().isLoadedToHardware()) {
+                loseCharRyoko.getTexture().unload();
+                loseCharRyoko = null;
             }
         }
 

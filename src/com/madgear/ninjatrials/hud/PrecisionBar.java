@@ -59,10 +59,10 @@ public class PrecisionBar extends Entity {
         curXInit = posX - 100;
         semicycle = 0;
         bar = new Sprite(posX, posY,
-                ResourceManager.getInstance().hudPowerBarCursorTR,
+                ResourceManager.getInstance().hudPowerBarCursor,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         cursor = new Sprite(curXInit, posY + 60,
-                ResourceManager.getInstance().hudCursorTR,
+                ResourceManager.getInstance().hudCursor,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(bar);
         attachChild(cursor);
