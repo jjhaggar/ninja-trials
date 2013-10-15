@@ -90,7 +90,7 @@ public class TestingScene extends GameScene {
             }
         });
         
-        testGrid.addItem(new TestGridItem("Main Opts") {
+        testGrid.addItem(new TestGridItem("Options") {
             @Override
             public void onAction() {
                 SceneManager.getInstance().showScene(new MainOptionsScene());

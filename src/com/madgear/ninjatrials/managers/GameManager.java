@@ -48,6 +48,7 @@ public class GameManager {
     public static final int TRIAL_SHURIKEN = 4;
     public static final int TRIAL_FINAL = TRIAL_SHURIKEN;
     public static final int TRIAL_START = TRIAL_RUN;
+    
 
 
     public static ResultTrial player1result;
@@ -59,8 +60,7 @@ public class GameManager {
     private static int selectedCharacter;
     private static int selectedDiff;
     private static String gameLanguage;
-    private static float soundVolume;
-    private static float musicVolume;
+
 
 
 
@@ -85,8 +85,6 @@ public class GameManager {
         selectedCharacter = CHAR_SHO;
         selectedDiff = DIFF_MEDIUM;
         gameLanguage = "en";
-        setSoundVolume(1f);
-        setMusicVolume(1f);
         player1result = new ResultTrial();
         player2result = new ResultTrial();
     }
@@ -109,22 +107,6 @@ public class GameManager {
 
     public static void incrementScore(int pIncrementBy){
         score += pIncrementBy;
-    }
-    
-    public static float getSoundVolume() {
-        return soundVolume;
-    }
-
-    public static void setSoundVolume(float v) {
-        soundVolume = v;
-    }
-
-    public static float getMusicVolume() {
-        return musicVolume;
-    }
-
-    public static void setMusicVolume(float v) {
-        musicVolume = v;
     }
 
     public static int getCurrentTrial() {

@@ -22,17 +22,19 @@ import org.andengine.audio.music.Music;
 import org.andengine.audio.sound.Sound;
 
 public class SFXManager {
+    private static float soundVolume = 0.7f;
+    private static float musicVolume = 0.7f;
     
     public static void playSound(Sound s) {
         if(s != null && s.isLoaded()) {
-            s.setVolume(GameManager.getSoundVolume());
+            s.setVolume(getSoundVolume());
             s.play();
         }
     }
     
     public static void playSoundLoop(Sound s) {
         if(s != null && s.isLoaded()) {
-            s.setVolume(GameManager.getSoundVolume());
+            s.setVolume(getSoundVolume());
             s.setLooping(true);
             s.play();
         }
@@ -46,7 +48,7 @@ public class SFXManager {
     
     public static void playMusic(Music m) {
         if(m != null && !m.isPlaying()) {
-            m.setVolume(GameManager.getMusicVolume());
+            m.setVolume(getMusicVolume());
             m.play();
         }
     }
@@ -57,7 +59,23 @@ public class SFXManager {
     }
     
     public static void resumeMusic (Music m) {
-        m.setVolume(GameManager.getMusicVolume());
+        m.setVolume(getMusicVolume());
         m.resume();
+    }
+    
+    public static float getSoundVolume() {
+        return soundVolume;
+    }
+
+    public static void setSoundVolume(float v) {
+        soundVolume = v;
+    }
+
+    public static float getMusicVolume() {
+        return musicVolume;
+    }
+
+    public static void setMusicVolume(float v) {
+        musicVolume = v;
     }
 }
