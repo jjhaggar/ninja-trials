@@ -514,7 +514,7 @@ public class TrialSceneJump extends GameScene {
     	
     	public Statue() {
     		statueSprite = new Sprite(100, 100, 
-    				ResourceManager.getInstance().jumpStatueTR,
+    				ResourceManager.getInstance().jumpBg1StoneStatues,
     				ResourceManager.getInstance().engine.getVertexBufferObjectManager());
     		attachChild(statueSprite);
     	}

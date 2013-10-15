@@ -98,8 +98,6 @@ public class ResourceManager {
 
 
     // JUMP TRIAL:
-    public static ITextureRegion jumpStatueTR; //TODO mirar
-    public static ITiledTextureRegion jumpShoTR; //TODO mirar
     public static ITextureRegion jumpBg1Bamboo;
     public static ITextureRegion jumpBg1StoneStatues;
     public static ITextureRegion jumpBg2BambooForest1;
@@ -110,10 +108,10 @@ public class ResourceManager {
     public static ITextureRegion jumpBg7Lake;
     public static ITextureRegion jumpBg8MountFuji;
     public static ITextureRegion jumpBg9Sky;
-    public static ITextureRegion jumpChRyoko;
-    public static ITextureRegion jumpChSho;
-    public static ITextureRegion jumpEffectPreparation;
-    public static ITextureRegion jumpEffectWallKick;
+    public static ITiledTextureRegion jumpChRyoko;
+    public static ITiledTextureRegion jumpChSho;
+    public static ITiledTextureRegion jumpEffectPreparation;
+    public static ITiledTextureRegion jumpEffectWallKick;
 
     // CUT TRIAL:
     public static ITiledTextureRegion cutShoTR;
@@ -153,15 +151,15 @@ public class ResourceManager {
 
     // SHURIKEN SCENE
     public static ITextureRegion shurikenBackground;
-    public static ITextureRegion shurikenRyokoHands;
-    public static ITextureRegion shurikenRyokoLose;
-    public static ITextureRegion shurikenRyokoWin;
-    public static ITextureRegion shurikenShoHands;
-    public static ITextureRegion shurikenShoLose;
-    public static ITextureRegion shurikenShoWin;
-    public static ITextureRegion shurikenShuriken;
-    public static ITextureRegion shurikenStrawman1;
-    public static ITextureRegion shurikenStrawman2;
+    public static ITiledTextureRegion shurikenRyokoHands;
+    public static ITiledTextureRegion shurikenRyokoLose;
+    public static ITiledTextureRegion shurikenRyokoWin;
+    public static ITiledTextureRegion shurikenShoHands;
+    public static ITiledTextureRegion shurikenShoLose;
+    public static ITiledTextureRegion shurikenShoWin;
+    public static ITiledTextureRegion shurikenShuriken;
+    public static ITiledTextureRegion shurikenStrawman1;
+    public static ITiledTextureRegion shurikenStrawman2;
     public static ITextureRegion shurikenStrawman3;
     public static ITextureRegion shurikenTempShuriken;
     public static ITextureRegion shurikenTempStrawman;
@@ -186,19 +184,19 @@ public class ResourceManager {
     public static ITextureRegion menuAchievementsSuccessStamp;
 
     // MENU MAP
-    public static ITextureRegion menuMapBackgroundMarks;
+    public static ITiledTextureRegion menuMapBackgroundMarks;
     public static ITextureRegion menuMapBackground;
-    public static ITextureRegion menuMapChRyoko;
-    public static ITextureRegion menuMapChSho;
-    public static ITextureRegion menuMapDrawings;
-    public static ITextureRegion menuMapScroll;
+    public static ITiledTextureRegion menuMapChRyoko;
+    public static ITiledTextureRegion menuMapChSho;
+    public static ITiledTextureRegion menuMapDrawings;
+    public static ITiledTextureRegion menuMapScroll;
 
     // MENU PAUSE
     public static ITextureRegion menuPauseBambooFrame;
 
     // MENU SELECTED
-    public static ITextureRegion menuSelectChRyoko;
-    public static ITextureRegion menuSelectChSho;
+    public static ITiledTextureRegion menuSelectChRyoko;
+    public static ITiledTextureRegion menuSelectChSho;
     public static ITextureRegion menuSelectClouds;
     public static ITextureRegion menuSelectDifficulty;
     public static ITextureRegion menuSelectMoon;
@@ -246,11 +244,11 @@ public class ResourceManager {
 
     // INTRO2
     public static ITextureRegion intro2CommonBg;
-    public static ITextureRegion intro2CommonMaster;
+    public static ITiledTextureRegion intro2CommonMaster;
     public static ITextureRegion intro2CommonMasterTextBalloon;
-    public static ITextureRegion intro2CommonRyoko;
+    public static ITiledTextureRegion intro2CommonRyoko;
     public static ITextureRegion intro2CommonRyokoTextBalloon;
-    public static ITextureRegion intro2CommonSho;
+    public static ITiledTextureRegion intro2CommonSho;
     public static ITextureRegion intro2CommonShoTextBalloon;
     public static ITextureRegion intro2RyokoBalloonText;
     public static ITextureRegion intro2RyokoBg;
@@ -748,55 +746,66 @@ public class ResourceManager {
                     jumpBg9SkyT, activity, "jump_bg_9_sky.png", 0, 0);
             jumpBg9SkyT.load();
         }
-        if (jumpChRyoko == null) {
-            BitmapTextureAtlas jumpChRyokoT = new BitmapTextureAtlas(textureManager, 2000, 2982,
-                    mTransparentTextureOption);
-            jumpChRyoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpChRyokoT, activity, "jump_ch_ryoko.png", 0, 0);
-            jumpChRyokoT.load();
-        }
-        if (jumpChSho == null) {
-            BitmapTextureAtlas jumpChShoT = new BitmapTextureAtlas(textureManager, 2000, 2982,
-                    mTransparentTextureOption);
-            jumpChSho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpChShoT, activity, "jump_ch_sho.png", 0, 0);
-            jumpChShoT.load();
-        }
-        if (jumpEffectPreparation == null) {
-            BitmapTextureAtlas jumpEffectPreparationT = new BitmapTextureAtlas(textureManager, 590, 406,
-                    mTransparentTextureOption);
-            jumpEffectPreparation = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpEffectPreparationT, activity, "jump_effect_preparation.png", 0, 0);
-            jumpEffectPreparationT.load();
-        }
-        if (jumpEffectWallKick == null) {
-            BitmapTextureAtlas jumpEffectWallKickT = new BitmapTextureAtlas(textureManager, 406, 590,
-                    mTransparentTextureOption);
-            jumpEffectWallKick = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpEffectWallKickT, activity, "jump_effect_wall_kick.png", 0, 0);
-            jumpEffectWallKickT.load();
-        }
-        // TODO: obsoleto
-    	//Statue:
-    	 BitmapTextureAtlas jumpStatueT = new BitmapTextureAtlas(textureManager, 442, 310,
-                 mTransparentTextureOption);
-         ITextureRegion jumpStatueAllTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                 jumpStatueT, activity, "jump_bg_1_stone_statues.png", 0, 0);
-         jumpStatueT.load();
-        // jumpStatueTR = TextureRegionFactory.extractFromTexture(jumpStatueT, 0, 0, 388, 380,
-        //         false);
-         jumpStatueTR = jumpStatueAllTR;
 
-         //Sho:
-       //  BuildableBitmapTextureAtlas jumpShoT = new BuildableBitmapTextureAtlas(
-         //        textureManager, 1742, 1720, mTransparentTextureOption);
-         //cutShoTR = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-          //       cutShoT, context, "cut_ch_sho_cut_anim.png", 2, 2);
-         //try {
-          //   cutShoT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
-          //           BitmapTextureAtlas>(0, 0, 0));
-         //} catch (TextureAtlasBuilderException e) { e.printStackTrace(); }
-         //cutShoT.load();
+        //if (jumpChRyoko == null) {
+        //    BuildableBitmapTextureAtlas jumpChRyokoBit = new BuildableBitmapTextureAtlas(
+        //            textureManager, 2000, 2982, mTransparentTextureOption);
+        //    jumpChRyoko = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+        //            jumpChRyokoBit, context, "jump_ch_ryoko.png", 4, 6);
+        //    try {
+        //        jumpChRyokoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+        //                BitmapTextureAtlas>(0, 0, 0));
+        //    }
+        //    catch (TextureAtlasBuilderException e) {
+        //        e.printStackTrace();
+        //    }
+        //    jumpChRyokoBit.load();
+        //}
+
+        //if (jumpChSho == null) {
+        //    BuildableBitmapTextureAtlas jumpChShoBit = new BuildableBitmapTextureAtlas(
+        //            textureManager, 2000, 2982, mTransparentTextureOption);
+        //    jumpChSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+        //            jumpChShoBit, context, "jump_ch_sho.png", 4, 6);
+        //    try {
+        //        jumpChShoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+        //                BitmapTextureAtlas>(0, 0, 0));
+        //    }
+        //    catch (TextureAtlasBuilderException e) {
+        //        e.printStackTrace();
+        //    }
+        //    jumpChShoBit.load();
+        //}
+
+        //if (jumpEffectPreparation == null) {
+        //    BuildableBitmapTextureAtlas jumpEffectPreparationBit = new BuildableBitmapTextureAtlas(
+        //            textureManager, 590, 406, mTransparentTextureOption);
+        //    jumpEffectPreparation = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+        //            jumpEffectPreparationBit, context, "jump_effect_preparation.png", 2, 2);
+        //    try {
+        //        jumpEffectPreparationBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+        //                BitmapTextureAtlas>(0, 0, 0));
+        //    }
+        //    catch (TextureAtlasBuilderException e) {
+        //        e.printStackTrace();
+        //    }
+        //    jumpEffectPreparationBit.load();
+        //}
+
+        //if (jumpEffectWallKick == null) {
+        //    BuildableBitmapTextureAtlas jumpEffectWallKickBit = new BuildableBitmapTextureAtlas(
+        //            textureManager, 406, 590, mTransparentTextureOption);
+        //    jumpEffectWallKick = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+        //            jumpEffectWallKickBit, context, "jump_effect_wall_kick.png", 2, 2);
+        //    try {
+        //        jumpEffectWallKickBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+        //                BitmapTextureAtlas>(0, 0, 0));
+        //    }
+        //    catch (TextureAtlasBuilderException e) {
+        //        e.printStackTrace();
+        //    }
+        //    jumpEffectWallKickBit.load();
+        //}
     }
 
 
@@ -856,13 +865,6 @@ public class ResourceManager {
         if (jumpEffectWallKick != null && jumpEffectWallKick.getTexture().isLoadedToHardware()) {
                 jumpEffectWallKick.getTexture().unload();
                 jumpEffectWallKick = null;
-        }
-        // TODO: Obsoleto
-        if(jumpStatueTR != null){
-            if(jumpStatueTR.getTexture().isLoadedToHardware()) {
-                jumpStatueTR.getTexture().unload();
-                jumpStatueTR = null;
-            }
         }
     }
 
@@ -1211,68 +1213,141 @@ public class ResourceManager {
                     shurikenBackgroundT, activity, "shuriken_background.png", 0, 0);
             shurikenBackgroundT.load();
         }
+
         if (shurikenRyokoHands == null) {
-            BitmapTextureAtlas shurikenRyokoHandsT = new BitmapTextureAtlas(textureManager, 740, 960,
-                    mTransparentTextureOption);
-            shurikenRyokoHands = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenRyokoHandsT, activity, "shuriken_ryoko_hands.png", 0, 0);
-            shurikenRyokoHandsT.load();
+            BuildableBitmapTextureAtlas shurikenRyokoHandsBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 740, 960, mTransparentTextureOption);
+            shurikenRyokoHands = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    shurikenRyokoHandsBit, context, "shuriken_ryoko_hands.png", 1, 3);
+            try {
+                shurikenRyokoHandsBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            shurikenRyokoHandsBit.load();
         }
+
         if (shurikenRyokoLose == null) {
-            BitmapTextureAtlas shurikenRyokoLoseT = new BitmapTextureAtlas(textureManager, 1500, 978,
-                    mTransparentTextureOption);
-            shurikenRyokoLose = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenRyokoLoseT, activity, "shuriken_ryoko_lose.png", 0, 0);
-            shurikenRyokoLoseT.load();
+            BuildableBitmapTextureAtlas shurikenRyokoLoseBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 1500, 978, mTransparentTextureOption);
+            shurikenRyokoLose = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    shurikenRyokoLoseBit, context, "shuriken_ryoko_lose.png", 2, 1);
+            try {
+                shurikenRyokoLoseBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            shurikenRyokoLoseBit.load();
         }
+
         if (shurikenRyokoWin == null) {
-            BitmapTextureAtlas shurikenRyokoWinT = new BitmapTextureAtlas(textureManager, 1400, 1036,
-                    mTransparentTextureOption);
-            shurikenRyokoWin = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenRyokoWinT, activity, "shuriken_ryoko_win.png", 0, 0);
-            shurikenRyokoWinT.load();
+            BuildableBitmapTextureAtlas shurikenRyokoWinBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 1400, 1036, mTransparentTextureOption);
+            shurikenRyokoWin = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    shurikenRyokoWinBit, context, "shuriken_ryoko_win.png", 2, 1);
+            try {
+                shurikenRyokoWinBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            shurikenRyokoWinBit.load();
         }
+
         if (shurikenShoHands == null) {
-            BitmapTextureAtlas shurikenShoHandsT = new BitmapTextureAtlas(textureManager, 740, 960,
-                    mTransparentTextureOption);
-            shurikenShoHands = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenShoHandsT, activity, "shuriken_sho_hands.png", 0, 0);
-            shurikenShoHandsT.load();
+            BuildableBitmapTextureAtlas shurikenShoHandsBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 740, 960, mTransparentTextureOption);
+            shurikenShoHands = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    shurikenShoHandsBit, context, "shuriken_sho_hands.png", 1, 3);
+            try {
+                shurikenShoHandsBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            shurikenShoHandsBit.load();
         }
+
         if (shurikenShoLose == null) {
-            BitmapTextureAtlas shurikenShoLoseT = new BitmapTextureAtlas(textureManager, 1500, 978,
-                    mTransparentTextureOption);
-            shurikenShoLose = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenShoLoseT, activity, "shuriken_sho_lose.png", 0, 0);
-            shurikenShoLoseT.load();
+            BuildableBitmapTextureAtlas shurikenShoLoseBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 1500, 978, mTransparentTextureOption);
+            shurikenShoLose = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    shurikenShoLoseBit, context, "shuriken_sho_lose.png", 2, 1);
+            try {
+                shurikenShoLoseBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            shurikenShoLoseBit.load();
         }
+
         if (shurikenShoWin == null) {
-            BitmapTextureAtlas shurikenShoWinT = new BitmapTextureAtlas(textureManager, 1400, 1036,
-                    mTransparentTextureOption);
-            shurikenShoWin = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenShoWinT, activity, "shuriken_sho_win.png", 0, 0);
-            shurikenShoWinT.load();
+            BuildableBitmapTextureAtlas shurikenShoWinBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 1400, 1036, mTransparentTextureOption);
+            shurikenShoWin = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    shurikenShoWinBit, context, "shuriken_sho_win.png", 2, 1);
+            try {
+                shurikenShoWinBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            shurikenShoWinBit.load();
         }
-        if (shurikenShuriken == null) {
-            BitmapTextureAtlas shurikenShurikenT = new BitmapTextureAtlas(textureManager, 196, 418,
-                    mTransparentTextureOption);
-            shurikenShuriken = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenShurikenT, activity, "shuriken_shuriken.png", 0, 0);
-            shurikenShurikenT.load();
-        }
+
+        // TODO
+        //if (shurikenShuriken == null) {
+        //    BuildableBitmapTextureAtlas shurikenShurikenBit = new BuildableBitmapTextureAtlas(
+        //            textureManager, 196, 418, mTransparentTextureOption);
+        //    shurikenShuriken = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+        //            shurikenShurikenBit, context, "shuriken_shuriken.png", ?,?);
+        //    try {
+        //        shurikenShurikenBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+        //                BitmapTextureAtlas>(0, 0, 0));
+        //    }
+        //    catch (TextureAtlasBuilderException e) {
+        //        e.printStackTrace();
+        //    }
+        //    shurikenShurikenBit.load();
+        //}
+
         if (shurikenStrawman1 == null) {
-            BitmapTextureAtlas shurikenStrawman1T = new BitmapTextureAtlas(textureManager, 1023, 640,
-                    mTransparentTextureOption);
-            shurikenStrawman1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenStrawman1T, activity, "shuriken_strawman_1.png", 0, 0);
-            shurikenStrawman1T.load();
+            BuildableBitmapTextureAtlas shurikenStrawman1Bit = new BuildableBitmapTextureAtlas(
+                    textureManager, 1023, 640, mTransparentTextureOption);
+            shurikenStrawman1 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    shurikenStrawman1Bit, context, "shuriken_strawman_1.png", 3, 1);
+            try {
+                shurikenStrawman1Bit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            shurikenStrawman1Bit.load();
         }
+
         if (shurikenStrawman2 == null) {
-            BitmapTextureAtlas shurikenStrawman2T = new BitmapTextureAtlas(textureManager, 1688, 1056,
-                    mTransparentTextureOption);
-            shurikenStrawman2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenStrawman2T, activity, "shuriken_strawman_2.png", 0, 0);
-            shurikenStrawman2T.load();
+            BuildableBitmapTextureAtlas shurikenStrawman2Bit = new BuildableBitmapTextureAtlas(
+                    textureManager, 1688, 1056, mTransparentTextureOption);
+            shurikenStrawman2 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    shurikenStrawman2Bit, context, "shuriken_strawman_2.png", 3, 1);
+            try {
+                shurikenStrawman2Bit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            shurikenStrawman2Bit.load();
         }
         if (shurikenStrawman3 == null) {
             BitmapTextureAtlas shurikenStrawman3T = new BitmapTextureAtlas(textureManager, 1068, 1635,
@@ -1472,12 +1547,20 @@ public class ResourceManager {
                     intro2CommonBgT, activity, "intro2_common_bg.png", 0, 0);
             intro2CommonBgT.load();
         }
+
         if (intro2CommonMaster == null) {
-            BitmapTextureAtlas intro2CommonMasterT = new BitmapTextureAtlas(textureManager, 698, 374,
-                    mTransparentTextureOption);
-            intro2CommonMaster = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro2CommonMasterT, activity, "intro2_common_master.png", 0, 0);
-            intro2CommonMasterT.load();
+            BuildableBitmapTextureAtlas intro2CommonMasterBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 698, 374, mTransparentTextureOption);
+            intro2CommonMaster = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    intro2CommonMasterBit, context, "intro2_common_master.png", 2, 1);
+            try {
+                intro2CommonMasterBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            intro2CommonMasterBit.load();
         }
         if (intro2CommonMasterTextBalloon == null) {
             BitmapTextureAtlas intro2CommonMasterTextBalloonT = new BitmapTextureAtlas(textureManager, 502, 236,
@@ -1486,12 +1569,20 @@ public class ResourceManager {
                     intro2CommonMasterTextBalloonT, activity, "intro2_common_master_text_balloon.png", 0, 0);
             intro2CommonMasterTextBalloonT.load();
         }
+
         if (intro2CommonRyoko == null) {
-            BitmapTextureAtlas intro2CommonRyokoT = new BitmapTextureAtlas(textureManager, 586, 764,
-                    mTransparentTextureOption);
-            intro2CommonRyoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro2CommonRyokoT, activity, "intro2_common_ryoko.png", 0, 0);
-            intro2CommonRyokoT.load();
+            BuildableBitmapTextureAtlas intro2CommonRyokoBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 586, 764, mTransparentTextureOption);
+            intro2CommonRyoko = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    intro2CommonRyokoBit, context, "intro2_common_ryoko.png", 1, 2);
+            try {
+                intro2CommonRyokoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            intro2CommonRyokoBit.load();
         }
         if (intro2CommonRyokoTextBalloon == null) {
             BitmapTextureAtlas intro2CommonRyokoTextBalloonT = new BitmapTextureAtlas(textureManager, 598, 436,
@@ -1500,12 +1591,20 @@ public class ResourceManager {
                     intro2CommonRyokoTextBalloonT, activity, "intro2_common_ryoko_text_balloon.png", 0, 0);
             intro2CommonRyokoTextBalloonT.load();
         }
+
         if (intro2CommonSho == null) {
-            BitmapTextureAtlas intro2CommonShoT = new BitmapTextureAtlas(textureManager, 586, 764,
-                    mTransparentTextureOption);
-            intro2CommonSho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro2CommonShoT, activity, "intro2_common_sho.png", 0, 0);
-            intro2CommonShoT.load();
+            BuildableBitmapTextureAtlas intro2CommonShoBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 586, 764, mTransparentTextureOption);
+            intro2CommonSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    intro2CommonShoBit, context, "intro2_common_sho.png", 1, 2);
+            try {
+                intro2CommonShoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            intro2CommonShoBit.load();
         }
         if (intro2CommonShoTextBalloon == null) {
             BitmapTextureAtlas intro2CommonShoTextBalloonT = new BitmapTextureAtlas(textureManager, 598, 436,
@@ -1899,12 +1998,20 @@ public class ResourceManager {
 
     public synchronized void loadMenuMapResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
+
         if (menuMapBackgroundMarks == null) {
-            BitmapTextureAtlas menuMapBackgroundMarksT = new BitmapTextureAtlas(textureManager, 94, 152,
-                    mTransparentTextureOption);
-            menuMapBackgroundMarks = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuMapBackgroundMarksT, activity, "menu_map_background_marks.png", 0, 0);
-            menuMapBackgroundMarksT.load();
+            BuildableBitmapTextureAtlas menuMapBackgroundMarksBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 94, 152, mTransparentTextureOption);
+            menuMapBackgroundMarks = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    menuMapBackgroundMarksBit, context, "menu_map_background_marks.png", 1, 4);
+            try {
+                menuMapBackgroundMarksBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            menuMapBackgroundMarksBit.load();
         }
 
         if (menuMapBackground == null) {
@@ -1915,36 +2022,67 @@ public class ResourceManager {
             menuMapBackgroundT.load();
         }
 
+
         if (menuMapChRyoko == null) {
-            BitmapTextureAtlas menuMapChRyokoT = new BitmapTextureAtlas(textureManager, 192, 330,
-                    mTransparentTextureOption);
-            menuMapChRyoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuMapChRyokoT, activity, "menu_map_ch_ryoko.png", 0, 0);
-            menuMapChRyokoT.load();
+            BuildableBitmapTextureAtlas menuMapChRyokoBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 192, 330, mTransparentTextureOption);
+            menuMapChRyoko = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    menuMapChRyokoBit, context, "menu_map_ch_ryoko.png", 2, 2);
+            try {
+                menuMapChRyokoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            menuMapChRyokoBit.load();
         }
+
 
         if (menuMapChSho == null) {
-            BitmapTextureAtlas menuMapChShoT = new BitmapTextureAtlas(textureManager, 192, 330,
-                    mTransparentTextureOption);
-            menuMapChSho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuMapChShoT, activity, "menu_map_ch_sho.png", 0, 0);
-            menuMapChShoT.load();
+            BuildableBitmapTextureAtlas menuMapChShoBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 192, 330, mTransparentTextureOption);
+            menuMapChSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    menuMapChShoBit, context, "menu_map_ch_sho.png", 2, 2);
+            try {
+                menuMapChShoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            menuMapChShoBit.load();
         }
 
+
         if (menuMapDrawings == null) {
-            BitmapTextureAtlas menuMapDrawingsT = new BitmapTextureAtlas(textureManager, 1106, 962,
-                    mTransparentTextureOption);
-            menuMapDrawings = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuMapDrawingsT, activity, "menu_map_drawings.png", 0, 0);
-            menuMapDrawingsT.load();
+            BuildableBitmapTextureAtlas menuMapDrawingsBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 1106, 962, mTransparentTextureOption);
+            menuMapDrawings = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    menuMapDrawingsBit, context, "menu_map_drawings.png", 2, 2);
+            try {
+                menuMapDrawingsBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            menuMapDrawingsBit.load();
         }
 
         if (menuMapScroll == null) {
-            BitmapTextureAtlas menuMapScrollT = new BitmapTextureAtlas(textureManager, 1568, 1632,
-                    mTransparentTextureOption);
-            menuMapScroll = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuMapScrollT, activity, "menu_map_scroll.png", 0, 0);
-            menuMapScrollT.load();
+            BuildableBitmapTextureAtlas menuMapScrollBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 1568, 1632, mTransparentTextureOption);
+            menuMapScroll = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    menuMapScrollBit, context, "menu_map_scroll.png", 2, 2);
+            try {
+                menuMapScrollBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            menuMapScrollBit.load();
         }
     }
 
@@ -2000,19 +2138,35 @@ public class ResourceManager {
 
     public synchronized void loadMenuSelectedResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
+
         if (menuSelectChRyoko == null) {
-            BitmapTextureAtlas menuSelectChRyokoT = new BitmapTextureAtlas(textureManager, 870, 1028,
-                    mTransparentTextureOption);
-            menuSelectChRyoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuSelectChRyokoT, activity, "menu_select_ch_ryoko.png", 0, 0);
-            menuSelectChRyokoT.load();
+            BuildableBitmapTextureAtlas menuSelectChRyokoBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 870, 1028, mTransparentTextureOption);
+            menuSelectChRyoko = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    menuSelectChRyokoBit, context, "menu_select_ch_ryoko.png", 2, 1);
+            try {
+                menuSelectChRyokoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            menuSelectChRyokoBit.load();
         }
+
         if (menuSelectChSho == null) {
-            BitmapTextureAtlas menuSelectChShoT = new BitmapTextureAtlas(textureManager, 1310, 1120,
-                    mTransparentTextureOption);
-            menuSelectChSho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuSelectChShoT, activity, "menu_select_ch_sho.png", 0, 0);
-            menuSelectChShoT.load();
+            BuildableBitmapTextureAtlas menuSelectChShoBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 1310, 1120, mTransparentTextureOption);
+            menuSelectChSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    menuSelectChShoBit, context, "menu_select_ch_sho.png", 2, 1);
+            try {
+                menuSelectChShoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            menuSelectChShoBit.load();
         }
         if (menuSelectClouds == null) {
             BitmapTextureAtlas menuSelectCloudsT = new BitmapTextureAtlas(textureManager, 1422, 537,
@@ -2202,31 +2356,37 @@ public class ResourceManager {
         }
 
         // Drawings:
-        if(winDrawings==null) {
-            BuildableBitmapTextureAtlas winDrawingsT = new BuildableBitmapTextureAtlas(
+        if (winDrawings == null) {
+            BuildableBitmapTextureAtlas winDrawingsBit = new BuildableBitmapTextureAtlas(
                     textureManager, 1106, 962, mTransparentTextureOption);
             winDrawings = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    winDrawingsT, context, "results_win_drawings.png", 2, 2);
+                    winDrawingsBit, context, "results_win_drawings.png", 2, 2);
             try {
-                winDrawingsT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                winDrawingsBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
-            } catch (TextureAtlasBuilderException e) { e.printStackTrace(); }
-            winDrawingsT.load();
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            winDrawingsBit.load();
         }
 
         // Stamps:
-        if(winStampRanking==null) {
-            BuildableBitmapTextureAtlas winStampRankingT = new BuildableBitmapTextureAtlas(
+        if (winStampRanking == null) {
+            BuildableBitmapTextureAtlas winStampRankingBit = new BuildableBitmapTextureAtlas(
                     textureManager, 780, 400, mTransparentTextureOption);
             winStampRanking = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    winStampRankingT, context, "results_win_stamp_ranking.png", 2, 2);
+                    winStampRankingBit, context, "results_win_stamp_ranking.png", 2, 2);
             try {
-                winStampRankingT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                winStampRankingBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
-            } catch (TextureAtlasBuilderException e) { e.printStackTrace(); }
-            winStampRankingT.load();
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            winStampRankingBit.load();
         }
-        
+
         // Music & Sounds:
         SoundFactory.setAssetBasePath("sounds/");
         MusicFactory.setAssetBasePath("music/");
