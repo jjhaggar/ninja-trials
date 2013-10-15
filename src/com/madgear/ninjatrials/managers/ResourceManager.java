@@ -289,6 +289,106 @@ public class ResourceManager {
     public float cameraScaleFactorX = 1;
     public float cameraScaleFactorY = 1;
 
+    // MUSICS
+    public static Music credits;
+    public static Music ending;
+    public static Music intro1;
+    public static Music intro2;
+    public static Music map;
+    public static Music records;
+    public static Music trialJump;
+    public static Music trialRun;
+    public static Music trialShurikens;
+
+    // SOUNDS
+    public static Sound effectEyeGleam;
+    public static Sound effectMasterHit;
+    public static Sound effectSweatDrop;
+    public static Sound judge1;
+    public static Sound judge2;
+    public static Sound judge3;
+    public static Sound judge4;
+    public static Sound judge5;
+    public static Sound judge6;
+    public static Sound judge7;
+    public static Sound judge8;
+    public static Sound judge9;
+    public static Sound judgeExcellent;
+    public static Sound judgeGood;
+    public static Sound judgeGo;
+    public static Sound judgeGreat;
+    public static Sound judgeReady;
+    public static Sound menuAchievement;
+    public static Sound menuActivate;
+    public static Sound menuBack;
+    public static Sound menuFocus;
+    public static Sound menuIntro1;
+    public static Sound menuLogoMadgear;
+    public static Sound menuRank;
+    public static Sound ryokoCutCut;
+    public static Sound ryokoCutLose;
+    public static Sound ryokoCutWin;
+    public static Sound ryokoJumpCharge;
+    public static Sound ryokoJumpFall;
+    public static Sound ryokoJumpHop;
+    public static Sound ryokoJumpLose;
+    public static Sound ryokoJumpWin;
+    public static Sound ryokoMenuContinue;
+    public static Sound ryokoMenuGameOver;
+    public static Sound ryokoRunCharge;
+    public static Sound ryokoRunLose;
+    public static Sound ryokoRunStart;
+    public static Sound ryokoRunWin;
+    public static Sound ryokoShurikenLose;
+    public static Sound ryokoShurikenThrow;
+    public static Sound ryokoShurikenWin;
+    public static Sound shoCutCut;
+    public static Sound shoCutLose;
+    public static Sound shoCutWin;
+    public static Sound shoJumpCharge;
+    public static Sound shoJumpFall;
+    public static Sound shoJumpHop;
+    public static Sound shoJumpLose;
+    public static Sound shoJumpWin;
+    public static Sound shoMenuContinue;
+    public static Sound shoMenuGameOver;
+    public static Sound shoRunCharge;
+    public static Sound shoRunLose;
+    public static Sound shoRunStart;
+    public static Sound shoRunWin;
+    public static Sound shoShurikenLose;
+    public static Sound shoShurikenThrow;
+    public static Sound shoShurikenWin;
+    public static Sound trialCutCandleBlowOut;
+    public static Sound trialCutCandleShowingCut;
+    public static Sound trialCutCandleThud;
+    public static Sound trialCutCandleWobble;
+    public static Sound trialCutCandleWoobleThud;
+    public static Sound trialCutEyesZoomV2;
+    public static Sound trialCutKatanaWhoosh3;
+    public static Sound trialJumpFall;
+    public static Sound trialJumpReach;
+    public static Sound trialJumpSlip;
+    public static Sound trialJumpTap1;
+    public static Sound trialJumpTap2;
+    public static Sound trialJumpThud;
+    public static Sound trialJumpWhoosh1;
+    public static Sound trialJumpWhoosh2;
+    public static Sound trialJumpWhoosh3;
+    public static Sound trialJumpWobble;
+    public static Sound trialRunTap1;
+    public static Sound trialRunTap2;
+    public static Sound trialRunTap3;
+    public static Sound trialRunWind1Start;
+    public static Sound trialRunWind2Running;
+    public static Sound trialRunWind3End;
+    public static Sound trialShurikenStrawmanAscend;
+    public static Sound trialShurikenStrawmanDescend;
+    public static Sound trialShurikenStrawmanDestroyed;
+    public static Sound trialShurikenStrawmanHit;
+    public static Sound trialShurikenStrawmanMove;
+    public static Sound trialShurikenThrowing;
+
     // Inicializa el manejador:
     public static void setup(NinjaTrials pActivity, Engine pEngine, Context pContext,
             float pCameraWidth, float pCameraHeight){
@@ -2481,6 +2581,413 @@ public class ResourceManager {
             gameOverMusic.release();
     }
 
+    public synchronized void loadMusicsResources() {
+        MusicFactory.setAssetBasePath("music/");
+        try {
+            credits = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "credits.ogg");
+            ending = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "ending.ogg");
+            intro1 = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "intro1.ogg");
+            intro2 = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "intro2.ogg");
+            map = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "map.ogg");
+            records = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "records.ogg");
+            trialJump = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "trial_jump.ogg");
+            trialRun = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "trial_run.ogg");
+            trialShurikens = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "trial_shurikens.ogg");
+        }
+        catch (final IOException e) {
+            Log.v("Sounds Load","Exception:" + e.getMessage());
+        }
+    }
+
+    public synchronized void unloadMusicsResources() {
+        if (!credits.isReleased())
+            credits.release();
+        if (!ending.isReleased())
+            ending.release();
+        if (!intro1.isReleased())
+            intro1.release();
+        if (!intro2.isReleased())
+            intro2.release();
+        if (!map.isReleased())
+            map.release();
+        if (!records.isReleased())
+            records.release();
+        if (!trialJump.isReleased())
+            trialJump.release();
+        if (!trialRun.isReleased())
+            trialRun.release();
+        if (!trialShurikens.isReleased())
+            trialShurikens.release();
+    }
+
+    public synchronized void loadSoundsResources() {
+        SoundFactory.setAssetBasePath("sounds/");
+        try {
+            effectEyeGleam = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "effect_eye_gleam.ogg");
+            effectMasterHit = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "effect_master_hit.ogg");
+            effectSweatDrop = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "effect_sweat_drop.ogg");
+            judge1 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_1.ogg");
+            judge2 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_2.ogg");
+            judge3 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_3.ogg");
+            judge4 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_4.ogg");
+            judge5 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_5.ogg");
+            judge6 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_6.ogg");
+            judge7 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_7.ogg");
+            judge8 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_8.ogg");
+            judge9 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_9.ogg");
+            judgeExcellent = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_excellent.ogg");
+            judgeGood = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_good.ogg");
+            judgeGo = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_go.ogg");
+            judgeGreat = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_great.ogg");
+            judgeReady = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_ready.ogg");
+            menuAchievement = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "menu_achievement.ogg");
+            menuActivate = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "menu_activate.ogg");
+            menuBack = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "menu_back.ogg");
+            menuFocus = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "menu_focus.ogg");
+            menuIntro1 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "menu_intro1.ogg");
+            menuLogoMadgear = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "menu_logo_madgear.ogg");
+            menuRank = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "menu_rank.ogg");
+            ryokoCutCut = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_cut_cut.ogg");
+            ryokoCutLose = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_cut_lose.ogg");
+            ryokoCutWin = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_cut_win.ogg");
+            ryokoJumpCharge = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_jump_charge.ogg");
+            ryokoJumpFall = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_jump_fall.ogg");
+            ryokoJumpHop = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_jump_hop.ogg");
+            ryokoJumpLose = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_jump_lose.ogg");
+            ryokoJumpWin = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_jump_win.ogg");
+            ryokoMenuContinue = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_menu_continue.ogg");
+            ryokoMenuGameOver = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_menu_game_over.ogg");
+            ryokoRunCharge = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_run_charge.ogg");
+            ryokoRunLose = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_run_lose.ogg");
+            ryokoRunStart = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_run_start.ogg");
+            ryokoRunWin = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_run_win.ogg");
+            ryokoShurikenLose = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_shuriken_lose.ogg");
+            ryokoShurikenThrow = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_shuriken_throw.ogg");
+            ryokoShurikenWin = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "ryoko_shuriken_win.ogg");
+            shoCutCut = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_cut_cut.ogg");
+            shoCutLose = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_cut_lose.ogg");
+            shoCutWin = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_cut_win.ogg");
+            shoJumpCharge = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_jump_charge.ogg");
+            shoJumpFall = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_jump_fall.ogg");
+            shoJumpHop = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_jump_hop.ogg");
+            shoJumpLose = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_jump_lose.ogg");
+            shoJumpWin = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_jump_win.ogg");
+            shoMenuContinue = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_menu_continue.ogg");
+            shoMenuGameOver = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_menu_game_over.ogg");
+            shoRunCharge = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_run_charge.ogg");
+            shoRunLose = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_run_lose.ogg");
+            shoRunStart = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_run_start.ogg");
+            shoRunWin = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_run_win.ogg");
+            shoShurikenLose = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_shuriken_lose.ogg");
+            shoShurikenThrow = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_shuriken_throw.ogg");
+            shoShurikenWin = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "sho_shuriken_win.ogg");
+            trialCutCandleBlowOut = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_cut_candle_blow_out.ogg");
+            trialCutCandleShowingCut = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_cut_candle_showing_cut.ogg");
+            trialCutCandleThud = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_cut_candle_thud.ogg");
+            trialCutCandleWobble = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_cut_candle_wobble.ogg");
+            trialCutCandleWoobleThud = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_cut_candle_wooble_thud.ogg");
+            trialCutEyesZoomV2 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_cut_eyes_zoom_v2.ogg");
+            trialCutKatanaWhoosh3 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_cut_katana_whoosh3.ogg");
+            trialJumpFall = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_jump_fall.ogg");
+            trialJumpReach = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_jump_reach.ogg");
+            trialJumpSlip = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_jump_slip.ogg");
+            trialJumpTap1 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_jump_tap1.ogg");
+            trialJumpTap2 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_jump_tap2.ogg");
+            trialJumpThud = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_jump_thud.ogg");
+            trialJumpWhoosh1 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_jump_whoosh1.ogg");
+            trialJumpWhoosh2 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_jump_whoosh2.ogg");
+            trialJumpWhoosh3 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_jump_whoosh3.ogg");
+            trialJumpWobble = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_jump_wobble.ogg");
+            trialRunTap1 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_run_tap1.ogg");
+            trialRunTap2 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_run_tap2.ogg");
+            trialRunTap3 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_run_tap3.ogg");
+            trialRunWind1Start = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_run_wind_1_start.ogg");
+            trialRunWind2Running = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_run_wind_2_running.ogg");
+            trialRunWind3End = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_run_wind_3_end.ogg");
+            trialShurikenStrawmanAscend = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_shuriken_strawman_ascend.ogg");
+            trialShurikenStrawmanDescend = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_shuriken_strawman_descend.ogg");
+            trialShurikenStrawmanDestroyed = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_shuriken_strawman_destroyed.ogg");
+            trialShurikenStrawmanHit = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_shuriken_strawman_hit.ogg");
+            trialShurikenStrawmanMove = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_shuriken_strawman_move.ogg");
+            trialShurikenThrowing = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_shuriken_throwing.ogg");
+        }
+        catch (final IOException e) {
+            Log.v("Sounds Load","Exception:" + e.getMessage());
+        }
+    }
+
+    public synchronized void unloadSoundsResources() {
+        if (!effectEyeGleam.isReleased())
+            effectEyeGleam.release();
+        if (!effectMasterHit.isReleased())
+            effectMasterHit.release();
+        if (!effectSweatDrop.isReleased())
+            effectSweatDrop.release();
+        if (!judge1.isReleased())
+            judge1.release();
+        if (!judge2.isReleased())
+            judge2.release();
+        if (!judge3.isReleased())
+            judge3.release();
+        if (!judge4.isReleased())
+            judge4.release();
+        if (!judge5.isReleased())
+            judge5.release();
+        if (!judge6.isReleased())
+            judge6.release();
+        if (!judge7.isReleased())
+            judge7.release();
+        if (!judge8.isReleased())
+            judge8.release();
+        if (!judge9.isReleased())
+            judge9.release();
+        if (!judgeExcellent.isReleased())
+            judgeExcellent.release();
+        if (!judgeGood.isReleased())
+            judgeGood.release();
+        if (!judgeGo.isReleased())
+            judgeGo.release();
+        if (!judgeGreat.isReleased())
+            judgeGreat.release();
+        if (!judgeReady.isReleased())
+            judgeReady.release();
+        if (!menuAchievement.isReleased())
+            menuAchievement.release();
+        if (!menuActivate.isReleased())
+            menuActivate.release();
+        if (!menuBack.isReleased())
+            menuBack.release();
+        if (!menuFocus.isReleased())
+            menuFocus.release();
+        if (!menuIntro1.isReleased())
+            menuIntro1.release();
+        if (!menuLogoMadgear.isReleased())
+            menuLogoMadgear.release();
+        if (!menuRank.isReleased())
+            menuRank.release();
+        if (!ryokoCutCut.isReleased())
+            ryokoCutCut.release();
+        if (!ryokoCutLose.isReleased())
+            ryokoCutLose.release();
+        if (!ryokoCutWin.isReleased())
+            ryokoCutWin.release();
+        if (!ryokoJumpCharge.isReleased())
+            ryokoJumpCharge.release();
+        if (!ryokoJumpFall.isReleased())
+            ryokoJumpFall.release();
+        if (!ryokoJumpHop.isReleased())
+            ryokoJumpHop.release();
+        if (!ryokoJumpLose.isReleased())
+            ryokoJumpLose.release();
+        if (!ryokoJumpWin.isReleased())
+            ryokoJumpWin.release();
+        if (!ryokoMenuContinue.isReleased())
+            ryokoMenuContinue.release();
+        if (!ryokoMenuGameOver.isReleased())
+            ryokoMenuGameOver.release();
+        if (!ryokoRunCharge.isReleased())
+            ryokoRunCharge.release();
+        if (!ryokoRunLose.isReleased())
+            ryokoRunLose.release();
+        if (!ryokoRunStart.isReleased())
+            ryokoRunStart.release();
+        if (!ryokoRunWin.isReleased())
+            ryokoRunWin.release();
+        if (!ryokoShurikenLose.isReleased())
+            ryokoShurikenLose.release();
+        if (!ryokoShurikenThrow.isReleased())
+            ryokoShurikenThrow.release();
+        if (!ryokoShurikenWin.isReleased())
+            ryokoShurikenWin.release();
+        if (!shoCutCut.isReleased())
+            shoCutCut.release();
+        if (!shoCutLose.isReleased())
+            shoCutLose.release();
+        if (!shoCutWin.isReleased())
+            shoCutWin.release();
+        if (!shoJumpCharge.isReleased())
+            shoJumpCharge.release();
+        if (!shoJumpFall.isReleased())
+            shoJumpFall.release();
+        if (!shoJumpHop.isReleased())
+            shoJumpHop.release();
+        if (!shoJumpLose.isReleased())
+            shoJumpLose.release();
+        if (!shoJumpWin.isReleased())
+            shoJumpWin.release();
+        if (!shoMenuContinue.isReleased())
+            shoMenuContinue.release();
+        if (!shoMenuGameOver.isReleased())
+            shoMenuGameOver.release();
+        if (!shoRunCharge.isReleased())
+            shoRunCharge.release();
+        if (!shoRunLose.isReleased())
+            shoRunLose.release();
+        if (!shoRunStart.isReleased())
+            shoRunStart.release();
+        if (!shoRunWin.isReleased())
+            shoRunWin.release();
+        if (!shoShurikenLose.isReleased())
+            shoShurikenLose.release();
+        if (!shoShurikenThrow.isReleased())
+            shoShurikenThrow.release();
+        if (!shoShurikenWin.isReleased())
+            shoShurikenWin.release();
+        if (!trialCutCandleBlowOut.isReleased())
+            trialCutCandleBlowOut.release();
+        if (!trialCutCandleShowingCut.isReleased())
+            trialCutCandleShowingCut.release();
+        if (!trialCutCandleThud.isReleased())
+            trialCutCandleThud.release();
+        if (!trialCutCandleWobble.isReleased())
+            trialCutCandleWobble.release();
+        if (!trialCutCandleWoobleThud.isReleased())
+            trialCutCandleWoobleThud.release();
+        if (!trialCutEyesZoomV2.isReleased())
+            trialCutEyesZoomV2.release();
+        if (!trialCutKatanaWhoosh3.isReleased())
+            trialCutKatanaWhoosh3.release();
+        if (!trialJumpFall.isReleased())
+            trialJumpFall.release();
+        if (!trialJumpReach.isReleased())
+            trialJumpReach.release();
+        if (!trialJumpSlip.isReleased())
+            trialJumpSlip.release();
+        if (!trialJumpTap1.isReleased())
+            trialJumpTap1.release();
+        if (!trialJumpTap2.isReleased())
+            trialJumpTap2.release();
+        if (!trialJumpThud.isReleased())
+            trialJumpThud.release();
+        if (!trialJumpWhoosh1.isReleased())
+            trialJumpWhoosh1.release();
+        if (!trialJumpWhoosh2.isReleased())
+            trialJumpWhoosh2.release();
+        if (!trialJumpWhoosh3.isReleased())
+            trialJumpWhoosh3.release();
+        if (!trialJumpWobble.isReleased())
+            trialJumpWobble.release();
+        if (!trialRunTap1.isReleased())
+            trialRunTap1.release();
+        if (!trialRunTap2.isReleased())
+            trialRunTap2.release();
+        if (!trialRunTap3.isReleased())
+            trialRunTap3.release();
+        if (!trialRunWind1Start.isReleased())
+            trialRunWind1Start.release();
+        if (!trialRunWind2Running.isReleased())
+            trialRunWind2Running.release();
+        if (!trialRunWind3End.isReleased())
+            trialRunWind3End.release();
+        if (!trialShurikenStrawmanAscend.isReleased())
+            trialShurikenStrawmanAscend.release();
+        if (!trialShurikenStrawmanDescend.isReleased())
+            trialShurikenStrawmanDescend.release();
+        if (!trialShurikenStrawmanDestroyed.isReleased())
+            trialShurikenStrawmanDestroyed.release();
+        if (!trialShurikenStrawmanHit.isReleased())
+            trialShurikenStrawmanHit.release();
+        if (!trialShurikenStrawmanMove.isReleased())
+            trialShurikenStrawmanMove.release();
+        if (!trialShurikenThrowing.isReleased())
+            trialShurikenThrowing.release();
+    }
 
     /* Loads fonts resources
      */
