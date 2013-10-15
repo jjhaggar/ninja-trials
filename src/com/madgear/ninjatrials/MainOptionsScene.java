@@ -201,8 +201,10 @@ public class MainOptionsScene extends GameScene {
     
 
     private void updateMusicVolume() {
-        SFXManager.pauseMusic(ResourceManager.getInstance().intro1);
-        SFXManager.resumeMusic(ResourceManager.getInstance().intro1);
+        if(SFXManager.isPlaying(ResourceManager.getInstance().intro1)) {
+            SFXManager.pauseMusic(ResourceManager.getInstance().intro1);
+            SFXManager.resumeMusic(ResourceManager.getInstance().intro1);
+        }
     }
     
 
