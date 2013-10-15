@@ -74,12 +74,16 @@ public class SFXManager {
         }
     }
     
+    public static boolean isPlaying(Music m) {
+        return m.isPlaying();
+    }
+    
     public static void pauseMusic(Music m) {
         if(m != null && m.isPlaying())
             m.pause();
     }
     
-    public static void resumeMusic (Music m) {
+    public static void resumeMusic(Music m) {
         m.setVolume(getMusicVolume());
         m.resume();
     }

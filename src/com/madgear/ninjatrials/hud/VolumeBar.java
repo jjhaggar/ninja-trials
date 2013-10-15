@@ -37,8 +37,8 @@ public class VolumeBar extends Entity {
     private float value;
     private float x;
     private float y;
-    private final static int VALUE_MIN = 0;
-    private final static int VALUE_MAX = 100;
+    private final static float VALUE_MIN = 0;
+    private final static float VALUE_MAX = 1;
     private static float texture_width;
     private final static int texture_height = 110;
     private ITextureRegion shownBarTR = null;
@@ -49,12 +49,12 @@ public class VolumeBar extends Entity {
      * Constructs a VolumeBar object.
      * @param posX The x axis position.
      * @param posY The y axis position.
-     * @param musicPercentage The initial value (from VALUE_MIN to VALUE_MAX)
+     * @param valueInit The initial value (from VALUE_MIN to VALUE_MAX)
      */
-    public VolumeBar(float posX, float posY, float musicPercentage) {
+    public VolumeBar(float posX, float posY, float valueInit) {
         x = posX;
         y = posY;
-        if(musicPercentage >= VALUE_MIN && musicPercentage <= VALUE_MAX) value = musicPercentage;
+        if(valueInit >= VALUE_MIN && valueInit <= VALUE_MAX) value = valueInit;
         else value = 0;
         
         bgBar = new Sprite(x, y,
@@ -121,6 +121,14 @@ public class VolumeBar extends Entity {
      */
     public float getValue() {
         return value;        
+    }
+    
+    /**
+     * Returns the value of the bar in %
+     * @return The %
+     */
+    public int getValuePercent() {
+        return Math.round(value * 100);
     }
 }
 
