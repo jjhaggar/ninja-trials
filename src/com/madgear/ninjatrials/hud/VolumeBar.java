@@ -34,7 +34,7 @@ import com.madgear.ninjatrials.managers.ResourceManager;
  *
  */
 public class VolumeBar extends Entity {
-    private int value;
+    private float value;
     private float x;
     private float y;
     private final static int VALUE_MIN = 0;
@@ -49,12 +49,12 @@ public class VolumeBar extends Entity {
      * Constructs a VolumeBar object.
      * @param posX The x axis position.
      * @param posY The y axis position.
-     * @param v The initial value (from VALUE_MIN to VALUE_MAX)
+     * @param musicPercentage The initial value (from VALUE_MIN to VALUE_MAX)
      */
-    public VolumeBar(float posX, float posY, int v) {
+    public VolumeBar(float posX, float posY, float musicPercentage) {
         x = posX;
         y = posY;
-        if(v >= VALUE_MIN && v <= VALUE_MAX) value = v;
+        if(musicPercentage >= VALUE_MIN && musicPercentage <= VALUE_MAX) value = musicPercentage;
         else value = 0;
         
         bgBar = new Sprite(x, y,
@@ -110,7 +110,7 @@ public class VolumeBar extends Entity {
      * Sets the value of the bar.
      * @param v The new value.
      */
-    public void setValue(int v) {
+    public void setValue(float v) {
         if(v >= VALUE_MIN && v <= VALUE_MAX) value = v;
         drawActiveBar();
     }
@@ -119,7 +119,7 @@ public class VolumeBar extends Entity {
      * Returns the value of the bar.
      * @return The value.
      */
-    public int getValue() {
+    public float getValue() {
         return value;        
     }
 }

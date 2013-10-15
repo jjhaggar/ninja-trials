@@ -25,6 +25,9 @@ public class SFXManager {
     private static float soundVolume = 0.7f;
     private static float musicVolume = 0.7f;
     
+    
+    // Sound control ------------------------------
+    
     public static void playSound(Sound s) {
         if(s != null && s.isLoaded()) {
             s.setVolume(getSoundVolume());
@@ -46,6 +49,24 @@ public class SFXManager {
         }
     }
     
+    public static float getSoundVolume() {
+        return soundVolume;
+    }
+
+    public static void setSoundVolume(float v) {
+        soundVolume = v;
+    }
+    
+    
+    public static void addSoundVolume(float v) {
+        soundVolume += v;
+        if(soundVolume > 1) soundVolume = 1;
+        if(soundVolume < 0) soundVolume = 0;
+    }
+
+    
+    // Music Control --------------------------------
+    
     public static void playMusic(Music m) {
         if(m != null && !m.isPlaying()) {
             m.setVolume(getMusicVolume());
@@ -62,14 +83,6 @@ public class SFXManager {
         m.setVolume(getMusicVolume());
         m.resume();
     }
-    
-    public static float getSoundVolume() {
-        return soundVolume;
-    }
-
-    public static void setSoundVolume(float v) {
-        soundVolume = v;
-    }
 
     public static float getMusicVolume() {
         return musicVolume;
@@ -77,5 +90,11 @@ public class SFXManager {
 
     public static void setMusicVolume(float v) {
         musicVolume = v;
+    }
+    
+    public static void addMusicVolume(float v) {
+        musicVolume += v;
+        if(musicVolume > 1) musicVolume = 1;
+        if(musicVolume < 0) musicVolume = 0;
     }
 }

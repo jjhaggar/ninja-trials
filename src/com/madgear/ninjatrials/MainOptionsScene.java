@@ -19,6 +19,8 @@
 
 package com.madgear.ninjatrials;
 
+import java.text.DecimalFormat;
+
 import org.andengine.entity.Entity;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.EntityBackground;
@@ -30,6 +32,7 @@ import org.andengine.util.adt.align.HorizontalAlign;
 import com.madgear.ninjatrials.hud.SelectionStripe;
 import com.madgear.ninjatrials.hud.VolumeBar;
 import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 
 /**
@@ -44,13 +47,14 @@ public class MainOptionsScene extends GameScene {
             "MUSIC TEST", "SOUND TEST"};
     private Text musicPercentageText;
     private Text soundPercentageText;
-    private VolumeBar musicVB;
-    private VolumeBar soundVB;
-    private int musicPercentage = 90;
-    private int soundPercentage = 90;
-    private final static int VOLUME_INCREMENT_VAL = 10;
+    private VolumeBar musicVolumeBar;
+    private VolumeBar soundVolumeBar;
+    private static float musicPercentage = SFXManager.getMusicVolume();
+    private static float soundPercentage = SFXManager.getSoundVolume();
+    private final static float VOLUME_INCREMENT_VAL = 0.1f;
     private final static float musicPercentageYPos = 500;
     private final static float soundPercentageYPos = 400;
+    private DecimalFormat formatter = new java.text.DecimalFormat("00");
 
 
     /**
@@ -124,10 +128,10 @@ public class MainOptionsScene extends GameScene {
         attachChild(soundPercentageText);
         
         // Volume Bars:
-        musicVB = new VolumeBar(WIDTH/2 + 600, musicPercentageYPos, musicPercentage);
-        attachChild(musicVB);
-        soundVB = new VolumeBar(WIDTH/2 + 600, soundPercentageYPos, soundPercentage);
-        attachChild(soundVB);
+        musicVolumeBar = new VolumeBar(WIDTH/2 + 600, musicPercentageYPos, musicPercentage);
+        attachChild(musicVolumeBar);
+        soundVolumeBar = new VolumeBar(WIDTH/2 + 600, soundPercentageYPos, soundPercentage);
+        attachChild(soundVolumeBar);
     }
 
     @Override
@@ -154,13 +158,17 @@ public class MainOptionsScene extends GameScene {
         switch(optionIndex) {
         // MUSIC VOLUME-
         case 1:
-            musicVB.addValue(-VOLUME_INCREMENT_VAL);
-            musicPercentageText.setText(String.valueOf(musicVB.getValue()));
+            SFXManager.addMusicVolume(-VOLUME_INCREMENT_VAL);
+            musicVolumeBar.setValue(SFXManager.getMusicVolume());
+            musicPercentageText.setText(formatter.format(String.valueOf(
+                    SFXManager.getMusicVolume() * 100)));
             break;
         // SOUND VOLUME-
         case 2:
-            soundVB.addValue(-VOLUME_INCREMENT_VAL);
-            soundPercentageText.setText(String.valueOf(soundVB.getValue()));
+            SFXManager.addSoundVolume(-VOLUME_INCREMENT_VAL);
+            soundVolumeBar.setValue(SFXManager.getSoundVolume());
+            soundPercentageText.setText(formatter.format(String.valueOf(
+                    SFXManager.getSoundVolume() * 100)));
             break;
         }
     }
@@ -171,13 +179,17 @@ public class MainOptionsScene extends GameScene {
         switch(optionIndex) {
         // MUSIC VOLUME+
         case 1:
-            musicVB.addValue(VOLUME_INCREMENT_VAL);
-            musicPercentageText.setText(String.valueOf(musicVB.getValue()));
+            SFXManager.addMusicVolume(VOLUME_INCREMENT_VAL);
+            musicVolumeBar.setValue(SFXManager.getMusicVolume());
+            musicPercentageText.setText(formatter.format(String.valueOf(
+                    SFXManager.getMusicVolume() * 100)));
             break;
         // SOUND VOLUME+
         case 2:
-            soundVB.addValue(VOLUME_INCREMENT_VAL);
-            soundPercentageText.setText(String.valueOf(soundVB.getValue()));
+            SFXManager.addSoundVolume(VOLUME_INCREMENT_VAL);
+            soundVolumeBar.setValue(SFXManager.getSoundVolume());
+            soundPercentageText.setText(formatter.format(String.valueOf(
+                    SFXManager.getSoundVolume() * 100)));
             break;
         }
     }
@@ -188,20 +200,25 @@ public class MainOptionsScene extends GameScene {
         switch(optionIndex) {
         // CONFIGURE CONTROLS
         case 0:
-            //SceneManager.getInstance().showScene(new ConfigureControlsScene());
+            SceneManager.getInstance().showScene(new ControllerOptionsScene());
             break;
         // MUSIC TEST
         case 3:
+            // TODO: change demo music??
+            SFXManager.playMusic(ResourceManager.getInstance().intro1);
             break;
         // SOUND TEST
         case 4:
+            SFXManager.playSound(ResourceManager.getInstance().menuActivate);
             break;
         }
     }
 
     @Override
     public void onPressButtonMenu() {
-        if (ResourceManager.getInstance().engine != null)
+        if (ResourceManager.getInstance().engine != null) {
+            SFXManager.pauseMusic(ResourceManager.getInstance().cutMusic);
             SceneManager.getInstance().showScene(new MainMenuScene());
+        }
     }
 }
