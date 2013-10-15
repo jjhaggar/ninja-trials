@@ -81,9 +81,9 @@ public class MainMenuScene extends GameScene {
         // TODO shading background (from blue to white).
         // Background:
         // Crate the background Pattern Sprite:
-        ResourceManager.getInstance().mainTitlePattern1TR.setTextureSize(WIDTH, HEIGHT);
+        ResourceManager.getInstance().mainTitlePattern1.setTextureSize(WIDTH, HEIGHT);
         Sprite patternSprite = new Sprite(WIDTH/2, HEIGHT/2,
-                ResourceManager.getInstance().mainTitlePattern1TR,
+                ResourceManager.getInstance().mainTitlePattern1,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         // Add pattern sprite to a new entity:
         Entity backgroundEntity = new Entity();
@@ -94,7 +94,7 @@ public class MainMenuScene extends GameScene {
 
         // NinjaTrials Logo:
         tittle = new Sprite(WIDTH / 2, HEIGHT / 2 + 100,
-                ResourceManager.getInstance().mainTitleTR,
+                ResourceManager.getInstance().mainTitle,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(tittle);
         tittle.registerEntityModifier(new ScaleModifier(6f, 0.95f, 1.1f));

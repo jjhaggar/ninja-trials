@@ -58,11 +58,11 @@ public class VolumeBar extends Entity {
         else value = 0;
         
         bgBar = new Sprite(x, y,
-                ResourceManager.getInstance().mainOptionsSoundBarsInactiveTR,
+                ResourceManager.getInstance().mainOptionsSoundBarsInactive,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(bgBar);
         
-        texture_width = ResourceManager.getInstance().mainOptionsSoundBarsInactiveTR.getWidth();
+        texture_width = ResourceManager.getInstance().mainOptionsSoundBarsInactive.getWidth();
 
         shownBarTR = null;
         drawActiveBar();
@@ -86,7 +86,7 @@ public class VolumeBar extends Entity {
         xPartShown = Math.round(value * texture_width / VALUE_MAX);
         // Load texture showing only the part on the left of value:
         shownBarTR = TextureRegionFactory.extractFromTexture(
-                ResourceManager.getInstance().mainOptionsSoundBarsActiveTR.getTexture(),
+                ResourceManager.getInstance().mainOptionsSoundBarsActive.getTexture(),
                 0, 0, xPartShown, texture_height, false);
         shownBar = new Sprite(
                 x - texture_width/2 + shownBarTR.getWidth()/2, y,

@@ -84,9 +84,9 @@ public class MainOptionsScene extends GameScene {
     public void onShowScene() {
         // Background:
         // Crate the background Pattern Sprite:
-        ResourceManager.getInstance().mainOptionsPatternTR.setTextureSize(WIDTH, HEIGHT);
+        ResourceManager.getInstance().mainOptionsPattern.setTextureSize(WIDTH, HEIGHT);
         Sprite patternSprite = new Sprite(WIDTH/2, HEIGHT/2,
-                ResourceManager.getInstance().mainOptionsPatternTR,
+                ResourceManager.getInstance().mainOptionsPattern,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         // Add pattern sprite to a new entity:
         Entity backgroundEntity = new Entity();

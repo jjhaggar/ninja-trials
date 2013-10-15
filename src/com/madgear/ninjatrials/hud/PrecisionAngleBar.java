@@ -65,10 +65,10 @@ public class PrecisionAngleBar extends Entity {
         curYInit = posY - 100;
         semicycle = 0;
         angleBar = new Sprite(posX, posY,
-                ResourceManager.getInstance().hudAngleBarCursorTR,
+                ResourceManager.getInstance().hudAngleBarCursor,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         cursor = new Sprite(curXInit, curYInit,
-                ResourceManager.getInstance().hudCursorTR,
+                ResourceManager.getInstance().hudCursor,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(angleBar);
         attachChild(cursor);

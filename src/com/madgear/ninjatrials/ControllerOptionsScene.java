@@ -74,9 +74,9 @@ public class ControllerOptionsScene extends GameScene {
     public void onShowScene() {
         // Background:
         // Crate the background Pattern Sprite:
-        ResourceManager.getInstance().controllerOptionsPatternTR.setTextureSize(WIDTH, HEIGHT);
+        ResourceManager.getInstance().controllerOptionsPattern.setTextureSize(WIDTH, HEIGHT);
         Sprite patternSprite = new Sprite(WIDTH/2, HEIGHT/2,
-                ResourceManager.getInstance().controllerOptionsPatternTR,
+                ResourceManager.getInstance().controllerOptionsPattern,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         // Add pattern sprite to a new entity:
         Entity backgroundEntity = new Entity();
@@ -95,13 +95,13 @@ public class ControllerOptionsScene extends GameScene {
 
         // Controller:
         controllerSprite = new Sprite(WIDTH / 3, HEIGHT / 2 - 100,
-                ResourceManager.getInstance().controllerOuyaTR,
+                ResourceManager.getInstance().controllerOuya,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(controllerSprite);
 
         // Marks:
         marksSprite = new Sprite(WIDTH / 3 + 215, HEIGHT / 2 - 35,
-                ResourceManager.getInstance().controllerMarksTR,
+                ResourceManager.getInstance().controllerMarks,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(marksSprite);
 
