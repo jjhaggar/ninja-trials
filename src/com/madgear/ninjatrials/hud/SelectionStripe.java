@@ -28,6 +28,7 @@ import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
 import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SFXManager;
 
 /**
  * This class controls a stripe of text items displayed in the screen. The user can press right
@@ -221,6 +222,7 @@ public class SelectionStripe extends Entity {
         textItems[selectedItem].registerEntityModifier(
                         new ScaleModifier(SCALE_TIME, SCALE_INIT, SCALE_FINAL));
         textItems[selectedItem].setColor(android.graphics.Color.YELLOW);
+        SFXManager.playSound(ResourceManager.getInstance().menuFocus);
         addDelay();
     }
 

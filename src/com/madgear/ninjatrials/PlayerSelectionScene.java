@@ -30,6 +30,7 @@ import org.andengine.util.adt.align.HorizontalAlign;
 import com.madgear.ninjatrials.hud.SelectionStripe;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.test.TestingScene;
 
@@ -231,6 +232,7 @@ public class PlayerSelectionScene extends GameScene {
             selectDiffText.setVisible(true);
             selectionStripe.setVisible(true);
 
+            SFXManager.playSound(ResourceManager.getInstance().menuActivate);
             //SceneManager.getInstance().showLayer(new DiffSelectLayer(), false, false, false);
         }
         else if(selectionStep == 1) {
@@ -247,6 +249,7 @@ public class PlayerSelectionScene extends GameScene {
                 } 
             });
             registerUpdateHandler(timerHandler);
+            SFXManager.playSound(ResourceManager.getInstance().menuActivate);
         }
     }
     
@@ -287,6 +290,7 @@ public class PlayerSelectionScene extends GameScene {
             charRyokoOutline.setVisible(true);
             charShoOutline.setVisible(false);
             charSelected = GameManager.CHAR_RYOKO;
+            SFXManager.playSound(ResourceManager.getInstance().menuFocus);
         }
     }
 
@@ -299,6 +303,7 @@ public class PlayerSelectionScene extends GameScene {
             charRyokoOutline.setVisible(false);
             charShoOutline.setVisible(true);
             charSelected = GameManager.CHAR_SHO;   
+            SFXManager.playSound(ResourceManager.getInstance().menuFocus);
         }
     }
     
