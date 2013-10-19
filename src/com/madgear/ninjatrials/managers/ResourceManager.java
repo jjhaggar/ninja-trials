@@ -195,9 +195,12 @@ public class ResourceManager {
     public static ITextureRegion menuPauseBambooFrame;
 
     // MENU SELECTED
-    public static ITiledTextureRegion menuSelectChRyoko;
-    public static ITiledTextureRegion menuSelectChSho;
-    public static ITextureRegion menuSelectClouds;
+    public static ITextureRegion menuSelectChRyoko;
+    public static ITextureRegion menuSelectChRyokoOutline;
+    public static ITextureRegion menuSelectChSho;
+    public static ITextureRegion menuSelectChShoOutline;
+    public static ITextureRegion menuSelectClouds1;
+    public static ITextureRegion menuSelectClouds2;
     public static ITextureRegion menuSelectDifficulty;
     public static ITextureRegion menuSelectMoon;
     public static ITextureRegion menuSelectRoof;
@@ -288,7 +291,8 @@ public class ResourceManager {
 
     public float cameraScaleFactorX = 1;
     public float cameraScaleFactorY = 1;
-
+    
+    
     // MUSICS
     public static Music credits;
     public static Music ending;
@@ -2238,8 +2242,41 @@ public class ResourceManager {
 
     public synchronized void loadMenuSelectedResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
-
-        if (menuSelectChRyoko == null) {
+     
+        // Ryoko:
+        BitmapTextureAtlas menuSelectChRyokoBit =
+                new BitmapTextureAtlas(textureManager, 870, 1028, mTransparentTextureOption);
+        ITextureRegion menuSelectChRyokoTR = BitmapTextureAtlasTextureRegionFactory.
+                createFromAsset(menuSelectChRyokoBit, activity, "menu_select_ch_ryoko.png", 0, 0);
+        menuSelectChRyokoBit.load();
+        menuSelectChRyoko =
+            TextureRegionFactory.extractFromTexture(menuSelectChRyokoBit, 0, 0, 435, 1028, false);
+        menuSelectChRyokoOutline =
+            TextureRegionFactory.extractFromTexture(menuSelectChRyokoBit, 435, 0, 435, 1028, false);
+        
+        // Sho:
+        BitmapTextureAtlas menuSelectChShoBit =
+                new BitmapTextureAtlas(textureManager, 1310, 1120, mTransparentTextureOption);
+        ITextureRegion menuSelectChShoTR = BitmapTextureAtlasTextureRegionFactory.
+                createFromAsset(menuSelectChShoBit, activity, "menu_select_ch_sho.png", 0, 0);
+        menuSelectChShoBit.load();
+        menuSelectChSho =
+            TextureRegionFactory.extractFromTexture(menuSelectChShoBit, 0, 0, 655, 1028, false);
+        menuSelectChShoOutline =
+            TextureRegionFactory.extractFromTexture(menuSelectChShoBit, 655, 0, 655, 1028, false);
+        
+        // Clouds:
+        BitmapTextureAtlas menuSelectCloudsBit =
+                new BitmapTextureAtlas(textureManager, 1422, 537, mTransparentTextureOption);
+        ITextureRegion menuSelectCloudsTR = BitmapTextureAtlasTextureRegionFactory.
+                createFromAsset(menuSelectCloudsBit, activity, "menu_select_clouds.png", 0, 0);
+        menuSelectCloudsBit.load();
+        menuSelectClouds1 =
+            TextureRegionFactory.extractFromTexture(menuSelectCloudsBit, 0, 0, 711, 537, false);
+        menuSelectClouds2 =
+            TextureRegionFactory.extractFromTexture(menuSelectCloudsBit, 711, 0, 711, 537, false);
+        
+/*        if (menuSelectChRyoko == null) {
             BuildableBitmapTextureAtlas menuSelectChRyokoBit = new BuildableBitmapTextureAtlas(
                     textureManager, 870, 1028, mTransparentTextureOption);
             menuSelectChRyoko = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
@@ -2253,7 +2290,6 @@ public class ResourceManager {
             }
             menuSelectChRyokoBit.load();
         }
-
         if (menuSelectChSho == null) {
             BuildableBitmapTextureAtlas menuSelectChShoBit = new BuildableBitmapTextureAtlas(
                     textureManager, 1310, 1120, mTransparentTextureOption);
@@ -2268,6 +2304,7 @@ public class ResourceManager {
             }
             menuSelectChShoBit.load();
         }
+        
         if (menuSelectClouds == null) {
             BitmapTextureAtlas menuSelectCloudsT = new BitmapTextureAtlas(textureManager, 1422, 537,
                     mTransparentTextureOption);
@@ -2275,6 +2312,9 @@ public class ResourceManager {
                     menuSelectCloudsT, activity, "menu_select_clouds.png", 0, 0);
             menuSelectCloudsT.load();
         }
+        
+        */
+        
         if (menuSelectDifficulty == null) {
             BitmapTextureAtlas menuSelectDifficultyT = new BitmapTextureAtlas(textureManager, 1649, 633,
                     mTransparentTextureOption);
@@ -2307,20 +2347,34 @@ public class ResourceManager {
 
     public synchronized void unloadMenuSelectedResources() {
         if (menuSelectChRyoko != null && menuSelectChRyoko.getTexture().isLoadedToHardware()) {
-                menuSelectChRyoko.getTexture().unload();
-                menuSelectChRyoko = null;
+            menuSelectChRyoko.getTexture().unload();
+            menuSelectChRyoko = null;
         }
-
+        
+        if (menuSelectChRyokoOutline != null && menuSelectChRyokoOutline.getTexture().isLoadedToHardware()) {
+            menuSelectChRyokoOutline.getTexture().unload();
+            menuSelectChRyokoOutline = null;
+        }
+        
         if (menuSelectChSho != null && menuSelectChSho.getTexture().isLoadedToHardware()) {
                 menuSelectChSho.getTexture().unload();
                 menuSelectChSho = null;
+        }        
+        
+        if (menuSelectChShoOutline != null && menuSelectChShoOutline.getTexture().isLoadedToHardware()) {
+            menuSelectChShoOutline.getTexture().unload();
+            menuSelectChShoOutline = null;
         }
-
-        if (menuSelectClouds != null && menuSelectClouds.getTexture().isLoadedToHardware()) {
-                menuSelectClouds.getTexture().unload();
-                menuSelectClouds = null;
+        
+        if (menuSelectClouds1 != null && menuSelectClouds1.getTexture().isLoadedToHardware()) {
+                menuSelectClouds1.getTexture().unload();
+                menuSelectClouds1 = null;
         }
-
+        
+        if (menuSelectClouds2 != null && menuSelectClouds2.getTexture().isLoadedToHardware()) {
+            menuSelectClouds2.getTexture().unload();
+            menuSelectClouds2 = null;
+        }
         if (menuSelectDifficulty != null && menuSelectDifficulty.getTexture().isLoadedToHardware()) {
                 menuSelectDifficulty.getTexture().unload();
                 menuSelectDifficulty = null;

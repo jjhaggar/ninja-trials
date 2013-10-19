@@ -89,10 +89,18 @@ public class GameManager {
         player2result = new ResultTrial();
     }
 
+    public static void setSelectedCharacter(int c) {
+        selectedCharacter = c;
+    }
+    
     public static int getSelectedCharacter() {
         return selectedCharacter;
     }
 
+    public static void setSelectedDiff(int d) {
+        selectedDiff = d;
+    }
+    
     public static int getSelectedDiff() {
         return selectedDiff;
     }

@@ -42,7 +42,7 @@ public class SelectionStripe extends Entity {
     public final static int TEXT_ALIGN_CENTER = 0;
     public final static int TEXT_ALIGN_RIGHT = 1;
     private final static float SCALE_INIT = 1f;
-    private final static float SCALE_FINAL = 1.4f;
+    private final static float SCALE_FINAL = 1.2f;
     private final static float SCALE_TIME = 0.05f;   
     private final static float BORDER_SIZE = 150;
     private final static float PUSH_DELAY_TIME = 0.3f;
@@ -56,6 +56,7 @@ public class SelectionStripe extends Entity {
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
     private boolean moveEnabled = true;
     private TimerHandler timerHandler;
+    private boolean flash = false;
     
     /**
      * Creates a stripe of text items.
@@ -230,6 +231,28 @@ public class SelectionStripe extends Entity {
             public void onTimePassed(final TimerHandler pTimerHandler) {
                 moveEnabled = true;
                 SelectionStripe.this.unregisterUpdateHandler(timerHandler);
+            } 
+        });
+        registerUpdateHandler(timerHandler);
+    }
+    
+    /**
+     * Makes an effect in the selected text.
+     */
+    public void textFlash() {
+        
+        timerHandler = new TimerHandler(0.5f, true, new ITimerCallback() {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                if(!flash) {
+                    textItems[selectedItem].setColor(android.graphics.Color.RED);
+                    flash = true;
+                }
+                else {
+                    textItems[selectedItem].setColor(android.graphics.Color.YELLOW);
+                    flash = false;
+                }
+                timerHandler.reset();
             } 
         });
         registerUpdateHandler(timerHandler);

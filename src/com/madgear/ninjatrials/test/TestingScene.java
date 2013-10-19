@@ -25,6 +25,7 @@ import com.madgear.ninjatrials.ControllerOptionsScene;
 import com.madgear.ninjatrials.GameScene;
 import com.madgear.ninjatrials.MainMenuScene;
 import com.madgear.ninjatrials.MainOptionsScene;
+import com.madgear.ninjatrials.PlayerSelectionScene;
 import com.madgear.ninjatrials.ResultLoseScene;
 import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.managers.ResourceManager;
@@ -101,6 +102,13 @@ public class TestingScene extends GameScene {
             @Override
             public void onAction() {
                 SceneManager.getInstance().showScene(new ControllerOptionsScene());
+            }
+        });
+        
+        testGrid.addItem(new TestGridItem("Player Selc") {
+            @Override
+            public void onAction() {
+                SceneManager.getInstance().showScene(new PlayerSelectionScene());
             }
         });
         

@@ -102,7 +102,10 @@ public class NinjaTrials extends BaseGameActivity {
         // Recursos del HUD:
         ResourceManager.getInstance().loadHUDResources();
         pOnCreateResourcesCallback.onCreateResourcesFinished();
-
+        
+        // Música y sonido:
+        ResourceManager.getInstance().loadMusicsResources();
+        ResourceManager.getInstance().loadSoundsResources();
     }
 
     @Override
