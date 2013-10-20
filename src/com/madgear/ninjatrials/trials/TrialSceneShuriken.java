@@ -36,6 +36,9 @@ import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.test.MusicTest;
 import com.madgear.ninjatrials.test.TestingScene;
+import com.madgear.ninjatrials.trials.shuriken.ShurikenCoordinates;
+import com.madgear.ninjatrials.trials.shuriken.ShurikenEnemy;
+import com.madgear.ninjatrials.trials.shuriken.ShurikenHands;
 
 /**
  * Trial Scene Shuriken V2 for Ninja Trials
@@ -70,8 +73,8 @@ public class TrialSceneShuriken extends GameScene{
 	private float precissionScore;
 	private float score;
 	private float maxTime = 100; // seconds to get a 0 time score
-	private Hands hands;
-	private ArrayList<Enemy> enemies;
+	private ShurikenHands hands;
+	private ArrayList<ShurikenEnemy> enemies;
 	private int shurikenAnimationCounter;
 	
 	public TrialSceneShuriken(){
@@ -104,7 +107,7 @@ public class TrialSceneShuriken extends GameScene{
 		setBackground(getBG());
 		gameHUD = new GameHUD();
 		shurikenEnemyCounterHUD = new ShurikenEnemyCounter(SCRNWIDTH*.84f, SCRENHEIGHT*.92f, enemiesLeft);
-		hands = new Hands();
+		hands = new ShurikenHands();
 	}
 	
 	/**
@@ -168,7 +171,7 @@ public class TrialSceneShuriken extends GameScene{
 	 */
 	private void generateEnemies() {
 		if (enemies == null){
-			enemies = new ArrayList<Enemy>(enemyCount);
+			enemies = new ArrayList<ShurikenEnemy>(enemyCount);
 		}
 		Timer timer = new Timer();
 		timer.schedule(new enemyGenerator(), enemyInsertionInterval*1000);
@@ -181,7 +184,7 @@ public class TrialSceneShuriken extends GameScene{
 
 		@Override
 		public void run() {
-			Enemy enemy = new Enemy(1, enemySpeed);
+			ShurikenEnemy enemy = new ShurikenEnemy(1, enemySpeed);
 			enemies.add(enemy);
 			attachChild(enemy);
 			Log.d("Bruno", "New enemy generated, there are "+enemies.size()+" enemies ("+enemyCount+" max).");
@@ -212,7 +215,7 @@ public class TrialSceneShuriken extends GameScene{
 
 		@Override
 		public void run() {
-			for (Enemy enemy: enemies) {
+			for (ShurikenEnemy enemy: enemies) {
 				if (enemy.getPosition().x == -1 && enemy.getPosition().y == -1) {
 					enemy.hide();
 					enemiesLeft--;
@@ -261,7 +264,7 @@ public class TrialSceneShuriken extends GameScene{
 		boolean hit = false;
 		float horizontalErrorMargin = .1f;
 		float verticalErrorMargin = .2f;
-		for (Enemy enemy: enemies) {
+		for (ShurikenEnemy enemy: enemies) {
 			if (Math.abs(hands.getPosition().x - enemy.getPosition().x) < SCRNWIDTH * horizontalErrorMargin) {
 				float timeToImpact = (enemy.getPosition().y - hands.getPosition().y) / (shurikenSpeed * SCRENHEIGHT);
 				float enemyPredictedHorizontal;
@@ -313,212 +316,6 @@ public class TrialSceneShuriken extends GameScene{
     	hands.stop();
     }
 	
-	private class Enemy extends Entity {
-		
-		private char direction = 'r';
-		private int lifes;
-		private float speed;
-		private Coordinates position;
-		private boolean playerHit = false;
-		private AnimatedSprite enemy;
-		
-		public Enemy(int lifes, float speed) {
-			this.lifes = lifes;
-			this.speed = speed;
-			this.position = new Coordinates(SCRNWIDTH*9/10, SCRENHEIGHT*4/5);
-			ITiledTextureRegion enemyITTR = ResourceManager.getInstance().shurikenStrawman1;
-			enemy = new AnimatedSprite(position.x, position.y, enemyITTR, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-			enemy.setCurrentTileIndex(1);
-			attachChild(enemy);
-			start();
-		}
-		
-		public void start() {
-			/*
-			 * TODO
-			 * Aparece al fondo
-			 * Va recorriendo horizontalmente la pantalla
-			 * Se acerca de forma alternada
-			 * Hay dos “carriles” horizontales, uno lejos y otro a media distancia.
-			 * Si no son abatidos por los shurikens los enemigos
-			 * bajarán primero por el que está lejos y recorrerán
-			 * una parte del “carril”, tras eso subirán de nuevo
-			 * a los árboles y bajarán en el “carril”
-			 * que está a media distancia, recorrerán una parte de ese carril
-			 * y volverán a ascender a los árboles, tras
-			 * eso caerá junto al personaje y mostrará el strawman con cartel     
-			 */
-			float fromX = position.x;
-			float toX = SCRNWIDTH/10;
-			float fromY = position.y;
-			float toY = position.y;
-			float time = (fromX - toX) / (speed * SCRNWIDTH);
-			moveSprite(enemy, fromX, fromY, toX, toY, time);
-		}
-		
-		public Coordinates getPosition() {
-			if (playerHit) {
-				return new Coordinates(-1, -1);
-			}
-			return position;
-		}
-		
-		public void hide() {
-			this.setAlpha(0f);
-		}
-		
-		public char getDirection(){
-			return this.direction;
-		}
-		
-		public int getLifes(){
-			return this.lifes;
-		}
-		
-		public void setLifes(int lifes){
-			this.lifes = lifes;
-		}
-	}
-	
-	private class Hands extends Entity {
-		
-		private Coordinates coordinates;
-		private Sprite[] handsSprites = new Sprite[3];
-		private Sprite[] shurikenSprites = new Sprite[6]; 
-		private boolean ignoreInputBecauseMoving = false;
-		private float movementDistanceDelta = 50; // pixels
-		private float movementTimeDelta = .025f; // seconds
-		private int movementAnimationExtraTimeMargin = 13; // miliseconds
-		private IUpdateHandler shurikenUpdateHandler;
-		private float shurikenLaunchTime;
-		private AnimatedSprite hands;
-		
-		public Hands() {
-			float posX = SCRNWIDTH/2;
-			float posY = 160f;
-			this.coordinates = new Coordinates(posX, posY);			
-			ITiledTextureRegion handsITTR = ResourceManager.getInstance().shurikenRyokoHands;
-			hands = new AnimatedSprite(posX, posY, handsITTR, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-			hands.setCurrentTileIndex(2);			
-			ITextureRegion[] shurikenShurikens = ResourceManager.getInstance().shurikenShurikens;			
-			for (int i = 0; i < 6; i++) {
-				shurikenSprites[i] = new Sprite(posX-100, SCRENHEIGHT-300-75*i, shurikenShurikens[i], ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-			}
-			for (Sprite sprite: shurikenSprites){
-	        	sprite.setAlpha(0f);
-	        	attachChild(sprite);
-	        }			
-			attachChild(hands);
-		}
-		public void moveLeft() {
-			Log.d("Bruno", "Hands positions are ("+hands.getX()+", "+hands.getY()+")");
-			if (coordinates.x - movementDistanceDelta >= 0 && !ignoreInputBecauseMoving){
-				ignoreInputBecauseMoving = true;
-				moveSprite(hands, coordinates.x, coordinates.y, coordinates.x - movementDistanceDelta, coordinates.y, movementTimeDelta);
-				coordinates.x = coordinates.x - movementDistanceDelta;
-				Timer timer = new Timer();
-				timer.schedule(new HandsMovementWaiter(this), (int)(movementTimeDelta * 1000) + movementAnimationExtraTimeMargin);
-			}			
-		}
-		public void moveRight() {
-			Log.d("Bruno", "Hands positions are ("+hands.getX()+", "+hands.getY()+")");
-			if (coordinates.x + movementDistanceDelta <= SCRNWIDTH && !ignoreInputBecauseMoving){
-				ignoreInputBecauseMoving = true;
-				moveSprite(hands, coordinates.x, coordinates.y, coordinates.x + movementDistanceDelta, coordinates.y, movementTimeDelta);
-				coordinates.x = coordinates.x + movementDistanceDelta;
-				Timer timer = new Timer();
-				timer.schedule(new HandsMovementWaiter(this), (int)(movementTimeDelta * 1000) + movementAnimationExtraTimeMargin);
-			}
-		}
-		public void stop() {
-			
-		}
-		public void hide() {
-			// TODO Las oculta lentamente por la parte inferior de la pantalla.
-		}
-		public Coordinates getPosition() {
-			return this.coordinates;
-		}
-		public void launch() {
-			/*
-			 * el lanzamiento es puramente vertical
-			 * los shurikens se destruyen tras impactar/perderse
-			 * pueden simultanearse varios lanzamientos (no hay bloqueo)
-			 * la velocidad vertical es constante (shurikenSpeed)
-			 */
-			Log.d("Bruno", "Launching shuriken");
-			for (Sprite shuriken: shurikenSprites) {
-				shuriken.setX(this.coordinates.x);
-			}
-			hands.animate(200, 0);
-			shurikenAnimationCounter = 0;
-			shurikenLaunchTime = ResourceManager.getInstance().engine.getSecondsElapsedTotal();
-			shurikenUpdateHandler = new IUpdateHandler() {
-	            @Override
-	            public void onUpdate(float pSecondsElapsed) {
-	            	float period = .12f;
-	                if(ResourceManager.getInstance().engine.getSecondsElapsedTotal() >
-	                shurikenLaunchTime + period*shurikenAnimationCounter) {
-	                	Log.d("Bruno", "Counter "+shurikenAnimationCounter+".");
-	                	if (shurikenAnimationCounter == 0) {
-	                		shurikenSprites[5-shurikenAnimationCounter].setAlpha(1f);
-	                	}
-	                	else if (shurikenAnimationCounter == 6) {
-	                		shurikenSprites[0].setAlpha(0f);
-	                		Hands.this.unregisterUpdateHandler(shurikenUpdateHandler);
-	                	}
-	                	else {
-	                		shurikenSprites[5-shurikenAnimationCounter+1].setAlpha(0f);
-	                		shurikenSprites[5-shurikenAnimationCounter].setAlpha(1f);
-	                	}
-	                	shurikenAnimationCounter++;
-	                }	                
-	            }
-	            @Override public void reset() {}
-	        };
-	        registerUpdateHandler(shurikenUpdateHandler);
-		}
-	}
-	
-	/**
-	 * Aux. class for class Hands.
-	 * TimerTask that enables input
-	 */
-	private class HandsMovementWaiter extends TimerTask {		
-		Hands hands;
-		
-		public HandsMovementWaiter(Hands hands){
-			super();
-			this.hands = hands;
-		}
-		
-		@Override
-		public void run() {
-			hands.ignoreInputBecauseMoving = false;			
-		}
-		
-	}
-	
-	/**
-	 * TODO
-	 *
-	 */
-	private class Shuriken extends Entity{
-		
-		public Shuriken(){
-			
-		}
-	}
-	
-	private class Coordinates {
-		// Coordinates origin (0,0) is the screen lower left corner.
-		float x, y;
-		public Coordinates(float x, float y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
-	
 	public static int getScore() {
 	    // TODO Auto-generated method stub
 	    return 1;
@@ -542,7 +339,7 @@ public class TrialSceneShuriken extends GameScene{
 	/**
 	 * Moves an Sprite through the screen using PathModifier
 	 */
-	protected void moveSprite(Sprite sprite, float fromX, float fromY, float toX, float toY, float seconds){
+	public static void moveSprite(Sprite sprite, float fromX, float fromY, float toX, float toY, float seconds){
 		Path p = new Path(2).to(fromX, fromY).to(toX, toY);
 		PathModifier pathModifier = new PathModifier(seconds, p);
 		sprite.registerEntityModifier(pathModifier);
