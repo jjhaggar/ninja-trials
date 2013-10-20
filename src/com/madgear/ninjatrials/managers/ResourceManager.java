@@ -157,7 +157,8 @@ public class ResourceManager {
     public static ITiledTextureRegion shurikenShoHands;
     public static ITiledTextureRegion shurikenShoLose;
     public static ITiledTextureRegion shurikenShoWin;
-    public static ITiledTextureRegion shurikenShuriken;
+    public static ITextureRegion shurikenShuriken;
+    public static ITextureRegion[] shurikenShurikens;
     public static ITiledTextureRegion shurikenStrawman1;
     public static ITiledTextureRegion shurikenStrawman2;
     public static ITextureRegion shurikenStrawman3;
@@ -1408,21 +1409,20 @@ public class ResourceManager {
             shurikenShoWinBit.load();
         }
 
-        // TODO
-        //if (shurikenShuriken == null) {
-        //    BuildableBitmapTextureAtlas shurikenShurikenBit = new BuildableBitmapTextureAtlas(
-        //            textureManager, 196, 418, mTransparentTextureOption);
-        //    shurikenShuriken = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-        //            shurikenShurikenBit, context, "shuriken_shuriken.png", ?,?);
-        //    try {
-        //        shurikenShurikenBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
-        //                BitmapTextureAtlas>(0, 0, 0));
-        //    }
-        //    catch (TextureAtlasBuilderException e) {
-        //        e.printStackTrace();
-        //    }
-        //    shurikenShurikenBit.load();
-        //}
+        if (shurikenShuriken == null) {
+            BitmapTextureAtlas shurikenShurikenT = new BitmapTextureAtlas(textureManager, 196, 418,
+                    mTransparentTextureOption);
+            shurikenShuriken = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            		shurikenShurikenT, activity, "shuriken_shuriken.png", 0, 0);
+            shurikenShurikenT.load();
+            shurikenShurikens = new ITextureRegion[6];
+            shurikenShurikens[0] = TextureRegionFactory.extractFromTexture(shurikenShurikenT, 0, 0, 54, 26-0, false);
+            shurikenShurikens[1] = TextureRegionFactory.extractFromTexture(shurikenShurikenT, 0, 29, 58, 66-29, false);
+            shurikenShurikens[2] = TextureRegionFactory.extractFromTexture(shurikenShurikenT, 0, 67, 102, 121-67, false);
+            shurikenShurikens[3] = TextureRegionFactory.extractFromTexture(shurikenShurikenT, 0, 122, 114, 195-122, false);
+            shurikenShurikens[4] = TextureRegionFactory.extractFromTexture(shurikenShurikenT, 0, 197, 196, 303-197, false);
+            shurikenShurikens[5] = TextureRegionFactory.extractFromTexture(shurikenShurikenT, 0, 304, 196, 418-304, false);
+        }
 
         if (shurikenStrawman1 == null) {
             BuildableBitmapTextureAtlas shurikenStrawman1Bit = new BuildableBitmapTextureAtlas(
@@ -1508,6 +1508,15 @@ public class ResourceManager {
         if (shurikenShuriken != null && shurikenShuriken.getTexture().isLoadedToHardware()) {
                 shurikenShuriken.getTexture().unload();
                 shurikenShuriken = null;
+        }
+        if (shurikenShurikens != null) {
+        	for (ITextureRegion shuriken: shurikenShurikens) {
+            	if (shuriken != null && shuriken.getTexture().isLoadedToHardware()) {
+            		shuriken.getTexture().unload();
+            		shuriken = null;
+            	}        	
+            }
+        	shurikenShurikens = null;
         }
         if (shurikenStrawman1 != null && shurikenStrawman1.getTexture().isLoadedToHardware()) {
                 shurikenStrawman1.getTexture().unload();

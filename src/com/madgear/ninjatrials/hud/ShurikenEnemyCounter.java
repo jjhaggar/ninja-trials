@@ -3,6 +3,7 @@
 package com.madgear.ninjatrials.hud;
 
 import org.andengine.entity.Entity;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
@@ -11,13 +12,14 @@ import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.managers.ResourceManager;
 
 public class ShurikenEnemyCounter extends Entity{
 	private int enemyCount, enemiesLeft;
-	private Sprite enemyLogo;
+	private AnimatedSprite enemyLogo;
 	private Text exSymbol;
 	private Text[] numbers;
 	private float enemyLogoPosX, enemyLogoPosY, exPosX, exPosY, longNumberPosX,
@@ -29,11 +31,11 @@ public class ShurikenEnemyCounter extends Entity{
 		enemyLogoPosX = posX;
 		enemyLogoPosY = posY;
 		exPosX = posX + 90;
-		exPosY = posY - 25;
+		exPosY = posY - 25 -20;
 		longNumberPosX = posX + 200;
-		longNumberPosY = posY;
+		longNumberPosY = posY -20;
 		shortNumberPosX = posX + 150;
-		shortNumberPosY = posY;
+		shortNumberPosY = posY -20;
 		
 		generateNumbers(enemyCount);
 		for (Text number: numbers){
@@ -66,24 +68,11 @@ public class ShurikenEnemyCounter extends Entity{
 		exSymbol.setScale(.67f);
 	}
 	
-	private void generateEnemyLogo(){
-		BitmapTextureAtlasTextureRegionFactory
-		.setAssetBasePath("gfx/trial_shuriken/");
-		TextureManager textureManager = ResourceManager.getInstance()
-				.activity.getTextureManager();
-		BitmapTextureAtlas dianaBitmapTextureAtlas = 
-				new BitmapTextureAtlas(textureManager, 480, 820, 
-						TextureOptions.NEAREST);
-		ITextureRegion dianaTextureRegion =	
-				BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-						dianaBitmapTextureAtlas, ResourceManager
-						.getInstance().activity, 
-						"shuriken_temp_strawman.png", 0, 0);
-		dianaBitmapTextureAtlas.load();
-		enemyLogo = new Sprite(enemyLogoPosX, enemyLogoPosY, dianaTextureRegion, 
-				ResourceManager.getInstance().engine
-				.getVertexBufferObjectManager());
-		enemyLogo.setScale(.25f);
+	private void generateEnemyLogo(){		
+		ITiledTextureRegion enemyLogoITTR = ResourceManager.getInstance().shurikenHead;
+		enemyLogo = new AnimatedSprite(enemyLogoPosX, enemyLogoPosY, enemyLogoITTR, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+		enemyLogo.setCurrentTileIndex(1);
+		enemyLogo.setScale(.8f);
 	}
 	
 	private void generateNumbers(int enemyCount){
