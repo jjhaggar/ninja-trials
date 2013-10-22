@@ -234,7 +234,7 @@ public class MainOptionsScene extends GameScene {
     @Override
     public void onPressButtonMenu() {
         if (ResourceManager.getInstance().engine != null) {
-            SFXManager.pauseMusic(ResourceManager.getInstance().cutMusic);
+            SFXManager.pauseMusic(ResourceManager.getInstance().trialCut);
             SceneManager.getInstance().showScene(new MainMenuScene());
         }
     }

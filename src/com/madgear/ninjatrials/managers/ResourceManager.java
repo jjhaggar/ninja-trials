@@ -131,13 +131,13 @@ public class ResourceManager {
 
 
     // CUT SCENE SOUNDS:
-    public static Music cutMusic;
-    public static Sound cutEyesZoom;
-    public static Sound cutKatana1;
-    public static Sound cutKatana2;
-    public static Sound cutKatana3;
-    public static Sound cutKatanaWhoosh;
-    public static Sound cutThud;
+    public static Music trialCut;
+    public static Sound trialCutEyesZoom;
+    public static Sound trialCutKatana1;
+    public static Sound trialCutKatana2;
+    public static Sound trialCutKatana3;
+    public static Sound trialCutKatanaWhoosh;
+    public static Sound trialCutKatanaWhoosh2;
 
 
 	// RUN SCENE
@@ -1081,28 +1081,6 @@ public class ResourceManager {
                     cutSword1T, activity, "cut_sword_sparkle1.png", 0, 0);
             cutSword1T.load();
         }
-
-        // Music & Sounds:
-        SoundFactory.setAssetBasePath("sounds/");
-        MusicFactory.setAssetBasePath("music/");
-        try {
-            cutEyesZoom = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_eyes_zoom.ogg");
-            cutKatana1 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_katana_cut1.ogg");
-            cutKatana2 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_katana_cut2.ogg");
-            cutKatana3 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_katana_cut3.ogg");
-            cutKatanaWhoosh = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_katana_whoosh1.ogg");
-            cutThud = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_katana_whoosh2.ogg");
-            cutMusic = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "trial_cut_music.ogg");
-        } catch (final IOException e) {
-            Log.v("Sounds Load","Exception:" + e.getMessage());
-        }
     }
 
 
@@ -1180,22 +1158,6 @@ public class ResourceManager {
                 cutSwordSparkle2 = null;
             }
         }
-
-        // Music & Sounds:
-        if(!cutEyesZoom.isReleased())
-            cutEyesZoom.release();
-        if(!cutKatana1.isReleased())
-            cutKatana1.release();
-        if(!cutKatana2.isReleased())
-            cutKatana2.release();
-        if(!cutKatana3.isReleased())
-            cutKatana3.release();
-        if(!cutKatanaWhoosh.isReleased())
-            cutKatanaWhoosh.release();
-        if(!cutEyesZoom.isReleased())
-            cutThud.release();
-        if(!cutMusic.isReleased())
-            cutMusic.release();
 
         // Garbage Collector:
         System.gc();
@@ -2434,18 +2396,6 @@ public class ResourceManager {
                     loseCharRyokoT, activity, "results_lose_ch_ryoko.png", 0, 0);
             loseCharRyokoT.load();
         }
-
-        // Music & Sounds:
-        SoundFactory.setAssetBasePath("sounds/");
-        MusicFactory.setAssetBasePath("music/");
-        try {
-            loseYouLose = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_you_lose.ogg");
-            loseMusic = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "result_lose.ogg");
-        } catch (final IOException e) {
-            Log.v("Sounds Load","Exception:" + e.getMessage());
-        }
     }
 
     public synchronized void unloadResultLoseSceneResources() {
@@ -2467,12 +2417,6 @@ public class ResourceManager {
                 loseCharRyoko = null;
             }
         }
-
-        // Music & Sounds:
-        if(!loseYouLose.isReleased())
-            loseYouLose.release();
-        if(!loseMusic.isReleased())
-            loseMusic.release();
 
         // Garbage Collector:
         System.gc();
@@ -2549,22 +2493,6 @@ public class ResourceManager {
             }
             winStampRankingBit.load();
         }
-
-        // Music & Sounds:
-        SoundFactory.setAssetBasePath("sounds/");
-        MusicFactory.setAssetBasePath("music/");
-        try {
-            winYouWin = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_you_win.ogg");
-            winPointsSum = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "menu_points_sum.ogg");
-            winPointsTotal = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "menu_points_total.ogg");
-            winMusic = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "result_win.ogg");
-        } catch (final IOException e) {
-            Log.v("Sounds Load","Exception:" + e.getMessage());
-        }
     }
 
 
@@ -2605,43 +2533,16 @@ public class ResourceManager {
                 winStampRanking = null;
             }
         }
-
-        // Music & Sounds:
-        if(winYouWin != null && !winYouWin.isReleased())
-            winYouWin.release();
-        if(winPointsSum != null && !winPointsSum.isReleased())
-            winPointsSum.release();
-        if(winPointsTotal != null && !winPointsTotal.isReleased())
-            winPointsTotal.release();
-        if(winMusic != null && !winMusic.isReleased())
-            winMusic.release();
-
         // Garbage Collector:
         System.gc();
     }
     
     
     public synchronized void loadGameOverResources() {
-        // Music & Sounds:
-        SoundFactory.setAssetBasePath("sounds/");
-        MusicFactory.setAssetBasePath("music/");
-        try {
-            gameOver = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_game_over.ogg");
-            gameOverMusic = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "game_over.ogg");
-        } catch (final IOException e) {
-            Log.v("Sounds Load","Exception:" + e.getMessage());
-        }
     }
 
 
     public synchronized void unloadGameOverResources() {
-        // Music & Sounds:
-        if(!gameOver.isReleased())
-            gameOver.release();
-        if(!gameOverMusic.isReleased())
-            gameOverMusic.release();
     }
 
     public synchronized void loadMusicsResources() {
@@ -2661,10 +2562,18 @@ public class ResourceManager {
                     activity.getMusicManager(), context, "records.ogg");
             trialJump = MusicFactory.createMusicFromAsset(
                     activity.getMusicManager(), context, "trial_jump.ogg");
+            trialCut = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "trial_cut_music.ogg");
             trialRun = MusicFactory.createMusicFromAsset(
                     activity.getMusicManager(), context, "trial_run.ogg");
             trialShurikens = MusicFactory.createMusicFromAsset(
                     activity.getMusicManager(), context, "trial_shurikens.ogg");
+            loseMusic = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "result_lose.ogg");
+            winMusic = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "result_win.ogg");
+            gameOverMusic = MusicFactory.createMusicFromAsset(
+                    activity.getMusicManager(), context, "game_over.ogg");
         }
         catch (final IOException e) {
             Log.v("Sounds Load","Exception:" + e.getMessage());
@@ -2686,10 +2595,18 @@ public class ResourceManager {
             records.release();
         if (!trialJump.isReleased())
             trialJump.release();
+        if (!trialCut.isReleased())
+            trialCut.release();
         if (!trialRun.isReleased())
             trialRun.release();
         if (!trialShurikens.isReleased())
             trialShurikens.release();
+        if (!loseMusic.isReleased())
+            loseMusic.release();
+        if(winMusic != null && !winMusic.isReleased())
+            winMusic.release();
+        if(!gameOverMusic.isReleased())
+            gameOverMusic.release();
     }
 
     public synchronized void loadSoundsResources() {
@@ -2823,6 +2740,18 @@ public class ResourceManager {
                     activity.getSoundManager(), context, "trial_cut_candle_wooble_thud.ogg");
             trialCutEyesZoomV2 = SoundFactory.createSoundFromAsset(
                     activity.getSoundManager(), context, "trial_cut_eyes_zoom_v2.ogg");
+            trialCutEyesZoom = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_cut_eyes_zoom.ogg");
+            trialCutKatana1 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_cut_katana_cut1.ogg");
+            trialCutKatana2 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_cut_katana_cut2.ogg");
+            trialCutKatana3 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_cut_katana_cut3.ogg");
+            trialCutKatanaWhoosh = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_cut_katana_whoosh1.ogg");
+            trialCutKatanaWhoosh2 = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "trial_cut_katana_whoosh2.ogg");
             trialCutKatanaWhoosh3 = SoundFactory.createSoundFromAsset(
                     activity.getSoundManager(), context, "trial_cut_katana_whoosh3.ogg");
             trialJumpFall = SoundFactory.createSoundFromAsset(
@@ -2869,6 +2798,16 @@ public class ResourceManager {
                     activity.getSoundManager(), context, "trial_shuriken_strawman_move.ogg");
             trialShurikenThrowing = SoundFactory.createSoundFromAsset(
                     activity.getSoundManager(), context, "trial_shuriken_throwing.ogg");
+            loseYouLose = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_you_lose.ogg");
+            winYouWin = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_you_win.ogg");
+            winPointsSum = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "menu_points_sum.ogg");
+            winPointsTotal = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "menu_points_total.ogg");
+            gameOver = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "judge_game_over.ogg");
         }
         catch (final IOException e) {
             Log.v("Sounds Load","Exception:" + e.getMessage());
@@ -3026,6 +2965,18 @@ public class ResourceManager {
             trialJumpWhoosh3.release();
         if (!trialJumpWobble.isReleased())
             trialJumpWobble.release();
+        if(!trialCutEyesZoom.isReleased())
+            trialCutEyesZoom.release();
+        if(!trialCutKatana1.isReleased())
+            trialCutKatana1.release();
+        if(!trialCutKatana2.isReleased())
+            trialCutKatana2.release();
+        if(!trialCutKatana3.isReleased())
+            trialCutKatana3.release();
+        if(!trialCutKatanaWhoosh.isReleased())
+            trialCutKatanaWhoosh.release();
+        if(!trialCutEyesZoom.isReleased())
+            trialCutKatanaWhoosh2.release();
         if (!trialRunTap1.isReleased())
             trialRunTap1.release();
         if (!trialRunTap2.isReleased())
@@ -3050,6 +3001,16 @@ public class ResourceManager {
             trialShurikenStrawmanMove.release();
         if (!trialShurikenThrowing.isReleased())
             trialShurikenThrowing.release();
+        if(!loseYouLose.isReleased())
+            loseYouLose.release();
+        if(winYouWin != null && !winYouWin.isReleased())
+            winYouWin.release();
+        if(winPointsSum != null && !winPointsSum.isReleased())
+            winPointsSum.release();
+        if(winPointsTotal != null && !winPointsTotal.isReleased())
+            winPointsTotal.release();
+        if(!gameOver.isReleased())
+            gameOver.release();
     }
 
     /* Loads fonts resources
