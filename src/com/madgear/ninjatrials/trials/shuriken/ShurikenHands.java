@@ -1,5 +1,6 @@
 package com.madgear.ninjatrials.trials.shuriken;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,6 +15,7 @@ import android.util.Log;
 
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.trials.TrialSceneShuriken;
 import com.madgear.ninjatrials.trials.run.RunCharacter;
 
@@ -51,7 +53,6 @@ public class ShurikenHands extends Entity{
 		attachChild(hands);
 	}
 	public void moveLeft() {
-		Log.d("Bruno", "Hands positions are ("+hands.getX()+", "+hands.getY()+")");
 		if (coordinates.x - movementDistanceDelta >= 0 && !ignoreInputBecauseMoving){
 			ignoreInputBecauseMoving = true;
 			TrialSceneShuriken.moveSprite(hands, coordinates.x, coordinates.y, coordinates.x - movementDistanceDelta, coordinates.y, movementTimeDelta);
@@ -90,6 +91,24 @@ public class ShurikenHands extends Entity{
 		ShurikenShuriken shuriken = new ShurikenShuriken();
 		attachChild(shuriken);
 		shuriken.launch(this.coordinates.x);
+		SFXManager.playSound(ResourceManager.getInstance().trialShurikenThrowing);
+		if (generateCustomRandom(.25f)) {
+			if (GameManager.getSelectedCharacter() == GameManager.CHAR_SHO) {
+				SFXManager.playSound(ResourceManager.getInstance().shoShurikenThrow);
+	        }
+	        else if (GameManager.getSelectedCharacter() == GameManager.CHAR_RYOKO) {
+	        	SFXManager.playSound(ResourceManager.getInstance().ryokoShurikenThrow);
+	        }
+	        else {
+	        	SFXManager.playSound(ResourceManager.getInstance().shoShurikenThrow);
+	        	Log.d("Bruno", "Warning: selected character unknown, using Sho as default.");
+	        }
+		}
+	}
+	private boolean generateCustomRandom(float chanceOfTrue) {
+		Random randomGenerator = new Random();
+		float n = randomGenerator.nextFloat();
+		return (n > 1 - chanceOfTrue);
 	}
 	
 	

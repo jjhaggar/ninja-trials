@@ -8,6 +8,7 @@ import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.Entity;
+import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.PathModifier;
 import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.entity.modifier.SequenceEntityModifier;
@@ -30,9 +31,12 @@ import org.andengine.util.adt.align.HorizontalAlign;
 import android.util.Log;
 
 import com.madgear.ninjatrials.GameScene;
+import com.madgear.ninjatrials.ResultLoseScene;
+import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.hud.ShurikenEnemyCounter;
 import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.test.MusicTest;
 import com.madgear.ninjatrials.test.TestingScene;
@@ -131,6 +135,39 @@ public class TrialSceneShuriken extends GameScene{
 		ResourceManager.getInstance().unloadShurikenSceneResources();
 	}
 	
+	@Override
+	public void attachChild(final IEntity pEntity) {
+	    // manually set index
+	    if (this.mChildren != null) {
+	        pEntity.setZIndex(this.mChildren.size());
+	        Log.d("Bruno", "Attaching child with ZIndex "+this.mChildren.size());
+	    }
+	    super.attachChild(pEntity);
+	    sortEnemiesZIndex();
+	}
+	
+	/**
+	 * Sorts ZIndexes of enemies.
+	 */
+	private void sortEnemiesZIndex() {
+		if (enemies != null && enemies.size() > 1) {
+			if (enemies.size() == 5) {
+				Log.d("Bruno", "Before: "+enemies.get(0).getZIndex()+", "+enemies.get(1).getZIndex()+", "+enemies.get(2).getZIndex()+", "+enemies.get(3).getZIndex()+", "+enemies.get(4).getZIndex()+".");
+			}
+			int temp = enemies.get(enemies.size() - 1).getZIndex();			
+			for (int i = enemies.size() - 1; i > 0; i--) {
+				// machacar el i con el i-1
+				enemies.get(i).setZIndex(enemies.get(i - 1).getZIndex());
+				// http://hawaiiantime.jp/blog/58/
+			}
+			enemies.get(0).setZIndex(temp);
+			sortChildren();
+			if (enemies.size() == 5) {
+				Log.d("Bruno", "After: "+enemies.get(0).getZIndex()+", "+enemies.get(1).getZIndex()+", "+enemies.get(2).getZIndex()+", "+enemies.get(3).getZIndex()+", "+enemies.get(4).getZIndex()+".");
+			}
+		}		
+	}
+	
 	/**
 	 * Shows Ready and Go messages and then starts the game.
 	 */
@@ -147,7 +184,7 @@ public class TrialSceneShuriken extends GameScene{
                 		readyShow = true;
                 		gameHUD.showMessage("Ready?", 0, 2);
                     	Log.d("Bruno", "Ready?");
-                	}                	
+                	}
                 }
                 if(ResourceManager.getInstance().engine.getSecondsElapsedTotal() >
                 gameStartTime + waitPeriodForGoMsg) {
@@ -155,7 +192,7 @@ public class TrialSceneShuriken extends GameScene{
                     gameHUD.showMessage("Go!", 0, 1);
                     Log.d("Bruno", "Go!");
                     gameStarted = true;
-                    
+                    SFXManager.playMusic(ResourceManager.getInstance().trialShurikens);
                     generateEnemies();
                     checkEnemiesStatus();
                     gameStartTime = ResourceManager.getInstance().engine.getSecondsElapsedTotal();
@@ -172,22 +209,26 @@ public class TrialSceneShuriken extends GameScene{
 	private void generateEnemies() {
 		if (enemies == null){
 			enemies = new ArrayList<ShurikenEnemy>(enemyCount);
+			ShurikenEnemy enemy = new ShurikenEnemy(1, enemySpeed, 'l');
+			enemies.add(enemy);
+			attachChild(enemy);
+			Log.d("Bruno", "New enemy generated with zIndex"+enemy.getZIndex()+", there are "+enemies.size()+" enemies ("+enemyCount+" max).");
 		}
 		Timer timer = new Timer();
-		timer.schedule(new enemyGenerator(), enemyInsertionInterval*1000);
+		timer.schedule(new EnemyGenerator(), enemyInsertionInterval*1000);
 	}
 	
 	/**
 	 * Aux. class for generateEnemies()
 	 */
-	private class enemyGenerator extends TimerTask {
+	private class EnemyGenerator extends TimerTask {
 
 		@Override
 		public void run() {
-			ShurikenEnemy enemy = new ShurikenEnemy(1, enemySpeed);
+			ShurikenEnemy enemy = new ShurikenEnemy(1, enemySpeed, 'l');
 			enemies.add(enemy);
 			attachChild(enemy);
-			Log.d("Bruno", "New enemy generated, there are "+enemies.size()+" enemies ("+enemyCount+" max).");
+			Log.d("Bruno", "New enemy generated with Z-Index "+enemy.getZIndex()+", there are "+enemies.size()+" enemies ("+enemyCount+" max).");
 			if (!gameFinished && enemies.size() < enemyCount){
 				generateEnemies();
 			}			
@@ -216,11 +257,12 @@ public class TrialSceneShuriken extends GameScene{
 		@Override
 		public void run() {
 			for (ShurikenEnemy enemy: enemies) {
-				if (enemy.getPosition().x == -1 && enemy.getPosition().y == -1) {
+				if (enemy.hasHitPlayer()) {
 					enemy.hide();
 					enemiesLeft--;
 					impactsOnPlayer++;
 					if (impactsOnPlayer >= AllowedImpactsOnPlayer) {
+						Log.d("Bruno", "The player has been impacted too many times.");
 						gameOver();
 					}
 				}
@@ -231,9 +273,9 @@ public class TrialSceneShuriken extends GameScene{
 				}
 			}
 			if (enemiesLeft <= 0) {
+				Log.d("Bruno", "There are no enemies left.");
 				gameOver();
 			}
-			Log.d("Bruno", "All enemies statuses have been checked.");
 			if (!gameFinished){
 				checkEnemiesStatus();
 			}			
@@ -241,22 +283,29 @@ public class TrialSceneShuriken extends GameScene{
 	}
 	
 	/*
-	 * Stops enemy generation and checking.
+	 * Stops enemy generation and enemy status checking.
 	 * Compute scores.
 	 * Hide hands.
 	 * Shows ResultWinScene or ResultsLoseScene
 	 */
 	private void gameOver() {
+		Log.d("Bruno", "GameOver");
 		gameFinished = true;
+		SFXManager.pauseMusic(ResourceManager.getInstance().trialShurikens);
 		gameEndTime = ResourceManager.getInstance().engine.getSecondsElapsedTotal();
-		precissionScore = enemiesDefeated / shurikensLaunched;
+		if (shurikensLaunched == 0) {
+			precissionScore = 0;
+		}
+		else {
+			precissionScore = enemiesDefeated / shurikensLaunched;
+		}		
 		timeScore = (maxTime - (gameEndTime - gameStartTime)) / maxTime;
 		hands.hide();
 		if (impactsOnPlayer >= AllowedImpactsOnPlayer) {
-			// TODO mostrar animacion de derrota
+			SceneManager.getInstance().showScene(new ResultLoseScene());
 		}
 		else {
-			// TODO mostrar animacion de victoria
+			SceneManager.getInstance().showScene(new ResultWinScene());
 		}
 	}
 	
@@ -293,6 +342,7 @@ public class TrialSceneShuriken extends GameScene{
 	@Override
     public void onPressButtonMenu() {
 		gameFinished = true;
+		SFXManager.pauseMusic(ResourceManager.getInstance().trialShurikens);
 		SceneManager.getInstance().showScene(new TestingScene());
     }
 	
