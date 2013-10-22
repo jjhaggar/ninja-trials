@@ -19,11 +19,9 @@
 package com.madgear.ninjatrials.test;
 
 import org.andengine.entity.Entity;
-import org.andengine.entity.text.Text;
-import org.andengine.entity.text.TextOptions;
-import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.managers.ResourceManager;
+
 
 public class TestGrid extends Entity {
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
@@ -34,6 +32,7 @@ public class TestGrid extends Entity {
     private TestGridItem[] items;
     private int index = 0;
     private int numItems = 0;
+    
     
     public TestGrid(int numItemsMax) {
         items = new TestGridItem[numItemsMax];
@@ -60,7 +59,7 @@ public class TestGrid extends Entity {
     public void moveUp() {
         if (index >= COLS) {
             items[index].onDeselected();
-            index=- COLS;
+            index -= COLS;
             items[index].onSelected();
         }
     }
@@ -68,7 +67,7 @@ public class TestGrid extends Entity {
     public void moveDown() {
         if (index < numItems - COLS) {
             items[index].onDeselected();
-            index=+ COLS;
+            index += COLS;
             items[index].onSelected();
         }
     }
