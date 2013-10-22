@@ -101,11 +101,34 @@ public class NinjaTrials extends BaseGameActivity {
 
         // Recursos del HUD:
         ResourceManager.getInstance().loadHUDResources();
-        pOnCreateResourcesCallback.onCreateResourcesFinished();
+
+/*        // TODO probando a cargar todos los recursos
+        ResourceManager.getInstance().loadMainMenuResources();
+        ResourceManager.getInstance().loadOptionResources();
+        ResourceManager.getInstance().loadControllerOptionResources();
+        ResourceManager.getInstance().loadCutSceneResources();
+        ResourceManager.getInstance().loadJumpSceneResources();
+        ResourceManager.getInstance().loadRunSceneResources();
+        ResourceManager.getInstance().loadShurikenSceneResources(); //Falla
+        ResourceManager.getInstance().loadIntro1Resources();
+        ResourceManager.getInstance().loadIntro2Resources();
+        ResourceManager.getInstance().loadEndingResources();
+        ResourceManager.getInstance().loadHowToPlayResources();
+        ResourceManager.getInstance().loadCharacterProfileResources();
+        ResourceManager.getInstance().loadMenuAchievementsResources();
+        ResourceManager.getInstance().loadMenuMapResources();
+        ResourceManager.getInstance().loadMenuPauseResources();
+        ResourceManager.getInstance().loadMenuSelectedResources();
+        ResourceManager.getInstance().loadResultLoseSceneResources();
+        ResourceManager.getInstance().loadResultWinResources();
+        ResourceManager.getInstance().loadGameOverResources();*/
+              
         
         // Música y sonido:
         ResourceManager.getInstance().loadMusicsResources();
         ResourceManager.getInstance().loadSoundsResources();
+        
+        pOnCreateResourcesCallback.onCreateResourcesFinished();
     }
 
     @Override
@@ -117,7 +140,12 @@ public class NinjaTrials extends BaseGameActivity {
     @Override
     public void onPopulateScene(Scene pScene, OnPopulateSceneCallback pOnPopulateSceneCallback) {
         // Iniciamos a la primera escena:
-        SceneManager.getInstance().showScene(new TestingScene());
+        if(GameManager.DEBUG_MODE)
+            SceneManager.getInstance().showScene(new TestingScene());
+        else
+            // TODO: escena inicial?
+            SceneManager.getInstance().showScene(new MainMenuScene());
+
         pOnPopulateSceneCallback.onPopulateSceneFinished();
     }
 
