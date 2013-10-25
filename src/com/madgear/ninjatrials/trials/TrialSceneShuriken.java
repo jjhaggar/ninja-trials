@@ -48,12 +48,12 @@ import com.madgear.ninjatrials.trials.shuriken.ShurikenHands;
  * Trial Scene Shuriken V2 for Ninja Trials
  * 
  * @author Madgear Games
- * @version 0.1 16-Oct-2013
+ * @version 0.2 25-Oct-2013
  */
 public class TrialSceneShuriken extends GameScene{
 	
 	private final float SCRNWIDTH = ResourceManager.getInstance().cameraWidth;
-	private final float SCRENHEIGHT = ResourceManager.getInstance().cameraHeight;
+	private final float SCRNHEIGHT = ResourceManager.getInstance().cameraHeight;
 	private int AllowedImpactsOnPlayer = 1;
 	private int impactsOnPlayer = 0;
 	private ShurikenEnemyCounter shurikenEnemyCounterHUD;
@@ -80,9 +80,11 @@ public class TrialSceneShuriken extends GameScene{
 	private ShurikenHands hands;
 	private ArrayList<ShurikenEnemy> enemies;
 	private int shurikenAnimationCounter;
+	Timer generateEnemiesTimer;
 	
-	public TrialSceneShuriken(){
+	public TrialSceneShuriken(){		
 		super(1f);
+		generateEnemiesTimer = new Timer();
 	}
 	
 	/**
@@ -110,8 +112,9 @@ public class TrialSceneShuriken extends GameScene{
 		ResourceManager.getInstance().loadShurikenSceneResources();
 		setBackground(getBG());
 		gameHUD = new GameHUD();
-		shurikenEnemyCounterHUD = new ShurikenEnemyCounter(SCRNWIDTH*.84f, SCRENHEIGHT*.92f, enemiesLeft);
+		shurikenEnemyCounterHUD = new ShurikenEnemyCounter(SCRNWIDTH*.84f, SCRNHEIGHT*.92f, enemiesLeft);
 		hands = new ShurikenHands();
+		hands.setZIndex(99);
 	}
 	
 	/**
@@ -135,15 +138,17 @@ public class TrialSceneShuriken extends GameScene{
 		ResourceManager.getInstance().unloadShurikenSceneResources();
 	}
 	
+	/**
+	 * Custom zIndex setting
+	 */
 	@Override
 	public void attachChild(final IEntity pEntity) {
-	    // manually set index
 	    if (this.mChildren != null) {
 	        pEntity.setZIndex(this.mChildren.size());
-	        Log.d("Bruno", "Attaching child with ZIndex "+this.mChildren.size());
 	    }
 	    super.attachChild(pEntity);
 	    sortEnemiesZIndex();
+	    sortChildren();
 	}
 	
 	/**
@@ -151,20 +156,11 @@ public class TrialSceneShuriken extends GameScene{
 	 */
 	private void sortEnemiesZIndex() {
 		if (enemies != null && enemies.size() > 1) {
-			if (enemies.size() == 5) {
-				Log.d("Bruno", "Before: "+enemies.get(0).getZIndex()+", "+enemies.get(1).getZIndex()+", "+enemies.get(2).getZIndex()+", "+enemies.get(3).getZIndex()+", "+enemies.get(4).getZIndex()+".");
-			}
 			int temp = enemies.get(enemies.size() - 1).getZIndex();			
 			for (int i = enemies.size() - 1; i > 0; i--) {
-				// machacar el i con el i-1
 				enemies.get(i).setZIndex(enemies.get(i - 1).getZIndex());
-				// http://hawaiiantime.jp/blog/58/
 			}
-			enemies.get(0).setZIndex(temp);
-			sortChildren();
-			if (enemies.size() == 5) {
-				Log.d("Bruno", "After: "+enemies.get(0).getZIndex()+", "+enemies.get(1).getZIndex()+", "+enemies.get(2).getZIndex()+", "+enemies.get(3).getZIndex()+", "+enemies.get(4).getZIndex()+".");
-			}
+			enemies.get(0).setZIndex(temp);			
 		}		
 	}
 	
@@ -183,14 +179,12 @@ public class TrialSceneShuriken extends GameScene{
                 	if (!readyShow){
                 		readyShow = true;
                 		gameHUD.showMessage("Ready?", 0, 2);
-                    	Log.d("Bruno", "Ready?");
                 	}
                 }
                 if(ResourceManager.getInstance().engine.getSecondsElapsedTotal() >
                 gameStartTime + waitPeriodForGoMsg) {
                     TrialSceneShuriken.this.unregisterUpdateHandler(trialUpdateHandler);
                     gameHUD.showMessage("Go!", 0, 1);
-                    Log.d("Bruno", "Go!");
                     gameStarted = true;
                     SFXManager.playMusic(ResourceManager.getInstance().trialShurikens);
                     generateEnemies();
@@ -209,13 +203,11 @@ public class TrialSceneShuriken extends GameScene{
 	private void generateEnemies() {
 		if (enemies == null){
 			enemies = new ArrayList<ShurikenEnemy>(enemyCount);
-			ShurikenEnemy enemy = new ShurikenEnemy(1, enemySpeed, 'l');
+			ShurikenEnemy enemy = new ShurikenEnemy(1, enemySpeed);
 			enemies.add(enemy);
 			attachChild(enemy);
-			Log.d("Bruno", "New enemy generated with zIndex"+enemy.getZIndex()+", there are "+enemies.size()+" enemies ("+enemyCount+" max).");
 		}
-		Timer timer = new Timer();
-		timer.schedule(new EnemyGenerator(), enemyInsertionInterval*1000);
+		generateEnemiesTimer.schedule(new EnemyGenerator(), enemyInsertionInterval*1000);
 	}
 	
 	/**
@@ -225,10 +217,9 @@ public class TrialSceneShuriken extends GameScene{
 
 		@Override
 		public void run() {
-			ShurikenEnemy enemy = new ShurikenEnemy(1, enemySpeed, 'l');
+			ShurikenEnemy enemy = new ShurikenEnemy(1, enemySpeed);
 			enemies.add(enemy);
 			attachChild(enemy);
-			Log.d("Bruno", "New enemy generated with Z-Index "+enemy.getZIndex()+", there are "+enemies.size()+" enemies ("+enemyCount+" max).");
 			if (!gameFinished && enemies.size() < enemyCount){
 				generateEnemies();
 			}			
@@ -244,7 +235,7 @@ public class TrialSceneShuriken extends GameScene{
 	 * - There are no enemies left.
 	 */
 	private void checkEnemiesStatus() {
-		float checkInterval = .5f;
+		float checkInterval = .1f;
 		Timer timer = new Timer();
 		timer.schedule(new enemyStatusChecker(), (int)(checkInterval*1000));
 	}
@@ -255,23 +246,27 @@ public class TrialSceneShuriken extends GameScene{
 	private class enemyStatusChecker extends TimerTask {
 
 		@Override
-		public void run() {
+		public void run() {	
+			int tempEnemiesLeft = enemyCount;
+			int tempEnemiesDefeated = 0;
 			for (ShurikenEnemy enemy: enemies) {
 				if (enemy.hasHitPlayer()) {
 					enemy.hide();
-					enemiesLeft--;
+					tempEnemiesLeft--;
 					impactsOnPlayer++;
 					if (impactsOnPlayer >= AllowedImpactsOnPlayer) {
 						Log.d("Bruno", "The player has been impacted too many times.");
 						gameOver();
 					}
 				}
-				if (enemy.getLifes() <= 0) {
-					enemy.hide();
-					enemiesDefeated++;
-					enemiesLeft--;
+				if (enemy.getLifes() <= 0) {					
+					tempEnemiesLeft--;
+					tempEnemiesDefeated++;
 				}
 			}
+			enemiesDefeated = tempEnemiesDefeated;
+			enemiesLeft = tempEnemiesLeft;
+			shurikenEnemyCounterHUD.setEnemiesLeft(enemiesLeft);
 			if (enemiesLeft <= 0) {
 				Log.d("Bruno", "There are no enemies left.");
 				gameOver();
@@ -291,6 +286,7 @@ public class TrialSceneShuriken extends GameScene{
 	private void gameOver() {
 		Log.d("Bruno", "GameOver");
 		gameFinished = true;
+		generateEnemiesTimer.cancel();
 		SFXManager.pauseMusic(ResourceManager.getInstance().trialShurikens);
 		gameEndTime = ResourceManager.getInstance().engine.getSecondsElapsedTotal();
 		if (shurikensLaunched == 0) {
@@ -310,27 +306,43 @@ public class TrialSceneShuriken extends GameScene{
 	}
 	
 	private void checkForImpact() {
+		Log.d("Bruno", "Checking for impact");
 		boolean hit = false;
+		float horizontalPreliminaryErrorMargin = .1f;
 		float horizontalErrorMargin = .1f;
-		float verticalErrorMargin = .2f;
 		for (ShurikenEnemy enemy: enemies) {
-			if (Math.abs(hands.getPosition().x - enemy.getPosition().x) < SCRNWIDTH * horizontalErrorMargin) {
-				float timeToImpact = (enemy.getPosition().y - hands.getPosition().y) / (shurikenSpeed * SCRENHEIGHT);
-				float enemyPredictedHorizontal;
-				if (enemy.getDirection() == 'r'){
-					enemyPredictedHorizontal = enemy.getPosition().y - enemySpeed * SCRNWIDTH * timeToImpact;
-				}
-				else {
-					enemyPredictedHorizontal = enemy.getPosition().y + enemySpeed * SCRNWIDTH * timeToImpact;
-				}
-				if (Math.abs(hands.getPosition().y - enemyPredictedHorizontal) < SCRENHEIGHT * verticalErrorMargin) {
+			if (enemy.getLifes() > 0) {
+				if (Math.abs(hands.getPosition().x - enemy.getPosition().x) < SCRNWIDTH * horizontalPreliminaryErrorMargin) {
+					Log.d("Bruno", "Hands are aligned horizontally with an enemy (H, E)=("+hands.getPosition().x+", "+enemy.getPosition().x+") and it is moving "+enemy.getDirection());
+					/*
+					float timeToImpact = (enemy.getPosition().y - hands.getPosition().y) / (shurikenSpeed * SCRNHEIGHT);
+					Log.d("Bruno", "Predicted time to hypothetical impact is "+timeToImpact);
+					float enemyPredictedHorizontal;
+					if (enemy.getDirection() == 'r') {
+						enemyPredictedHorizontal = enemy.getPosition().x + enemySpeed * SCRNWIDTH * timeToImpact;
+						Log.d("Bruno", "(r)By then, the enemy will be at "+enemyPredictedHorizontal);
+					}
+					else if (enemy.getDirection() == 'l') {
+						enemyPredictedHorizontal = enemy.getPosition().x - enemySpeed * SCRNWIDTH * timeToImpact;
+						Log.d("Bruno", "(l)By then, the enemy will be at "+enemyPredictedHorizontal);
+					}
+					else {
+						enemyPredictedHorizontal = enemy.getPosition().x;
+						Log.d("Bruno", "(n)By then, the enemy will be at "+enemyPredictedHorizontal);
+					}
+
+					if (enemy.getDirection() != 'i' && Math.abs(hands.getPosition().x - enemyPredictedHorizontal) < SCRNWIDTH * horizontalErrorMargin) {
+						hit = true;
+						Log.d("Bruno", "Enemy hit!");
+					}
+					*/
 					hit = true;
 				}
-			}
-			if (hit) {
-				enemy.setLifes(enemy.getLifes() + 1);
-				break;
-			}
+				if (hit) {
+					enemy.hit();
+					break;
+				}
+			}			
 		}
 		
 	}
@@ -346,6 +358,10 @@ public class TrialSceneShuriken extends GameScene{
 		SceneManager.getInstance().showScene(new TestingScene());
     }
 	
+	/**
+	 * The player launches a shuriken, but only in the case that
+	 * the game already started it will be counted and checked for impact.
+	 */
 	public void onPressButtonO() {
 		hands.launch();
 		if (gameStarted) {
@@ -398,7 +414,7 @@ public class TrialSceneShuriken extends GameScene{
 	public Text getLoadingText(String s){
 		return new Text(
 				SCRNWIDTH * 0.5f,
-				SCRENHEIGHT * 0.5f,
+				SCRNHEIGHT * 0.5f,
                 ResourceManager.getInstance().fontBig, s,
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine
@@ -407,7 +423,7 @@ public class TrialSceneShuriken extends GameScene{
 	
 	public SpriteBackground getBG(){
 		ITextureRegion backgroundTextureRegion = ResourceManager.getInstance().shurikenBackground;
-        Sprite backgroundSprite = new Sprite(SCRNWIDTH / 2, SCRENHEIGHT / 2, 
+        Sprite backgroundSprite = new Sprite(SCRNWIDTH / 2, SCRNHEIGHT / 2, 
         		backgroundTextureRegion, ResourceManager.getInstance().engine
         		.getVertexBufferObjectManager());
         return new SpriteBackground(backgroundSprite);        

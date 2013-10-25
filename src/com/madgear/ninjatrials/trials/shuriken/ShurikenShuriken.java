@@ -30,7 +30,6 @@ public class ShurikenShuriken extends Entity{
 	}
 	
 	public void launch(float fromX) {
-		Log.d("Bruno", "Launching shuriken");
 		for (Sprite shuriken: shurikenSprites) {
 			shuriken.setX(fromX);
 		}
@@ -42,7 +41,6 @@ public class ShurikenShuriken extends Entity{
             	float period = .12f;
                 if(ResourceManager.getInstance().engine.getSecondsElapsedTotal() >
                 shurikenLaunchTime + period*shurikenAnimationCounter) {
-                	Log.d("Bruno", "Counter "+shurikenAnimationCounter+".");
                 	if (shurikenAnimationCounter == 0) {
                 		shurikenSprites[5-shurikenAnimationCounter].setAlpha(1f);
                 	}

@@ -62,7 +62,6 @@ public class ShurikenHands extends Entity{
 		}			
 	}
 	public void moveRight() {
-		Log.d("Bruno", "Hands positions are ("+hands.getX()+", "+hands.getY()+")");
 		if (coordinates.x + movementDistanceDelta <= SCRNWIDTH && !ignoreInputBecauseMoving){
 			ignoreInputBecauseMoving = true;
 			TrialSceneShuriken.moveSprite(hands, coordinates.x, coordinates.y, coordinates.x + movementDistanceDelta, coordinates.y, movementTimeDelta);
