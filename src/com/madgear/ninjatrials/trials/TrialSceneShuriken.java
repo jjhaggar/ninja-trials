@@ -45,10 +45,12 @@ import com.madgear.ninjatrials.trials.shuriken.ShurikenEnemy;
 import com.madgear.ninjatrials.trials.shuriken.ShurikenHands;
 
 /**
- * Trial Scene Shuriken V2 for Ninja Trials
+ * Trial Scene Shuriken for Ninja Trials
  * 
+ * Task number: 44
+ * Design document: section 3.12.4
  * @author Madgear Games
- * @version 0.2 25-Oct-2013
+ *
  */
 public class TrialSceneShuriken extends GameScene{
 	
@@ -426,6 +428,6 @@ public class TrialSceneShuriken extends GameScene{
         Sprite backgroundSprite = new Sprite(SCRNWIDTH / 2, SCRNHEIGHT / 2, 
         		backgroundTextureRegion, ResourceManager.getInstance().engine
         		.getVertexBufferObjectManager());
-        return new SpriteBackground(backgroundSprite);        
+        return new SpriteBackground(backgroundSprite);     
 	}
 }

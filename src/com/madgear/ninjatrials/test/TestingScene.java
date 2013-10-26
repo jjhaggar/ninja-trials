@@ -25,6 +25,7 @@ import com.madgear.ninjatrials.ControllerOptionsScene;
 import com.madgear.ninjatrials.GameScene;
 import com.madgear.ninjatrials.MainMenuScene;
 import com.madgear.ninjatrials.MainOptionsScene;
+import com.madgear.ninjatrials.MapScene;
 import com.madgear.ninjatrials.PlayerSelectionScene;
 import com.madgear.ninjatrials.ResultLoseScene;
 import com.madgear.ninjatrials.ResultWinScene;
@@ -159,6 +160,13 @@ public class TestingScene extends GameScene {
             @Override
             public void onAction() {
                 SceneManager.getInstance().showScene(new ResultWinScene());
+            }
+        });
+        
+        testGrid.addItem(new TestGridItem("Map Scene") {
+            @Override
+            public void onAction() {
+                SceneManager.getInstance().showScene(new MapScene());
             }
         });
     }
