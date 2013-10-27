@@ -109,7 +109,10 @@ public class PrecisionAngleBar extends Entity {
     	if (cursorValue == cursorMax )
     		cursorValue = cursorMax - 0.001f;
     	
-    	return new float[] {cursorValue, (float) Math.sqrt(Math.pow(cursorMax, 2) - Math.pow(cursorValue, 2))};
+    	float[] result = new float[] {cursorValue, (float) Math.sqrt(Math.pow(cursorMax, 2) - Math.pow(cursorValue, 2))};
+    	if (Double.isNaN(result[0]) || Double.isNaN(result[1]))
+    		result = new float[] { 1, 1};
+    	return result;
         
     }
     

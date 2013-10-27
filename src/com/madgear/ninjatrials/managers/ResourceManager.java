@@ -853,7 +853,7 @@ public class ResourceManager {
         }
 
         //if (jumpChRyoko == null) {
-        //    BuildableBitmapTextureAtlas jumpChRyokoBit = new BuildableBitmapTextureAtlas(
+        //   BuildableBitmapTextureAtlas jumpChRyokoBit = new BuildableBitmapTextureAtlas(
         //            textureManager, 2000, 2982, mTransparentTextureOption);
         //    jumpChRyoko = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
         //            jumpChRyokoBit, context, "jump_ch_ryoko.png", 4, 6);
@@ -867,20 +867,20 @@ public class ResourceManager {
         //    jumpChRyokoBit.load();
         //}
 
-        //if (jumpChSho == null) {
-        //    BuildableBitmapTextureAtlas jumpChShoBit = new BuildableBitmapTextureAtlas(
-        //            textureManager, 2000, 2982, mTransparentTextureOption);
-        //    jumpChSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-        //            jumpChShoBit, context, "jump_ch_sho.png", 4, 6);
-        //    try {
-        //        jumpChShoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
-        //                BitmapTextureAtlas>(0, 0, 0));
-        //    }
-        //    catch (TextureAtlasBuilderException e) {
-        //        e.printStackTrace();
-        //    }
-        //    jumpChShoBit.load();
-        //}
+        if (jumpChSho == null) {
+            BuildableBitmapTextureAtlas jumpChShoBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 687, 1024, mTransparentTextureOption);
+            jumpChSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    jumpChShoBit, context, "jump_ch_sho_mini.png", 4, 6);
+            try {
+                jumpChShoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            jumpChShoBit.load();
+        }
 
         //if (jumpEffectPreparation == null) {
         //    BuildableBitmapTextureAtlas jumpEffectPreparationBit = new BuildableBitmapTextureAtlas(

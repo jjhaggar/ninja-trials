@@ -71,22 +71,16 @@ public class TrialSceneJump extends GameScene {
     private float[] destiny = {0, 0};
     
 
-    private float width = ResourceManager.getInstance().cameraWidth;
-    private float height = ResourceManager.getInstance().cameraHeight;
+    private float WIDTH = ResourceManager.getInstance().cameraWidth;
+    private float HEIGHT = ResourceManager.getInstance().cameraHeight;
 
-    private float[] origin = {width / 2 - 120, height / 2};
+    private float[] origin = {WIDTH / 2 - 120, HEIGHT / 2};
     private SpriteBackground bg;
-    private Tree mTree;
     private Statue mStatue;
-    private Candle candleLeft, candleRight;
     private GameHUD gameHUD;
-    private PrecisionBar precisionBar;
-    private static PrecisionAngleBar angleBar;
+    private PrecisionAngleBar angleBar;
     private Chronometer chrono;
     private Character mCharacter;
-    private Eyes mEyes;
-    private Katana mKatana;
-    private Rectangle blinkLayer;
     private boolean cutEnabled = false;
     private TimerHandler trialTimerHandler;
     private IUpdateHandler trialUpdateHandler;
@@ -125,28 +119,19 @@ public class TrialSceneJump extends GameScene {
      */
     @Override
     public void onLoadScene() {
-        ResourceManager.getInstance().loadCutSceneResources();
-        ResourceManager.getInstance().loadJumpSceneResources();
+       ResourceManager.getInstance().loadJumpSceneResources();
         setTrialDiff(GameManager.getSelectedDiff());
-        bg = new SpriteBackground(new Sprite(width * 0.5f, height * 0.5f,
-                ResourceManager.getInstance().cutBackground,
-                ResourceManager.getInstance().engine.getVertexBufferObjectManager()));
-        setBackground(bg);
-        mTree = new Tree(width * 0.5f, height * 0.5f + 400);
-        mStatue = new Statue();
-        candleLeft = new Candle(width * 0.5f - 500, height * 0.5f + 200);
-        candleRight = new Candle(width * 0.5f + 500, height * 0.5f + 200);
+  //      bg = new SpriteBackground(new Sprite(width * 0.5f, height * 0.5f,
+  //              ResourceManager.getInstance().cutBackground,
+  //              ResourceManager.getInstance().engine.getVertexBufferObjectManager()));
+  //      setBackground(bg);
+       mStatue = new Statue();
+       mCharacter = new Character(WIDTH / 2 - 120, HEIGHT / 2);
         gameHUD = new GameHUD();
-        precisionBar = new PrecisionBar(200f, 200f, timeRound);
         angleBar = new PrecisionAngleBar(200f, 200f, timeRound);
-        chrono = new Chronometer(width - 200, height - 200, 10, 0);
-        mCharacter = new Character(width / 2 - 120, height / 2);
-        mEyes = new Eyes();
-        blinkLayer = new Rectangle(width / 2, height / 2, width, height,
-                ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        blinkLayer.setAlpha(0f);
-        blinkLayer.setColor(1.0f, 1.0f, 1.0f);
-        mKatana = new Katana();
+        chrono = new Chronometer(WIDTH - 200, HEIGHT - 200, 10, 0);
+        
+
     }
 
     /**
@@ -155,18 +140,14 @@ public class TrialSceneJump extends GameScene {
     @Override
     public void onShowScene() {
         setBackgroundEnabled(true);
-        attachChild(mTree);
-        attachChild(candleLeft);
-        attachChild(candleRight);
-        attachChild(mStatue);
+
+        //attachChild(mStatue);
+        attachChild(mCharacter);
         ResourceManager.getInstance().engine.getCamera().setHUD(gameHUD);
-        gameHUD.attachChild(precisionBar);
         gameHUD.attachChild(angleBar);
         gameHUD.attachChild(chrono);
-        attachChild(mCharacter);
-        attachChild(mEyes);
-        attachChild(blinkLayer);
-        attachChild(mKatana);
+        
+
         readySequence();
     }
 
@@ -178,7 +159,7 @@ public class TrialSceneJump extends GameScene {
      */
     @Override
     public void onUnloadScene() {
-        ResourceManager.getInstance().unloadCutSceneResources();
+    //    ResourceManager.getInstance().unloadCutSceneResources();
         ResourceManager.getInstance().unloadJumpSceneResources();
     }
 
@@ -189,7 +170,7 @@ public class TrialSceneJump extends GameScene {
      */
     private void readySequence() {
         gameHUD.showMessage("Ready", 1, readyTime - 1);
-       // mCharacter.start();
+        mCharacter.start(); // <-
         timerStartedIn = ResourceManager.getInstance().engine.getSecondsElapsedTotal(); 
         trialUpdateHandler = new IUpdateHandler() {
             @Override
@@ -222,54 +203,20 @@ public class TrialSceneJump extends GameScene {
         registerUpdateHandler(trialUpdateHandler);
         gameHUD.showMessage("Jump!", 0, 1);
         chrono.start();
-        precisionBar.start();
+      //  precisionBar.start();
         angleBar.start();
         cutEnabled = true;
     }
 
-    /**
-     * Cutting secuence. Launch each objects cut animation at proper time. Stops the chrono and
-     * gets the trial score. After the secuence calls the ending secuence.
-     */
-    public void cutSequence() {
-        cutEnabled = false;
-        chrono.stop();
-        precisionBar.stop();
-        angleBar.stop();
-        scoreJump = getScoreJump();
-        frameNum = 0;
-        trialTimerHandler = new TimerHandler(0.1f, new ITimerCallback() {
-            @Override
-            public void onTimePassed(final TimerHandler pTimerHandler) {
-                pTimerHandler.reset();  // new frame each 0.1 second !
-                if (frameNum == 10) mEyes.cut();
-                if (frameNum == 14) mCharacter.cut();
-                if (frameNum == 16) blink();
-                if (frameNum == 18) mKatana.cutRight();
-                if (frameNum == 21) mKatana.cutLeft();
-                if (frameNum == 24) mKatana.cutCenter();
-                if (frameNum == 45) {
-                    mTree.cut();
-                    candleLeft.cut();
-                    candleRight.cut();
-                }
-                if (frameNum == 60) {
-                    TrialSceneJump.this.unregisterUpdateHandler(trialTimerHandler);
-                    endingSequence();
-                }
-                frameNum++;
-            }
-        });
-        registerUpdateHandler(trialTimerHandler);
-    }
+  
     public void jumpSequence() {
         cutEnabled = false;
         chrono.stop();
-        precisionBar.stop();
+    //    precisionBar.stop();
         angleBar.stop();
         scoreJump = getScoreJump();
         frameNum = 0;
-        origin = mCharacter.jump(origin, scoreJump);
+        origin = mCharacter.jump(origin, scoreJump); // <-
         trialTimerHandler = new TimerHandler(0.1f, new ITimerCallback() {
             @Override
             public void onTimePassed(final TimerHandler pTimerHandler) {
@@ -318,7 +265,7 @@ public class TrialSceneJump extends GameScene {
      */
     private void timeOut() {
         cutEnabled = false;
-        precisionBar.stop();
+      //  precisionBar.stop();
         angleBar.stop();
         score = 0;
         endingSequence();
@@ -348,15 +295,16 @@ public class TrialSceneJump extends GameScene {
             timeRound = 1;
     }
 
+    
     /**
      * Calculates the trial score.
      * Score = 100 - abs(precision bar power value) - precision bar semicycle number * 3
      * @return The Trial Score (int from 0 to 100).
      */
     public static int getScore() {
-        float[] trialScore;
+        float[] trialScore = new float[1];
         //trialScore = 100 - Math.abs(precisionBar.getPowerValue()) - precisionBar.getSemicycle() * 3;
-        trialScore = angleBar.getPowerValue();
+       // trialScore = angleBar.getPowerValue();
         return (int)trialScore[0];
     }
     
@@ -365,99 +313,15 @@ public class TrialSceneJump extends GameScene {
      * Score = 100 - abs(precision bar power value) - precision bar semicycle number * 3
      * @return The Trial Score (int from 0 to 100).
      */
-    public static float[] getScoreJump() {
+    public float[] getScoreJump() {
         float[] trialScore;
         //trialScore = 100 - Math.abs(precisionBar.getPowerValue()) - precisionBar.getSemicycle() * 3;
         trialScore = angleBar.getPowerValue();
         return trialScore;
     }
 
-    /**
-     * Adds a white blink effect to the scene.
-     */
-    private void blink() {
-        blinkLayer.setAlpha(0.9f);
-        blinkLayer.registerEntityModifier(new SequenceEntityModifier(
-                new DelayModifier(0.6f), new FadeOutModifier(5f)));
-    }
-
-    // Auxiliary Classes
-
-    /**
-     * The Tree class controls the tree in the scene.
-     * @author Madgear Games
-     */
-    private class Tree extends Entity {
-        // Space in pixles between the top and bottom parts:
-        private final float gap = 160;
-        // Adjust the tree bottom position:
-        private float offset = (ResourceManager.getInstance().cutTreeTop.getHeight() / 2f +
-                ResourceManager.getInstance().cutTreeBottom.getHeight() / 2f) - gap;
-        private Sprite top, bottom;
-        
-        public Tree(float posX, float posY) {
-            top = new Sprite(posX, posY,
-                    ResourceManager.getInstance().cutTreeTop,
-                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-            bottom = new Sprite(posX, posY - offset,
-                    ResourceManager.getInstance().cutTreeBottom,
-                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-            attachChild(bottom);
-            attachChild(top);
-        }
-
-        /**
-         * Cut the tree!
-         */
-        public void cut() {
-            top.registerEntityModifier(new MoveModifier(15, top.getX(), top.getY(),
-                    top.getX() - 100, top.getY() - 50));
-        }
-    }
-
-    /**
-     * The Candle class controls the candle objects in the scene.
-     * @author Madgear Games
-     */
-    private class Candle extends Entity {
-        // Space in pixles between the top and bottom parts:
-        private final float gap = 40;
-        // Space in pixles between the top and bottom parts:
-        private float offset = (ResourceManager.getInstance().cutCandleTop.getHeight() / 2f +
-                ResourceManager.getInstance().cutCandleBottom .getHeight() / 2f) - gap;
-        private Sprite top, bottom, light;
-
-        public Candle(float posX, float posY) {
-            top = new Sprite(posX, posY,
-                    ResourceManager.getInstance().cutCandleTop,
-                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-            bottom = new Sprite(posX, posY - offset,
-                    ResourceManager.getInstance().cutCandleBottom,
-                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-            light = new Sprite(posX, posY,
-                    ResourceManager.getInstance().cutCandleLight,
-                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-            light.setAlpha(0.6f);
-            attachChild(bottom);
-            attachChild(top);
-            attachChild(light);
-        }
-
-        /**
-         * Cut the candle!
-         */
-        public void cut() {
-            light.setVisible(false);
-            // Random values for rotation and ending position:
-            top.registerEntityModifier(new ParallelEntityModifier(
-                    new JumpModifier(3f,
-                            top.getX(),
-                            top.getX() + (float) Math.random() * 600 - 300,
-                            top.getY(),
-                            top.getY() - 400, 100f),
-                    new RotationByModifier(2f, (float) Math.random() * 180)));
-        }
-    }
+    
+// Auxiliary Classes
 
     /**
      * Controls the character object in the scene
@@ -467,32 +331,35 @@ public class TrialSceneJump extends GameScene {
         private AnimatedSprite charSprite;
 
         public Character(float posX, float posY) {
-            charSprite = new AnimatedSprite(posX, posY,
-                    ResourceManager.getInstance().cutSho,
+			charSprite = new AnimatedSprite(posX, posY,
+                    ResourceManager.getInstance().jumpChSho,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             attachChild(charSprite);
         }
-
-        /**
-         * Character cut animation.
-         */
-        public void cut() {
-            charSprite.animate(new long[] { 100, 50, 50, 1000 }, 0, 3, false);
-        }
         
         public void start() {
-        	Path path = new Path(2).to(0f, 0f).to(0f,0f);
+        	charSprite.animate(new long[] { 100, 100 }, 1, 2, true);
+        //	Path path = new Path(2).to(0f, 0f).to(0f,0f);
         	
-        	charSprite.registerEntityModifier(new PathModifier(.0f, path));
+        //	charSprite.registerEntityModifier(new PathModifier(.0f, path));
         }
         
         public float[] jump(float[] origin, float[] score) {
         	float angle = (float) Math.atan(score[0]/score[1]);
         	float[] destiny = {0, 0};
-        	float xDistance = width - 50;
+        	float xDistance = WIDTH - 50;
         	// x will be 0 or 100 always
-        	if (origin[0] == 50f)	destiny[0] = xDistance;
-        	else destiny[0] = 50f;
+        	if (origin[0] == 50f){
+        		destiny[0] = xDistance;
+        		charSprite.setFlippedHorizontal(false);
+        	}
+        	else{
+        		destiny[0] = 50f;
+        		charSprite.setFlippedHorizontal(true);
+        	}
+        	charSprite.animate(new long[] { 100, 100, 100, 100, 100
+        			, 100, 100, 100}, new int[] {8, 9, 10, 11, 12, 13, 14, 15},
+        			false);
         	
         	destiny[1] = ((float) (Math.tan(angle) * xDistance)) * 0.1f + origin[1]; // its correct (float) (Math.tan(angle) * xDistance) + origin[1];
         	
@@ -503,7 +370,9 @@ public class TrialSceneJump extends GameScene {
         	Path path = new Path(2).to(origin[0], origin[1])
         			.to(destiny[0],destiny[1]);
         	
-        	charSprite.registerEntityModifier(new PathModifier(.2f, path));
+        	charSprite.registerEntityModifier(new PathModifier(.4f, path));
+        	if (Double.isNaN(destiny[0]) || Double.isNaN(destiny[1]))
+        		destiny = origin;
         	return destiny;
         }
 
@@ -513,97 +382,13 @@ public class TrialSceneJump extends GameScene {
     	private Sprite statueSprite;
     	
     	public Statue() {
-    		statueSprite = new Sprite(100, 100, 
+    		statueSprite = new Sprite(500, 500, 
     				ResourceManager.getInstance().jumpBg1StoneStatues,
     				ResourceManager.getInstance().engine.getVertexBufferObjectManager());
     		attachChild(statueSprite);
     	}
     }
-    /**
-     * Eyes class.
-     * @author Madgear Games
-     */
-    private class Eyes extends Entity {
-        private Sprite eyesSprite;
 
-        public Eyes() {
-            eyesSprite = new Sprite(width / 2, height / 2,
-                    ResourceManager.getInstance().cutEyes,
-                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-            eyesSprite.setAlpha(0f);
-            attachChild(eyesSprite);
-        }
-
-        /**
-         * Eyes cut animation.
-         */
-        public void cut() {
-            eyesSprite.registerEntityModifier(new SequenceEntityModifier(
-                    new FadeInModifier(0.1f),
-                    new DelayModifier(0.5f),
-                    new FadeOutModifier(0.1f)));
-        }
-    }
-
-    /**
-     * Katana class control the katana cuts.
-     * @author Madgear Games
-     */
-    private class Katana extends Entity {
-        private AnimatedSprite katanaSpriteRight;
-        private AnimatedSprite katanaSpriteLeft;
-        private Sprite katanaSpriteCenter;
-        private long[] katanaAnimTime = { 50, 50, 50, 50 };
-
-        public Katana() {
-            // Right katana cut:
-            katanaSpriteRight = new AnimatedSprite(width / 2 + 300, height / 2,
-                    ResourceManager.getInstance().cutSwordSparkle2,
-                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-            katanaSpriteRight.setAlpha(0f);
-            attachChild(katanaSpriteRight);
-            // Inverted left katana cut:
-            katanaSpriteLeft = new AnimatedSprite(width / 2 - 300, height / 2,
-                    ResourceManager.getInstance().cutSwordSparkle2,
-                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-            katanaSpriteLeft.setAlpha(0f);
-            katanaSpriteLeft.setFlipped(true, true);
-            attachChild(katanaSpriteLeft);
-            // Central katana cut (tree):
-            katanaSpriteCenter = new Sprite(width / 2, height / 2 + 300,
-                    ResourceManager.getInstance().cutSwordSparkle1,
-                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-            katanaSpriteCenter.setAlpha(0f);
-            katanaSpriteCenter.setFlippedHorizontal(true);
-            attachChild(katanaSpriteCenter);
-        }
-
-        /**
-         * Right katana cut animation.
-         */
-        public void cutRight() {
-            katanaSpriteRight.registerEntityModifier(new SequenceEntityModifier(
-                    new FadeInModifier(0.05f), new DelayModifier(0.4f), new FadeOutModifier(0.1f)));
-            katanaSpriteRight.animate(katanaAnimTime, 0, 3, false);
-        }
-
-        /**
-         * Left katana cut animation.
-         */
-        public void cutLeft() {
-            katanaSpriteLeft.registerEntityModifier(new SequenceEntityModifier(
-                    new FadeInModifier(0.05f), new DelayModifier(0.4f), new FadeOutModifier(0.1f)));
-            katanaSpriteLeft.animate(katanaAnimTime, 0, 3, false);
-        }
-
-        /**
-         * Center katana cut animation.
-         */
-        public void cutCenter() {
-            katanaSpriteCenter.registerEntityModifier(new SequenceEntityModifier(
-                    new FadeInModifier(0.1f), new DelayModifier(0.2f), new FadeOutModifier(0.1f)));
-        }
-    }
 
     public static int getStamp(int score2) {
         // TODO Auto-generated method stub
