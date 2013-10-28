@@ -3,7 +3,10 @@ package com.madgear.ninjatrials;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.Entity;
+import org.andengine.entity.modifier.PathModifier;
+import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.AnimatedSprite;
@@ -18,6 +21,7 @@ import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.test.TestingScene;
+import com.madgear.ninjatrials.trials.TrialSceneShuriken;
 
 /**
  * Map Scene for Ninja Trials
@@ -32,11 +36,17 @@ public class MapScene extends GameScene {
 	
 	private final float SCRNWIDTH = ResourceManager.getInstance().cameraWidth;
 	private final float SCRNHEIGHT = ResourceManager.getInstance().cameraHeight;
+	private float startTime;
+	IUpdateHandler updateHandler;
+	private int animationState = 0;
 	private List<Place> places;
 	private Parchment parchment;
 	private Player player;
+	private float playerToPlacePositionXAdjustment = 10;
+	private float playerToPlacePositionYAdjustment = 75;
 	
-	private int currentPosition = 1; // Where to get this parameter value?
+	private int currentPosition = 0; // Where is this parameter value?
+	private int nextPosition = 1; // Where is this parameter value?
 
 	@Override
 	public Scene onLoadingScreenLoadAndShown() {
@@ -65,12 +75,45 @@ public class MapScene extends GameScene {
 		for(Place p : places) {
 			attachChild(p);
 		}
-		parchment = new Parchment();
+		parchment = new Parchment(SCRNWIDTH/4, SCRNHEIGHT*3/4);
 		attachChild(parchment);
-		parchment.animate();
 		places.get(currentPosition).setStatus("selected");
-		player = new Player();
+		player = new Player(places.get(currentPosition).posX + playerToPlacePositionXAdjustment, places.get(currentPosition).posY + playerToPlacePositionYAdjustment);
 		attachChild(player);
+		SFXManager.playMusic(ResourceManager.getInstance().map);
+		startTime = ResourceManager.getInstance().engine.getSecondsElapsedTotal();
+		updateHandler = new IUpdateHandler() {
+            @Override
+            public void onUpdate(float pSecondsElapsed) {
+            	float delayToMovePlayer = 3f;
+            	float delayToUnfoldParchment = 4f;
+            	float delayToShowParchmentPrint = 4.8f;
+            	switch(animationState) {
+            		case 0:
+            			if (ResourceManager.getInstance().engine.getSecondsElapsedTotal() > startTime + delayToMovePlayer) {
+            				player.moveTo(places.get(nextPosition).posX + playerToPlacePositionXAdjustment, places.get(nextPosition).posY + playerToPlacePositionYAdjustment);
+            				places.get(currentPosition).setStatus("finished");
+            				animationState = 1;
+            			}
+            			break;
+            		case 1:
+            			if (ResourceManager.getInstance().engine.getSecondsElapsedTotal() > startTime + delayToUnfoldParchment) {
+            				places.get(nextPosition).setStatus("selected");
+            				parchment.unfold();
+            				animationState = 2;
+            			}
+            			break;
+            		case 2:
+            			if (ResourceManager.getInstance().engine.getSecondsElapsedTotal() > startTime + delayToShowParchmentPrint) {
+            				parchment.showPrint();
+            				unregisterUpdateHandler(updateHandler);
+            			}
+            			break;
+            	}
+            }
+            @Override public void reset() {}            
+        };
+        registerUpdateHandler(updateHandler);
 	}
 
 	@Override
@@ -78,6 +121,7 @@ public class MapScene extends GameScene {
 
 	@Override
 	public void onUnloadScene() {
+		SFXManager.pauseMusic(ResourceManager.getInstance().map);
 		ResourceManager.getInstance().unloadMenuMapResources();		
 	}
 	
@@ -134,19 +178,38 @@ public class MapScene extends GameScene {
 	private class Parchment extends Entity {
 		
 		private AnimatedSprite parchment;
+		private AnimatedSprite print;
 		
-		public Parchment() {
+		private float printToParchmentPositionXAdjustment = -50;
+		private float printToParchmentPositionYAdjustment = 0;
+		private float printToParchmentScaleAdjustment = .8f;
+		private float printToParchmentRotationAdjustment = -20f;
+		
+		public Parchment(float posX, float posY) {
 			ITiledTextureRegion parchmentITTR = ResourceManager.getInstance().menuMapScroll;
-			parchment = new AnimatedSprite(SCRNWIDTH/4, SCRNHEIGHT*3/4, parchmentITTR, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+			parchment = new AnimatedSprite(posX, posY, parchmentITTR, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+			parchment.setAlpha(0f);
 			attachChild(parchment);
+			ITiledTextureRegion printITTR = ResourceManager.getInstance().menuMapDrawings;
+			print = new AnimatedSprite(posX + printToParchmentPositionXAdjustment, posY + printToParchmentPositionYAdjustment, printITTR, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+			print.setRotation(printToParchmentRotationAdjustment);
+			print.setScale(printToParchmentScaleAdjustment);
+			print.setAlpha(0f);
+			attachChild(print);
 		}
 		
 		public void setPosition(float x, float y) {
 			parchment.setPosition(x, y);
+			print.setPosition(x, y);
 		}
 		
-		public void animate() {
-			parchment.animate(500);
+		public void unfold() {
+			parchment.setAlpha(1f);
+			parchment.animate(200, 0);			
+		}
+		
+		public void showPrint() {
+			print.setAlpha(1f);
 		}
 	}
 	
@@ -154,7 +217,7 @@ public class MapScene extends GameScene {
 		
 		private AnimatedSprite player;
 		
-		public Player() {
+		public Player(float posX, float posY) {
 			ITiledTextureRegion playerITTR;
 			if (GameManager.getSelectedCharacter() == GameManager.CHAR_SHO) {
 				playerITTR = ResourceManager.getInstance().menuMapChSho;
@@ -166,13 +229,15 @@ public class MapScene extends GameScene {
 	        	playerITTR = ResourceManager.getInstance().menuMapChSho;
 	        	Log.d("MapScene", "Warning: selected character is unknown, using Sho as default.");
 	        }
-			player = new AnimatedSprite(places.get(currentPosition).posX + 10, places.get(currentPosition).posY + 75, playerITTR, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-			player.setCurrentTileIndex(1);				
+			player = new AnimatedSprite(posX, posY, playerITTR, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+			player.setCurrentTileIndex(1);			
 			attachChild(player);
 		}
 		
 		public void moveTo(float x, float y) {
-			// TODO
+			Path p = new Path(2).to(player.getX(), player.getY()).to(x, y);
+			PathModifier pathModifier = new PathModifier(1f, p);
+			player.registerEntityModifier(pathModifier);
 		}
 	}
 
