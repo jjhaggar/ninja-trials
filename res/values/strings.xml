@@ -13,6 +13,31 @@
     <string name="main_menu_achievements">Achievements</string>
 
 
+    <!-- Character Profiles Scene -->
+	<!-- Sho Info (don't translate his name) -->
+    <string name="profile_sho_name">Shō (Shoichi)</string>
+	<string name="profile_sho_name_jap">正一 [ショーイチ]</string>
+    <string name="profile_sho_info">
+		Birth Date: 17 de junio \n
+		Age: 17 \n
+		Blablablabla \n
+		Blablablabla2 \n
+		Blablablabla3 \n
+		Blablablabla4
+	</string>
+	<!-- Ryoko Info (don't translate her name)-->
+    <string name="profile_ryoko_name">Ryōko</string>
+	<string name="profile_ryoko_name_jap">涼子 [リョウコ]</string>
+    <string name="profile_ryoko_info">
+		Birth Date: 26 julio \n
+		Age: 16 \n
+		Mrmurmurmur \n
+		Mrmurmurmur2 \n
+		Mrmurmurmur3 \n
+		Mrmurmurmur4
+	</string>
+
+
     <!-- Achievements Menu Scene -->
 	<!-- Achievement 1 Name -->
     <string name="achievement_01">The runner</string>
