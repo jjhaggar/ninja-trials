@@ -40,7 +40,10 @@ import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
+import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.adt.align.HorizontalAlign;
+
+import android.util.Log;
 
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.GameScene;
@@ -52,8 +55,12 @@ import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.hud.PrecisionAngleBar;
 import com.madgear.ninjatrials.hud.PrecisionBar;
 
+import com.madgear.ninjatrials.test.TestingScene;
+import com.madgear.ninjatrials.trials.jump.ParallaxBackground2d;
+import com.madgear.ninjatrials.trials.jump.ParallaxBackground2d.ParallaxBackground2dEntity;
+
 /**
- * Cut trial scene.
+ * Jump trial scene.
  *
  * @author Madgear Games
  *
@@ -77,6 +84,94 @@ public class TrialSceneJump extends GameScene {
     private float[] origin = {WIDTH / 2 - 120, HEIGHT / 2};
     private SpriteBackground bg;
     private Statue mStatue;
+    
+    // Basurillas JJ:
+    
+    private final VertexBufferObjectManager vertexBufferObjectManager = 
+    		ResourceManager.getInstance().engine.getVertexBufferObjectManager(); // Así me ahorro esta llamada cada 2x3
+    private ParallaxBackground2d parallaxLayer; // capa parallax
+    
+    // Sprites BG
+	private Sprite mSpr_bg01_statues, 
+	mSpr_bg01_bamboo_low1, mSpr_bg01_bamboo_mid1_a, mSpr_bg01_bamboo_mid1_b, mSpr_bg01_bamboo_mid1_c, mSpr_bg01_bamboo_high1, 
+	mSpr_bg01_bamboo_low2, mSpr_bg01_bamboo_mid2_a, mSpr_bg01_bamboo_mid2_b, mSpr_bg01_bamboo_mid2_c, mSpr_bg01_bamboo_high2, // 2º tronco de bambú
+	mSpr_bg02_forest1_low, mSpr_bg02_forest1_mid1, mSpr_bg02_forest1_mid2, mSpr_bg02_forest1_high, 
+	mSpr_bg03_forest2_low, mSpr_bg03_forest2_mid, mSpr_bg03_forest2_high, 
+	mSpr_bg04_mount, mSpr_bg05_pagoda, mSpr_bg06_clouds, mSpr_bg07_lake, mSpr_bg08_fuji, mSpr_bg09_sky;
+    
+	// Factor de las capas Parallax (según el factor parallax las capas se mueven a diferente velocidad)
+	// fFPL = floatFactorParallaxLayer 
+	private final float fFPL01 =-10.0f; // Bambu rebotable   
+	private final float fFPL02 = -9.0f; // Bosque bambu cercano
+	private final float fFPL03 = -5.5f; // Bosque bambu lejano // HABRÍA QUE CREAR OTRO BOSQUE de BAMBÚ MÁS
+	private final float fFPL04 = -4.5f; // montaña cercana
+	private final float fFPL05 = -4.0f; // pagoda
+	private final float fFPL06 = -2.0f; // nubes
+	private final float fFPL07 = -2.0f; // lago
+	private final float fFPL08 = -1.8f; // m. fuji
+	private final float fFPL09 = -0.5f; // cielo
+	
+	// Posición inicial de los sprites del fondo
+	private int pBX1 = 350; // posición bambú ancho 1
+	private int pBX2 = 1300; // posición bambú ancho 2
+	private int pMY = 800; // posición montaña cercana
+	private int pPX = 1400; 
+	private int pPY = 1200;  // posición pagoda
+	private int pCY = 1600; // posición nubes
+	private int pLY = 400; // posicion lago
+	private int pFY = 850; // posición fuji
+	
+	// CHAPUZA PARA HACER EL BAMBÚ (hago que se cambie la variable "repetición" en la entidad paralax bambú dependiendo de a qué altura estemos ^^U): 
+	//Sólo necesitaríamos variables en los objetos ParallaxBackground2dEntity a los que vamos a cambiar alguna propiedad
+	private ParallaxBackground2dEntity pBE01, pBE02;//...Estoy pensando que símplemente se podría cambiar la visibilidad del sprite, pero también sería una chapuza así que lo dejo así por ahora ^^U
+	private final int repBamboo = 9; // Veces que se repite el cuerpo del bambu
+	
+	// desplazamiento del fondo
+	private float desplazamientoParallaxVertical = 0;
+	private float desplazamientoParallaxHorizontal = 0;	
+	
+	private boolean autoScroll = false;
+	
+	// Bucle de actualización
+		private float actualizacionesPorSegundo = 60.0f;
+		final private IUpdateHandler bucleActualizaciones = new TimerHandler(1 / actualizacionesPorSegundo, true, new ITimerCallback() {
+			@Override
+			public void onTimePassed(final TimerHandler pTimerHandler) {
+				parallaxLayer.offsetParallaxValue(	parallaxLayer.getParallaxValueX() + desplazamientoParallaxHorizontal, 
+												    parallaxLayer.getParallaxValueY() + desplazamientoParallaxVertical);
+				
+				int altoBambu = 77*repBamboo; // Chapuza (a ojimetro)
+				
+				if (parallaxLayer.getParallaxValueY() < 0) {autoScrollUp();}
+				if (parallaxLayer.getParallaxValueY() > 820) { autoScrollDown();}
+				
+				if (parallaxLayer.getParallaxValueY() > 0 && parallaxLayer.getParallaxValueY() < 50 && pBE01.getmRepeatY()){ // este "if" es innecesario en la fase rel, lo tengo sólo para pruebas
+					pBE01.setmRepeatY(false);
+					mSpr_bg01_bamboo_mid1_b.setY( mSpr_bg01_bamboo_low1.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight() );
+					pBE02.setmRepeatY(false);
+					mSpr_bg01_bamboo_mid2_b.setY( mSpr_bg01_bamboo_low2.getHeight() + mSpr_bg01_bamboo_mid2_a.getHeight() );
+					Log.v("parallaxLayer.mParallaxValueY ", "no repite" );
+				}
+				
+				if (parallaxLayer.getParallaxValueY() >= 50 && parallaxLayer.getParallaxValueY() < altoBambu && !pBE01.getmRepeatY()){ // altoBambu era 200
+					pBE01.setmRepeatY(true);
+					mSpr_bg01_bamboo_mid1_b.setY( mSpr_bg01_bamboo_low1.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight()*(repBamboo-2) );
+					pBE02.setmRepeatY(true);
+					mSpr_bg01_bamboo_mid2_b.setY( mSpr_bg01_bamboo_low2.getHeight() + mSpr_bg01_bamboo_mid2_a.getHeight()*(repBamboo-2) );
+					Log.v("parallaxLayer.mParallaxValueY ", "repite" );
+				}
+				
+				if (parallaxLayer.getParallaxValueY() >= altoBambu && pBE01.getmRepeatY()){
+					pBE01.setmRepeatY(false);
+					Log.v("parallaxLayer.mParallaxValueY ", "no repite" );
+					pBE02.setmRepeatY(false);
+				}
+			}
+		});
+	
+	
+	
+	
     private GameHUD gameHUD;
     private PrecisionAngleBar angleBar;
     private Chronometer chrono;
@@ -140,8 +235,11 @@ public class TrialSceneJump extends GameScene {
     @Override
     public void onShowScene() {
         setBackgroundEnabled(true);
-
-        //attachChild(mStatue);
+        
+        loadBackgroundParallax(); // cargamos el fondo
+        
+        // attachChild(mStatue); // descomentado
+        
         attachChild(mCharacter);
         ResourceManager.getInstance().engine.getCamera().setHUD(gameHUD);
         gameHUD.attachChild(angleBar);
@@ -187,12 +285,15 @@ public class TrialSceneJump extends GameScene {
     }
 
     /**
-     * Main trial secuence. Shows a "Cut!" message, starts the Chronometer and enables the cut.
+     * Main trial secuence. Shows a "Jump!" message, starts the Chronometer and enables the cut.
      */
     protected void actionSequence() {
         trialUpdateHandler = new IUpdateHandler() {
             @Override
             public void onUpdate(float pSecondsElapsed) {
+            	
+            	System.out.println("pSecondsElapsed="+pSecondsElapsed);
+            	
                // if(chrono.isTimeOut()) {
                  //   TrialSceneJump.this.unregisterUpdateHandler(trialUpdateHandler);
                   //  timeOut();
@@ -201,10 +302,11 @@ public class TrialSceneJump extends GameScene {
             @Override public void reset() {}
         };
         registerUpdateHandler(trialUpdateHandler);
-        gameHUD.showMessage("Jump!", 0, 1);
+        gameHUD.showMessage("Jump!", 0, 1); // Dani, lo de "Jump!" sólo tiene que mostrarse una vez al principio, no cada vez que se salte :)
         chrono.start();
       //  precisionBar.start();
         angleBar.start();
+        System.out.println("Jarl!");
         cutEnabled = true;
     }
 
@@ -281,6 +383,13 @@ public class TrialSceneJump extends GameScene {
         	jumpSequence();
         }
     }
+    
+    // Para salir del trial y volver al menu de selección de escenas
+	public void onPressDpadLeft() { 
+		TrialSceneJump.this.unregisterUpdateHandler(trialTimerHandler);
+        gameHUD.detachChildren();
+		SceneManager.getInstance().showScene(new TestingScene());
+	}
 
     /**
      * Adjust the trial parameters using the game difficulty as base.
@@ -388,6 +497,176 @@ public class TrialSceneJump extends GameScene {
     		attachChild(statueSprite);
     	}
     }
+    
+    
+    public void loadBackgroundParallax() {
+    	
+    	// Creamos los sprites de las entidades parallax
+		
+		// Sprite Cielo
+		mSpr_bg09_sky = new Sprite(0, 0,
+                    ResourceManager.getInstance().jumpBg9Sky,
+                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+		mSpr_bg09_sky.setOffsetCenter(0, 0); // Si no hacemos esto, los sprites tienen su offset en el centro, así los colocamos abajo a la izquierda de la imagen
+		mSpr_bg09_sky.setPosition(0, 0);
+    			
+    			
+		//  top = new Sprite(posX, posY, ResourceManager.getInstance().cutTreeTop, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+			
+		// Sprite M. Fuji
+		mSpr_bg08_fuji = new Sprite(0, 0, ResourceManager.getInstance().jumpBg9Sky , vertexBufferObjectManager);
+		mSpr_bg08_fuji.setOffsetCenter(0, 0);
+		mSpr_bg08_fuji.setPosition(0, pFY);
+
+		// Sprite Lago
+		mSpr_bg07_lake= new Sprite(0, 0, ResourceManager.getInstance().jumpBg7Lake, vertexBufferObjectManager);
+		mSpr_bg07_lake.setOffsetCenter(0, 0);
+		mSpr_bg07_lake.setPosition(0, pLY);
+
+		// Sprite nubes
+		mSpr_bg06_clouds = new Sprite(0, 0, ResourceManager.getInstance().jumpBg6Clouds, vertexBufferObjectManager);
+		mSpr_bg06_clouds.setOffsetCenter(0, 0);
+		mSpr_bg06_clouds.setPosition(0, pCY);
+		
+		// Sprite Pagoda
+		mSpr_bg05_pagoda = new Sprite(0, 0, ResourceManager.getInstance().jumpBg5Pagoda, vertexBufferObjectManager);
+		mSpr_bg05_pagoda.setOffsetCenter(0, 0);
+		mSpr_bg05_pagoda.setPosition(pPX, pPY);
+		
+		// Sprite Montaña cercana
+		mSpr_bg04_mount= new Sprite(0, 0, ResourceManager.getInstance().jumpBg4Mount, vertexBufferObjectManager);
+		mSpr_bg04_mount.setOffsetCenter(0, 0);
+		mSpr_bg04_mount.setPosition(0, pMY);
+		
+		// Sprites Bosque Bambu lejos
+		mSpr_bg03_forest2_low = new Sprite(0, 0, ResourceManager.getInstance().jumpBg3BambooForest2Bottom, vertexBufferObjectManager);
+		mSpr_bg03_forest2_low.setOffsetCenter(0, 0);
+		mSpr_bg03_forest2_low.setPosition(0, 0);
+		mSpr_bg03_forest2_mid = new Sprite(0, 0, ResourceManager.getInstance().jumpBg3BambooForest2Middle, vertexBufferObjectManager);
+		mSpr_bg03_forest2_mid.setOffsetCenter(0, 0);
+		mSpr_bg03_forest2_mid.setPosition(0, mSpr_bg03_forest2_low.getHeight()); 
+		mSpr_bg03_forest2_high = new Sprite(0, 0, ResourceManager.getInstance().jumpBg3BambooForest2Top, vertexBufferObjectManager);
+		mSpr_bg03_forest2_high.setOffsetCenter(0, 0);
+		mSpr_bg03_forest2_high.setPosition(0, mSpr_bg03_forest2_low.getHeight() + mSpr_bg03_forest2_mid.getHeight() );  		
+
+		// Sprites Bosque Bambu cerca
+		mSpr_bg02_forest1_low = new Sprite(0, 0, ResourceManager.getInstance().jumpBg2BambooForest1Bottom, vertexBufferObjectManager);
+		mSpr_bg02_forest1_low.setOffsetCenter(0, 0);
+		mSpr_bg02_forest1_low.setPosition(0, 0);
+		mSpr_bg02_forest1_mid1 = new Sprite(0, 0, ResourceManager.getInstance().jumpBg2BambooForest1Middle, vertexBufferObjectManager);
+		mSpr_bg02_forest1_mid1.setOffsetCenter(0, 0);
+		mSpr_bg02_forest1_mid1.setPosition(0, mSpr_bg02_forest1_low.getHeight()); 
+		mSpr_bg02_forest1_mid2 = new Sprite(0, 0, ResourceManager.getInstance().jumpBg2BambooForest1Middle, vertexBufferObjectManager);
+		mSpr_bg02_forest1_mid2.setOffsetCenter(0, 0);
+		mSpr_bg02_forest1_mid2.setPosition(0, mSpr_bg02_forest1_low.getHeight() + mSpr_bg02_forest1_mid1.getHeight() ); 
+		mSpr_bg02_forest1_high = new Sprite(0, 0, ResourceManager.getInstance().jumpBg2BambooForest1Top, vertexBufferObjectManager);
+		mSpr_bg02_forest1_high.setOffsetCenter(0, 0);
+		mSpr_bg02_forest1_high.setPosition(0, mSpr_bg02_forest1_low.getHeight() + mSpr_bg02_forest1_mid1.getHeight()*2 );  		
+		
+		// Sprites Rebounding Bamboo trunk (left)
+		mSpr_bg01_bamboo_low1 = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooBottom, vertexBufferObjectManager);
+		mSpr_bg01_bamboo_low1.setOffsetCenter(0, 0);
+		mSpr_bg01_bamboo_low1.setPosition(pBX1, 0);
+		mSpr_bg01_bamboo_mid1_a = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
+		mSpr_bg01_bamboo_mid1_a.setOffsetCenter(0, 0);
+		mSpr_bg01_bamboo_mid1_a.setPosition(pBX1, mSpr_bg01_bamboo_low1.getHeight()); //68);
+		mSpr_bg01_bamboo_mid1_b = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
+		mSpr_bg01_bamboo_mid1_b.setOffsetCenter(0, 0);
+		mSpr_bg01_bamboo_mid1_b.setPosition(pBX1, mSpr_bg01_bamboo_low1.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight() ); 
+		mSpr_bg01_bamboo_mid1_c = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
+		mSpr_bg01_bamboo_mid1_c.setOffsetCenter(0, 0);
+		mSpr_bg01_bamboo_mid1_c.setPosition(pBX1, mSpr_bg01_bamboo_low1.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight()*(repBamboo-1) ); 
+		mSpr_bg01_bamboo_high1 = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
+		mSpr_bg01_bamboo_high1.setOffsetCenter(0, 0);
+		mSpr_bg01_bamboo_high1.setPosition(pBX1, mSpr_bg01_bamboo_low1.getHeight()+ mSpr_bg01_bamboo_mid1_a.getHeight()*repBamboo); // 989);  		
+		
+		// Sprites Rebounding Bamboo trunk (right)
+		mSpr_bg01_bamboo_low2 = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooBottom, vertexBufferObjectManager);
+		mSpr_bg01_bamboo_low2.setOffsetCenter(0, 0);
+		mSpr_bg01_bamboo_low2.setPosition(pBX2, 0);
+		mSpr_bg01_bamboo_mid2_a = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
+		mSpr_bg01_bamboo_mid2_a.setOffsetCenter(0, 0);
+		mSpr_bg01_bamboo_mid2_a.setPosition(pBX2, mSpr_bg01_bamboo_low2.getHeight()); //68);
+		mSpr_bg01_bamboo_mid2_b = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
+		mSpr_bg01_bamboo_mid2_b.setOffsetCenter(0, 0);
+		mSpr_bg01_bamboo_mid2_b.setPosition(pBX2, mSpr_bg01_bamboo_low2.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight() ); 
+		mSpr_bg01_bamboo_mid2_c = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
+		mSpr_bg01_bamboo_mid2_c.setOffsetCenter(0, 0);
+		mSpr_bg01_bamboo_mid2_c.setPosition(pBX2, mSpr_bg01_bamboo_low2.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight()*(repBamboo-1) ); 
+		mSpr_bg01_bamboo_high2 = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooTop, vertexBufferObjectManager);
+		mSpr_bg01_bamboo_high2.setOffsetCenter(0, 0);
+		mSpr_bg01_bamboo_high2.setPosition(pBX2, mSpr_bg01_bamboo_low2.getHeight()+ mSpr_bg01_bamboo_mid1_a.getHeight()*repBamboo); // 989);  		
+		
+		// Sprites Statues 
+		mSpr_bg01_statues = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1StoneStatues, vertexBufferObjectManager);
+		mSpr_bg01_statues.setOffsetCenter(0, 0);
+		mSpr_bg01_statues.setPosition(0, 0);
+		
+		
+		
+		// Creamos el fondo parallax y a continuación le asignamos las entidades parallax
+		parallaxLayer = new ParallaxBackground2d(0, 0, 0); 
+		
+		// Cielo
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL09, fFPL09, mSpr_bg09_sky, false, false));
+				
+		// Fuji
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL08, fFPL08, mSpr_bg08_fuji, false, false));
+		
+		// Bosque de bambú lejano
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL07, fFPL07, mSpr_bg07_lake, false, false));
+				
+		// Nubes
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL06, fFPL06, mSpr_bg06_clouds, false, false));
+		
+		// Pagoda
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL05, fFPL05, mSpr_bg05_pagoda, false, false));
+		
+		// Montaña
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL04, fFPL04, mSpr_bg04_mount, false, false));
+		
+		// Bosque de bambú lejano
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL03, fFPL03, mSpr_bg03_forest2_low, false, false));
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL03, fFPL03, mSpr_bg03_forest2_mid, false, false));
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL03, fFPL03, mSpr_bg03_forest2_high, false, false));
+
+		// Bosque de bambú cercano
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL02, fFPL02, mSpr_bg02_forest1_low, false, false));
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL02, fFPL02, mSpr_bg02_forest1_mid1, false, false));
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL02, fFPL02, mSpr_bg02_forest1_mid2, false, false));
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL02, fFPL02, mSpr_bg02_forest1_high, false, false));
+		
+		// Bambu rebotable izquierdo
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_low1, false, false));
+		pBE01 = new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid1_a, false, false);
+		parallaxLayer.attachParallaxEntity(pBE01); 
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid1_b, false, false)); //pBE01);
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid1_c, false, false)); 
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_high1, false, false));
+		// Bambu rebotable derecho		
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_low2, false, false));
+		pBE02 = new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid2_a, false, false);
+		parallaxLayer.attachParallaxEntity(pBE02);
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid2_b, false, false));
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid2_c, false, false));
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_high2, false, false));
+		// Estatuas
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_statues, false, false));
+
+		// Añadimos el fondo parallax a la escena
+		this.setBackground(parallaxLayer); 
+		
+		// Registramos el manejador de actualizaciones
+		this.registerUpdateHandler(bucleActualizaciones);
+		
+		// Iniciamos el autoscroll, para que pueda verse en dispositivos sin controles Ouya
+		// autoScroll = true;
+		// autoScrollUp();
+		
+		// return this;
+    }
+    
+    
 
 
     public static int getStamp(int score2) {
@@ -409,4 +688,15 @@ public class TrialSceneJump extends GameScene {
         // TODO Auto-generated method stub
         return 0;
     }
+    
+    // Basurillas para que el scroll se mueva automáticamente sin necesidad de usar las clases Auto---ParallaxBackground
+    public void autoScrollUp(){
+    	if (autoScroll)
+    		desplazamientoParallaxVertical = 1;    	
+    }
+    public void autoScrollDown(){
+    	if (autoScroll)
+    		desplazamientoParallaxVertical = -1;    	
+    }
+    
 }

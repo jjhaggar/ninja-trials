@@ -98,10 +98,23 @@ public class ResourceManager {
 
 
     // JUMP TRIAL:
-    public static ITextureRegion jumpBg1Bamboo;
+    public static ITextureRegion jumpBg1Bamboo; // borrable
+    public static ITextureRegion jumpBg1BambooTop;
+    public static ITextureRegion jumpBg1BambooMiddle;
+    public static ITextureRegion jumpBg1BambooBottom;
+    
     public static ITextureRegion jumpBg1StoneStatues;
-    public static ITextureRegion jumpBg2BambooForest1;
-    public static ITextureRegion jumpBg3BambooForest2;
+    
+    public static ITextureRegion jumpBg2BambooForest1; //borrable
+    public static ITextureRegion jumpBg2BambooForest1Top;
+    public static ITextureRegion jumpBg2BambooForest1Middle;
+    public static ITextureRegion jumpBg2BambooForest1Bottom;
+    
+    public static ITextureRegion jumpBg3BambooForest2; //borrable
+    public static ITextureRegion jumpBg3BambooForest2Top;
+    public static ITextureRegion jumpBg3BambooForest2Middle;
+    public static ITextureRegion jumpBg3BambooForest2Bottom;
+    
     public static ITextureRegion jumpBg4Mount;
     public static ITextureRegion jumpBg5Pagoda;
     public static ITextureRegion jumpBg6Clouds;
@@ -781,13 +794,6 @@ public class ResourceManager {
     public synchronized void loadJumpSceneResources() {
     	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trial_jump/");
 
-        if (jumpBg1Bamboo == null) {
-            BitmapTextureAtlas jumpBg1BambooT = new BitmapTextureAtlas(textureManager, 89, 1080,
-                    mTransparentTextureOption);
-            jumpBg1Bamboo = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpBg1BambooT, activity, "jump_bg_1_bamboo.png", 0, 0);
-            jumpBg1BambooT.load();
-        }
         if (jumpBg1StoneStatues == null) {
             BitmapTextureAtlas jumpBg1StoneStatuesT = new BitmapTextureAtlas(textureManager, 442, 310,
                     mTransparentTextureOption);
@@ -795,20 +801,74 @@ public class ResourceManager {
                     jumpBg1StoneStatuesT, activity, "jump_bg_1_stone_statues.png", 0, 0);
             jumpBg1StoneStatuesT.load();
         }
-        if (jumpBg2BambooForest1 == null) {
+
+        if (jumpBg1Bamboo == null) { // borrable si no me equivoco
+            BitmapTextureAtlas jumpBg1BambooT = new BitmapTextureAtlas(textureManager, 89, 1080,
+                    mTransparentTextureOption);
+            jumpBg1Bamboo = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    jumpBg1BambooT, activity, "jump_bg_1_bamboo.png", 0, 0);
+            jumpBg1BambooT.load();
+        }
+        if (jumpBg2BambooForest1 == null) { // borrable
             BitmapTextureAtlas jumpBg2BambooForest1T = new BitmapTextureAtlas(textureManager, 1920, 1080,
                     mTransparentTextureOption);
             jumpBg2BambooForest1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     jumpBg2BambooForest1T, activity, "jump_bg_2_bamboo_forest_1.png", 0, 0);
             jumpBg2BambooForest1T.load();
         }
-        if (jumpBg3BambooForest2 == null) {
+        if (jumpBg3BambooForest2 == null) {// borrable
             BitmapTextureAtlas jumpBg3BambooForest2T = new BitmapTextureAtlas(textureManager, 1920, 1080,
                     mTransparentTextureOption);
             jumpBg3BambooForest2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     jumpBg3BambooForest2T, activity, "jump_bg_3_bamboo_forest_2.png", 0, 0);
             jumpBg3BambooForest2T.load();
         }
+        
+        
+        // Cambios JJ para JumpTrial ******************************** START
+        
+        // Texturas del bambú en el que rebotan los protagonistas (3 trozos)
+ 		// ^ 91 px 
+ 		// | 921 px 
+ 		// v 68 px 
+        BitmapTextureAtlas bTA_Bamboo = new BitmapTextureAtlas(textureManager, 89, 1080,
+                mTransparentTextureOption);
+        ITextureRegion iTR_Bamboo = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                bTA_Bamboo, activity, "jump_bg_1_bamboo.png", 0, 0);
+        bTA_Bamboo.load();
+        jumpBg1BambooTop = TextureRegionFactory.extractFromTexture(bTA_Bamboo, 0, 0, 89, 91);
+        jumpBg1BambooMiddle = TextureRegionFactory.extractFromTexture(bTA_Bamboo, 0, 91, 89, 921);
+        jumpBg1BambooBottom = TextureRegionFactory.extractFromTexture(bTA_Bamboo, 0, 1012, 89, 68);
+
+ 		// Texturas del bosque de bambú más cercano
+ 		// ^ 44 px 
+ 		// | 718 px 
+ 		// v 318 px  
+        BitmapTextureAtlas bTABambooForest1 = new BitmapTextureAtlas(textureManager, 1920, 1080,
+                mTransparentTextureOption);
+        ITextureRegion iTRBambooForest1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+        		bTABambooForest1, activity, "jump_bg_2_bamboo_forest_1.png", 0, 0);
+        bTABambooForest1.load();
+        jumpBg2BambooForest1Top = TextureRegionFactory.extractFromTexture(bTABambooForest1, 0, 0, 1920, 44);
+        jumpBg2BambooForest1Middle = TextureRegionFactory.extractFromTexture(bTABambooForest1, 0, 44, 1920, 718);
+        jumpBg2BambooForest1Bottom = TextureRegionFactory.extractFromTexture(bTABambooForest1, 0, 763, 1920, 318);
+        
+ 		// Texturas del bosque de bambú lejano
+ 		// ^ 80 px 
+ 		// | 536 px 
+ 		// v 464 px 
+ 		BitmapTextureAtlas bTABambooForest2 = new BitmapTextureAtlas(textureManager, 1920, 1080,
+                mTransparentTextureOption);
+        ITextureRegion iTRBambooForest2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+        		bTABambooForest2, activity, "jump_bg_3_bamboo_forest_2.png", 0, 0);
+        bTABambooForest2.load();
+        jumpBg3BambooForest2Top = TextureRegionFactory.extractFromTexture(bTABambooForest2, 0, 0, 1920, 80);
+        jumpBg3BambooForest2Middle = TextureRegionFactory.extractFromTexture(bTABambooForest2, 0, 80, 1920, 536);
+        jumpBg3BambooForest2Bottom = TextureRegionFactory.extractFromTexture(bTABambooForest2, 0, 80+536, 1920, 464);
+        
+        // Cambios JJ para JumpTrial ******************************** END
+        
+
         if (jumpBg4Mount == null) {
             BitmapTextureAtlas jumpBg4MountT = new BitmapTextureAtlas(textureManager, 1920, 794,
                     mTransparentTextureOption);
@@ -915,13 +975,13 @@ public class ResourceManager {
 
 
     public synchronized void unloadJumpSceneResources() {
-        if (jumpBg1Bamboo != null && jumpBg1Bamboo.getTexture().isLoadedToHardware()) {
-                jumpBg1Bamboo.getTexture().unload();
-                jumpBg1Bamboo = null;
-        }
         if (jumpBg1StoneStatues != null && jumpBg1StoneStatues.getTexture().isLoadedToHardware()) {
                 jumpBg1StoneStatues.getTexture().unload();
                 jumpBg1StoneStatues = null;
+        }
+        if (jumpBg1Bamboo != null && jumpBg1Bamboo.getTexture().isLoadedToHardware()) {
+            jumpBg1Bamboo.getTexture().unload();
+            jumpBg1Bamboo = null;
         }
         if (jumpBg2BambooForest1 != null && jumpBg2BambooForest1.getTexture().isLoadedToHardware()) {
                 jumpBg2BambooForest1.getTexture().unload();
@@ -931,6 +991,46 @@ public class ResourceManager {
                 jumpBg3BambooForest2.getTexture().unload();
                 jumpBg3BambooForest2 = null;
         }
+
+        // CAMBIOS JJ ******************************* INICIO
+	    if (jumpBg1BambooTop != null && jumpBg1BambooTop.getTexture().isLoadedToHardware()) {
+	        jumpBg1BambooTop.getTexture().unload();
+	        jumpBg1BambooTop = null;
+	    }
+	    if (jumpBg1BambooMiddle != null && jumpBg1BambooMiddle.getTexture().isLoadedToHardware()) {
+	        jumpBg1BambooMiddle.getTexture().unload();
+	        jumpBg1BambooMiddle = null;
+	    }
+	    if (jumpBg1BambooBottom != null && jumpBg1BambooBottom.getTexture().isLoadedToHardware()) {
+	        jumpBg1BambooBottom.getTexture().unload();
+	        jumpBg1BambooBottom = null;
+	    }
+	    if (jumpBg2BambooForest1Top != null && jumpBg2BambooForest1Top.getTexture().isLoadedToHardware()) {
+            jumpBg2BambooForest1Top.getTexture().unload();
+            jumpBg2BambooForest1Top = null;
+	    }
+	    if (jumpBg2BambooForest1Middle != null && jumpBg2BambooForest1Middle.getTexture().isLoadedToHardware()) {
+            jumpBg2BambooForest1Middle.getTexture().unload();
+            jumpBg2BambooForest1Middle = null;
+	    }
+	    if (jumpBg2BambooForest1Bottom != null && jumpBg2BambooForest1Bottom.getTexture().isLoadedToHardware()) {
+            jumpBg2BambooForest1Bottom.getTexture().unload();
+            jumpBg2BambooForest1Bottom = null;
+	    }
+	    if (jumpBg3BambooForest2Top != null && jumpBg3BambooForest2Top.getTexture().isLoadedToHardware()) {
+            jumpBg3BambooForest2Top.getTexture().unload();
+            jumpBg3BambooForest2Top = null;
+	    }
+	    if (jumpBg3BambooForest2Middle != null && jumpBg3BambooForest2Middle.getTexture().isLoadedToHardware()) {
+            jumpBg3BambooForest2Middle.getTexture().unload();
+            jumpBg3BambooForest2Middle = null;
+	    }
+	    if (jumpBg3BambooForest2Bottom != null && jumpBg3BambooForest2Bottom.getTexture().isLoadedToHardware()) {
+            jumpBg3BambooForest2Bottom.getTexture().unload();
+            jumpBg3BambooForest2Bottom = null;
+	    }
+        // CAMBIOS JJ ******************************* FIN
+
         if (jumpBg4Mount != null && jumpBg4Mount.getTexture().isLoadedToHardware()) {
                 jumpBg4Mount.getTexture().unload();
                 jumpBg4Mount = null;
