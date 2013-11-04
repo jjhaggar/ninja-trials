@@ -183,6 +183,11 @@ public class ResourceManager {
     public static ITextureRegion menuAchievementsIconsSmall;
     public static ITextureRegion menuAchievementsIngameContainer;
     public static ITextureRegion menuAchievementsSuccessStamp;
+    public static ITiledTextureRegion[][] menuAchievementsIconsArray;
+    public static final int MENU_ACHIEV_COLS = 7;
+    public static final int MENU_ACHIEV_ROWS = 5;
+    public static final int MENU_ACHIEV_ICON_SIZE = 136;
+
 
     // MENU MAP
     public static ITiledTextureRegion menuMapBackgroundMarks;
@@ -1990,6 +1995,7 @@ public class ResourceManager {
 
     public synchronized void loadMenuAchievementsResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
+        
         if (menuAchievementsContainerDescription == null) {
             BitmapTextureAtlas menuAchievementsContainerDescriptionT = new BitmapTextureAtlas(textureManager, 438, 285,
                     mTransparentTextureOption);
@@ -2014,12 +2020,27 @@ public class ResourceManager {
             menuAchievementsIconsBigT.load();
         }
 
+        // Icons Small
         if (menuAchievementsIconsSmall == null) {
-            BitmapTextureAtlas menuAchievementsIconsSmallT = new BitmapTextureAtlas(textureManager, 2040, 952,
-                    mTransparentTextureOption);
-            menuAchievementsIconsSmall = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuAchievementsIconsSmallT, activity, "menu_achievements_icons_small.png", 0, 0);
-            menuAchievementsIconsSmallT.load();
+        BitmapTextureAtlas menuAchievementsIconsSmallT = new BitmapTextureAtlas(textureManager,
+                952, 1360, mTransparentTextureOption);
+        
+        ITextureRegion menuAchievementsIconsSmall = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                menuAchievementsIconsSmallT, activity, "menu_achievements_icons_small.png", 0, 0);
+        menuAchievementsIconsSmallT.load();
+
+        // Rellena la matriz de TiledSprites  :)
+        menuAchievementsIconsArray = new ITiledTextureRegion[MENU_ACHIEV_COLS][MENU_ACHIEV_ROWS];
+        for(int i = 0; i < MENU_ACHIEV_ROWS; i++)
+            for(int j = 0; j < MENU_ACHIEV_COLS; j++) {                
+                menuAchievementsIconsArray[j][i] = TextureRegionFactory.extractTiledFromTexture(
+                        menuAchievementsIconsSmall.getTexture(),
+                        j * MENU_ACHIEV_ICON_SIZE,
+                        i * MENU_ACHIEV_ICON_SIZE * 2,
+                        MENU_ACHIEV_ICON_SIZE,
+                        MENU_ACHIEV_ICON_SIZE * 2,
+                        1, 2);
+            }
         }
 
         if (menuAchievementsIngameContainer == null) {

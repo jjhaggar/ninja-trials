@@ -25,6 +25,7 @@ public class AchievementSetNinjaTrial extends AchievementSet {
     
     public AchievementSetNinjaTrial() {
         super(ACHIEV_NUM);
+        init();
     }
 
     
@@ -32,9 +33,12 @@ public class AchievementSetNinjaTrial extends AchievementSet {
      * Initializes the Ninja Trials achiev. set.
      */
     public void init() {
-        achievements[0] = new Achievement("Nombre 1", "Descrp1", "Exito1");
-        achievements[1] = new Achievement("Nombre 2", "Descrp2", "Exito2");
-        achievements[2] = new Achievement("Nombre 3", "Descrp3", "Exito3", 0, 100);
+        for(int i = 0; i < ACHIEV_NUM; i++) {
+            achievements[i] = new Achievement("Nombre"+i, "Descrp"+i, "Exito"+i);
+        }
+        
+        // TODO: put initial values here!
+        achievements[2] = new Achievement("Correr Mucho", "Descrip Corre mucho", "Exito!!!", 0, 100);
         //.........
     }
 }

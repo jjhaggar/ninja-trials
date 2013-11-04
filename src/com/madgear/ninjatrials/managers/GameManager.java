@@ -20,6 +20,7 @@
 package com.madgear.ninjatrials.managers;
 
 import com.madgear.ninjatrials.ResultTrial;
+import com.madgear.ninjatrials.achievements.AchievementSetNinjaTrial;
 
 
 public class GameManager {
@@ -54,6 +55,10 @@ public class GameManager {
     public static ResultTrial player1result;
     public static ResultTrial player2result;
 
+    public static AchievementSetNinjaTrial player1achiev;
+    public static AchievementSetNinjaTrial player2achiev;
+
+    
     private static int score;
     private static int currentTrial;
     private static int lives;
@@ -87,6 +92,8 @@ public class GameManager {
         gameLanguage = "en";
         player1result = new ResultTrial();
         player2result = new ResultTrial();
+        player1achiev = new AchievementSetNinjaTrial();
+        player2achiev = new AchievementSetNinjaTrial();
     }
 
     public static void setSelectedCharacter(int c) {
