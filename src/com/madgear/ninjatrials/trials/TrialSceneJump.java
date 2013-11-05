@@ -44,6 +44,7 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.adt.align.HorizontalAlign;
 
 import android.util.Log;
+import android.view.KeyEvent;
 
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.GameScene;
@@ -69,9 +70,9 @@ public class TrialSceneJump extends GameScene {
     private static final int SCORE_POOR = 20;
     private static final int SCORE_GREAT = 90;
     private float timeRound;  // tiempo para ciclo de powerbar
-    private float timeMax = 10; // Tiempo m√°ximo para corte:
+    private float timeMax = 10; // Tiempo m√É¬°ximo para corte:
     private float timeCounter = timeMax; // Tiempo total que queda para el corte
-    private int frameNum = 0; // Contador para la animaci√≥n
+    private int frameNum = 0; // Contador para la animaci√É¬≥n
     private float timerStartedIn = 0; // control de tiempo
     private float origX, origY = 0.0f;
     
@@ -88,87 +89,91 @@ public class TrialSceneJump extends GameScene {
     // Basurillas JJ:
     
     private final VertexBufferObjectManager vertexBufferObjectManager = 
-    		ResourceManager.getInstance().engine.getVertexBufferObjectManager(); // AsÌ me ahorro esta llamada cada 2x3
+    		ResourceManager.getInstance().engine.getVertexBufferObjectManager(); // As√≠ me ahorro esta llamada cada 2x3
     private ParallaxBackground2d parallaxLayer; // capa parallax
     
     // Sprites BG
 	private Sprite mSpr_bg01_statues, 
 	mSpr_bg01_bamboo_low1, mSpr_bg01_bamboo_mid1_a, mSpr_bg01_bamboo_mid1_b, mSpr_bg01_bamboo_mid1_c, mSpr_bg01_bamboo_high1, 
-	mSpr_bg01_bamboo_low2, mSpr_bg01_bamboo_mid2_a, mSpr_bg01_bamboo_mid2_b, mSpr_bg01_bamboo_mid2_c, mSpr_bg01_bamboo_high2, // 2∫ tronco de bamb˙
+	mSpr_bg01_bamboo_low2, mSpr_bg01_bamboo_mid2_a, mSpr_bg01_bamboo_mid2_b, mSpr_bg01_bamboo_mid2_c, mSpr_bg01_bamboo_high2, // 2¬∫ tronco de bamb√∫
 	mSpr_bg02_forest1_low, mSpr_bg02_forest1_mid1, mSpr_bg02_forest1_mid2, mSpr_bg02_forest1_high, 
 	mSpr_bg03_forest2_low, mSpr_bg03_forest2_mid, mSpr_bg03_forest2_high, 
 	mSpr_bg04_mount, mSpr_bg05_pagoda, mSpr_bg06_clouds, mSpr_bg07_lake, mSpr_bg08_fuji, mSpr_bg09_sky;
     
-	// Factor de las capas Parallax (seg˙n el factor parallax las capas se mueven a diferente velocidad)
+	// Factor de las capas Parallax (seg√∫n el factor parallax las capas se mueven a diferente velocidad)
 	// fFPL = floatFactorParallaxLayer 
 	private final float fFPL01 =-10.0f; // Bambu rebotable   
 	private final float fFPL02 = -9.0f; // Bosque bambu cercano
-	private final float fFPL03 = -5.5f; // Bosque bambu lejano // HABRÕA QUE CREAR OTRO BOSQUE de BAMB⁄ M¡S
-	private final float fFPL04 = -4.5f; // montaÒa cercana
+	private final float fFPL03 = -5.5f; // Bosque bambu lejano // HABR√çA QUE CREAR OTRO BOSQUE de BAMB√ö M√ÅS
+	private final float fFPL04 = -4.5f; // monta√±a cercana
 	private final float fFPL05 = -4.0f; // pagoda
 	private final float fFPL06 = -2.0f; // nubes
 	private final float fFPL07 = -2.0f; // lago
 	private final float fFPL08 = -1.8f; // m. fuji
 	private final float fFPL09 = -0.5f; // cielo
 	
-	// PosiciÛn inicial de los sprites del fondo
-	private int pBX1 = 350; // posiciÛn bamb˙ ancho 1
-	private int pBX2 = 1300; // posiciÛn bamb˙ ancho 2
-	private int pMY = 800; // posiciÛn montaÒa cercana
+	// Posici√≥n inicial de los sprites del fondo
+	private int pBX1 = 350; // posici√≥n bamb√∫ ancho 1
+	private int pBX2 = 1300; // posici√≥n bamb√∫ ancho 2
+	private int pMY = 800; // posici√≥n monta√±a cercana
 	private int pPX = 1400; 
-	private int pPY = 1200;  // posiciÛn pagoda
-	private int pCY = 1600; // posiciÛn nubes
+	private int pPY = 1200;  // posici√≥n pagoda
+	private int pCY = 1600; // posici√≥n nubes
 	private int pLY = 400; // posicion lago
-	private int pFY = 850; // posiciÛn fuji
+	private int pFY = 850; // posici√≥n fuji
 	
-	// CHAPUZA PARA HACER EL BAMB⁄ (hago que se cambie la variable "repeticiÛn" en la entidad paralax bamb˙ dependiendo de a quÈ altura estemos ^^U): 
-	//SÛlo necesitarÌamos variables en los objetos ParallaxBackground2dEntity a los que vamos a cambiar alguna propiedad
-	private ParallaxBackground2dEntity pBE01, pBE02;//...Estoy pensando que sÌmplemente se podrÌa cambiar la visibilidad del sprite, pero tambiÈn serÌa una chapuza asÌ que lo dejo asÌ por ahora ^^U
+	// CHAPUZA PARA HACER EL BAMB√ö (hago que se cambie la variable "repetici√≥n" en la entidad paralax bamb√∫ dependiendo de a qu√© altura estemos ^^U): 
+	// S√≥lo necesitar√≠amos variables en los objetos ParallaxBackground2dEntity a los que vamos a cambiar alguna propiedad
+	// Como hay un problema con los bucles, no se est√° usando esto como se havc√≠a en el ejemplo de GitHub
+	private ParallaxBackground2dEntity pBE01, pBE02;//...Estoy pensando que s√≠mplemente se podr√≠a cambiar la visibilidad del sprite, pero tambi√©n ser√≠a una chapuza as√≠ que lo dejo as√≠ por ahora ^^U
 	private final int repBamboo = 9; // Veces que se repite el cuerpo del bambu
-	
-	// desplazamiento del fondo
 	private float desplazamientoParallaxVertical = 0;
 	private float desplazamientoParallaxHorizontal = 0;	
-	
 	private boolean autoScroll = false;
 	
-	// Bucle de actualizaciÛn
-		private float actualizacionesPorSegundo = 60.0f;
-		final private IUpdateHandler bucleActualizaciones = new TimerHandler(1 / actualizacionesPorSegundo, true, new ITimerCallback() {
-			@Override
-			public void onTimePassed(final TimerHandler pTimerHandler) {
-				parallaxLayer.offsetParallaxValue(	parallaxLayer.getParallaxValueX() + desplazamientoParallaxHorizontal, 
-												    parallaxLayer.getParallaxValueY() + desplazamientoParallaxVertical);
-				
-				int altoBambu = 77*repBamboo; // Chapuza (a ojimetro)
-				
-				if (parallaxLayer.getParallaxValueY() < 0) {autoScrollUp();}
-				if (parallaxLayer.getParallaxValueY() > 820) { autoScrollDown();}
-				
-				if (parallaxLayer.getParallaxValueY() > 0 && parallaxLayer.getParallaxValueY() < 50 && pBE01.getmRepeatY()){ // este "if" es innecesario en la fase rel, lo tengo sÛlo para pruebas
-					pBE01.setmRepeatY(false);
-					mSpr_bg01_bamboo_mid1_b.setY( mSpr_bg01_bamboo_low1.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight() );
-					pBE02.setmRepeatY(false);
-					mSpr_bg01_bamboo_mid2_b.setY( mSpr_bg01_bamboo_low2.getHeight() + mSpr_bg01_bamboo_mid2_a.getHeight() );
-					Log.v("parallaxLayer.mParallaxValueY ", "no repite" );
-				}
-				
-				if (parallaxLayer.getParallaxValueY() >= 50 && parallaxLayer.getParallaxValueY() < altoBambu && !pBE01.getmRepeatY()){ // altoBambu era 200
-					pBE01.setmRepeatY(true);
-					mSpr_bg01_bamboo_mid1_b.setY( mSpr_bg01_bamboo_low1.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight()*(repBamboo-2) );
-					pBE02.setmRepeatY(true);
-					mSpr_bg01_bamboo_mid2_b.setY( mSpr_bg01_bamboo_low2.getHeight() + mSpr_bg01_bamboo_mid2_a.getHeight()*(repBamboo-2) );
-					Log.v("parallaxLayer.mParallaxValueY ", "repite" );
-				}
-				
-				if (parallaxLayer.getParallaxValueY() >= altoBambu && pBE01.getmRepeatY()){
-					pBE01.setmRepeatY(false);
-					Log.v("parallaxLayer.mParallaxValueY ", "no repite" );
-					pBE02.setmRepeatY(false);
-				}
+	// Bucle de actualizaci√≥n. Lo usaba para la chapuza de repetir verticalmente o no los dos bamb√∫s en los que se rebota.
+	// Es una chapuza horrible, lo dejo s√≥lo de momento, si podemos encontrar otra forma de hacerlo mejor que mejor
+	/*
+	private float actualizacionesPorSegundo = 60.0f;
+	final private IUpdateHandler bucleActualizaciones = new TimerHandler(1 / actualizacionesPorSegundo, true, new ITimerCallback() {
+		@Override
+		public void onTimePassed(final TimerHandler pTimerHandler) {
+			
+			System.out.println("ParallaxValX="+parallaxLayer.getParallaxValueX() );
+			System.out.println("ParallaxValY="+parallaxLayer.getParallaxValueY() );
+					
+			parallaxLayer.offsetParallaxValue(	parallaxLayer.getParallaxValueX() + desplazamientoParallaxHorizontal, 
+											    parallaxLayer.getParallaxValueY() + desplazamientoParallaxVertical);
+			
+			int altoBambu = 77*repBamboo; // Chapuza (a ojimetro)
+			
+			if (parallaxLayer.getParallaxValueY() < 0) {autoScrollUp();}
+			if (parallaxLayer.getParallaxValueY() > 820) { autoScrollDown();}
+			
+			if (parallaxLayer.getParallaxValueY() > 0 && parallaxLayer.getParallaxValueY() < 50 && pBE01.getmRepeatY()){ // este "if" es innecesario en la fase rel, lo tengo s√≥lo para pruebas
+				pBE01.setmRepeatY(false);
+				mSpr_bg01_bamboo_mid1_b.setY( mSpr_bg01_bamboo_low1.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight() );
+				pBE02.setmRepeatY(false);
+				mSpr_bg01_bamboo_mid2_b.setY( mSpr_bg01_bamboo_low2.getHeight() + mSpr_bg01_bamboo_mid2_a.getHeight() );
+				Log.v("parallaxLayer.mParallaxValueY ", "no repite" );
 			}
-		});
-	
+			
+			if (parallaxLayer.getParallaxValueY() >= 50 && parallaxLayer.getParallaxValueY() < altoBambu && !pBE01.getmRepeatY()){ // altoBambu era 200
+				pBE01.setmRepeatY(true);
+				mSpr_bg01_bamboo_mid1_b.setY( mSpr_bg01_bamboo_low1.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight()*(repBamboo-2) );
+				pBE02.setmRepeatY(true);
+				mSpr_bg01_bamboo_mid2_b.setY( mSpr_bg01_bamboo_low2.getHeight() + mSpr_bg01_bamboo_mid2_a.getHeight()*(repBamboo-2) );
+				Log.v("parallaxLayer.mParallaxValueY ", "repite" );
+			}
+			
+			if (parallaxLayer.getParallaxValueY() >= altoBambu && pBE01.getmRepeatY()){
+				pBE01.setmRepeatY(false);
+				Log.v("parallaxLayer.mParallaxValueY ", "no repite" );
+				pBE02.setmRepeatY(false);
+			}
+		}
+	});
+	*/
 	
 	
 	
@@ -177,7 +182,7 @@ public class TrialSceneJump extends GameScene {
     private Chronometer chrono;
     private Character mCharacter;
     private boolean cutEnabled = false;
-    private TimerHandler trialTimerHandler;
+    public TimerHandler trialTimerHandler; // era private, esto es una chapuza para poder salir de aqu√≠ pulsando Back
     private IUpdateHandler trialUpdateHandler;
     private final float readyTime = 4f;
     private final float endingTime = 6f;
@@ -276,6 +281,7 @@ public class TrialSceneJump extends GameScene {
                 if(ResourceManager.getInstance().engine.getSecondsElapsedTotal() >
                 timerStartedIn + readyTime) {
                     TrialSceneJump.this.unregisterUpdateHandler(trialUpdateHandler);
+                    System.out.println("ActionSequence");
                     actionSequence();
                   }
             }
@@ -292,8 +298,10 @@ public class TrialSceneJump extends GameScene {
             @Override
             public void onUpdate(float pSecondsElapsed) {
             	
-            	System.out.println("pSecondsElapsed="+pSecondsElapsed);
-            	
+            	// System.out.println("pSecondsElapsed="+pSecondsElapsed); //ESTE BUCLE SE EST√Å EJECUTANDO "DE GRATIS" 
+    			System.out.println("ParallaxValX="+parallaxLayer.getParallaxValueX() );
+    			System.out.println("ParallaxValY="+parallaxLayer.getParallaxValueY() );
+    			
                // if(chrono.isTimeOut()) {
                  //   TrialSceneJump.this.unregisterUpdateHandler(trialUpdateHandler);
                   //  timeOut();
@@ -302,7 +310,7 @@ public class TrialSceneJump extends GameScene {
             @Override public void reset() {}
         };
         registerUpdateHandler(trialUpdateHandler);
-        gameHUD.showMessage("Jump!", 0, 1); // Dani, lo de "Jump!" sÛlo tiene que mostrarse una vez al principio, no cada vez que se salte :)
+        gameHUD.showMessage("Jump!", 0, 1); // Dani, lo de "Jump!" s√≥lo tiene que mostrarse una vez al principio, no cada vez que se salte :)
         chrono.start();
       //  precisionBar.start();
         angleBar.start();
@@ -383,13 +391,61 @@ public class TrialSceneJump extends GameScene {
         	jumpSequence();
         }
     }
-    
-    // Para salir del trial y volver al menu de selecciÛn de escenas
+
+    /*
+    // Para salir del trial y volver al menu de selecci√≥n de escenas
 	public void onPressDpadLeft() { 
 		TrialSceneJump.this.unregisterUpdateHandler(trialTimerHandler);
         gameHUD.detachChildren();
 		SceneManager.getInstance().showScene(new TestingScene());
 	}
+	public void onPressDpadDown() { // AQUIIIII
+		parallaxLayer.offsetParallaxValue(0, -2);
+	}
+	public void onPressDpadUp() { 
+		parallaxLayer.offsetParallaxValue(0, 2);
+	}
+	*/
+	// Lo siguiente evita el funcionamiento de onPressDpadLeft(), onPressDpadUp() y onPressDpadDown() de 
+    // arriba, por eso los comento y dejo s√≥lo el onKeyDown
+	@Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)){
+        	parallaxLayer.offsetParallaxValue(0, -2);
+        }
+		if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
+        	parallaxLayer.offsetParallaxValue(0, 2);
+        }
+		if ((keyCode == KeyEvent.KEYCODE_DPAD_DOWN)){
+        	parallaxLayer.offsetParallaxValue(0, -2);
+        }
+		if ((keyCode == KeyEvent.KEYCODE_DPAD_UP)){
+        	parallaxLayer.offsetParallaxValue(0, 2);
+        }
+		if ((keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME || 
+				keyCode == KeyEvent.KEYCODE_DPAD_LEFT)){ // Salir del trial y volver al menu de selecci√≥n de escenas
+			TrialSceneJump.this.unregisterUpdateHandler(trialTimerHandler);
+	        gameHUD.detachChildren();
+			SceneManager.getInstance().showScene(new TestingScene());
+        }
+        return true;
+    }
+    // Para salir del trial y volver al menu de selecci√≥n de escenas
+	
+	@Override
+	public void onPressButtonA () { 
+		TrialSceneJump.this.unregisterUpdateHandler(trialTimerHandler);
+        gameHUD.detachChildren();
+		SceneManager.getInstance().showScene(new TestingScene());
+	}
+	
+	/*
+	@Override
+	public void onBackPressed() {
+	   // Esto hay que hacerlo desde una actividad o no nos comemos nada ^^U
+	}*/
+	
+	
 
     /**
      * Adjust the trial parameters using the game difficulty as base.
@@ -447,7 +503,7 @@ public class TrialSceneJump extends GameScene {
         }
         
         public void start() {
-        	charSprite.animate(new long[] { 100, 100 }, 1, 2, true);
+        	charSprite.animate(new long[] { 300, 300 }, 1, 2, true);
         //	Path path = new Path(2).to(0f, 0f).to(0f,0f);
         	
         //	charSprite.registerEntityModifier(new PathModifier(.0f, path));
@@ -507,14 +563,14 @@ public class TrialSceneJump extends GameScene {
 		mSpr_bg09_sky = new Sprite(0, 0,
                     ResourceManager.getInstance().jumpBg9Sky,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-		mSpr_bg09_sky.setOffsetCenter(0, 0); // Si no hacemos esto, los sprites tienen su offset en el centro, asÌ los colocamos abajo a la izquierda de la imagen
+		mSpr_bg09_sky.setOffsetCenter(0, 0); // Si no hacemos esto, los sprites tienen su offset en el centro, as√≠ los colocamos abajo a la izquierda de la imagen
 		mSpr_bg09_sky.setPosition(0, 0);
     			
     			
 		//  top = new Sprite(posX, posY, ResourceManager.getInstance().cutTreeTop, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
 			
 		// Sprite M. Fuji
-		mSpr_bg08_fuji = new Sprite(0, 0, ResourceManager.getInstance().jumpBg9Sky , vertexBufferObjectManager);
+		mSpr_bg08_fuji = new Sprite(0, 0, ResourceManager.getInstance().jumpBg8MountFuji , vertexBufferObjectManager);
 		mSpr_bg08_fuji.setOffsetCenter(0, 0);
 		mSpr_bg08_fuji.setPosition(0, pFY);
 
@@ -533,7 +589,7 @@ public class TrialSceneJump extends GameScene {
 		mSpr_bg05_pagoda.setOffsetCenter(0, 0);
 		mSpr_bg05_pagoda.setPosition(pPX, pPY);
 		
-		// Sprite MontaÒa cercana
+		// Sprite Monta√±a cercana
 		mSpr_bg04_mount= new Sprite(0, 0, ResourceManager.getInstance().jumpBg4Mount, vertexBufferObjectManager);
 		mSpr_bg04_mount.setOffsetCenter(0, 0);
 		mSpr_bg04_mount.setPosition(0, pMY);
@@ -604,7 +660,7 @@ public class TrialSceneJump extends GameScene {
 		
 		
 		
-		// Creamos el fondo parallax y a continuaciÛn le asignamos las entidades parallax
+		// Creamos el fondo parallax y a continuaci√≥n le asignamos las entidades parallax
 		parallaxLayer = new ParallaxBackground2d(0, 0, 0); 
 		
 		// Cielo
@@ -613,7 +669,7 @@ public class TrialSceneJump extends GameScene {
 		// Fuji
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL08, fFPL08, mSpr_bg08_fuji, false, false));
 		
-		// Bosque de bamb˙ lejano
+		// Bosque de bamb√∫ lejano
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL07, fFPL07, mSpr_bg07_lake, false, false));
 				
 		// Nubes
@@ -622,15 +678,15 @@ public class TrialSceneJump extends GameScene {
 		// Pagoda
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL05, fFPL05, mSpr_bg05_pagoda, false, false));
 		
-		// MontaÒa
+		// Monta√±a
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL04, fFPL04, mSpr_bg04_mount, false, false));
 		
-		// Bosque de bamb˙ lejano
+		// Bosque de bamb√∫ lejano
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL03, fFPL03, mSpr_bg03_forest2_low, false, false));
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL03, fFPL03, mSpr_bg03_forest2_mid, false, false));
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL03, fFPL03, mSpr_bg03_forest2_high, false, false));
 
-		// Bosque de bamb˙ cercano
+		// Bosque de bamb√∫ cercano
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL02, fFPL02, mSpr_bg02_forest1_low, false, false));
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL02, fFPL02, mSpr_bg02_forest1_mid1, false, false));
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL02, fFPL02, mSpr_bg02_forest1_mid2, false, false));
@@ -653,11 +709,11 @@ public class TrialSceneJump extends GameScene {
 		// Estatuas
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_statues, false, false));
 
-		// AÒadimos el fondo parallax a la escena
+		// A√±adimos el fondo parallax a la escena
 		this.setBackground(parallaxLayer); 
 		
 		// Registramos el manejador de actualizaciones
-		this.registerUpdateHandler(bucleActualizaciones);
+		// this.registerUpdateHandler(bucleActualizaciones);
 		
 		// Iniciamos el autoscroll, para que pueda verse en dispositivos sin controles Ouya
 		// autoScroll = true;
@@ -689,7 +745,7 @@ public class TrialSceneJump extends GameScene {
         return 0;
     }
     
-    // Basurillas para que el scroll se mueva autom·ticamente sin necesidad de usar las clases Auto---ParallaxBackground
+    // Basurillas para que el scroll se mueva autom√°ticamente sin necesidad de usar las clases Auto---ParallaxBackground
     public void autoScrollUp(){
     	if (autoScroll)
     		desplazamientoParallaxVertical = 1;    	
