@@ -21,6 +21,7 @@ package com.madgear.ninjatrials.test;
 
 import org.andengine.entity.scene.Scene;
 
+import com.madgear.ninjatrials.CharacterIntroScene;
 import com.madgear.ninjatrials.ControllerOptionsScene;
 import com.madgear.ninjatrials.GameScene;
 import com.madgear.ninjatrials.MainMenuScene;
@@ -167,6 +168,13 @@ public class TestingScene extends GameScene {
             @Override
             public void onAction() {
                 SceneManager.getInstance().showScene(new MapScene());
+            }
+        });
+        
+        testGrid.addItem(new TestGridItem("Chr Scene") {
+            @Override
+            public void onAction() {
+                SceneManager.getInstance().showScene(new CharacterIntroScene());
             }
         });
     }

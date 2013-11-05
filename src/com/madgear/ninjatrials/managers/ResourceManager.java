@@ -294,6 +294,9 @@ public class ResourceManager {
     public Font fontMedium;        // mediano
     public Font fontBig;        // grande
     public Font fontXBig;        // Extra grande
+    public Font fontLatinChrName; // CharacterIntroScene
+    public Font fontJPChrName; // CharacterIntroScene
+    public Font fontLatinChrInfo; // CharacterIntroScene
 
 
     //public BuildableBitmapTextureAtlas mBitmapTextureAtlas;
@@ -3141,6 +3144,20 @@ public class ResourceManager {
                 pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "go3v2.ttf",
                 192f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
         fontXBig.load();
+        
+        // CharacterIntroScene fonts
+        fontLatinChrName = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
+                pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "DejaVuSans.ttf",
+                160f, true, android.graphics.Color.BLACK, 3, android.graphics.Color.WHITE);
+        fontLatinChrName.load();
+        fontJPChrName = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
+                pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "sazanami-gothic.ttf",
+                128f, true, android.graphics.Color.BLUE, 3, android.graphics.Color.WHITE);
+        fontJPChrName.load();
+        fontLatinChrInfo = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
+                pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "DejaVuSans.ttf",
+                80f, true, android.graphics.Color.BLACK, 3, android.graphics.Color.WHITE);
+        fontLatinChrInfo.load();
     }
 
     /* If an unloadFonts() method is necessary, we can provide one
@@ -3150,6 +3167,9 @@ public class ResourceManager {
         fontMedium.unload();
         fontBig.unload();
         fontXBig.unload();
+        fontLatinChrName.unload();
+        fontJPChrName.unload();
+        fontLatinChrInfo.unload();
     }
 }
         //if (AAA == null) {
