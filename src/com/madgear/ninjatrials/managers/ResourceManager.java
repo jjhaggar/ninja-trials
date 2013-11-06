@@ -20,6 +20,7 @@
 package com.madgear.ninjatrials.managers;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.util.Log;
 import java.io.IOException;
@@ -826,11 +827,8 @@ public class ResourceManager {
                     jumpBg3BambooForest2T, activity, "jump_bg_3_bamboo_forest_2.png", 0, 0);
             jumpBg3BambooForest2T.load();
         }
-        
-        
-        // Cambios JJ para JumpTrial ******************************** START
-        
-        // Texturas del bambú en el que rebotan los protagonistas (3 trozos)
+
+        // Bamboo in which the characters rebound (3 pieces)
  		// ^ 91 px 
  		// | 921 px 
  		// v 68 px 
@@ -843,7 +841,7 @@ public class ResourceManager {
         jumpBg1BambooMiddle = TextureRegionFactory.extractFromTexture(bTA_Bamboo, 0, 91, 89, 921);
         jumpBg1BambooBottom = TextureRegionFactory.extractFromTexture(bTA_Bamboo, 0, 1012, 89, 68);
 
- 		// Texturas del bosque de bambú más cercano
+        // Nearest bamboo forest
  		// ^ 44 px 
  		// | 718 px 
  		// v 318 px  
@@ -855,8 +853,8 @@ public class ResourceManager {
         jumpBg2BambooForest1Top = TextureRegionFactory.extractFromTexture(bTABambooForest1, 0, 0, 1920, 44);
         jumpBg2BambooForest1Middle = TextureRegionFactory.extractFromTexture(bTABambooForest1, 0, 44, 1920, 718);
         jumpBg2BambooForest1Bottom = TextureRegionFactory.extractFromTexture(bTABambooForest1, 0, 763, 1920, 318);
-        
- 		// Texturas del bosque de bambú lejano
+
+        // Farthest bamboo forest
  		// ^ 80 px 
  		// | 536 px 
  		// v 464 px 
@@ -868,9 +866,6 @@ public class ResourceManager {
         jumpBg3BambooForest2Top = TextureRegionFactory.extractFromTexture(bTABambooForest2, 0, 0, 1920, 80);
         jumpBg3BambooForest2Middle = TextureRegionFactory.extractFromTexture(bTABambooForest2, 0, 80, 1920, 536);
         jumpBg3BambooForest2Bottom = TextureRegionFactory.extractFromTexture(bTABambooForest2, 0, 80+536, 1920, 464);
-        
-        // Cambios JJ para JumpTrial ******************************** END
-        
 
         if (jumpBg4Mount == null) {
             BitmapTextureAtlas jumpBg4MountT = new BitmapTextureAtlas(textureManager, 1920, 794,
@@ -3114,6 +3109,12 @@ public class ResourceManager {
             winPointsTotal.release();
         if(!gameOver.isReleased())
             gameOver.release();
+    }
+
+    /* Loads Android resources from the "res" directory
+     */
+    public Resources loadAndroidRes(){
+        return context.getResources();
     }
 
     /* Loads fonts resources

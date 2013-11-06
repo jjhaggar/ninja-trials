@@ -140,16 +140,17 @@ public class CharacterIntroScene extends GameScene{
 				
 				ITextureRegion characterITR;
 				if (character == "Ryoko") {
+
 					characterITR = ResourceManager.getInstance().characterProfileRyoko;
-					name = "Ryoko"; //new NinjaTrials().getResources().getString(R.string.profile_ryoko_name);
-					name_jp = "再配布が自"; //new NinjaTrials().getResources().getString(R.string.profile_ryoko_name_jap);
-					info = "Birth Date: 26 julio\nAge: 16\nMrmurmurmur\nMrmurmurmur2\nMrmurmurmur3\nMrmurmurmur4"; //new NinjaTrials().getResources().getString(R.string.profile_ryoko_info);
+					name = ResourceManager.getInstance().loadAndroidRes().getString(R.string.profile_ryoko_name);
+					name_jp = ResourceManager.getInstance().loadAndroidRes().getString(R.string.profile_ryoko_name_jap);
+					info = ResourceManager.getInstance().loadAndroidRes().getString(R.string.profile_ryoko_info);
 		        }
 		        else{
 		        	characterITR = ResourceManager.getInstance().characterProfileSho;
-		        	name = "Sho"; //new NinjaTrials().getResources().getString(R.string.profile_sho_name);
-					name_jp = "再配布が自"; //new NinjaTrials().getResources().getString(R.string.profile_sho_name_jap);
-					info = "Birth Date: 26 julio\nAge: 16\nMrmurmurmur\nMrmurmurmur2\nMrmurmurmur3\nMrmurmurmur4"; //new NinjaTrials().getResources().getString(R.string.profile_sho_info);
+                    name = ResourceManager.getInstance().loadAndroidRes().getString(R.string.profile_sho_name);
+					name_jp = ResourceManager.getInstance().loadAndroidRes().getString(R.string.profile_sho_name_jap);
+					info = ResourceManager.getInstance().loadAndroidRes().getString(R.string.profile_sho_info);
 		        }
 				
 				sprite = new Sprite(spritePosX, spritePosY, characterITR, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
