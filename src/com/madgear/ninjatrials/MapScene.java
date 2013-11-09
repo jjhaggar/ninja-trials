@@ -65,13 +65,14 @@ public class MapScene extends GameScene {
 	@Override
 	public void onShowScene() {
 		places = new ArrayList<Place>();
-		places.add(new Place(184, 368, 0, "Run"));
-		places.add(new Place(344, 370, 1, "Jump"));
-		places.add(new Place(920, 220, 2, "Cut"));
-		places.add(new Place(1076, 210, 3, "Shuriken"));
-		places.add(new Place(1322, 350, 4, "Other 1"));
-		places.add(new Place(1040, 572, 5, "Other 2"));
-		places.add(new Place(966, 978, 6, "Other 3"));
+		places.add(new Place(184, 368, 0, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_run)));
+		places.add(new Place(344, 370, 1, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_jump)));
+		places.add(new Place(920, 220, 2, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_cut)));
+		places.add(new Place(1076, 210, 3, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_shuriken)));
+		places.add(new Place(1322, 350, 4, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_air_cut)));
+		places.add(new Place(1040, 572, 5, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_vanish)));
+		places.add(new Place(966, 978, 6, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_balance)));
+		// places.add(new Place(0, 0, 7, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_ninpo)));
 		for(Place p : places) {
 			attachChild(p);
 		}

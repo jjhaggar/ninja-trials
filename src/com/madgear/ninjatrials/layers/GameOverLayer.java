@@ -31,6 +31,7 @@ import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.MainMenuScene;
 import com.madgear.ninjatrials.ManagedLayer;
+import com.madgear.ninjatrials.R;
 import com.madgear.ninjatrials.ResultLoseScene;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
@@ -62,7 +63,8 @@ public class GameOverLayer extends ManagedLayer {
         attachChild(rec);
 
         gameOver = new Text(WIDTH/2, HEIGHT/2,
-                ResourceManager.getInstance().fontXBig, "Game Over",
+                ResourceManager.getInstance().fontXBig,  
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_lose_game_over),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(gameOver);

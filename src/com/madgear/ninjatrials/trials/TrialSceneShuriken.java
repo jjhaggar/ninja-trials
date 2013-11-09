@@ -31,6 +31,7 @@ import org.andengine.util.adt.align.HorizontalAlign;
 import android.util.Log;
 
 import com.madgear.ninjatrials.GameScene;
+import com.madgear.ninjatrials.R;
 import com.madgear.ninjatrials.ResultLoseScene;
 import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.hud.GameHUD;
@@ -180,13 +181,13 @@ public class TrialSceneShuriken extends GameScene{
                 gameStartTime + waitPeriodForReadyMsg) {
                 	if (!readyShow){
                 		readyShow = true;
-                		gameHUD.showMessage("Ready?", 0, 2);
+                		gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_shuriken_ready), 0, 2);
                 	}
                 }
                 if(ResourceManager.getInstance().engine.getSecondsElapsedTotal() >
                 gameStartTime + waitPeriodForGoMsg) {
                     TrialSceneShuriken.this.unregisterUpdateHandler(trialUpdateHandler);
-                    gameHUD.showMessage("Go!", 0, 1);
+                    gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_shuriken_go), 0, 1);
                     gameStarted = true;
                     SFXManager.playMusic(ResourceManager.getInstance().trialShurikens);
                     generateEnemies();

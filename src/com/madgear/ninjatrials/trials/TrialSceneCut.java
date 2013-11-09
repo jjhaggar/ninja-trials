@@ -43,6 +43,7 @@ import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.GameScene;
 import com.madgear.ninjatrials.MainMenuScene;
+import com.madgear.ninjatrials.R;
 import com.madgear.ninjatrials.ResultLoseScene;
 import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.hud.Chronometer;
@@ -132,7 +133,7 @@ public class TrialSceneCut extends GameScene {
         final Text loadingText = new Text(
                 ResourceManager.getInstance().cameraWidth * 0.5f,
                 ResourceManager.getInstance().cameraHeight * 0.3f,
-                ResourceManager.getInstance().fontBig, "Loading...",
+                ResourceManager.getInstance().fontBig, ResourceManager.getInstance().loadAndroidRes().getString(R.string.app_loading),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         loadingScene.attachChild(loadingText);
@@ -213,7 +214,7 @@ public class TrialSceneCut extends GameScene {
      * action secuence begins.
      */
     private void readySequence() {
-        gameHUD.showMessage("Ready", 1, readyTime - 1);
+        gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_cut_ready), 1, readyTime - 1);
         timerStartedIn = ResourceManager.getInstance().engine.getSecondsElapsedTotal(); 
         trialUpdateHandler = new IUpdateHandler() {
             @Override
@@ -244,7 +245,7 @@ public class TrialSceneCut extends GameScene {
             @Override public void reset() {}
         };
         registerUpdateHandler(trialUpdateHandler);
-        gameHUD.showMessage("Cut!", 0, 1);
+        gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_cut_go), 0, 1);
         chrono.start();
         precisionBar.start();
         cutEnabled = true;

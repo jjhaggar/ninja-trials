@@ -42,7 +42,9 @@ public class MainMenuScene extends GameScene {
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
     private Sprite tittle;
     private SelectionStripe selectionStripe;
-    private final String[] menuOptions = {"OPTIONS","PLAY","ACHIEVEMENTS"};
+    private final String[] menuOptions = {ResourceManager.getInstance().loadAndroidRes().getString(R.string.main_menu_options),
+    		ResourceManager.getInstance().loadAndroidRes().getString(R.string.main_menu_play),
+    		ResourceManager.getInstance().loadAndroidRes().getString(R.string.main_menu_achievements)};
 
     /**
      * MainMenuScene constructor.
@@ -60,7 +62,7 @@ public class MainMenuScene extends GameScene {
         final Text loadingText = new Text(
                 ResourceManager.getInstance().cameraWidth * 0.5f,
                 ResourceManager.getInstance().cameraHeight * 0.3f,
-                ResourceManager.getInstance().fontBig, "Loading...",
+                ResourceManager.getInstance().fontBig, ResourceManager.getInstance().loadAndroidRes().getString(R.string.app_loading),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         loadingScene.attachChild(loadingText);

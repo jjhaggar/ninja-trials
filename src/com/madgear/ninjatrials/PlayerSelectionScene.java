@@ -69,7 +69,9 @@ public class PlayerSelectionScene extends GameScene {
     private Text selectDiffText; 
     private Sprite diffPanel;
     private SelectionStripe selectionStripe;
-    private String[] menuOptions = {"Easy","Normal","Hard"};
+    private String[] menuOptions = {ResourceManager.getInstance().loadAndroidRes().getString(R.string.select_menu_level_easy),
+    		ResourceManager.getInstance().loadAndroidRes().getString(R.string.select_menu_level_normal),
+    		ResourceManager.getInstance().loadAndroidRes().getString(R.string.select_menu_level_hard)};
     private TimerHandler timerHandler;
     
     
@@ -124,7 +126,7 @@ public class PlayerSelectionScene extends GameScene {
         
         // Select Player Text:
         selectPlayerText = new Text(WIDTH/2, HEIGHT/2,
-                ResourceManager.getInstance().fontBig, "Select\nPlayer",
+                ResourceManager.getInstance().fontBig, ResourceManager.getInstance().loadAndroidRes().getString(R.string.select_menu_select_player),
                 new TextOptions(HorizontalAlign.LEFT),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         selectPlayerText.setX(selectPlayerText.getWidth()/2 + 100);
@@ -184,7 +186,7 @@ public class PlayerSelectionScene extends GameScene {
         
         // Diff tittle:
         selectDiffText = new Text(diffPanel.getX() - diffPanel.getWidth()/4, diffPanel.getY(),
-                ResourceManager.getInstance().fontBig, "Select\nDifficulty",
+                ResourceManager.getInstance().fontBig, ResourceManager.getInstance().loadAndroidRes().getString(R.string.select_menu_select_difficulty),
                 new TextOptions(HorizontalAlign.RIGHT),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         selectDiffText.setVisible(false);

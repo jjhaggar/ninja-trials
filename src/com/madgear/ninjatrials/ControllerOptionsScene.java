@@ -87,7 +87,7 @@ public class ControllerOptionsScene extends GameScene {
 
         // Options tittle:
         Text tittle = new Text(WIDTH/3, 0,
-                ResourceManager.getInstance().fontMedium, "Control Type: Old School",
+                ResourceManager.getInstance().fontMedium, ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_type_old_school),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         tittle.setY(HEIGHT - tittle.getHeight()/2 - 50);
@@ -118,12 +118,12 @@ public class ControllerOptionsScene extends GameScene {
 
         // Menu / In game
         Text menu = new Text(0, 0,
-                ResourceManager.getInstance().fontSmall, "Menu",
+                ResourceManager.getInstance().fontSmall, ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_menu),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         menu.setColor(android.graphics.Color.YELLOW);
         Text ingame = new Text(0, 0,
-                ResourceManager.getInstance().fontSmall, " / In Game",
+                ResourceManager.getInstance().fontSmall, " / "+ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_ingame),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         menu.setX(r.getX() - 0.5f * ingame.getWidth());
@@ -135,12 +135,12 @@ public class ControllerOptionsScene extends GameScene {
 
         // Used / Not used
         Text used = new Text(0,0,
-                ResourceManager.getInstance().fontSmall, "Used",
+                ResourceManager.getInstance().fontSmall, ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_used),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         used.setColor(android.graphics.Color.GREEN);
         Text notused = new Text(0,0,
-                ResourceManager.getInstance().fontSmall, " / Not used",
+                ResourceManager.getInstance().fontSmall, " / "+ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_not_used),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         notused.setColor(android.graphics.Color.RED);
@@ -154,7 +154,7 @@ public class ControllerOptionsScene extends GameScene {
 
         // Action
         Text action1 = new Text(0, 0,
-                ResourceManager.getInstance().fontSmall, "Action",
+                ResourceManager.getInstance().fontSmall, ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_action),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         action1.setX(controllerSprite.getX() + 950);
@@ -163,12 +163,12 @@ public class ControllerOptionsScene extends GameScene {
 
         // Cancel / Action
         Text cancel = new Text(0, 0,
-                ResourceManager.getInstance().fontSmall, "Cancel",
+                ResourceManager.getInstance().fontSmall, ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_cancel),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         cancel.setColor(android.graphics.Color.YELLOW);
         Text action2 = new Text(0, 0,
-                ResourceManager.getInstance().fontSmall, " / Action",
+                ResourceManager.getInstance().fontSmall, " / "+ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_action),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
 
@@ -181,12 +181,12 @@ public class ControllerOptionsScene extends GameScene {
 
         // Accept / Action
         Text accept = new Text(0, 0,
-                ResourceManager.getInstance().fontSmall, "Accept",
+                ResourceManager.getInstance().fontSmall, ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_accept),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         accept.setColor(android.graphics.Color.YELLOW);
         Text action3 = new Text(0, 0,
-                ResourceManager.getInstance().fontSmall, " / Action",
+                ResourceManager.getInstance().fontSmall, " / "+ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_action),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
 
@@ -199,7 +199,7 @@ public class ControllerOptionsScene extends GameScene {
 
         // Action
         Text action4 = new Text(0, 0,
-                ResourceManager.getInstance().fontSmall, "Action",
+                ResourceManager.getInstance().fontSmall, ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_action),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         action4.setX(action1.getX());
@@ -208,12 +208,12 @@ public class ControllerOptionsScene extends GameScene {
 
         // D-Pad / D-Pad
         Text dpad1 = new Text(0, 0,
-                ResourceManager.getInstance().fontSmall, "D-Pad",
+                ResourceManager.getInstance().fontSmall, ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_d_pad),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         dpad1.setColor(android.graphics.Color.YELLOW);
         Text dpad2 = new Text(0, 0,
-                ResourceManager.getInstance().fontSmall, " / D-Pad",
+                ResourceManager.getInstance().fontSmall, " / "+ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_d_pad),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         dpad1.setX(controllerSprite.getX() - 250 - 0.5f * dpad2.getWidth());
@@ -225,7 +225,10 @@ public class ControllerOptionsScene extends GameScene {
 
         // Up / Down / Left / Right
         Text updownleftright = new Text(0, 0,
-                ResourceManager.getInstance().fontSmall, "Up / Down / Left / Right",
+                ResourceManager.getInstance().fontSmall, ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_up)+" / "+
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_down)+" / "+
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_left)+" / "+
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_right),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         updownleftright.setX(controllerSprite.getX() - 250);
@@ -234,12 +237,12 @@ public class ControllerOptionsScene extends GameScene {
 
         // Skip sequence / Pause Game
         Text skip = new Text(0, 0,
-                ResourceManager.getInstance().fontSmall, "Skip Sequence",
+                ResourceManager.getInstance().fontSmall, ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_skip_sequence),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         skip.setColor(android.graphics.Color.YELLOW);
         Text pause = new Text(0, 0,
-                ResourceManager.getInstance().fontSmall, " / Pause Game",
+                ResourceManager.getInstance().fontSmall, " / "+ResourceManager.getInstance().loadAndroidRes().getString(R.string.control_menu_pause_game),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         skip.setX(controllerSprite.getX() + 650 - 0.5f * pause.getWidth());

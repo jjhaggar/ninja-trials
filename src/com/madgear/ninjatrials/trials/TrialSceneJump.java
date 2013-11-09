@@ -49,6 +49,7 @@ import android.view.KeyEvent;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.GameScene;
 import com.madgear.ninjatrials.MainMenuScene;
+import com.madgear.ninjatrials.R;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.hud.Chronometer;
@@ -204,7 +205,7 @@ public class TrialSceneJump extends GameScene {
         final Text loadingText = new Text(
                 ResourceManager.getInstance().cameraWidth * 0.5f,
                 ResourceManager.getInstance().cameraHeight * 0.3f,
-                ResourceManager.getInstance().fontBig, "Loading...",
+                ResourceManager.getInstance().fontBig, ResourceManager.getInstance().loadAndroidRes().getString(R.string.app_loading),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         loadingScene.attachChild(loadingText);
@@ -272,7 +273,7 @@ public class TrialSceneJump extends GameScene {
      * action secuence begins.
      */
     private void readySequence() {
-        gameHUD.showMessage("Ready", 1, readyTime - 1);
+        gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_jump_ready), 1, readyTime - 1);
         mCharacter.start(); // <-
         timerStartedIn = ResourceManager.getInstance().engine.getSecondsElapsedTotal(); 
         trialUpdateHandler = new IUpdateHandler() {
@@ -281,7 +282,6 @@ public class TrialSceneJump extends GameScene {
                 if(ResourceManager.getInstance().engine.getSecondsElapsedTotal() >
                 timerStartedIn + readyTime) {
                     TrialSceneJump.this.unregisterUpdateHandler(trialUpdateHandler);
-                    System.out.println("ActionSequence");
                     actionSequence();
                   }
             }
@@ -310,11 +310,10 @@ public class TrialSceneJump extends GameScene {
             @Override public void reset() {}
         };
         registerUpdateHandler(trialUpdateHandler);
-        gameHUD.showMessage("Jump!", 0, 1); // Dani, lo de "Jump!" sólo tiene que mostrarse una vez al principio, no cada vez que se salte :)
+        gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_jump_go), 0, 1); // Dani, lo de "Jump!" sólo tiene que mostrarse una vez al principio, no cada vez que se salte :)
         chrono.start();
       //  precisionBar.start();
         angleBar.start();
-        System.out.println("Jarl!");
         cutEnabled = true;
     }
 

@@ -43,8 +43,12 @@ public class MainOptionsScene extends GameScene {
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
     private SelectionStripe selectionStripe;
-    private final String[] menuOptions = {"CONFIGURE CONTROLS","MUSIC VOLUME","SOUNDS VOLUME",
-            "MUSIC TEST", "SOUND TEST"};
+    private final String[] menuOptions = {
+    		ResourceManager.getInstance().loadAndroidRes().getString(R.string.option_menu_config_ctrl),
+    		ResourceManager.getInstance().loadAndroidRes().getString(R.string.option_menu_music_vol),
+    		ResourceManager.getInstance().loadAndroidRes().getString(R.string.option_menu_sound_vol),
+    		ResourceManager.getInstance().loadAndroidRes().getString(R.string.option_menu_music_test),
+    		ResourceManager.getInstance().loadAndroidRes().getString(R.string.option_menu_sound_test)};
     private Text musicPercentageText;
     private Text soundPercentageText;
     private VolumeBar musicVolumeBar;
@@ -103,7 +107,7 @@ public class MainOptionsScene extends GameScene {
         
         // Options tittle:
         final Text tittle = new Text(WIDTH/2, HEIGHT - 150,
-                ResourceManager.getInstance().fontXBig, "OPTIONS",
+                ResourceManager.getInstance().fontXBig, ResourceManager.getInstance().loadAndroidRes().getString(R.string.option_menu_title),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(tittle);

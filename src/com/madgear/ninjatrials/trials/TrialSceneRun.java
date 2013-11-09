@@ -34,6 +34,7 @@ import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.GameScene;
+import com.madgear.ninjatrials.R;
 import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.hud.Chronometer;
 import com.madgear.ninjatrials.hud.PowerBar;
@@ -100,7 +101,7 @@ public class TrialSceneRun extends GameScene {
         Scene loadingScene = new Scene();
         loadingScene.getBackground().setColor(0.3f, 0.3f, 0.6f);
         final Text loadingText = new Text(width * 0.5f, height * 0.3f,
-                ResourceManager.getInstance().fontBig, "Loading...",
+                ResourceManager.getInstance().fontBig, ResourceManager.getInstance().loadAndroidRes().getString(R.string.app_loading),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         loadingScene.attachChild(loadingText);
@@ -160,14 +161,14 @@ public class TrialSceneRun extends GameScene {
 			@Override
 			public void onTimePassed(final TimerHandler pTimerHandler) {
 				if (seconds == 4) {
-                    gameHUD.showMessage("Ready", 0, 1);
+                    gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_run_ready), 0, 1);
                 }
 				else if (1 <= seconds && seconds <= 3) {
                     gameHUD.showMessage("" + seconds);
                     canGainPower = true;
                 }
 				else if (seconds == 0) {
-                    gameHUD.showMessage("RUN!", 0, 1);
+                    gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_run_go), 0, 1);
                     runStart();
                 }
                 else {
@@ -192,7 +193,7 @@ public class TrialSceneRun extends GameScene {
 				if (power >= powerHight) {
                     comboActual += timeLoopLogic;
                     comboTotal += timeLoopLogic;
-                    gameHUD.showMessage("COMBO\n" + comboActual, 0, 1);
+                    gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_run_combo) + comboActual, 0, 1);
 				}
 				else {
 					comboActual = 0;
@@ -249,7 +250,7 @@ public class TrialSceneRun extends GameScene {
     /**
      * Show the result of trial in screen.
      */
-	private void runShowResults() {
+	private void runShowResults() { // JJ: Results must be showed by using ResultWinScene and ResultLoseScene 
 		clearUpdateHandlers();
 		canGainPower = false;
 		gameHUD.showMessage("Results:" + "\n"

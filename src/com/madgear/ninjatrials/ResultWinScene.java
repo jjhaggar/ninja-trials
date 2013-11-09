@@ -187,62 +187,62 @@ public class ResultWinScene extends GameScene {
 
         switch(GameManager.getCurrentTrial()) {
         case GameManager.TRIAL_RUN:
-            tittleText.setText("Run Results");
+            tittleText.setText(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_run));
             drawings.setCurrentTileIndex(2);
             stamp.setCurrentTileIndex(TrialSceneRun.getStamp(TrialSceneRun.getScore()));
             scoreItemsNumber = 4;
-            scoreItemArray[0] = new ScoreItem("Time",
+            scoreItemArray[0] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_run_time),
                     String.valueOf(GameManager.player1result.runTime),
                     TrialSceneRun.getTimeScore());
-            scoreItemArray[1] = new ScoreItem("Max Speed Combo",
+            scoreItemArray[1] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_run_max_speed_combo),
                     String.valueOf(GameManager.player1result.runMaxSpeedCombo),
                     TrialSceneRun.getMaxSpeedComboScore());
-            scoreItemArray[2] = new ScoreItem("Max Speed Combo Total",
+            scoreItemArray[2] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_run_max_speed_combo_total),
                     String.valueOf(GameManager.player1result.runMaxSpeedComboTotal),
                     TrialSceneRun.getMaxSpeedComboTotalScore());
-            scoreItemArray[3] = new ScoreItem("Max Speed",
+            scoreItemArray[3] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_run_max_speed),
                     String.valueOf(GameManager.player1result.runMaxSpeed),
                     TrialSceneRun.getMaxSpeedScore());
             break;
 
         case GameManager.TRIAL_CUT:
-            tittleText.setText("Cut Results");
+            tittleText.setText(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_cut));
             drawings.setCurrentTileIndex(3);
             stamp.setCurrentTileIndex(TrialSceneCut.getStamp(TrialSceneCut.getScore()));
             scoreItemsNumber = 2;
-            scoreItemArray[0] = new ScoreItem("Rounds",
+            scoreItemArray[0] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_cut_rounds),
                     String.valueOf(GameManager.player1result.cutRound),
                     TrialSceneCut.getRoundScore());
-            scoreItemArray[1] = new ScoreItem("Concentratation",
+            scoreItemArray[1] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_cut_concentration),
                     String.valueOf(GameManager.player1result.cutConcentration),
                     TrialSceneCut.getConcentrationScore());
             break;
             
         case GameManager.TRIAL_JUMP:
-            tittleText.setText("Jump Results");
+            tittleText.setText(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_jump));
             drawings.setCurrentTileIndex(0);
             stamp.setCurrentTileIndex(TrialSceneJump.getStamp(TrialSceneJump.getScore()));
             scoreItemsNumber = 3;
-            scoreItemArray[0] = new ScoreItem("Time",
+            scoreItemArray[0] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_jump_time),
                     String.valueOf(GameManager.player1result.jumpTime),
                     TrialSceneJump.getTimeScore());
-            scoreItemArray[1] = new ScoreItem("Perfect Jump Combo",
+            scoreItemArray[1] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_jump_perfect_jump_combo),
                     String.valueOf(GameManager.player1result.jumpPerfectJumpCombo),
                     TrialSceneJump.getPerfectJumpScore());
-            scoreItemArray[2] = new ScoreItem("Max Perfect Jump Combo",
+            scoreItemArray[2] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_jump_max_perfect_jump_combo),
                     String.valueOf(GameManager.player1result.jumpMaxPerfectJumpCombo),
                     TrialSceneJump.getMaxPerfectJumpScore());
             break;
             
         case GameManager.TRIAL_SHURIKEN:
-            tittleText.setText("Shuriken Results");
+            tittleText.setText(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_shuriken));
             drawings.setCurrentTileIndex(1);
             stamp.setCurrentTileIndex(TrialSceneShuriken.getStamp(TrialSceneShuriken.getScore()));
             scoreItemsNumber = 2;
-            scoreItemArray[0] = new ScoreItem("Time",
+            scoreItemArray[0] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_shuriken_time),
                     String.valueOf(GameManager.player1result.shurikenTime),
                     TrialSceneShuriken.getTimeScore());
-            scoreItemArray[1] = new ScoreItem("Precission",
+            scoreItemArray[1] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_shuriken_precission),
                     String.valueOf(GameManager.player1result.shurikenPrecission),
                     TrialSceneShuriken.getPrecissionScore());
             break;
@@ -317,7 +317,7 @@ public class ResultWinScene extends GameScene {
     }
 
     /**
-     * Add a new score row to the scroll.
+     * Adds a new score row to the scroll.
      * @param y The Y position of the score line.
      * @param description The score item description, like "Jump Time", "Shuriken Precission", etc.
      * @param value The item value like "34 sec", or "67%".

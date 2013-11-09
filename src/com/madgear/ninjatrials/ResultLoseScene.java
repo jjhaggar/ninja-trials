@@ -80,7 +80,7 @@ public class ResultLoseScene extends GameScene {
 
         // Continue?
         continueText = new Text(WIDTH - 400, HEIGHT - 200,
-                ResourceManager.getInstance().fontBig, "Continue?",
+                ResourceManager.getInstance().fontBig, ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_lose_continue),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(continueText);
@@ -94,7 +94,7 @@ public class ResultLoseScene extends GameScene {
 
         // You Lost
         youLostText = new Text(400, 300,
-                ResourceManager.getInstance().fontBig, "You Lost!!",
+                ResourceManager.getInstance().fontBig, ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_lose_you_lost),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         youLostText.setColor(android.graphics.Color.YELLOW);
@@ -103,7 +103,9 @@ public class ResultLoseScene extends GameScene {
         // SelectionStripe:
         selectionStripe = new SelectionStripe(continueText.getX(), continueText.getY() - 200, 
                 SelectionStripe.DISP_HORIZONTAL, 200f,
-                new String[] {"yes", "no"}, SelectionStripe.TEXT_ALIGN_CENTER, 0);
+                new String[] {ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_lose_yes),
+	        		ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_lose_no)}, 
+	        	SelectionStripe.TEXT_ALIGN_CENTER, 0);
         attachChild(selectionStripe);
 
         // Character:

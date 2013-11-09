@@ -36,8 +36,13 @@ public class CharacterIntroScene extends GameScene{
 	private float startTime;
 	IUpdateHandler updateHandler;
 	private int animationState = 0;
-	
-	private String character = "Ryoko"; // Where is this parameter value?
+	private final String CHARACTER_NAME_RYOKO = ResourceManager.getInstance().
+			loadAndroidRes().getString(R.string.app_ryoko);
+	private final String CHARACTER_NAME_SHO = ResourceManager.getInstance().
+			loadAndroidRes().getString(R.string.app_sho);
+	private String character = "Ryoko"; // Bruno: Where is this parameter value? 
+										// JJ: Its value should alternate between Sho & Ryoko each 
+										// time it is showed (maybe using a static variable) 
 
 	@Override
 	public Scene onLoadingScreenLoadAndShown() {
@@ -109,7 +114,7 @@ public class CharacterIntroScene extends GameScene{
 	
 	public SpriteBackground getBG() {
 		ITextureRegion backgroundTextureRegion;
-		if (character == "Ryoko") {
+		if (character == CHARACTER_NAME_RYOKO) {
 			backgroundTextureRegion = ResourceManager.getInstance().characterProfileBackground1;
 		}
 		else{
@@ -139,7 +144,7 @@ public class CharacterIntroScene extends GameScene{
 			public Character() {
 				
 				ITextureRegion characterITR;
-				if (character == "Ryoko") {
+				if (character == CHARACTER_NAME_RYOKO) {
 
 					characterITR = ResourceManager.getInstance().characterProfileRyoko;
 					name = ResourceManager.getInstance().loadAndroidRes().getString(R.string.profile_ryoko_name);
