@@ -30,6 +30,7 @@ import org.andengine.audio.music.MusicFactory;
 import org.andengine.audio.sound.Sound;
 import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.Engine;
+import org.andengine.extension.svg.opengl.texture.atlas.bitmap.SVGBitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.ITexture;
@@ -249,6 +250,12 @@ public class ResourceManager {
     public static Sound winYouWin;
     public static Sound winPointsTotal;
 
+    // SPLASH INTRO (MADGEAR LOGO)
+    public static ITextureRegion splashLogo;
+
+    // SPLASH INTRO (MADGEAR LOGO) SOUND
+    public static Sound menuLogoMadgear;
+
     // INTRO1
     public static ITextureRegion intro1Gradient;
     public static ITextureRegion intro1Logo;
@@ -345,7 +352,6 @@ public class ResourceManager {
     public static Sound menuBack;
     public static Sound menuFocus;
     public static Sound menuIntro1;
-    public static Sound menuLogoMadgear;
     public static Sound menuRank;
     public static Sound ryokoCutCut;
     public static Sound ryokoCutLose;
@@ -1598,6 +1604,56 @@ public class ResourceManager {
                 shurikenTempStrawman.getTexture().unload();
                 shurikenTempStrawman = null;
         }
+    }
+
+    /**
+     * Loads the splash intro resources.
+     */
+    public synchronized void loadSplashIntroResources() {
+
+        // MadGear SVG Logo
+        SVGBitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/splash/");
+        if (splashLogo == null){
+            BuildableBitmapTextureAtlas mBuildableBitmapTextureAtlas;
+	        mBuildableBitmapTextureAtlas = new BuildableBitmapTextureAtlas(
+                    textureManager, 1024, 1024, TextureOptions.NEAREST);
+	        splashLogo = SVGBitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    mBuildableBitmapTextureAtlas, context, "splash_logo_madgear.svg", 800, 800);
+	        try {
+	                mBuildableBitmapTextureAtlas.build(
+                            new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                            BitmapTextureAtlas>(0, 1, 0));
+	                mBuildableBitmapTextureAtlas.load();
+	        } catch (final TextureAtlasBuilderException e) {
+	                Debug.e(e);
+	        }
+        }
+
+        // MadGear logo sound menuLogoMadgear
+        SoundFactory.setAssetBasePath("sounds/");
+        try {
+            menuLogoMadgear = SoundFactory.createSoundFromAsset(
+                    activity.getSoundManager(), context, "menu_logo_madgear.ogg");
+        }
+        catch (final IOException e) {
+            Log.v("Sounds Load","Exception:" + e.getMessage());
+        }
+    }
+
+    /**
+     * Unloads the splash intro resources.
+     */
+    public synchronized void unloadSplashIntroResources() {
+        // Texture of MadGear logo
+        if(splashLogo!=null) {
+            if(splashLogo.getTexture().isLoadedToHardware()) {
+                splashLogo.getTexture().unload();
+                splashLogo = null;
+		    }
+		}
+		// Sound of MadGear logo
+		if (!menuLogoMadgear.isReleased())
+            menuLogoMadgear.release();
     }
 
     public synchronized void loadIntro1Resources() {
