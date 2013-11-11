@@ -143,8 +143,7 @@ public class NinjaTrials extends BaseGameActivity {
         if(GameManager.DEBUG_MODE)
             SceneManager.getInstance().showScene(new TestingScene());
         else
-            // TODO: escena inicial?
-            SceneManager.getInstance().showScene(new MainMenuScene());
+            SceneManager.getInstance().showScene(new SplashIntroScene());
 
         pOnPopulateSceneCallback.onPopulateSceneFinished();
     }

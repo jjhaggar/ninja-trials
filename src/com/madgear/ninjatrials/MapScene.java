@@ -131,7 +131,12 @@ public class MapScene extends GameScene {
 	 */
 	@Override
     public void onPressButtonMenu() {
-		SceneManager.getInstance().showScene(new TestingScene());
+        if(GameManager.DEBUG_MODE)
+            SceneManager.getInstance().showScene(new TestingScene());
+        else
+            // TODO: delete the else statement when the scene were complete.
+            SceneManager.getInstance().showScene(new TestingScene());
+
     }
 	
 	public SpriteBackground getBG() {

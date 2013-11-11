@@ -31,9 +31,11 @@ import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.hud.SelectionStripe;
 import com.madgear.ninjatrials.hud.VolumeBar;
+import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.test.TestingScene;
 
 /**
  * Implements the main options scene (sound).
@@ -239,7 +241,11 @@ public class MainOptionsScene extends GameScene {
     public void onPressButtonMenu() {
         if (ResourceManager.getInstance().engine != null) {
             SFXManager.pauseMusic(ResourceManager.getInstance().trialCut);
-            SceneManager.getInstance().showScene(new MainMenuScene());
+            
+            if(GameManager.DEBUG_MODE)
+                SceneManager.getInstance().showScene(new TestingScene());
+            else
+                SceneManager.getInstance().showScene(new MainMenuScene());
         }
     }
 }

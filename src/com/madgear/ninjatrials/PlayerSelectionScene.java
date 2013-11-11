@@ -246,8 +246,7 @@ public class PlayerSelectionScene extends GameScene {
                 @Override
                 public void onTimePassed(final TimerHandler pTimerHandler) {
                     PlayerSelectionScene.this.unregisterUpdateHandler(timerHandler);
-                    SceneManager.getInstance().showScene(new DummyMenu());
-                    // TODO: Goto intro 2
+                    SceneManager.getInstance().showScene(new Intro2Scene());
                 } 
             });
             registerUpdateHandler(timerHandler);

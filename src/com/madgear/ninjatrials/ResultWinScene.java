@@ -307,13 +307,15 @@ public class ResultWinScene extends GameScene {
      */
     private void endingSequence() {
         SFXManager.pauseMusic(ResourceManager.getInstance().winMusic);
-        if(GameManager.getCurrentTrial() == GameManager.TRIAL_FINAL)
-            // TODO:  SceneManager.getInstance().showScene(new EndingScene());
+        
+        if(GameManager.DEBUG_MODE)
             SceneManager.getInstance().showScene(new TestingScene());
         else
-            // TODO:  SceneManager.getInstance().showScene(new MapScene());
-            GameManager.setCurrentTrial(GameManager.nextTrial(GameManager.getCurrentTrial()));
-            SceneManager.getInstance().showScene(new TestingScene());
+            if(GameManager.getCurrentTrial() == GameManager.TRIAL_FINAL)
+                SceneManager.getInstance().showScene(new EndingScene());
+            else
+                GameManager.setCurrentTrial(GameManager.nextTrial(GameManager.getCurrentTrial()));
+                SceneManager.getInstance().showScene(new MapScene());
     }
 
     /**

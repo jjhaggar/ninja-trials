@@ -33,9 +33,12 @@ import com.madgear.ninjatrials.MainMenuScene;
 import com.madgear.ninjatrials.ManagedLayer;
 import com.madgear.ninjatrials.R;
 import com.madgear.ninjatrials.ResultLoseScene;
+import com.madgear.ninjatrials.SplashIntroScene;
+import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.test.TestingScene;
 
 /**
  * @author Madgear Games
@@ -79,7 +82,10 @@ public class GameOverLayer extends ManagedLayer {
             {
                 ResourceManager.getInstance().engine.unregisterUpdateHandler(timerHandler);
                 SceneManager.getInstance().hideLayer();
-                SceneManager.getInstance().showScene(new MainMenuScene());
+                if(GameManager.DEBUG_MODE)
+                    SceneManager.getInstance().showScene(new TestingScene());
+                else
+                    SceneManager.getInstance().showScene(new MainMenuScene());
             }
         });
         ResourceManager.getInstance().engine.registerUpdateHandler(timerHandler);

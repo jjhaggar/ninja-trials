@@ -35,6 +35,11 @@ import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.test.TestingScene;
+import com.madgear.ninjatrials.trials.TrialSceneCut;
+import com.madgear.ninjatrials.trials.TrialSceneJump;
+import com.madgear.ninjatrials.trials.TrialSceneRun;
+import com.madgear.ninjatrials.trials.TrialSceneShuriken;
 
 
 public class ResultLoseScene extends GameScene {
@@ -174,8 +179,24 @@ public class ResultLoseScene extends GameScene {
             case 0:
                 // Yes
                 GameManager.setLives(GameManager.getLives() - 1);
-                // TODO Go to the map screen:
-                SceneManager.getInstance().showScene(new DummyMenu());
+                if(GameManager.DEBUG_MODE)
+                    SceneManager.getInstance().showScene(new TestingScene());
+                else
+                    // Go to the current trial again:
+                    switch(GameManager.getCurrentTrial()) {
+                    case GameManager.TRIAL_RUN:
+                        SceneManager.getInstance().showScene(new TrialSceneRun());
+                        break;
+                    case GameManager.TRIAL_CUT:
+                        SceneManager.getInstance().showScene(new TrialSceneCut());
+                        break;
+                    case GameManager.TRIAL_JUMP:
+                        SceneManager.getInstance().showScene(new TrialSceneJump());
+                        break;
+                    case GameManager.TRIAL_SHURIKEN:
+                        SceneManager.getInstance().showScene(new TrialSceneShuriken());
+                        break;
+                    }
                 break;
             case 1:
                 // No

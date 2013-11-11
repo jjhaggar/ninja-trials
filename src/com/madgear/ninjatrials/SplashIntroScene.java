@@ -8,6 +8,8 @@ import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.Sprite;
+
+import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
@@ -106,7 +108,10 @@ public class SplashIntroScene extends GameScene{
 	}
 
 	private void skip() {
-		SceneManager.getInstance().showScene(new TestingScene());
+        if(GameManager.DEBUG_MODE)
+            SceneManager.getInstance().showScene(new TestingScene());
+        else
+            SceneManager.getInstance().showScene(new Intro1Scene());
 	}
 
 	@Override

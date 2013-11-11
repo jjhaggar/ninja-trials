@@ -29,8 +29,10 @@ import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.hud.SelectionStripe;
+import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.test.TestingScene;
 import com.madgear.ninjatrials.trials.TrialSceneJump;
 
 /**
@@ -137,22 +139,26 @@ public class MainMenuScene extends GameScene {
             SceneManager.getInstance().showScene(new MainOptionsScene());
             break;
         case 1:
-            SceneManager.getInstance().showScene(new TrialSceneJump()); //to debug myself
+            SceneManager.getInstance().showScene(new PlayerSelectionScene());
             break;
         case 2:
-            SceneManager.getInstance().showScene(new DummyMenu());
+            SceneManager.getInstance().showScene(new AchievementsScene());
             break;
         }
     }
     
     @Override
     public void onPressButtonMenu() {
-        if (ResourceManager.getInstance().engine != null) {
-            SceneManager.getInstance().mCurrentScene.onHideManagedScene();
-            SceneManager.getInstance().mCurrentScene.onUnloadManagedScene();
-            ResourceManager.getInstance().unloadHUDResources();
-            ResourceManager.getInstance().unloadFonts();
-            System.exit(0);
+        if(GameManager.DEBUG_MODE)
+            SceneManager.getInstance().showScene(new TestingScene());
+        else {
+            if (ResourceManager.getInstance().engine != null) {
+                SceneManager.getInstance().mCurrentScene.onHideManagedScene();
+                SceneManager.getInstance().mCurrentScene.onUnloadManagedScene();
+                ResourceManager.getInstance().unloadHUDResources();
+                ResourceManager.getInstance().unloadFonts();
+                System.exit(0);
+            }
         }
     }
 }

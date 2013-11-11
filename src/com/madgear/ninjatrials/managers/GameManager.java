@@ -27,6 +27,7 @@ public class GameManager {
     //private static GameManager INSTANCE;
 
     // GENERAL:
+    // Use DEBUG_MODE = true for show the testing scene.
     public static final boolean DEBUG_MODE = true;
 
     private static final int SCORE_INIT = 0;

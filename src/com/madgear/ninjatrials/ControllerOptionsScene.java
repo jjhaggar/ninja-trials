@@ -27,6 +27,7 @@ import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
 
+import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.test.TestingScene;
@@ -267,6 +268,9 @@ public class ControllerOptionsScene extends GameScene {
     @Override
     public void onPressButtonMenu() {
         if (ResourceManager.getInstance().engine != null)
-            SceneManager.getInstance().showScene(new TestingScene());
+            if(GameManager.DEBUG_MODE)
+                SceneManager.getInstance().showScene(new TestingScene());
+            else
+                SceneManager.getInstance().showScene(new MainOptionsScene());
     }
 }
