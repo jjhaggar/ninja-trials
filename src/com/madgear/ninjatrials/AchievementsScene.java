@@ -115,26 +115,31 @@ public class AchievementsScene extends GameScene {
     @Override
     public void onPressDpadLeft() {
         achievementGrid.moveMarkLeft();
-        achievementDetail.update();
+        //achievementDetail.update();
     }
 
     @Override
     public void onPressDpadRight() {
         achievementGrid.moveMarkRight();
-        achievementDetail.update();
+        //achievementDetail.update();
     }
 
     @Override
     public void onPressDpadUp() {
         achievementGrid.moveMarkUp();
-        achievementDetail.update();
+        //achievementDetail.update();
     } 
 
     @Override
     public void onPressDpadDown() {
         achievementGrid.moveMarkDown();
-        achievementDetail.update();
+        //achievementDetail.update();
     }  
+    
+    @Override
+    public void onPressButtonO() {
+        achievementDetail.update();
+    }
     
     
     
@@ -275,6 +280,8 @@ public class AchievementsScene extends GameScene {
             else 
                 achievItemSprite.setCurrentTileIndex(0);    
             attachChild(achievItemSprite);
+            
+            achievement = achiev;
         }
         
         public Achievement getAchievement() {
@@ -337,7 +344,7 @@ public class AchievementsScene extends GameScene {
                     containerDescriptionSprite.getX(),
                     containerDescriptionSprite.getY() - 10,
                     ResourceManager.getInstance().fontSmall,
-                    "TextDescriptionPlaceHolderXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                    "TextDescriptionPlaceHolder",
                     new TextOptions(HorizontalAlign.CENTER),
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             description.setVisible(false);
