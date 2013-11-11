@@ -306,7 +306,7 @@ public class AchievementsScene extends GameScene {
         private Text tittle;
         private Text description;
         private Text successSentence;
-        private Text progress, progressTotal;
+        private Text progress;
 
         
         AchievementDetail(float x, float y) {
@@ -348,7 +348,27 @@ public class AchievementsScene extends GameScene {
                     new TextOptions(HorizontalAlign.CENTER),
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             description.setVisible(false);
-            attachChild(description); 
+            attachChild(description);
+            
+            successSentence = new Text(
+                    containerDescriptionSprite.getX(),
+                    containerDescriptionSprite.getY() - 30,
+                    ResourceManager.getInstance().fontSmall,
+                    "SuccessSentencePlaceHolder SuccessSentencePlaceHolder",
+                    new TextOptions(HorizontalAlign.CENTER),
+                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+            successSentence.setVisible(false);
+            attachChild(successSentence); 
+            
+            progress = new Text(
+                    containerDescriptionSprite.getX(),
+                    containerDescriptionSprite.getY() - 45,
+                    ResourceManager.getInstance().fontSmall,
+                    "Progress total PlaceHolder Progress total PlaceHolder",
+                    new TextOptions(HorizontalAlign.CENTER),
+                    ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+            progress.setVisible(false);
+            attachChild(progress); 
             
             update();
         }
@@ -367,16 +387,31 @@ public class AchievementsScene extends GameScene {
                 successSentence.setVisible(true);
                 successSprite.setVisible(true);
                 progress.setVisible(false);
-                progressTotal.setVisible(false);
             }
             else
                 if(achiev.isSecret) {
                     // not completed but secret
                     tittle.setText(achiev.clueTittle);
                     description.setText(achiev.clueDescription);
+                    tittle.setVisible(true);
+                    description.setVisible(true);
+                    successSentence.setVisible(false);
+                    successSprite.setVisible(false);
+                    progress.setVisible(false);
                 }
                 else {
                     // not completed not secret
+                    tittle.setText(achiev.name);
+                    description.setText(achiev.description);
+                    tittle.setVisible(true);
+                    description.setVisible(true);
+                    successSentence.setVisible(false);
+                    successSprite.setVisible(false);
+                    if(achiev.isProgressive) {
+                        progress.setText("Progress: " + achiev.progress + " / " + achiev.progressTotal);
+                        progress.setVisible(true);
+                    }
+
                 }
         }
     }
