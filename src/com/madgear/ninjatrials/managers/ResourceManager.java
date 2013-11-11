@@ -179,14 +179,19 @@ public class ResourceManager {
     // MENU ACHIEVEMENTS
     public static ITextureRegion menuAchievementsContainerDescription;
     public static ITextureRegion menuAchievementsContainerIcons;
-    public static ITextureRegion menuAchievementsIconsBig;
+    public static ITiledTextureRegion menuAchievementsIconsBig;
     public static ITextureRegion menuAchievementsIconsSmall;
     public static ITextureRegion menuAchievementsIngameContainer;
     public static ITextureRegion menuAchievementsSuccessStamp;
     public static ITiledTextureRegion[][] menuAchievementsIconsArray;
+    public static ITextureRegion[][] menuAchievementsIconsBigArray;
     public static final int MENU_ACHIEV_COLS = 7;
     public static final int MENU_ACHIEV_ROWS = 5;
     public static final int MENU_ACHIEV_ICON_SIZE = 136;
+    public static final int MENU_ACHIEV_ICON_BIG_SIZE = 190;
+    public static ITextureRegion menuAchievementsSelectionMark;
+    public static final int MENU_ACHIEV_BIG_COLS = 6;
+    public static final int MENU_ACHIEV_BIG_ROWS = 6;
 
 
     // MENU MAP
@@ -233,6 +238,7 @@ public class ResourceManager {
     public static final int WIN_STAMP_INDEX_NINJA = 1;
     public static final int WIN_STAMP_INDEX_NINJA_MASTER = 2;
     public static final int WIN_STAMP_INDEX_GRAND_MASTER = 3;
+
 
     // RESULTS SCENE WIN SOUNDS
     public static Music winMusic;
@@ -2012,14 +2018,19 @@ public class ResourceManager {
             menuAchievementsContainerIconsT.load();
         }
 
-        if (menuAchievementsIconsBig == null) {
-            BitmapTextureAtlas menuAchievementsIconsBigT = new BitmapTextureAtlas(textureManager, 1140, 1080,
-                    mTransparentTextureOption);
-            menuAchievementsIconsBig = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuAchievementsIconsBigT, activity, "menu_achievements_icons_big.png", 0, 0);
+        // Icons Big
+        if(menuAchievementsIconsBig == null) {
+            BuildableBitmapTextureAtlas menuAchievementsIconsBigT = new BuildableBitmapTextureAtlas(
+                    textureManager, 1140, 1140, mTransparentTextureOption);
+            menuAchievementsIconsBig = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    menuAchievementsIconsBigT, context, "menu_achievements_icons_big.png", 6, 6);
+            try {
+                menuAchievementsIconsBigT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            } catch (TextureAtlasBuilderException e) { e.printStackTrace(); }
             menuAchievementsIconsBigT.load();
         }
-
+        
         // Icons Small
         if (menuAchievementsIconsSmall == null) {
         BitmapTextureAtlas menuAchievementsIconsSmallT = new BitmapTextureAtlas(textureManager,
@@ -2029,7 +2040,7 @@ public class ResourceManager {
                 menuAchievementsIconsSmallT, activity, "menu_achievements_icons_small.png", 0, 0);
         menuAchievementsIconsSmallT.load();
 
-        // Rellena la matriz de TiledSprites  :)
+        // Fill TiledSprites matrix :)
         menuAchievementsIconsArray = new ITiledTextureRegion[MENU_ACHIEV_COLS][MENU_ACHIEV_ROWS];
         for(int i = 0; i < MENU_ACHIEV_ROWS; i++)
             for(int j = 0; j < MENU_ACHIEV_COLS; j++) {                
@@ -2043,6 +2054,15 @@ public class ResourceManager {
             }
         }
 
+        // Selection Mark:
+        if(menuAchievementsSelectionMark == null) {
+            BitmapTextureAtlas menuAchievementsSelectionMarkT = new BitmapTextureAtlas(textureManager, 136, 136,
+                    mTransparentTextureOption);
+            menuAchievementsSelectionMark = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuAchievementsSelectionMarkT, activity, "menu_achievements_icons_small_selection_mark.png", 0, 0);
+            menuAchievementsSelectionMarkT.load();
+        }
+        
         if (menuAchievementsIngameContainer == null) {
             BitmapTextureAtlas menuAchievementsIngameContainerT = new BitmapTextureAtlas(textureManager, 806, 192,
                     mTransparentTextureOption);
@@ -2061,6 +2081,7 @@ public class ResourceManager {
     }
 
     public synchronized void unloadMenuAchievementsResources() {
+        // TODO: new textures added
         if (menuAchievementsContainerDescription != null && menuAchievementsContainerDescription.getTexture().isLoadedToHardware()) {
                 menuAchievementsContainerDescription.getTexture().unload();
                 menuAchievementsContainerDescription = null;
