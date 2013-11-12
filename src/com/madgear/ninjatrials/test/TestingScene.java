@@ -21,6 +21,7 @@ package com.madgear.ninjatrials.test;
 
 import org.andengine.entity.scene.Scene;
 
+import com.madgear.ninjatrials.AchievementsScene;
 import com.madgear.ninjatrials.CharacterIntroScene;
 import com.madgear.ninjatrials.ControllerOptionsScene;
 import com.madgear.ninjatrials.GameScene;
@@ -109,6 +110,13 @@ public class TestingScene extends GameScene {
             }
         });
 
+        testGrid.addItem(new TestGridItem("Achievemt") {
+            @Override
+            public void onAction() {
+                SceneManager.getInstance().showScene(new AchievementsScene());
+            }
+        });
+        
         testGrid.addItem(new TestGridItem("Ctrl. Opts") {
             @Override
             public void onAction() {
