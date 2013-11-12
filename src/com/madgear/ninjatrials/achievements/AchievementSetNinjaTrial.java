@@ -18,6 +18,8 @@
 
 package com.madgear.ninjatrials.achievements;
 
+import com.madgear.ninjatrials.managers.GameManager;
+
 public class AchievementSetNinjaTrial extends AchievementSet {
 
     public static final int ACHIEV_NUM = 35;
@@ -25,20 +27,66 @@ public class AchievementSetNinjaTrial extends AchievementSet {
     
     public AchievementSetNinjaTrial() {
         super(ACHIEV_NUM);
-        init();
+        if(GameManager.DEBUG_MODE)
+            initTest();
+        else
+            init();
     }
-
+    
     
     /**
      * Initializes the Ninja Trials achiev. set.
      */
-    public void init() {
+    public void init() {}
+    
+    
+    /**
+     * Initializes the Ninja Trials achiev. test set.
+     */
+    public void initTest() {
         for(int i = 0; i < ACHIEV_NUM; i++) {
             achievements[i] = new Achievement("Nombre"+i, "Descrp"+i, "Exito"+i);
         }
         
-        // TODO: put initial values here!
-        achievements[2] = new Achievement("Correr Mucho", "Descrip Corre mucho", "Exito!!!", 0, 100);
+        // put initial test values here!
+        
+        // basic:
+        achievements[0] = new Achievement("Basic", "Descripion basic", "Success basic!!!");
+        
+        // basic success:
+        achievements[1] = new Achievement("Basic", "Descripion basic", "Success basic!!!");
+        achievements[1].completed = true;
+        
+        // Progressive:
+        achievements[2] = new Achievement("Progressive", "Description progressive",
+                "Success progresive!!!", 0, 100);
+        
+        // Progressive success:
+        achievements[3] = new Achievement("Progressive", "Description progressive",
+                "Success progresive!!!", 0, 100);
+        achievements[3].completed = true;
+        
+        // Secret:
+        achievements[4] = new Achievement("Secret", "Description Secret", "Sucess secret!!!",
+                "Clue name", "Clue description");
+        
+        // Secret success:
+        achievements[5] = new Achievement("Secret", "Description Secret", "Sucess secret!!!",
+                "Clue name", "Clue description");
+        achievements[5].completed = true;
+        
+        // Progressive & Secret:
+        achievements[6] = new Achievement("Prog and Sec", "Description progress and secret",
+                "Sucess prog and secret!!!", 0, 100,
+                "Clue name prog and sec", "Clue description prog and sec");
+        
+        // Progressive & Secret sucess:
+        achievements[7] = new Achievement("Prog and Sec", "Description progress and secret",
+                "Sucess prog and secret!!!", 0, 100,
+                "Clue name prog and sec", "Clue description prog and sec");
+        achievements[7].completed = true;
+        
+        
         //.........
     }
 }

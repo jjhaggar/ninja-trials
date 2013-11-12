@@ -138,7 +138,7 @@ public class AchievementsScene extends GameScene {
     
     @Override
     public void onPressButtonO() {
-        achievementDetail.update();
+        achievementDetail.updateDetail();
     }
     
     
@@ -333,7 +333,7 @@ public class AchievementsScene extends GameScene {
             tittle = new Text(
                     containerDescriptionSprite.getX() + 60,
                     containerDescriptionSprite.getY() + 104,
-                    ResourceManager.getInstance().fontSmall, "TittlePlaceHolderXXXXXXX",
+                    ResourceManager.getInstance().fontSmall, "TittlePlaceHolder TittlePlaceHolder",
                     new TextOptions(HorizontalAlign.CENTER),
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             tittle.setVisible(false);
@@ -342,9 +342,9 @@ public class AchievementsScene extends GameScene {
             //TODO: control the text size to keep into the container box.
             description = new Text(
                     containerDescriptionSprite.getX(),
-                    containerDescriptionSprite.getY() - 10,
+                    containerDescriptionSprite.getY(),
                     ResourceManager.getInstance().fontSmall,
-                    "TextDescriptionPlaceHolder",
+                    "TextDescriptionPlaceHolder TextDescriptionPlaceHolder",
                     new TextOptions(HorizontalAlign.CENTER),
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             description.setVisible(false);
@@ -352,7 +352,7 @@ public class AchievementsScene extends GameScene {
             
             successSentence = new Text(
                     containerDescriptionSprite.getX(),
-                    containerDescriptionSprite.getY() - 30,
+                    containerDescriptionSprite.getY() - 60,
                     ResourceManager.getInstance().fontSmall,
                     "SuccessSentencePlaceHolder SuccessSentencePlaceHolder",
                     new TextOptions(HorizontalAlign.CENTER),
@@ -362,22 +362,22 @@ public class AchievementsScene extends GameScene {
             
             progress = new Text(
                     containerDescriptionSprite.getX(),
-                    containerDescriptionSprite.getY() - 45,
+                    containerDescriptionSprite.getY() - 60,
                     ResourceManager.getInstance().fontSmall,
                     "Progress total PlaceHolder Progress total PlaceHolder",
                     new TextOptions(HorizontalAlign.CENTER),
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
             progress.setVisible(false);
-            attachChild(progress); 
-            
-            update();
+            attachChild(progress);
+                        
+            updateDetail();
         }
         
-        public void update() {
+        public void updateDetail() {
             Achievement achiev = achievementGrid.getCurrentItem().getAchievement();
             
             iconsSprite.setCurrentTileIndex(achievementGrid.getCol() + achievementGrid.getRow()*7);
-            
+                        
             if(achiev.completed) {
                 tittle.setText(achiev.name);
                 description.setText(achiev.description);
@@ -410,6 +410,9 @@ public class AchievementsScene extends GameScene {
                     if(achiev.isProgressive) {
                         progress.setText("Progress: " + achiev.progress + " / " + achiev.progressTotal);
                         progress.setVisible(true);
+                    }
+                    else {
+                        progress.setVisible(false);
                     }
 
                 }
