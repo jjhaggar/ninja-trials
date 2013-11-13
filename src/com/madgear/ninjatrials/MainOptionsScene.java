@@ -226,7 +226,7 @@ public class MainOptionsScene extends GameScene {
         case 3:
             // TODO: change demo music??
             if(SFXManager.isPlaying(ResourceManager.getInstance().intro1))
-                SFXManager.pauseMusic(ResourceManager.getInstance().intro1);
+                SFXManager.stopMusic(ResourceManager.getInstance().intro1);
             else
                 SFXManager.playMusic(ResourceManager.getInstance().intro1);
             break;
@@ -240,7 +240,7 @@ public class MainOptionsScene extends GameScene {
     @Override
     public void onPressButtonMenu() {
         if (ResourceManager.getInstance().engine != null) {
-            SFXManager.pauseMusic(ResourceManager.getInstance().trialCut);
+            SFXManager.stopMusic(ResourceManager.getInstance().trialCut);
             
             if(GameManager.DEBUG_MODE)
                 SceneManager.getInstance().showScene(new TestingScene());

@@ -79,12 +79,12 @@ public class Intro2Scene extends GameScene {
 
     @Override
     public void onShowScene() {
-        this.getBackground().setColor(0.5f, 0.3f, 0.2f);
+        this.getBackground().setColor(0.9f, 0.3f, 0.2f);
         final Text loadingText = new Text(
                 ResourceManager.getInstance().cameraWidth * 0.5f,
                 ResourceManager.getInstance().cameraHeight * 0.5f,
                 ResourceManager.getInstance().fontMedium,
-                "Intro2Scene" +
+                "Intro 2 Scene\n" +
                 "Press O for action\n" +
                 "You must wait for " + PUSH_DELAY_TIME + " seconds.\n",
                 new TextOptions(HorizontalAlign.CENTER),

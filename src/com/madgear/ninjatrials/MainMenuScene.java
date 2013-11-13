@@ -139,6 +139,7 @@ public class MainMenuScene extends GameScene {
             SceneManager.getInstance().showScene(new MainOptionsScene());
             break;
         case 1:
+            GameManager.newGame();
             SceneManager.getInstance().showScene(new PlayerSelectionScene());
             break;
         case 2:
@@ -152,6 +153,7 @@ public class MainMenuScene extends GameScene {
         if(GameManager.DEBUG_MODE)
             SceneManager.getInstance().showScene(new TestingScene());
         else {
+            // GAME EXIT:
             if (ResourceManager.getInstance().engine != null) {
                 SceneManager.getInstance().mCurrentScene.onHideManagedScene();
                 SceneManager.getInstance().mCurrentScene.onUnloadManagedScene();

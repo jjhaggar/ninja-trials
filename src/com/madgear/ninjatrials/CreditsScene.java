@@ -84,7 +84,7 @@ public class CreditsScene extends GameScene {
                 ResourceManager.getInstance().cameraWidth * 0.5f,
                 ResourceManager.getInstance().cameraHeight * 0.5f,
                 ResourceManager.getInstance().fontMedium,
-                "CreditsScene" +
+                "Credits Scene\n" +
                 "Press O for action\n" +
                 "You must wait for " + PUSH_DELAY_TIME + " seconds.\n",
                 new TextOptions(HorizontalAlign.CENTER),

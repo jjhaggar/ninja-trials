@@ -53,7 +53,7 @@ public class ResultLoseScene extends GameScene {
     private Sprite characterSprite;
     private TimerHandler timerHandler;
     private int count = 10;
-    private boolean pressEnabled = true;
+    private boolean pressEnabled = false;
     
     /**
      * Contructor (no loading screen).
@@ -131,10 +131,15 @@ public class ResultLoseScene extends GameScene {
         SFXManager.playMusic(ResourceManager.getInstance().loseMusic);
         SFXManager.playSound(ResourceManager.getInstance().loseYouLose);
 
-        countdown();
+        if(GameManager.getLives() > 0)
+            countdown();
+        else
+            gameOver();
     }
 
     void countdown() {
+        pressEnabled = true;
+        
         timerHandler= new TimerHandler(1, new ITimerCallback()
         {
             @Override
@@ -178,10 +183,13 @@ public class ResultLoseScene extends GameScene {
             switch(optionIndex) {
             case 0:
                 // Yes
+                SFXManager.stopMusic(ResourceManager.getInstance().loseMusic);
                 GameManager.setLives(GameManager.getLives() - 1);
                 if(GameManager.DEBUG_MODE)
                     SceneManager.getInstance().showScene(new TestingScene());
                 else
+                    SceneManager.getInstance().showScene(new MapScene());
+/*                
                     // Go to the current trial again:
                     switch(GameManager.getCurrentTrial()) {
                     case GameManager.TRIAL_RUN:
@@ -196,7 +204,7 @@ public class ResultLoseScene extends GameScene {
                     case GameManager.TRIAL_SHURIKEN:
                         SceneManager.getInstance().showScene(new TrialSceneShuriken());
                         break;
-                    }
+                    }*/
                 break;
             case 1:
                 // No
@@ -208,7 +216,7 @@ public class ResultLoseScene extends GameScene {
 
     private void gameOver() {
         clearUpdateHandlers();
-        SFXManager.pauseMusic(ResourceManager.getInstance().loseMusic);
+        SFXManager.stopMusic(ResourceManager.getInstance().loseMusic);
         //pressEnabled = false;
         SceneManager.getInstance().showLayer(new GameOverLayer(), false, false, true);
     }

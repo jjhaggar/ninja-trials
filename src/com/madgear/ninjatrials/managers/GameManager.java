@@ -29,10 +29,10 @@ public class GameManager {
 
     // GENERAL:
     // Use DEBUG_MODE = true for show the testing scene.
-    public static final boolean DEBUG_MODE = true;
+    public static final boolean DEBUG_MODE = false;
 
     private static final int SCORE_INIT = 0;
-    public static final int LIVES_INIT = 5;
+    public static final int LIVES_INIT = 3;
 
     public static final int CHAR_RYOKO = 0;
     public static final int CHAR_SHO = 1;
@@ -96,6 +96,17 @@ public class GameManager {
         player1achiev = new AchievementSetNinjaTrial();
         player2achiev = new AchievementSetNinjaTrial();
     }
+    
+    /**
+     * Called when press PLAY in the main Menu Scene.
+     */
+    public static void newGame() {
+        score = SCORE_INIT;
+        lives = LIVES_INIT;
+        currentTrial = TRIAL_START;
+        player1result = new ResultTrial();
+        player2result = new ResultTrial();
+    }
 
     public static void setSelectedCharacter(int c) {
         selectedCharacter = c;
@@ -134,10 +145,12 @@ public class GameManager {
     }
     
     public static int nextTrial(int currentTrial) {
+        // TODO: fix trial order:
         int nextTrial = TRIAL_RUN;
         switch(currentTrial) {
         case TRIAL_RUN: nextTrial = TRIAL_CUT; break;
-        case TRIAL_CUT: nextTrial = TRIAL_JUMP; break;
+        //case TRIAL_CUT: nextTrial = TRIAL_JUMP; break;
+        case TRIAL_CUT: nextTrial = TRIAL_SHURIKEN; break;
         case TRIAL_JUMP: nextTrial = TRIAL_SHURIKEN; break;
         case TRIAL_SHURIKEN: nextTrial = TRIAL_RUN; break;
         }

@@ -36,6 +36,7 @@ import com.madgear.ninjatrials.ResultLoseScene;
 import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.hud.ShurikenEnemyCounter;
+import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
@@ -127,6 +128,10 @@ public class TrialSceneShuriken extends GameScene{
 	 */
 	@Override
 	public void onShowScene() {		
+	    
+	    // Set trial in game manager:
+	    GameManager.setCurrentTrial(GameManager.TRIAL_SHURIKEN);
+	    
 		ResourceManager.getInstance().engine.getCamera().setHUD(gameHUD);
 		attachChild(hands);
 		attachChild(shurikenEnemyCounterHUD);

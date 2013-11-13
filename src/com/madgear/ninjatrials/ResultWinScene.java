@@ -306,16 +306,19 @@ public class ResultWinScene extends GameScene {
      * then go to the map scene (and set the current trial to the next one).
      */
     private void endingSequence() {
-        SFXManager.pauseMusic(ResourceManager.getInstance().winMusic);
+        SFXManager.stopMusic(ResourceManager.getInstance().winMusic);
         
         if(GameManager.DEBUG_MODE)
             SceneManager.getInstance().showScene(new TestingScene());
         else
-            if(GameManager.getCurrentTrial() == GameManager.TRIAL_FINAL)
+            if(GameManager.getCurrentTrial() == GameManager.TRIAL_FINAL) {
                 SceneManager.getInstance().showScene(new EndingScene());
-            else
+            }
+            else {
+                // Set the next trial and go to the Map Scene:
                 GameManager.setCurrentTrial(GameManager.nextTrial(GameManager.getCurrentTrial()));
                 SceneManager.getInstance().showScene(new MapScene());
+            }
     }
 
     /**

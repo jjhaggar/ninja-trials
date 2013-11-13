@@ -109,7 +109,10 @@ public class AchievementsScene extends GameScene {
     @Override
     public void onPressButtonMenu() {
         if (ResourceManager.getInstance().engine != null)
-            SceneManager.getInstance().showScene(new TestingScene());
+            if(GameManager.DEBUG_MODE)
+                SceneManager.getInstance().showScene(new TestingScene());
+            else
+                SceneManager.getInstance().showScene(new MainMenuScene());
     }
     
     @Override

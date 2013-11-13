@@ -149,7 +149,21 @@ public class TrialSceneCut extends GameScene {
     @Override
     public void onLoadScene() {
         ResourceManager.getInstance().loadCutSceneResources();
+
+    }
+
+    /**
+     * Put all the objects in the scene.
+     */
+    @Override
+    public void onShowScene() {
+        
+        // Sets difficulty:
         setTrialDiff(GameManager.getSelectedDiff());
+        
+        // Sets trial:
+        GameManager.setCurrentTrial(GameManager.TRIAL_CUT);
+        
         bg = new SpriteBackground(new Sprite(WIDTH * 0.5f, HEIGHT * 0.5f,
                 ResourceManager.getInstance().cutBackground,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager()));
@@ -172,13 +186,7 @@ public class TrialSceneCut extends GameScene {
         charSparkle = new CharSparkle(mCharacter.getX() + SPARKLE_X_SHIFT,
                 mCharacter.getY() + SPARKLE_Y_SHIFT);
         headCharacterCut = new HeadCharacterCut(200f, 300f, GameManager.getSelectedCharacter());
-    }
-
-    /**
-     * Put all the objects in the scene.
-     */
-    @Override
-    public void onShowScene() {
+        
         setBackgroundEnabled(true);
         attachChild(mTree);
         attachChild(candleLeft);
@@ -193,6 +201,7 @@ public class TrialSceneCut extends GameScene {
         attachChild(mKatana);
         attachChild(sweatDrop);
         attachChild(charSparkle);
+        
         SFXManager.playMusic(ResourceManager.getInstance().trialCut);
         readySequence();
     }
@@ -286,7 +295,7 @@ public class TrialSceneCut extends GameScene {
         registerUpdateHandler(trialTimerHandler);
 
         // Stop music:
-        SFXManager.pauseMusic(ResourceManager.getInstance().trialCut);
+        SFXManager.stopMusic(ResourceManager.getInstance().trialCut);
     }
 
     /**
@@ -295,7 +304,6 @@ public class TrialSceneCut extends GameScene {
      * then go to the winning scene.
      */
     private void endingSequence() {
-        // TODO: ending animation. (drop and eye)
         //GameManager.incrementScore(score);
         score = getScore();
         if(score >= SCORE_GRAND_MASTER && !isTimeOut) {

@@ -59,7 +59,7 @@ public class EndingScene extends GameScene {
     @Override
     public Scene onLoadingScreenLoadAndShown() {
         Scene loadingScene = new Scene(); // Provisional, sera una clase externa
-        loadingScene.getBackground().setColor(0.3f, 0.3f, 0.6f);
+        loadingScene.getBackground().setColor(0.3f, 0.0f, 0.0f);
         // Añadimos algo de texto:
         final Text loadingText = new Text(
                 ResourceManager.getInstance().cameraWidth * 0.5f,
@@ -79,12 +79,12 @@ public class EndingScene extends GameScene {
 
     @Override
     public void onShowScene() {
-        this.getBackground().setColor(0.5f, 0.3f, 0.2f);
+        this.getBackground().setColor(0.5f, 0.3f, 0.0f);
         final Text loadingText = new Text(
                 ResourceManager.getInstance().cameraWidth * 0.5f,
                 ResourceManager.getInstance().cameraHeight * 0.5f,
                 ResourceManager.getInstance().fontMedium,
-                "EndingScene" +
+                "Ending Scene\n" +
                 "Press O for action\n" +
                 "You must wait for " + PUSH_DELAY_TIME + " seconds.\n",
                 new TextOptions(HorizontalAlign.CENTER),

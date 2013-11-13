@@ -37,11 +37,16 @@ public class AchievementSetNinjaTrial extends AchievementSet {
     /**
      * Initializes the Ninja Trials achiev. set.
      */
-    public void init() {}
+    public void init() {
+        // TODO: put real initial values here!
+        //...........
+        
+        initTest();
+    }
     
     
     /**
-     * Initializes the Ninja Trials achiev. test set.
+     * Initializes the Ninja Trials achiev. testing set.
      */
     public void initTest() {
         for(int i = 0; i < ACHIEV_NUM; i++) {

@@ -59,7 +59,7 @@ public class Intro1Scene extends GameScene {
     @Override
     public Scene onLoadingScreenLoadAndShown() {
         Scene loadingScene = new Scene(); // Provisional, sera una clase externa
-        loadingScene.getBackground().setColor(0.3f, 0.3f, 0.6f);
+        loadingScene.getBackground().setColor(0.3f, 0.9f, 0.2f);
         // Añadimos algo de texto:
         final Text loadingText = new Text(
                 ResourceManager.getInstance().cameraWidth * 0.5f,
@@ -84,7 +84,7 @@ public class Intro1Scene extends GameScene {
                 ResourceManager.getInstance().cameraWidth * 0.5f,
                 ResourceManager.getInstance().cameraHeight * 0.5f,
                 ResourceManager.getInstance().fontMedium,
-                "Intro1Scene" +
+                "Intro 1 Scene\n" +
                 "Press O for action\n" +
                 "You must wait for " + PUSH_DELAY_TIME + " seconds.\n",
                 new TextOptions(HorizontalAlign.CENTER),

@@ -21,6 +21,9 @@ import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.test.TestingScene;
+import com.madgear.ninjatrials.trials.TrialSceneCut;
+import com.madgear.ninjatrials.trials.TrialSceneJump;
+import com.madgear.ninjatrials.trials.TrialSceneRun;
 import com.madgear.ninjatrials.trials.TrialSceneShuriken;
 
 /**
@@ -138,6 +141,28 @@ public class MapScene extends GameScene {
             SceneManager.getInstance().showScene(new TestingScene());
 
     }
+	
+	//----------------------------------------------------------------------------------------
+	// TODO: this is a provisional method that must be removed after map scene were completed.
+    /**
+     * If we press the O button go to the current Trial Scene.
+     */
+    @Override
+    public void onPressButtonO() {
+        // Go to the current trial again:
+        switch(GameManager.getCurrentTrial()) {
+        case GameManager.TRIAL_RUN:
+        case GameManager.TRIAL_JUMP:
+        case GameManager.TRIAL_CUT:
+            SceneManager.getInstance().showScene(new TrialSceneCut());
+            break;
+        case GameManager.TRIAL_SHURIKEN:
+            SceneManager.getInstance().showScene(new TrialSceneShuriken());
+            break;
+        }
+    }
+    //----------------------------------------------------------------------------------------
+    
 	
 	public SpriteBackground getBG() {
 		ITextureRegion backgroundTextureRegion = ResourceManager.getInstance().menuMapBackground;
