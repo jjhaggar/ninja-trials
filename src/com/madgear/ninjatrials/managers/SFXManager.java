@@ -67,9 +67,25 @@ public class SFXManager {
     
     // Music Control --------------------------------
     
+    /**
+     * Begins playing music.
+     * @param m
+     */
     public static void playMusic(Music m) {
         if(m != null && !m.isPlaying()) {
             m.setVolume(getMusicVolume());
+            m.play();
+        }
+    }
+    
+    /**
+     * Play music in looping.
+     * @param m
+     */
+    public static void playMusicLoop(Music m) {
+        if(m != null && !m.isPlaying()) {
+            m.setVolume(getMusicVolume());
+            m.setLooping(true);
             m.play();
         }
     }
@@ -78,11 +94,30 @@ public class SFXManager {
         return m.isPlaying();
     }
     
+    /**
+     * Pause music. May be resumed.
+     * @param m
+     */
     public static void pauseMusic(Music m) {
         if(m != null && m.isPlaying())
             m.pause();
     }
     
+    /**
+     * Stops music and sets the tune to the begining.
+     * @param m
+     */
+    public static void stopMusic(Music m) {
+        if(m != null && m.isPlaying()) {
+            m.pause();
+            m.seekTo(0);
+        }
+    }
+    
+    /**
+     * Resume Music (works with pauseMusic).
+     * @param m
+     */
     public static void resumeMusic(Music m) {
         m.setVolume(getMusicVolume());
         m.resume();
