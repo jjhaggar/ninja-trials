@@ -1,4 +1,4 @@
-package com.madgear.ninjatrials.trials.jump;
+package com.madgear.ninjatrials.utils;
 
 /**
  * @author oldskool73

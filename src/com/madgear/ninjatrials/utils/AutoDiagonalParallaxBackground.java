@@ -1,4 +1,4 @@
-package com.madgear.ninjatrials.trials.jump;
+package com.madgear.ninjatrials.utils;
 
 public class AutoDiagonalParallaxBackground extends ParallaxBackground2d {
     // ===========================================================
