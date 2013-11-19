@@ -43,9 +43,9 @@ import android.util.Log;
  */
 public class UserData {
 
-    private static final String PREFS_FILE_NAME = "NINJATRIALS_PREFS_DATA";
-    private static final String ACHIEV_FILE_NAME = "NINJATRIALS_ACHIEV_DATA";
-    private static final String RECORDS_FILE_NAME = "NINJATRIALS_RECORDS_DATA";
+    public static final String PREFS_FILE_NAME = "NINJATRIALS_PREFS_DATA";
+    public static final String ACHIEV_FILE_NAME = "NINJATRIALS_ACHIEV_DATA";
+    public static final String RECORDS_FILE_NAME = "NINJATRIALS_RECORDS_DATA";
 
     // DATA KEYS:
     private static final String SOUND_VOL_KEY = "soundVolKey";
@@ -100,7 +100,7 @@ public class UserData {
             ObjectInputStream is = new ObjectInputStream(fis);
             GameManager.player1achiev = (AchievementSetNinjaTrial) is.readObject();
             is.close();
-            Log.i("UserData", "Achievs loaded from local machine.");
+            Log.i("UserData", "Achievs loaded from local machine. Path: " + c.getFilesDir());
         }
         catch(FileNotFoundException e) {
             // If file dont exits then create it, and save achievs to file   :)

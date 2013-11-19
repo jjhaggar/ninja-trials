@@ -18,57 +18,67 @@
 
 package com.madgear.ninjatrials.test;
 
-import java.io.IOException;
+import java.io.File;
 
-import org.andengine.audio.music.Music;
-import org.andengine.audio.music.MusicFactory;
-import org.andengine.audio.sound.SoundFactory;
 import org.andengine.entity.scene.Scene;
+import org.andengine.entity.text.Text;
+import org.andengine.entity.text.TextOptions;
+import org.andengine.util.adt.align.HorizontalAlign;
 
+import android.content.Context;
 import android.util.Log;
-
 import com.madgear.ninjatrials.GameScene;
+import com.madgear.ninjatrials.hud.SelectionStripe;
+import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.managers.UserData;
 
 public class DataLoadAndSaveTestScene extends GameScene {
+    private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
+    private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
+    private Text tittleText;
+    private SelectionStripe selectionStripe;
+    private File file;
+    private Context c;
 
-    private Music cutMusic;
-
+    
+    public DataLoadAndSaveTestScene() {
+        super(0);
+    }
     
     @Override
     public Scene onLoadingScreenLoadAndShown() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void onLoadingScreenUnloadAndHidden() {
-        // TODO Auto-generated method stub
-        
+    public void onLoadingScreenUnloadAndHidden() {        
     }
 
     @Override
     public void onLoadScene() {
-        // Sonido:
-        SoundFactory.setAssetBasePath("sounds/");
-        MusicFactory.setAssetBasePath("music/");
-        try {
-            cutMusic = MusicFactory.createMusicFromAsset(
-                    ResourceManager.getInstance().activity.getMusicManager(),
-                    ResourceManager.getInstance().context,
-                    "trial_cut_music.ogg");
-        } catch (final IOException e) {
-            Log.v("Sounds Load","Exception: " + e.getMessage());
-            e.printStackTrace();
-        }        
+        
     }
 
     @Override
     public void onShowScene() {
-        this.getBackground().setColor(0.5f, 0.3f, 0.9f);
-        if(cutMusic != null && !cutMusic.isPlaying())
-            cutMusic.play();
+        this.getBackground().setColor(0.9f, 0.2f, 0.9f);
+
+        tittleText = new Text(WIDTH/2, HEIGHT - 200,
+                ResourceManager.getInstance().fontMedium, "Data Load and Save Test Scene",
+                new TextOptions(HorizontalAlign.CENTER),
+                ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+        attachChild(tittleText);
+        
+        // SelectionStripe:
+        selectionStripe = new SelectionStripe(tittleText.getX(), tittleText.getY() - 400, 
+                SelectionStripe.DISP_VERTICAL, 200f,
+                new String[] {"Delete Data", "Write Achievs", "Write records"}, 
+                SelectionStripe.TEXT_ALIGN_CENTER, 0);
+        attachChild(selectionStripe);
+        
+        c = ResourceManager.getInstance().context;
     }
 
     @Override
@@ -77,21 +87,74 @@ public class DataLoadAndSaveTestScene extends GameScene {
 
     @Override
     public void onUnloadScene() {
-        if(cutMusic != null)
-            if(!cutMusic.isReleased())
-                cutMusic.release();
     }
+
+
+    /**
+     * Delete data files
+     */
+    private void deleteData() {
+        file = c.getFileStreamPath(UserData.ACHIEV_FILE_NAME);
+        if(file.delete()) Log.i("data test", "achiev file deleted");
+        file = new File(UserData.RECORDS_FILE_NAME);
+        if(file.delete()) Log.i("data test", "records file deleted");
+        
+    }
+
+    /**
+     * Write some values in achievments and save.
+     */
+    private void writeAchiev() {
+        GameManager.player1achiev.achievements[20].name = "Test achiev";
+        GameManager.player1achiev.achievements[20].completed = true;
+        GameManager.player1achiev.achievements[21].name = "Test achiev2";
+        GameManager.player1achiev.achievements[21].completed = true;
+        UserData.saveAchiev(ResourceManager.getInstance().context);
+    }
+    
+    /**
+     * Write some values in records and save.
+     */
+    private void writeRecords() {
+        
+    }
+
+    
+    
+    // INTERFACE:
+
 
     @Override
     public void onPressButtonMenu() {
-        if (ResourceManager.getInstance().engine != null) {
-            SceneManager.getInstance().mCurrentScene.onHideManagedScene();
-            SceneManager.getInstance().mCurrentScene.onUnloadManagedScene();
-            ResourceManager.getInstance().unloadHUDResources();
-            ResourceManager.getInstance().unloadFonts();
-            System.exit(0);
-        }
+        SceneManager.getInstance().showScene(new TestingScene());
+    }
+    
+    @Override
+    public void onPressDpadUp() {
+        selectionStripe.movePrevious();
+    }
+
+    @Override
+    public void onPressDpadDown() {
+        selectionStripe.moveNext();
     }
     
     
+    @Override
+    public void onPressButtonO() {
+        switch(selectionStripe.getSelectedIndex()) {
+        case 0:
+            // Delete Data:
+            deleteData();
+            break;
+        case 1:
+            // Write achiev:
+            writeAchiev();
+            break;
+        case 2:
+            // Write records:
+            writeRecords();
+            break;
+        }
+    }
 }
