@@ -29,7 +29,7 @@ public class GameManager {
 
     // GENERAL:
     // Use DEBUG_MODE = true for show the testing scene.
-    public static final boolean DEBUG_MODE = false;
+    public static final boolean DEBUG_MODE = true;
 
     private static final int SCORE_INIT = 0;
     public static final int LIVES_INIT = 3;

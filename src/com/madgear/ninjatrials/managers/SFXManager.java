@@ -22,8 +22,11 @@ import org.andengine.audio.music.Music;
 import org.andengine.audio.sound.Sound;
 
 public class SFXManager {
-    private static float soundVolume = 0.7f;
-    private static float musicVolume = 0.7f;
+    public static float SOUND_VOL_INIT = 0.7f;
+    public static float MUSIC_VOL_INIT = 0.7f;
+    
+    private static float soundVolume = SOUND_VOL_INIT;
+    private static float musicVolume = MUSIC_VOL_INIT;
     
     
     // Sound control ------------------------------

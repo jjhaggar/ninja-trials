@@ -18,7 +18,10 @@
 
 package com.madgear.ninjatrials.achievements;
 
-public class Achievement {
+import java.io.Serializable;
+
+public class Achievement implements Serializable {
+
     public String name = "Achiev. Name";
     public String description = "Achiev. Description";
     public String successSentence = "Success!";
@@ -33,6 +36,11 @@ public class Achievement {
     
     public boolean completed = false;
 
+    /**
+     * Serial version:
+     */
+    private static final long serialVersionUID = 1L;
+    
     
     // CONSTRUCTORS ---------------------------
     

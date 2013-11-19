@@ -18,10 +18,16 @@
 
 package com.madgear.ninjatrials.achievements;
 
+import java.io.Serializable;
+
 import com.madgear.ninjatrials.managers.GameManager;
 
-public class AchievementSetNinjaTrial extends AchievementSet {
+public class AchievementSetNinjaTrial extends AchievementSet implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     public static final int ACHIEV_NUM = 35;
     
     
@@ -41,6 +47,7 @@ public class AchievementSetNinjaTrial extends AchievementSet {
         // TODO: put real initial values here!
         //...........
         
+        // Remove when true achievements loaded.
         initTest();
     }
     

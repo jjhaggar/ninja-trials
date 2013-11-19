@@ -92,7 +92,7 @@ public class NinjaTrials extends BaseGameActivity {
         // Iniciamos la puntuación, fase, etc
         GameManager.resetGame();
 
-        // Se crea el fichero de datos del usuario si no existe:
+        // Restaura las preferencias del usuario y carga sus logros y records:
         UserData.init(ResourceManager.getInstance().context);
 
         // Cargamos las fuentes:

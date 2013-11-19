@@ -19,106 +19,128 @@
 
 package com.madgear.ninjatrials.managers;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+import com.madgear.ninjatrials.achievements.AchievementSetNinjaTrial;
+
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
-
+/**
+ * Saves and loads the user data from the local machine. The data stored is:
+ * - User preferences (from options menu).
+ * - Player achievments.
+ * - Player records.
+ * 
+ * @author Madgear Games
+ *
+ */
 public class UserData {
 
-    //private static UserData INSTANCE;
+    private static final String PREFS_FILE_NAME = "NINJATRIALS_PREFS_DATA";
+    private static final String ACHIEV_FILE_NAME = "NINJATRIALS_ACHIEV_DATA";
+    private static final String RECORDS_FILE_NAME = "NINJATRIALS_RECORDS_DATA";
 
-    // Include a 'filename' for our shared preferences
-    private static final String PREFS_NAME = "NINJATRIALS_USERDATA";
-
-    /* These keys will tell the shared preferences editor which
-       data we're trying to access */
-
-    private static final String UNLOCKED_LEVEL_KEY = "unlockedLevels";
-    private static final String SOUND_KEY = "soundKey";
-
-    /* Create our shared preferences object & editor which will
-       be used to save and load data */
+    // DATA KEYS:
+    private static final String SOUND_VOL_KEY = "soundVolKey";
+    private static final String MUSIC_VOL_KEY = "musicVolKey";
+    
+    /* Create our shared preferences object & editor which will be used to save and load data */
     private static SharedPreferences mSettings;
     private static SharedPreferences.Editor mEditor;
 
-    // keep track of our max unlocked level
-    private static int mUnlockedLevels;
 
-    // keep track of whether or not sound is enabled
-    private static boolean mSoundEnabled;
-
-    UserData() {
-        // The constructor is of no use to us
-    }
-/*
-    public synchronized static UserData getInstance() {
-        if(INSTANCE == null){
-            INSTANCE = new UserData();
-        }
-        return INSTANCE;
-    }*/
-
-    public static synchronized void init(Context pContext) {
+    /**
+     * Restore user prefs and achievments from local machine.
+     * @param c
+     */
+    public static synchronized void init(Context c) {
+        // Init prefs editor:
         if (mSettings == null) {
-            /* Retrieve our shared preference file, or if it's not yet
-             * created (first application execution) then create it now
-             */
-            mSettings = pContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-
-            /* Define the editor, used to store data to our preference file
-             */
+            mSettings = c.getSharedPreferences(PREFS_FILE_NAME, Context.MODE_PRIVATE);
             mEditor = mSettings.edit();
+        }
+        loadPrefs(c);
+        loadAchiev(c);  
+    }
 
-            /* Retrieve our current unlocked levels. if the UNLOCKED_LEVEL_KEY
-             * does not currently exist in our shared preferences, we'll create
-             * the data to unlock level 1 by default
-             */
-            mUnlockedLevels = mSettings.getInt(UNLOCKED_LEVEL_KEY, 1);
+    
+    /**
+     * Load user preferences from local machine drive
+     * If the key does not exists sets to initial value
+     */
+    public static synchronized void loadPrefs(Context c) {
+        SFXManager.setSoundVolume(mSettings.getFloat(SOUND_VOL_KEY, SFXManager.SOUND_VOL_INIT));
+        SFXManager.setMusicVolume(mSettings.getFloat(MUSIC_VOL_KEY, SFXManager.MUSIC_VOL_INIT));
+    }
 
-            /* Same idea as above, except we'll set the sound boolean to true
-             * if the setting does not currently exist
-             */
-            mSoundEnabled = mSettings.getBoolean(SOUND_KEY, true);
+    /**
+     * Writes prefs to local drive.
+     */
+    public static synchronized void savePrefs() {
+        mEditor.putFloat(SOUND_VOL_KEY, SFXManager.getSoundVolume());
+        mEditor.putFloat(MUSIC_VOL_KEY, SFXManager.getMusicVolume());
+        mEditor.commit();
+    }
+
+
+    /**
+     * Restore user achievments from file or create new file.
+     * @param c context
+     */
+    public static synchronized void loadAchiev(Context c) {
+        try {
+            FileInputStream fis = c.openFileInput(ACHIEV_FILE_NAME);
+            ObjectInputStream is = new ObjectInputStream(fis);
+            GameManager.player1achiev = (AchievementSetNinjaTrial) is.readObject();
+            is.close();
+            Log.i("UserData", "Achievs loaded from local machine.");
+        }
+        catch(FileNotFoundException e) {
+            // If file dont exits then create it, and save achievs to file   :)
+            saveAchiev(c);
+        }
+        catch(IOException e){
+            Log.e("UserData", "Cannot perform input.");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            Log.e("UserData", "Class not found in file.");
+            e.printStackTrace();
         }
     }
-
-    /* retrieve the max unlocked level value */
-    public synchronized int getMaxUnlockedLevel() {
-        return mUnlockedLevels;
-    }
-
-    /* retrieve the boolean defining whether sound is muted or not */
-    public synchronized boolean isSoundMuted() {
-        return mSoundEnabled;
-    }
-
-    /* This method provides a means to increase the max unlocked level
-     * by a value of 1. unlockNextLevel would be called if a player
-     * defeats the current maximum unlocked level
+    
+    /**
+     * Writes achievments to local drive.
+     * @param c
      */
-    public synchronized void unlockNextLevel() {
-        // Increase the max level by 1
-        mUnlockedLevels++;
-
-        /* Edit our shared preferences unlockedLevels key, setting its
-         * value our new mUnlockedLevels value
-         */
-        mEditor.putInt(UNLOCKED_LEVEL_KEY, mUnlockedLevels);
-
-        /* commit() must be called by the editor in order to save
-         * changes made to the shared preference data
-         */
-        mEditor.commit();
+    public static synchronized void saveAchiev(Context c) {
+        try {
+            FileOutputStream fos = c.openFileOutput(ACHIEV_FILE_NAME, Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(GameManager.player1achiev);
+            os.close();
+            Log.i("UserData", "Achievs writed to machine.");
+        }
+        catch(IOException e){
+            Log.e("UserData", "Cannot perform output.");
+            e.printStackTrace();
+        }
+    }
+    
+    // TODO:
+    public static synchronized void loadRecords(Context c) {
+        
     }
 
-    /* The setSoundMuted method uses the same idea for storing new data
-     * into the shared preferences. First, we overwrite the mSoundEnabled
-     * boolean, use the putBoolean method to store the data, and finally
-     * commit the data to the shared preferences
-     */
-    public synchronized void setSoundMuted(final boolean pEnableSound) {
-        mSoundEnabled = pEnableSound;
-        mEditor.putBoolean(SOUND_KEY, mSoundEnabled);
-        mEditor.commit();
+    // TODO:
+    public static synchronized void saveRecords(Context c) {
+        
     }
+
 }

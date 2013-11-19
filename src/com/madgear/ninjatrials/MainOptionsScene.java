@@ -35,6 +35,7 @@ import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.managers.UserData;
 import com.madgear.ninjatrials.test.TestingScene;
 
 /**
@@ -149,6 +150,10 @@ public class MainOptionsScene extends GameScene {
 
     @Override
     public void onUnloadScene() {
+        
+        // Save user preferences when exiting scene:
+        UserData.savePrefs();
+        
         //TODO: review resources
         ResourceManager.getInstance().unloadOptionResources();        
         ResourceManager.getInstance().unloadSoundsResources();
@@ -240,7 +245,7 @@ public class MainOptionsScene extends GameScene {
     @Override
     public void onPressButtonMenu() {
         if (ResourceManager.getInstance().engine != null) {
-            SFXManager.stopMusic(ResourceManager.getInstance().trialCut);
+            SFXManager.stopMusic(ResourceManager.getInstance().intro1);
             
             if(GameManager.DEBUG_MODE)
                 SceneManager.getInstance().showScene(new TestingScene());

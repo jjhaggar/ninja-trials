@@ -17,8 +17,18 @@
  */
 
 package com.madgear.ninjatrials.achievements;
+import java.io.Serializable;
 
-public class AchievementSet {
+/**
+ * @author Madgear Games
+ *
+ */
+public class AchievementSet implements Serializable {
+    
+    /**
+     * Serial Version:
+     */
+    private static final long serialVersionUID = 1L;
     public Achievement[] achievements;
     
     /**

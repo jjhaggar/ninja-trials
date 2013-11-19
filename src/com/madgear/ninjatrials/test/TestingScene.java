@@ -193,6 +193,13 @@ public class TestingScene extends GameScene {
                 SceneManager.getInstance().showScene(new CharacterIntroScene());
             }
         });
+        
+        testGrid.addItem(new TestGridItem("DatLoad Test") {
+            @Override
+            public void onAction() {
+                SceneManager.getInstance().showScene(new DataLoadAndSaveTestScene());
+            }
+        });
     }
 
     @Override
