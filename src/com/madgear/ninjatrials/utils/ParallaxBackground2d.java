@@ -1,15 +1,15 @@
 
-// Fuente: http://www.andengine.org/forums/features/parallax-x-y-scrolling-class-t808-10.html#p38092
+// Source: http://www.andengine.org/forums/features/parallax-x-y-scrolling-class-t808-10.html#p38092
 
-// Problemas encontrados al copiar la clase:
-// 1) Tras copiar el contenido de la clase, he sustituido los "IAreaShape" por "IShape", que deben haber sido renombrados en AndEngine
-// 2) Aparecen dos métodos obsoletos: .getWidthScaled() y .getHeightScaled()
-// 3) Aparecen tres líneas con el mensaje de error -> Suspicious method call; should probably call "draw" rather than "onDraw"
-//    Lo soluciono añadiendo @SuppressLint("WrongCall") al principio de ParallaxLayer
+// Problems found after copying the class:
+// 1) After copying the class content, I had to replace "IAreaShape" by "IShape", they probably have been renamed in AndEngine
+// 2) There seem to be two deprecated methods: .getWidthScaled() y .getHeightScaled()
+// 3) There are three lines with error -> Suspicious method call; should probably call "draw" rather than "onDraw"
+//    I solved it by adding @SuppressLint("WrongCall") at the beginning of ParallaxLayer
 
 
 
-package com.madgear.ninjatrials.trials.jump;
+package com.madgear.ninjatrials.utils;
 
 
 import android.annotation.SuppressLint;
@@ -30,7 +30,7 @@ import org.andengine.opengl.util.GLState;
  * 
  * ...x & y free scrolling tiled background...
  * mParallaxBackground.addParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(-0.2f,-0.2f, new Sprite(0, 0, this.mParallaxLayerStars)));
- * Más bien ------->  .attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(-0.2f,-0.2f, new Sprite(0, 0, this.mParallaxLayerStars)));
+ * JJ Fix: ------> .attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(-0.2f,-0.2f, new Sprite(0, 0, this.mParallaxLayerStars)));
  * 
  * ...side scroller repeating strip...
  * mParallaxBackground.addParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(-0.4f, 0.0f, new Sprite(0, 100, this.mParallaxLayerHills),true,false));
@@ -184,7 +184,7 @@ public class ParallaxBackground2d extends Background {
 		// Getters & Setters
 		// ===========================================================
 		
-		// Chapucillas para conocer y cambiar la repetición o no repetición de la textura al vuelo 
+		// Chapucillas para conocer y cambiar la repeticiï¿½n o no repeticiï¿½n de la textura al vuelo 
 		public Boolean getmRepeatX() { return mRepeatX; }
 		public void setmRepeatX(Boolean mRepeatX) { this.mRepeatX = mRepeatX; }
 		public Boolean tooglemRepeatX() { this.mRepeatX = !this.mRepeatX; return this.mRepeatX; }

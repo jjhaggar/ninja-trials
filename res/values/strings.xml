@@ -198,8 +198,84 @@
     <!-- Group-End: Select Player & Difficulty Screen -->
 
 
-    <!-- Group-Start: Second Intro (Character/Start Game Intro) Screen -->
-    <!-- Group-End: Second Intro (Character/Start Game Intro) Screen -->
+    <!-- MegaGroup-Start: Second Intro (Character/Start Game Intro) Screen -->
+		<!-- Group-Start: Intro 2 Scene - 1p Ryoko -->
+			<!-- The master speaks to his young disciple Ryoko -->
+			<string name="intro2_1p_ryoko_01_master">
+				You have completed your training,
+			</string>
+			<!-- The master speaks to his young disciple Ryoko -->
+			<string name="intro2_1p_ryoko_02_master">
+				now it\'s time you have your final test.
+			</string>
+			<!-- The master speaks to his young disciple Ryoko -->
+			<string name="intro2_1p_ryoko_03_master">
+				Prove you\'re worthy of being a true KazenoKage ninja.
+			</string>
+			<!-- Ryoko answers to her master -->
+			<string name="intro2_1p_ryoko_04_ryoko">
+				Yes, master!
+			</string>
+			<!-- After leaving, Ryoko speaks to herself -->
+			<string name="intro2_1p_ryoko_05_ryoko">
+				I\'ll be a kunoichi... (blah, blah)
+			</string>
+		<!-- Group-End: Intro 2 Scene - 1p Ryoko -->
+
+		<!-- Group-Start: Intro 2 Scene - 1p Sho -->
+			<!-- The master speaks to his young disciple Sho -->
+			<string name="intro2_1p_sho_01_master">
+				You have completed your training,
+			</string>
+			<!-- The master speaks to his young disciple Sho -->
+			<string name="intro2_1p_sho_02_master">
+				now it\'s time you have your final test.
+			</string>
+			<!-- The master speaks to his young disciple Sho -->
+			<string name="intro2_1p_sho_03_master">
+				Prove you\'re worthy of being a true KazenoKage ninja.
+			</string>
+			<!-- Ryoko answers to her master -->
+			<string name="intro2_1p_sho_04_ryoko">
+				Yes, master!
+			</string>
+			<!-- After leaving, Sho speaks to herself -->
+			<string name="intro2_1p_sho_05_ryoko">
+				I\'ll be a kunoichi... (blah, blah)
+			</string>
+		<!-- Group-End: Intro 2 Scene - 1p Sho -->
+
+		<!-- Group-Start: Intro 2 Scene - 2p (Sho and Ryoko) -->
+			<!-- The master speaks to his young disciples Ryoko and Sho -->
+			<string name="intro2_2p_01_master">
+				You both have completed your training,
+			</string>
+			<!-- The master speaks to his young disciples Ryoko and Sho -->
+			<string name="intro2_2p_02_master">
+				now it\'s time you have your final test.
+			</string>
+			<!-- The master speaks to his young disciples Ryoko and Sho -->
+			<string name="intro2_2p_03_master">
+				Prove you\'re worthy of being true KazenoKage ninjas.
+			</string>
+			<!-- Sho answers to his master -->
+			<string name="intro2_2p_04_sho">
+				Yes, master!
+			</string>
+			<!-- Ryoko answers to her master -->
+			<string name="intro2_2p_05_ryoko">
+				Yes, master!
+			</string>
+			<!-- Intro 2 Scene - Sho exclusive part -->
+			<string name="intro2_2p_06_sho">
+				I\'ll be a real ninja, so... (blah, blah)
+			</string>
+			<!-- Intro 2 Scene - Ryoko exclusive part -->
+			<string name="intro2_2p_07_ryoko">
+				I\'ll be a kunoichi... (blah, blah)
+			</string>
+		<!-- Group-End: Intro 2 Scene - 2p (Sho and Ryoko) -->
+    <!-- MegaGroup-End: Second Intro (Character/Start Game Intro) Screen -->
 
 
     <!-- Group-Start: Map Screen -->
@@ -335,55 +411,18 @@
 
 
     <!-- Group-Start: Ending Screens (twelve endings) -->
+		<!-- Ending Scene - Sho (Easy) -->
+		<string name="ending_sho_placeholder">
+			Sho\'s my name and I\'m a true ninja of KazenoKage clan!!
+		</string>
+		<!-- Ending Scene - Ryoko (Easy) -->
+		<string name="ending_ryoko_placeholder">
+			Blah, blah, blah, I\'m Ryoko and I\'ve passed the tests, blah, blah...
+		</string>
     <!-- Group-End: Ending Screens (twelve endings) -->
 
 
     <!-- Group-Start: Credits Screen -->
     <!-- Group-End: Credits Screen -->
-
-
-
-
-
-    <!-- Achievements Menu Scene -->
-
-
-    <!-- Intro 2 Scene - Common part -->
-    <!-- The master speaks to his young disciples Ryoko and Sho (next 3 lines) -->
-    <string name="intro2_master_01">
-        You both have completed your training, 
-    </string>
-    <string name="intro2_master_02">
-        now it\'s time you have your final test.
-    </string>
-    <string name="intro2_master_03">
-        Prove you\'re worthy of being true KazenoKage ninjas.
-    </string>
-    <!-- Sho answers to his master -->
-	<string name="intro2_sho_01">
-        Yes, master!
-    </string>
-	<!-- Ryoko answers to her master -->
-	<string name="intro2_ryoko_01">
-        Yes, master!
-    </string>
-	<!-- Intro 2 Scene - Sho exclusive part -->
-    <string name="intro2_sho_02">
-        I\'ll be a ninja, so... (blah, blah)
-    </string>
-	<!-- Intro 2 Scene - Ryoko exclusive part -->
-    <string name="intro2_ryoko_02">
-        Female ninjas are called kunoichi... (blah, blah)
-    </string>
-
-
-    <!-- Ending Scene - Sho (Easy) -->
-    <string name="ending_sho_easy_01">
-        Sho\'s my name and I\'m a true ninja of KazenoKage clan!!
-    </string>
-    <!-- Ending Scene - Ryoko (Easy) -->
-    <string name="ending_ryoko_easy_01">
-        Blah, blah, blah, I\'m Ryoko and I\'ve passed the tests, blah, blah...
-    </string>
 
 </resources>

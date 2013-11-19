@@ -58,8 +58,8 @@ import com.madgear.ninjatrials.hud.PrecisionAngleBar;
 import com.madgear.ninjatrials.hud.PrecisionBar;
 
 import com.madgear.ninjatrials.test.TestingScene;
-import com.madgear.ninjatrials.trials.jump.ParallaxBackground2d;
-import com.madgear.ninjatrials.trials.jump.ParallaxBackground2d.ParallaxBackground2dEntity;
+import com.madgear.ninjatrials.utils.ParallaxBackground2d;
+import com.madgear.ninjatrials.utils.ParallaxBackground2d.ParallaxBackground2dEntity;
 
 /**
  * Jump trial scene.
