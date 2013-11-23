@@ -29,46 +29,53 @@ import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
+import tv.ouya.console.api.OuyaController;
+
+import android.view.KeyEvent;
+
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.managers.UserData;
 import com.madgear.ninjatrials.test.TestingScene;
 
-import android.view.KeyEvent;
-
 
 public class NinjaTrials extends BaseGameActivity {
 
-    // Resolución de la cámara:
+    // Camera resolution in pixels
     private static final int WIDTH = 1920; // Ouya res.
     private static final int HEIGHT = 1080; // Ouya res.
     private static final float RATIO = 16 / 9f; // Ouya res.
 
-    // La cámara:
+    // Camera
     private Camera mCamera;
 
     /*
-     * Opciones para el motor: - Política de ratio 16/9. - Landscape fixed -
-     * Sonido: sí - Música: sí
+     * Engine options - Aspect Ratio 16:9 - Landscape fixed -
+     * Sound: yes - Music: yes
      */
     @Override
     public EngineOptions onCreateEngineOptions() {
-        // Camara:
+        // Camera
         mCamera = new Camera(0, 0, WIDTH, HEIGHT);
 
-        // Opciones de engine:
+        // Engine options
         EngineOptions engineOptions = new EngineOptions(true,
                 ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(RATIO), mCamera);
 
-        // Pantalla encendida siempre:
+        // Screen always turned on
         engineOptions.setWakeLockOptions(WakeLockOptions.SCREEN_ON);
 
-        // Música:
+        // Music
         engineOptions.getAudioOptions().setNeedsMusic(true);
 
-        // Sonido:
+        // Sound
         engineOptions.getAudioOptions().setNeedsSound(true);
+
+        // Controls
+        if (GameManager.OUYA_CONTROL){
+            OuyaController.init(this); // Necessary to listen for Ouya Controller's analogic events 
+        }
 
         // Return the engineOptions object, passing it to the engine
         return engineOptions;
@@ -199,7 +206,7 @@ public class NinjaTrials extends BaseGameActivity {
             System.exit(0);
         }
     }*/
-    
+
     /**
      * Detects if any key is pressed, and send the keyevent information to the scene.
      */
@@ -209,6 +216,16 @@ public class NinjaTrials extends BaseGameActivity {
             return SceneManager.getInstance().mCurrentScene.onKeyDown(keyCode, event);
         return false;
     }
-    
+
+    /**
+     * Detects if any key is released, and send the keyevent information to the scene.
+     */
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if(SceneManager.getInstance().mCurrentScene != null)
+            return SceneManager.getInstance().mCurrentScene.onKeyUp(keyCode, event);
+        return false;
+    }
+
     // TODO controlar la salida del programa (dentro de onkeyDown)
 }

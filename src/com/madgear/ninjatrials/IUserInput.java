@@ -30,4 +30,13 @@ public interface IUserInput {
     public void onPressDpadDown();
     public void onPressDpadLeft();
     public void onPressDpadRight();
+    public void onReleaseButtonO();
+    public void onReleaseButtonU();
+    public void onReleaseButtonY();
+    public void onReleaseButtonA();
+    public void onReleaseButtonMenu();
+    public void onReleaseDpadUp();
+    public void onReleaseDpadDown();
+    public void onReleaseDpadLeft();
+    public void onReleaseDpadRight();
 }

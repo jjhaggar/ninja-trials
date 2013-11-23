@@ -87,4 +87,5 @@ public abstract class ManagedScene extends Scene {
     
     // Added to control volume keys:
     public abstract boolean onKeyDown(int keyCode, KeyEvent event);
+    public abstract boolean onKeyUp(int keyCode, KeyEvent event);
 }
