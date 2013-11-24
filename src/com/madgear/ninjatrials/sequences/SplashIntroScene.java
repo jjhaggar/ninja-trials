@@ -17,7 +17,7 @@
  */
 
 
-package com.madgear.ninjatrials;
+package com.madgear.ninjatrials.sequences;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.modifier.AlphaModifier;
@@ -28,6 +28,7 @@ import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.Sprite;
 
+import com.madgear.ninjatrials.GameScene;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
@@ -58,7 +59,7 @@ public class SplashIntroScene extends GameScene{
 	private SequenceEntityModifier mSeqEntMod;
 	
 	private Sprite sprLogoMadGear;
-	IUpdateHandler updateHandler;
+	private IUpdateHandler updateHandler;
 
 	@Override
 	public Scene onLoadingScreenLoadAndShown() {
@@ -76,11 +77,8 @@ public class SplashIntroScene extends GameScene{
 	@SuppressWarnings("static-access")
 	@Override
 	public void onShowScene() {
-		SFXManager.playSound(ResourceManager.getInstance().menuLogoMadgear); 
-		// No idea what's the problem, but previous line doesn't work
-		// the following line, however, works nice playing the sound, even
-		// although it's not loaded by loadSplashIntroResources()  
-		// SFXManager.playSound(ResourceManager.getInstance().trialCutKatanaWhoosh2); 
+		SFXManager.playSound(ResourceManager.getInstance().menuLogoMadgear);
+
 		sprLogoMadGear = new Sprite(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 
 				ResourceManager.getInstance().splashLogo.getWidth(), 
 				ResourceManager.getInstance().splashLogo.getHeight(),

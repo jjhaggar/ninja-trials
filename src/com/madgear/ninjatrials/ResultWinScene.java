@@ -36,6 +36,7 @@ import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.sequences.EndingScene;
 import com.madgear.ninjatrials.test.TestingScene;
 import com.madgear.ninjatrials.trials.TrialSceneCut;
 import com.madgear.ninjatrials.trials.TrialSceneJump;

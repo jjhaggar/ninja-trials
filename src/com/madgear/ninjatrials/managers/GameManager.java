@@ -32,7 +32,7 @@ public class GameManager {
     public static final boolean DEBUG_MODE = true;
 
     // Use OUYA_CONTROL = true for testing Ouya controls. Use OUYA_CONTROL = false for testing on smartphones
-    public static final boolean OUYA_CONTROL = false;
+    public static final boolean OUYA_CONTROL = true;
 
     private static final int SCORE_INIT = 0;
     public static final int LIVES_INIT = 3;

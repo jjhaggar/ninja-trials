@@ -32,6 +32,7 @@ import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.sequences.Intro2Scene;
 import com.madgear.ninjatrials.test.TestingScene;
 
 public class PlayerSelectionScene extends GameScene {
