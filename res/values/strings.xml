@@ -97,6 +97,8 @@
 
 
     <!-- Group-Start: Records Screen -->
+        <!-- Option Menu title -->
+        <string name="record_default_name">MADGEAR GAMES</string>
     <!-- Group-End: Records Screen -->
 
 

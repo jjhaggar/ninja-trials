@@ -33,6 +33,7 @@ import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.managers.UserData;
+import com.madgear.ninjatrials.records.Record;
 
 public class DataLoadAndSaveTestScene extends GameScene {
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
@@ -116,7 +117,19 @@ public class DataLoadAndSaveTestScene extends GameScene {
      * Write some values in records and save.
      */
     private void writeRecords() {
+        Record r = new Record(0, "test", GameManager.CHAR_RYOKO, 1000);
+        Record r2 = new Record(0, "test2", GameManager.CHAR_RYOKO, 2000);
+
+        GameManager.recordsTableSet.allTimeRecords.recordsTable[11] = r;
+        GameManager.recordsTableSet.allTimeRecords.recordsTable[10] = r;
+        GameManager.recordsTableSet.monthRecords.recordsTable[11] = r;
+        GameManager.recordsTableSet.monthRecords.recordsTable[10] = r;
+        GameManager.recordsTableSet.todayRecords.recordsTable[11] = r;
+        GameManager.recordsTableSet.todayRecords.recordsTable[10] = r;
+
+        GameManager.recordsTableSet.insert(r2);
         
+        UserData.saveRecords(ResourceManager.getInstance().context);
     }
 
     

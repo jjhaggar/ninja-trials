@@ -21,6 +21,7 @@ package com.madgear.ninjatrials.managers;
 
 import com.madgear.ninjatrials.ResultTrial;
 import com.madgear.ninjatrials.achievements.AchievementSetNinjaTrial;
+import com.madgear.ninjatrials.records.RecordsTableSet;
 
 
 public class GameManager {
@@ -62,6 +63,7 @@ public class GameManager {
     public static AchievementSetNinjaTrial player1achiev;
     public static AchievementSetNinjaTrial player2achiev;
 
+    public static RecordsTableSet recordsTableSet;
     
     private static int score;
     private static int currentTrial;
@@ -98,6 +100,7 @@ public class GameManager {
         player2result = new ResultTrial();
         player1achiev = new AchievementSetNinjaTrial();
         player2achiev = new AchievementSetNinjaTrial();
+        recordsTableSet = new RecordsTableSet();
     }
     
     /**

@@ -27,6 +27,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import com.madgear.ninjatrials.achievements.AchievementSetNinjaTrial;
+import com.madgear.ninjatrials.records.RecordsTableSet;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -67,7 +68,8 @@ public class UserData {
             mEditor = mSettings.edit();
         }
         loadPrefs(c);
-        loadAchiev(c);  
+        loadAchiev(c);
+        loadRecords(c);
     }
 
     
@@ -133,15 +135,48 @@ public class UserData {
         }
     }
     
-    // TODO:
+    /**
+     * Restores records from local machine
+     * @param c context
+     */
     public static synchronized void loadRecords(Context c) {
-        
+        try {
+            FileInputStream fis = c.openFileInput(RECORDS_FILE_NAME);
+            ObjectInputStream is = new ObjectInputStream(fis);
+            GameManager.recordsTableSet = (RecordsTableSet) is.readObject();
+            is.close();
+            Log.i("UserData", "Records loaded from local machine. Path: " + c.getFilesDir());
+        }
+        catch(FileNotFoundException e) {
+            // If file dont exits then create it, and save records to file   :)
+            saveRecords(c);
+        }
+        catch(IOException e){
+            Log.e("UserData", "Cannot perform records input.");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            Log.e("UserData", "Class not found in file.");
+            e.printStackTrace();
+        }
     }
 
 
-    // TODO:
+    /**
+     * Writes records to local machine
+     * @param c context
+     */
     public static synchronized void saveRecords(Context c) {
-        
+        try {
+            FileOutputStream fos = c.openFileOutput(RECORDS_FILE_NAME, Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(GameManager.recordsTableSet);
+            os.close();
+            Log.i("UserData", "Records writed to machine.");
+        }
+        catch(IOException e){
+            Log.e("UserData", "Cannot perform records output.");
+            e.printStackTrace();
+        }
     }
 
 }

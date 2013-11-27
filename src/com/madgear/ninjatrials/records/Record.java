@@ -21,7 +21,9 @@ package com.madgear.ninjatrials.records;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.madgear.ninjatrials.R;
 import com.madgear.ninjatrials.managers.GameManager;
+import com.madgear.ninjatrials.managers.ResourceManager;
 
 public class Record implements Serializable {
     
@@ -29,7 +31,8 @@ public class Record implements Serializable {
     private static final long serialVersionUID = 1L;
     
     public int profileId = 0;
-    public String profileName = "MADGEAR GAMES";
+    public String profileName = ResourceManager.getInstance().loadAndroidRes().
+            getString(R.string.record_default_name);
     public int characterId = GameManager.CHAR_SHO;
     public int score = 0;
     public Date date = new Date();
