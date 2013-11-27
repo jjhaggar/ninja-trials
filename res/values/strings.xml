@@ -186,17 +186,17 @@
         <!-- Achievement 4 Description (unlocked) - CUT TRIAL: Achieve a single cut with 100% precision -->
         <string name="achievement_04_unlocked_desc">Achieve a single cut with 100% precision.\nMusashi Miyamoto couldn\'t have done better!</string>
         <!-- Achievement 5 Name (locked) -->
-        <string name="achievement_05_locked">???</string>
+        <string name="achievement_05_locked">\?\?\?</string>
         <!-- Achievement 5 Description (locked) - GAME: Play the game for at least 100 hours -->
-        <string name="achievement_05_locked_desc">???</string>
+        <string name="achievement_05_locked_desc">\?\?\?</string>
         <!-- Achievement 5 Name (unlocked) -->
         <string name="achievement_05_unlocked">A Ninja is One Who Endures</string>
         <!-- Achievement 5 Description (unlocked) - GAME: Play the game for at least 100 hours -->
         <string name="achievement_05_unlocked_desc">Play the game for at least 100 hours.\nProgress: %2$d / %2$d hours.\nIt seems that you really like this game, eh? ;)</string>
         <!-- Achievement 6 Name (locked) -->
-        <string name="achievement_06_locked">???</string>
+        <string name="achievement_06_locked">\?\?\?</string>
         <!-- Achievement 6 Description (locked) - GAME (SECRET): Get all default records replaced by players records -->
-        <string name="achievement_06_locked_desc">???</string>
+        <string name="achievement_06_locked_desc">\?\?\?</string>
         <!-- Achievement 6 Name (unlocked) http://en.wikipedia.org/wiki/All_your_base_are_belong_to_us -->
         <string name="achievement_06_unlocked">All your record are belong to us</string>
         <!-- Achievement 6 Description (unlocked) - GAME (SECRET): Get all default records replaced by players records -->
