@@ -29,6 +29,7 @@ import org.andengine.util.adt.align.HorizontalAlign;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.sequences.SplashIntroScene;
 import com.madgear.ninjatrials.test.TestingScene;
 
 /**

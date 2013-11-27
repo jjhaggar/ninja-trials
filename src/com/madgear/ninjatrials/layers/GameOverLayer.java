@@ -33,11 +33,11 @@ import com.madgear.ninjatrials.MainMenuScene;
 import com.madgear.ninjatrials.ManagedLayer;
 import com.madgear.ninjatrials.R;
 import com.madgear.ninjatrials.ResultLoseScene;
-import com.madgear.ninjatrials.SplashIntroScene;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.sequences.SplashIntroScene;
 import com.madgear.ninjatrials.test.TestingScene;
 
 /**

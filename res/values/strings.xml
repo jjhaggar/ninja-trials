@@ -4,95 +4,95 @@
     <!-- 
     The strings of this file  will be organized into the following groups:
     1) App Internal Strings
-	2) Main Menu Screen
-	3) Character Info Screens
-	4) Records Screen
-	5) Option Screens
-	5.1) Option Menu Screen
-	5.2) Controller Menu Screen
-	6) Achievements Screen
-	7) Select Player & Difficulty Screen
-	8) Second Intro (Character/Start Game Intro) Screen
-	9) Map Screen
-	10) How to Play Screen
-	12) Gameplay Screens (eight trials)
-	12.1) Run Trial
-	12.2) Cut Trial
-	12.3) Jump Trial
-	12.4) Shuriken Trial
-	12.5) Air Cut Trial
-	12.6) Dissapearing Trial
-	12.7) Equilibrium Trial
-	12.8) Ninpo Trial
-	13) Pause Menu Screen
-	14) Lose (Continue) Screen
-	15) Win Screen
-	16) Ending Screens (twelve endings)
-	16.1) Easy 1P Ryoko 
-	16.2) Easy 1P Sho 
-	16.3) Easy 2P (Ryoko wins)
-	16.4) Easy 2P (Sho wins)
-	16.5) Normal 1P Ryoko
-	16.6) Normal 1P Sho
-	16.7) Normal 2P (Ryoko wins)
-	16.8) Normal 2P (Sho wins)
-	16.9) Hard 1P Ryoko
-	16.10) Hard 1P Sho
-	16.11) Hard 2P (Ryoko wins)
-	16.12) Hard 2P (Sho wins)
-	17) Credits Screen
+    2) Main Menu Screen
+    3) Character Info Screens
+    4) Records Screen
+    5) Option Screens
+    5.1) Option Menu Screen
+    5.2) Controller Menu Screen
+    6) Achievements Screen
+    7) Select Player & Difficulty Screen
+    8) Second Intro (Character/Start Game Intro) Screen
+    9) Map Screen
+    10) How to Play Screen
+    12) Gameplay Screens (eight trials)
+    12.1) Run Trial
+    12.2) Cut Trial
+    12.3) Jump Trial
+    12.4) Shuriken Trial
+    12.5) Air Cut Trial
+    12.6) Dissapearing Trial
+    12.7) Equilibrium Trial
+    12.8) Ninpo Trial
+    13) Pause Menu Screen
+    14) Lose (Continue) Screen
+    15) Win Screen
+    16) Ending Screens (twelve endings)
+    16.1) Easy 1P Ryoko
+    16.2) Easy 1P Sho
+    16.3) Easy 2P (Ryoko wins)
+    16.4) Easy 2P (Sho wins)
+    16.5) Normal 1P Ryoko
+    16.6) Normal 1P Sho
+    16.7) Normal 2P (Ryoko wins)
+    16.8) Normal 2P (Sho wins)
+    16.9) Hard 1P Ryoko
+    16.10) Hard 1P Sho
+    16.11) Hard 2P (Ryoko wins)
+    16.12) Hard 2P (Sho wins)
+    17) Credits Screen
     --> 
 
 
     <!-- Group-Start: App Internal Strings -->
-    	<!-- App name displayed by Android Operating System (don't translate) -->
-	    <string name="app_name" translatable="false">Ninja Trials</string>
-	    <!-- Text used when the game is loading resources -->
-	    <string name="app_loading">Loading...</string>
-	    <!-- Text used to identify Ryoko character in game logic (don't translate) -->
-	    <string name="app_ryoko" translatable="false">Ryoko</string>
-	    <!-- Text used to identify Ryoko character in game logic (don't translate) -->
-	    <string name="app_sho" translatable="false">Sho</string>
-	<!-- Group-End: App Internal Strings -->
+        <!-- App name displayed by Android Operating System (don't translate) -->
+        <string name="app_name" translatable="false">Ninja Trials</string>
+        <!-- Text used when the game is loading resources -->
+        <string name="app_loading">Loading...</string>
+        <!-- Text used to identify Ryoko character in game logic (don't translate) -->
+        <string name="app_ryoko" translatable="false">Ryoko</string>
+        <!-- Text used to identify Ryoko character in game logic (don't translate) -->
+        <string name="app_sho" translatable="false">Sho</string>
+    <!-- Group-End: App Internal Strings -->
 
 
     <!-- Group-Start: Main Menu Scene  -->
-	    <!-- Menu option to start the game -->
-	    <string name="main_menu_play">PLAY</string>
-	    <!-- Menu option to enter the option menu -->
-	    <string name="main_menu_options">OPTIONS</string>
-	    <!-- Menu option to enter the achievements menu -->
-	    <string name="main_menu_achievements">ACHIEVEMENTS</string>
-	<!-- Group-End: Main Menu Scene  -->
+        <!-- Menu option to start the game -->
+        <string name="main_menu_play">PLAY</string>
+        <!-- Menu option to enter the option menu -->
+        <string name="main_menu_options">OPTIONS</string>
+        <!-- Menu option to enter the achievements menu -->
+        <string name="main_menu_achievements">ACHIEVEMENTS</string>
+    <!-- Group-End: Main Menu Scene  -->
 
 
     <!-- Group-Start: Character Info Screens -->
-    	<!-- Ryoko name in romaji (don't translate) -->
-	    <string name="profile_ryoko_name" translatable="false">Ryōko</string>
-	    <!-- Ryoko name in Japanese (don't translate) -->
-		<string name="profile_ryoko_name_jap" translatable="false">涼子 [リョウコ]</string>
-	    <!-- Ryoko information -->
-	    <string name="profile_ryoko_info" context="Character profile information" >
-			Birth Date: 26 julio \n
-			Age: 16 \n
-			Mrmurmurmur \n
-			Mrmurmurmur2 \n
-			Mrmurmurmur3 \n
-			Mrmurmurmur4
-		</string>
-		<!-- Sho name in romaji (don't translate) -->
-	    <string name="profile_sho_name" translatable="false">Shō (Shoichi)</string>
-	    <!-- Sho name in Japanese (don't translate) -->
-		<string name="profile_sho_name_jap" translatable="false">正一 [ショーイチ]</string>
-		<!-- Sho information -->
-	    <string name="profile_sho_info">
-			Birth Date: 17 de junio \n
-			Age: 17 \n
-			Blablablabla \n
-			Blablablabla2 \n
-			Blablablabla3 \n
-			Blablablabla4
-		</string>
+        <!-- Ryoko name in romaji (don't translate) -->
+        <string name="profile_ryoko_name" translatable="false">Ryōko</string>
+        <!-- Ryoko name in Japanese (don't translate) -->
+        <string name="profile_ryoko_name_jap" translatable="false">涼子 [リョウコ]</string>
+        <!-- Ryoko information -->
+        <string name="profile_ryoko_info" context="Character profile information" >
+            Birth Date: 26 julio \n
+            Age: 16 \n
+            Mrmurmurmur \n
+            Mrmurmurmur2 \n
+            Mrmurmurmur3 \n
+            Mrmurmurmur4
+        </string>
+        <!-- Sho name in romaji (don't translate) -->
+        <string name="profile_sho_name" translatable="false">Shō (Shoichi)</string>
+        <!-- Sho name in Japanese (don't translate) -->
+        <string name="profile_sho_name_jap" translatable="false">正一 [ショーイチ]</string>
+        <!-- Sho information -->
+        <string name="profile_sho_info">
+            Birth Date: 17 de junio \n
+            Age: 17 \n
+            Blablablabla \n
+            Blablablabla2 \n
+            Blablablabla3 \n
+            Blablablabla4
+        </string>
     <!-- Group-End: Character Info Screens -->
 
 
@@ -101,203 +101,227 @@
 
 
     <!-- Group-Start: Option Menu Screen -->
-    	<!-- Option Menu title -->
-	    <string name="option_menu_title">OPTIONS</string>
-	    <!-- Menu option to enter the Controls Menu -->
-	    <string name="option_menu_config_ctrl">CONFIGURE CONTROLS</string>
-	    <!-- Menu option beside the music volume control -->
-	    <string name="option_menu_music_vol">MUSIC VOLUME</string>
-	    <!-- Menu option beside the sound volume control -->
-	    <string name="option_menu_sound_vol">SOUND VOLUME</string>
-	    <!-- Menu option beside the music selector -->
-	    <string name="option_menu_music_test">MUSIC TEST</string>
-	    <!-- Menu option beside the sound selector -->
-	    <string name="option_menu_sound_test">SOUND TEST</string>
+        <!-- Option Menu title -->
+        <string name="option_menu_title">OPTIONS</string>
+        <!-- Menu option to enter the Controls Menu -->
+        <string name="option_menu_config_ctrl">CONFIGURE CONTROLS</string>
+        <!-- Menu option beside the music volume control -->
+        <string name="option_menu_music_vol">MUSIC VOLUME</string>
+        <!-- Menu option beside the sound volume control -->
+        <string name="option_menu_sound_vol">SOUND VOLUME</string>
+        <!-- Menu option beside the music selector -->
+        <string name="option_menu_music_test">MUSIC TEST</string>
+        <!-- Menu option beside the sound selector -->
+        <string name="option_menu_sound_test">SOUND TEST</string>
     <!-- Group-End: Options Menu Screens -->
-    	
-    	
+
+
     <!-- Group-Start: Controller Options Menu Screen -->
-    	<!-- Control Options Menu title -->
+        <!-- Control Options Menu title -->
         <string name="control_menu_title">CONTROL OPTIONS</string>
-	    <!--  -->
-	    <string name="control_menu_type_old_school">Control Type: Old School</string>
-	    <!--  -->
-	    <string name="control_menu_menu">Menu</string>
-	    <!--  -->
-	    <string name="control_menu_ingame">In Game</string>
-	    <!--  -->
-	    <string name="control_menu_used">Used</string>
-	    <!--  -->
-	    <string name="control_menu_not_used">Not used</string>
-	    <!--  -->
-	    <string name="control_menu_action">Action</string>
-	    <!--  -->
-	    <string name="control_menu_cancel">Cancel</string>
-	    <!--  -->
-	    <string name="control_menu_accept">Accept</string>
-	    <!--  -->
-	    <string name="control_menu_d_pad"></string>
-	    <!--  -->
-	    <string name="control_menu_up">UP</string>
-	    <!--  -->
-	    <string name="control_menu_down">DOWN</string>
-	    <!--  -->
-	    <string name="control_menu_left">LEFT</string>
-	    <!--  -->
-	    <string name="control_menu_right">RIGHT</string>
-	    <!--  -->
-	    <string name="control_menu_skip_sequence">SKIP SEQUENCE</string>
-	    <!--  -->
-	    <string name="control_menu_pause_game">PAUSE GAME</string>
+        <!--  -->
+        <string name="control_menu_type_old_school">Control Type: Old School</string>
+        <!--  -->
+        <string name="control_menu_menu">Menu</string>
+        <!--  -->
+        <string name="control_menu_ingame">In Game</string>
+        <!--  -->
+        <string name="control_menu_used">Used</string>
+        <!--  -->
+        <string name="control_menu_not_used">Not used</string>
+        <!--  -->
+        <string name="control_menu_action">Action</string>
+        <!--  -->
+        <string name="control_menu_cancel">Cancel</string>
+        <!--  -->
+        <string name="control_menu_accept">Accept</string>
+        <!--  -->
+        <string name="control_menu_d_pad"></string>
+        <!--  -->
+        <string name="control_menu_up">UP</string>
+        <!--  -->
+        <string name="control_menu_down">DOWN</string>
+        <!--  -->
+        <string name="control_menu_left">LEFT</string>
+        <!--  -->
+        <string name="control_menu_right">RIGHT</string>
+        <!--  -->
+        <string name="control_menu_skip_sequence">SKIP SEQUENCE</string>
+        <!--  -->
+        <string name="control_menu_pause_game">PAUSE GAME</string>
     <!-- Group-End: Controller Menu Screen -->
 
 
     <!-- Group-Start: Achievements Screen -->
-    	<!-- Achievement 1 Name -->
-	    <string name="achievement_01">The runner</string>
-		<!-- Achievement 1 Description - RUN TRIAL: Run 200Km, we\'ll have to do something with unit conversions here ^^U -->
-		<string name="achievement_01_desc">Run a total of 200 Km</string>
-		<!-- Achievement 2 Name -->
-	    <string name="achievement_02">StrawMan\'s Massacre</string>
-		<!-- Achievement 2 Description - SHURIKEN TRIAL: Destroy 500 StrawMen -->
-		<string name="achievement_02_desc">Destroy 500 StrawMen</string>
-		<!-- Achievement 3 Name -->
-	    <string name="achievement_03">Perfect Jumper</string>
-		<!-- Achievement 3 Description - JUMP: Perform 100 perfect jumps -->
-		<string name="achievement_03_desc">Perform 100 perfect jumps</string>
-		<!-- Achievement 4 Name -->
-	    <string name="achievement_04">Master of Sword</string>
-		<!-- Achievement 4 Description - CUT TRIAL: Achieve a single cut with 100% precision -->
-		<string name="achievement_04_desc">Achieve a single cut with 100% precision</string>
-		<!-- Achievement 5 Name -->
-	    <string name="achievement_05">A Ninja is One Who Endures</string>
-		<!-- Achievement 5 Description - GAME: Play the game for at least 100 hours -->
-		<string name="achievement_05_desc">Play the game for at least 100 hours</string>
-		<!-- Achievement 6 Name -->
-	    <string name="achievement_06">All your records are belong to us</string>
-		<!-- Achievement 6 Description - GAME (SECRET): Get all default records replaced by players records -->
-		<string name="achievement_06_desc">Get all default records replaced by players records</string>
+        <!-- Achievement 1 Name (locked) -->
+        <string name="achievement_01_locked">The runner</string>
+        <!-- Achievement 1 Description (locked) - RUN TRIAL: Run 200Km, we\'ll have to do something with unit conversions here ^^U -->
+        <string name="achievement_01_locked_desc">Run a total of 200 Km\nProgress: %2$d / %2$d %2$s</string>
+        <!-- Achievement 1 Name (unlocked) -->
+        <string name="achievement_01_unlocked">The runner</string>
+        <!-- Achievement 1 Description (unlocked) - RUN TRIAL: Run 200Km -->
+        <string name="achievement_01_unlocked_desc">Run a total of 200 Km\nProgress: %2$d / %2$d %2$s\nYou Run like the Wind!! :D</string>
+        <!-- Achievement 2 Name (locked) -->
+        <string name="achievement_02_locked">StrawMan\'s Massacre</string>
+        <!-- Achievement 2 Description (locked) - SHURIKEN TRIAL: Destroy 500 StrawMen -->
+        <string name="achievement_02_locked_desc">Destroy 500 StrawMen\nProgress: %2$d / %2$d Strawmen</string>
+        <!-- Achievement 2 Name (unlocked) -->
+        <string name="achievement_02_unlocked">StrawMan\'s Massacre</string>
+        <!-- Achievement 2 Description (unlocked) - SHURIKEN TRIAL: Destroy 500 StrawMen -->
+        <string name="achievement_02_unlocked_desc">Destroy 500 StrawMen\nProgress: %2$d / %2$d Strawmen\nHooray! You defeated the 500 StrawMen!!</string>
+        <!-- Achievement 3 Name (locked) -->
+        <string name="achievement_03_locked">Perfect Jumper</string>
+        <!-- Achievement 3 Description (locked) - JUMP: Perform 100 perfect jumps -->
+        <string name="achievement_03_locked_desc">Perform 100 perfect jumps\nProgress: %2$d / %2$d Jumps</string>
+        <!-- Achievement 3 Name (unlocked) -->
+        <string name="achievement_03_unlocked">Perfect Jumper</string>
+        <!-- Achievement 3 Description (unlocked) - JUMP: Perform 100 perfect jumps -->
+        <string name="achievement_03_unlocked_desc">Perform 100 perfect jumps\nProgress: %2$d / %2$d Jumps\nJump! Jump! Jump!</string>
+        <!-- Achievement 4 Name (locked) -->
+        <string name="achievement_04_locked">Master of Sword</string>
+        <!-- Achievement 4 Description (locked) - CUT TRIAL: Achieve a single cut with 100% precision -->
+        <string name="achievement_04_locked_desc">Achieve a single cut with 100% precision.</string>
+        <!-- Achievement 4 Name (unlocked) -->
+        <string name="achievement_04_unlocked">Master of Sword</string>
+        <!-- Achievement 4 Description (unlocked) - CUT TRIAL: Achieve a single cut with 100% precision -->
+        <string name="achievement_04_unlocked_desc">Achieve a single cut with 100% precision.\nMusashi Miyamoto couldn\'t have done better!</string>
+        <!-- Achievement 5 Name (locked) -->
+        <string name="achievement_05_locked">???</string>
+        <!-- Achievement 5 Description (locked) - GAME: Play the game for at least 100 hours -->
+        <string name="achievement_05_locked_desc">???</string>
+        <!-- Achievement 5 Name (unlocked) -->
+        <string name="achievement_05_unlocked">A Ninja is One Who Endures</string>
+        <!-- Achievement 5 Description (unlocked) - GAME: Play the game for at least 100 hours -->
+        <string name="achievement_05_unlocked_desc">Play the game for at least 100 hours.\nProgress: %2$d / %2$d hours.\nIt seems that you really like this game, eh? ;)</string>
+        <!-- Achievement 6 Name (locked) -->
+        <string name="achievement_06_locked">???</string>
+        <!-- Achievement 6 Description (locked) - GAME (SECRET): Get all default records replaced by players records -->
+        <string name="achievement_06_locked_desc">???</string>
+        <!-- Achievement 6 Name (unlocked) http://en.wikipedia.org/wiki/All_your_base_are_belong_to_us -->
+        <string name="achievement_06_unlocked">All your record are belong to us</string>
+        <!-- Achievement 6 Description (unlocked) - GAME (SECRET): Get all default records replaced by players records -->
+        <string name="achievement_06_unlocked_desc">Get all default records replaced by players records.\nFor great justice.</string>
     <!-- Group-End: Achievements Screen -->
 
 
     <!-- Group-Start: Select Player & Difficulty Screen -->
-    	<!--  -->
-	    <string name="select_menu_select_player">Select\nPlayer</string>
-	    <!--  -->
-	    <string name="select_menu_select_difficulty">Select\nDifficulty</string>
-	    <!--  -->
-	    <string name="select_menu_level_easy">Easy</string>
-	    <!--  -->
-	    <string name="select_menu_level_normal">Normal</string>
-	    <!--  -->
-	    <string name="select_menu_level_hard">Hard</string>
-	    <!--  -->
-	    <string name="select_menu_level_easy">Easy</string>
-	    <!--  -->
-	    <string name="select_menu_level_easy">Easy</string>
+        <!--  -->
+        <string name="select_menu_select_player">Select\nPlayer</string>
+        <!--  -->
+        <string name="select_menu_select_difficulty">Select\nDifficulty</string>
+        <!--  -->
+        <string name="select_menu_level_easy">Easy</string>
+        <!--  -->
+        <string name="select_menu_level_normal">Normal</string>
+        <!--  -->
+        <string name="select_menu_level_hard">Hard</string>
+        <!--  -->
+        <string name="select_menu_level_easy">Easy</string>
+        <!--  -->
+        <string name="select_menu_level_easy">Easy</string>
     <!-- Group-End: Select Player & Difficulty Screen -->
 
 
     <!-- MegaGroup-Start: Second Intro (Character/Start Game Intro) Screen -->
-		<!-- Group-Start: Intro 2 Scene - 1p Ryoko -->
-			<!-- The master speaks to his young disciple Ryoko -->
-			<string name="intro2_1p_ryoko_01_master">
-				You have completed your training,
-			</string>
-			<!-- The master speaks to his young disciple Ryoko -->
-			<string name="intro2_1p_ryoko_02_master">
-				now it\'s time you have your final test.
-			</string>
-			<!-- The master speaks to his young disciple Ryoko -->
-			<string name="intro2_1p_ryoko_03_master">
-				Prove you\'re worthy of being a true KazenoKage ninja.
-			</string>
-			<!-- Ryoko answers to her master -->
-			<string name="intro2_1p_ryoko_04_ryoko">
-				Yes, master!
-			</string>
-			<!-- After leaving, Ryoko speaks to herself -->
-			<string name="intro2_1p_ryoko_05_ryoko">
-				I\'ll be a kunoichi... (blah, blah)
-			</string>
-		<!-- Group-End: Intro 2 Scene - 1p Ryoko -->
+        <!-- Group-Start: Intro 2 Scene - 1p Ryoko -->
+            <!-- The master speaks to his young disciple Ryoko -->
+            <string name="intro2_1p_ryoko_01_master">
+                You have completed your training,
+            </string>
+            <!-- The master speaks to his young disciple Ryoko -->
+            <string name="intro2_1p_ryoko_02_master">
+                now it\'s time you have your final test.
+            </string>
+            <!-- The master speaks to his young disciple Ryoko -->
+            <string name="intro2_1p_ryoko_03_master">
+                Prove you\'re worthy of being a true KazenoKage ninja.
+            </string>
+            <!-- Ryoko answers to her master -->
+            <string name="intro2_1p_ryoko_04_ryoko">
+                Yes, master!
+            </string>
+            <!-- After leaving, Ryoko speaks to herself -->
+            <string name="intro2_1p_ryoko_05_ryoko">
+                I\'ll be a kunoichi... (blah, blah)
+            </string>
+        <!-- Group-End: Intro 2 Scene - 1p Ryoko -->
 
-		<!-- Group-Start: Intro 2 Scene - 1p Sho -->
-			<!-- The master speaks to his young disciple Sho -->
-			<string name="intro2_1p_sho_01_master">
-				You have completed your training,
-			</string>
-			<!-- The master speaks to his young disciple Sho -->
-			<string name="intro2_1p_sho_02_master">
-				now it\'s time you have your final test.
-			</string>
-			<!-- The master speaks to his young disciple Sho -->
-			<string name="intro2_1p_sho_03_master">
-				Prove you\'re worthy of being a true KazenoKage ninja.
-			</string>
-			<!-- Ryoko answers to her master -->
-			<string name="intro2_1p_sho_04_ryoko">
-				Yes, master!
-			</string>
-			<!-- After leaving, Sho speaks to herself -->
-			<string name="intro2_1p_sho_05_ryoko">
-				I\'ll be a kunoichi... (blah, blah)
-			</string>
-		<!-- Group-End: Intro 2 Scene - 1p Sho -->
+        <!-- Group-Start: Intro 2 Scene - 1p Sho -->
+            <!-- The master speaks to his young disciple Sho -->
+            <string name="intro2_1p_sho_01_master">
+                You have completed your training,
+            </string>
+            <!-- The master speaks to his young disciple Sho -->
+            <string name="intro2_1p_sho_02_master">
+                now it\'s time you have your final test.
+            </string>
+            <!-- The master speaks to his young disciple Sho -->
+            <string name="intro2_1p_sho_03_master">
+                Prove you\'re worthy of being a true KazenoKage ninja.
+            </string>
+            <!-- Ryoko answers to her master -->
+            <string name="intro2_1p_sho_04_ryoko">
+                Yes, master!
+            </string>
+            <!-- After leaving, Sho speaks to herself -->
+            <string name="intro2_1p_sho_05_ryoko">
+                I\'ll be a kunoichi... (blah, blah)
+            </string>
+        <!-- Group-End: Intro 2 Scene - 1p Sho -->
 
-		<!-- Group-Start: Intro 2 Scene - 2p (Sho and Ryoko) -->
-			<!-- The master speaks to his young disciples Ryoko and Sho -->
-			<string name="intro2_2p_01_master">
-				You both have completed your training,
-			</string>
-			<!-- The master speaks to his young disciples Ryoko and Sho -->
-			<string name="intro2_2p_02_master">
-				now it\'s time you have your final test.
-			</string>
-			<!-- The master speaks to his young disciples Ryoko and Sho -->
-			<string name="intro2_2p_03_master">
-				Prove you\'re worthy of being true KazenoKage ninjas.
-			</string>
-			<!-- Sho answers to his master -->
-			<string name="intro2_2p_04_sho">
-				Yes, master!
-			</string>
-			<!-- Ryoko answers to her master -->
-			<string name="intro2_2p_05_ryoko">
-				Yes, master!
-			</string>
-			<!-- Intro 2 Scene - Sho exclusive part -->
-			<string name="intro2_2p_06_sho">
-				I\'ll be a real ninja, so... (blah, blah)
-			</string>
-			<!-- Intro 2 Scene - Ryoko exclusive part -->
-			<string name="intro2_2p_07_ryoko">
-				I\'ll be a kunoichi... (blah, blah)
-			</string>
-		<!-- Group-End: Intro 2 Scene - 2p (Sho and Ryoko) -->
+        <!-- Group-Start: Intro 2 Scene - 2p (Sho and Ryoko) -->
+            <!-- The master speaks to his young disciples Ryoko and Sho -->
+            <string name="intro2_2p_01_master">
+                You both have completed your training,
+            </string>
+            <!-- The master speaks to his young disciples Ryoko and Sho -->
+            <string name="intro2_2p_02_master">
+                now it\'s time you have your final test.
+            </string>
+            <!-- The master speaks to his young disciples Ryoko and Sho -->
+            <string name="intro2_2p_03_master">
+                Prove you\'re worthy of being true KazenoKage ninjas.
+            </string>
+            <!-- Sho answers to his master -->
+            <string name="intro2_2p_04_sho">
+                Yes, master!
+            </string>
+            <!-- Ryoko answers to her master -->
+            <string name="intro2_2p_05_ryoko">
+                Yes, master!
+            </string>
+            <!-- Intro 2 Scene - Sho exclusive part -->
+            <string name="intro2_2p_06_sho">
+                I\'ll be a real ninja, so... (blah, blah)
+            </string>
+            <!-- Intro 2 Scene - Ryoko exclusive part -->
+            <string name="intro2_2p_07_ryoko">
+                I\'ll be a kunoichi... (blah, blah)
+            </string>
+        <!-- Group-End: Intro 2 Scene - 2p (Sho and Ryoko) -->
     <!-- MegaGroup-End: Second Intro (Character/Start Game Intro) Screen -->
 
 
     <!-- Group-Start: Map Screen -->
-    	<!--  -->
-	    <string name="map_select_stage">Select Stage</string>
-	    <!--  -->
-	    <string name="map_stage_run">Run</string>
-	    <!--  -->
-	    <string name="map_stage_cut">Cut</string>
-		<!--  -->
-	    <string name="map_stage_jump">Jump</string>
-		<!--  -->
-	    <string name="map_stage_shuriken">Shuriken</string>
-		<!--  -->
-	    <string name="map_stage_air_cut">Air Cut</string>
-		<!--  -->
-	    <string name="map_stage_vanish">Vanish</string>
-		<!--  -->
-	    <string name="map_stage_balance">Balance</string>
-		<!--  -->
-	    <string name="map_stage_ninpo">Ninpo</string>
-	<!-- Group-End: Map Screen -->
+        <!--  -->
+        <string name="map_select_stage">Select Stage</string>
+        <!--  -->
+        <string name="map_stage_run">Run</string>
+        <!--  -->
+        <string name="map_stage_cut">Cut</string>
+        <!--  -->
+        <string name="map_stage_jump">Jump</string>
+        <!--  -->
+        <string name="map_stage_shuriken">Shuriken</string>
+        <!--  -->
+        <string name="map_stage_air_cut">Air Cut</string>
+        <!--  -->
+        <string name="map_stage_vanish">Vanish</string>
+        <!--  -->
+        <string name="map_stage_balance">Balance</string>
+        <!--  -->
+        <string name="map_stage_ninpo">Ninpo</string>
+    <!-- Group-End: Map Screen -->
 
 
     <!-- Group-Start: How to Play Screen -->
@@ -305,48 +329,48 @@
 
 
     <!-- MegaGroup-Start: Gameplay Screens (eight trials) -->
-	    <!-- Group-Start: Trial Run -->
-	    	<!--  -->
-		    <string name="trial_run_ready">Ready?</string>
-		    <!--  -->
-		    <string name="trial_run_go">Go!</string>
-		    <!--  -->
-		    <string name="trial_run_combo">COMBO\n</string>
-	    <!-- Group-End: Trial Run -->
-	    
-	    <!-- Group-Start: Trial Cut -->
-		    <!--  -->
-		    <string name="trial_cut_ready">Ready?</string>
-		    <!--  -->
-		    <string name="trial_cut_go">Cut!</string>
-	    <!-- Group-End: Trial Cut -->
-	    
-	    <!-- Group-Start: Trial Jump -->
-	    	<!--  -->
-		    <string name="trial_jump_ready">Ready?</string>
-		    <!--  -->
-		    <string name="trial_jump_go">Jump!</string>
-	    <!-- Group-End: Trial Jump -->
-	    
-	    <!-- Group-Start: Trial Shuriken -->
-		    <!--  -->
-		    <string name="trial_shuriken_ready">Ready?</string>
-		    <!--  -->
-		    <string name="trial_shuriken_go">Go!</string>
-		<!-- Group-End: Trial Shuriken -->
-	    
-	    <!-- Group-Start: Trial Air Cut -->
-	    <!-- Group-End: Trial Air Cut -->
-	    
-	    <!-- Group-Start: Trial Vanish -->
-	    <!-- Group-End: Trial Vanish -->
-	    
-	    <!-- Group-Start: Trial Balance -->
-	    <!-- Group-End: Trial Balance -->
-	    
-	    <!-- Group-Start: Trial Ninpo -->
-	    <!-- Group-End: Trial Ninpo -->
-	    	    
+        <!-- Group-Start: Trial Run -->
+            <!--  -->
+            <string name="trial_run_ready">Ready?</string>
+            <!--  -->
+            <string name="trial_run_go">Go!</string>
+            <!--  -->
+            <string name="trial_run_combo">COMBO\n</string>
+        <!-- Group-End: Trial Run -->
+
+        <!-- Group-Start: Trial Cut -->
+            <!--  -->
+            <string name="trial_cut_ready">Ready?</string>
+            <!--  -->
+            <string name="trial_cut_go">Cut!</string>
+        <!-- Group-End: Trial Cut -->
+
+        <!-- Group-Start: Trial Jump -->
+            <!--  -->
+            <string name="trial_jump_ready">Ready?</string>
+            <!--  -->
+            <string name="trial_jump_go">Jump!</string>
+        <!-- Group-End: Trial Jump -->
+
+        <!-- Group-Start: Trial Shuriken -->
+            <!--  -->
+            <string name="trial_shuriken_ready">Ready?</string>
+            <!--  -->
+            <string name="trial_shuriken_go">Go!</string>
+        <!-- Group-End: Trial Shuriken -->
+
+        <!-- Group-Start: Trial Air Cut -->
+        <!-- Group-End: Trial Air Cut -->
+
+        <!-- Group-Start: Trial Vanish -->
+        <!-- Group-End: Trial Vanish -->
+
+        <!-- Group-Start: Trial Balance -->
+        <!-- Group-End: Trial Balance -->
+
+        <!-- Group-Start: Trial Ninpo -->
+        <!-- Group-End: Trial Ninpo -->
+
     <!-- MegaGroup-End: Gameplay Screens (eight trials) -->
 
 
@@ -355,70 +379,70 @@
 
 
     <!-- Group-Start: Lose (Continue) Screen -->
-    	<!--  -->
-	    <string name="result_lose_continue">Continue?</string>
-		<!--  -->
-	    <string name="result_lose_you_lost">You Lost!!</string>
-		<!--  -->
-	    <string name="result_lose_yes">yes</string>
-		<!--  -->
-	    <string name="result_lose_no">no</string>
-	    <!--  -->
-	    <string name="result_lose_game_over">Game Over</string>
+        <!--  -->
+        <string name="result_lose_continue">Continue?</string>
+        <!--  -->
+        <string name="result_lose_you_lost">You Lost!!</string>
+        <!--  -->
+        <string name="result_lose_yes">yes</string>
+        <!--  -->
+        <string name="result_lose_no">no</string>
+        <!--  -->
+        <string name="result_lose_game_over">Game Over</string>
     <!-- Group-End: Lose (Continue) Screen -->
 
 
     <!-- Group-Start: Win Screen -->
         <!--  -->
-	    <string name="result_win_run">Run Results</string>
-	    <!--  -->
-	    <string name="result_win_run_time">Time</string>
-	    <!--  -->
-	    <string name="result_win_run_max_speed">Max Speed</string>
-	    <!--  -->
-	    <string name="result_win_run_max_speed_combo">Max Speed Combo</string>
-	    <!--  -->
-	    <string name="result_win_run_max_speed_combo_total">Max Speed Combo Total</string>
-	    <!--  -->
-	    <string name="result_win_cut">Cut Results</string>
-		<!--  -->
-	    <string name="result_win_cut_rounds">Rounds</string>
-		<!--  -->
-	    <string name="result_win_cut_concentration">Concentration</string>
-		<!--  -->
-	    <string name="result_win_jump">Jump Results</string>
-	    <!--  -->
-	    <string name="result_win_jump_time">Jump Results</string>
-	    <!--  -->
-	    <string name="result_win_jump_perfect_jump_combo">Perfect Jump Combo</string>
-	    <!--  -->
-	    <string name="result_win_jump_max_perfect_jump_combo">Max Perfect Jump Combo</string>
-	    <!--  -->
-	    <string name="result_win_shuriken">Shuriken Results</string>
-		<!--  -->
-	    <string name="result_win_shuriken_time">Time</string>
-		<!--  -->
-	    <string name="result_win_shuriken_precission">Precission</string>
-		<!--  -->
-	    <string name="result_win_air_cut">Air Cut Results</string>
-		<!--  -->
-	    <string name="result_win_vanish">Vanish Results</string>
-		<!--  -->
-	    <string name="result_win_balance">Balance Results</string>
-		<!--  -->
-	    <string name="result_win_ninpo">Ninpo Results</string>
-	<!-- Group-End: Win Screen -->
+        <string name="result_win_run">Run Results</string>
+        <!--  -->
+        <string name="result_win_run_time">Time</string>
+        <!--  -->
+        <string name="result_win_run_max_speed">Max Speed</string>
+        <!--  -->
+        <string name="result_win_run_max_speed_combo">Max Speed Combo</string>
+        <!--  -->
+        <string name="result_win_run_max_speed_combo_total">Max Speed Combo Total</string>
+        <!--  -->
+        <string name="result_win_cut">Cut Results</string>
+        <!--  -->
+        <string name="result_win_cut_rounds">Rounds</string>
+        <!--  -->
+        <string name="result_win_cut_concentration">Concentration</string>
+        <!--  -->
+        <string name="result_win_jump">Jump Results</string>
+        <!--  -->
+        <string name="result_win_jump_time">Jump Results</string>
+        <!--  -->
+        <string name="result_win_jump_perfect_jump_combo">Perfect Jump Combo</string>
+        <!--  -->
+        <string name="result_win_jump_max_perfect_jump_combo">Max Perfect Jump Combo</string>
+        <!--  -->
+        <string name="result_win_shuriken">Shuriken Results</string>
+        <!--  -->
+        <string name="result_win_shuriken_time">Time</string>
+        <!--  -->
+        <string name="result_win_shuriken_precission">Precission</string>
+        <!--  -->
+        <string name="result_win_air_cut">Air Cut Results</string>
+        <!--  -->
+        <string name="result_win_vanish">Vanish Results</string>
+        <!--  -->
+        <string name="result_win_balance">Balance Results</string>
+        <!--  -->
+        <string name="result_win_ninpo">Ninpo Results</string>
+    <!-- Group-End: Win Screen -->
 
 
     <!-- Group-Start: Ending Screens (twelve endings) -->
-		<!-- Ending Scene - Sho (Easy) -->
-		<string name="ending_sho_placeholder">
-			Sho\'s my name and I\'m a true ninja of KazenoKage clan!!
-		</string>
-		<!-- Ending Scene - Ryoko (Easy) -->
-		<string name="ending_ryoko_placeholder">
-			Blah, blah, blah, I\'m Ryoko and I\'ve passed the tests, blah, blah...
-		</string>
+        <!-- Ending Scene - Sho (Easy) -->
+        <string name="ending_sho_placeholder">
+            Sho\'s my name and I\'m a true ninja of KazenoKage clan!!
+        </string>
+        <!-- Ending Scene - Ryoko (Easy) -->
+        <string name="ending_ryoko_placeholder">
+            Blah, blah, blah, I\'m Ryoko and I\'ve passed the tests, blah, blah...
+        </string>
     <!-- Group-End: Ending Screens (twelve endings) -->
 
 

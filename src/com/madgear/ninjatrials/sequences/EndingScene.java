@@ -17,7 +17,7 @@
  */
 
 
-package com.madgear.ninjatrials;
+package com.madgear.ninjatrials.sequences;
 
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
@@ -26,6 +26,7 @@ import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
 
+import com.madgear.ninjatrials.GameScene;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
@@ -36,16 +37,16 @@ import com.madgear.ninjatrials.test.TestingScene;
  * @author Madgear Games
  *
  */
-public class Intro1Scene extends GameScene {
+public class EndingScene extends GameScene {
     private static final float PUSH_DELAY_TIME = 2f;
     private boolean pressButtonEnabled = false;
     private TimerHandler timerHandler;
     
-    public Intro1Scene() {
+    public EndingScene() {
         this(0f);  // loading screen disabled.
     }
     
-    public Intro1Scene(float min) {
+    public EndingScene(float min) {
         super(min);  // loading screen enabled.
         timerHandler = new TimerHandler(PUSH_DELAY_TIME, true, new ITimerCallback() {
             @Override
@@ -59,7 +60,7 @@ public class Intro1Scene extends GameScene {
     @Override
     public Scene onLoadingScreenLoadAndShown() {
         Scene loadingScene = new Scene(); // Provisional, sera una clase externa
-        loadingScene.getBackground().setColor(0.3f, 0.9f, 0.2f);
+        loadingScene.getBackground().setColor(0.3f, 0.0f, 0.0f);
         // Añadimos algo de texto:
         final Text loadingText = new Text(
                 ResourceManager.getInstance().cameraWidth * 0.5f,
@@ -79,12 +80,12 @@ public class Intro1Scene extends GameScene {
 
     @Override
     public void onShowScene() {
-        this.getBackground().setColor(0.5f, 0.3f, 0.2f);
+        this.getBackground().setColor(0.5f, 0.3f, 0.0f);
         final Text loadingText = new Text(
                 ResourceManager.getInstance().cameraWidth * 0.5f,
                 ResourceManager.getInstance().cameraHeight * 0.5f,
                 ResourceManager.getInstance().fontMedium,
-                "Intro 1 Scene\n" +
+                "Ending Scene\n" +
                 "Press O for action\n" +
                 "You must wait for " + PUSH_DELAY_TIME + " seconds.\n",
                 new TextOptions(HorizontalAlign.CENTER),
@@ -108,6 +109,6 @@ public class Intro1Scene extends GameScene {
             if(GameManager.DEBUG_MODE)
                 SceneManager.getInstance().showScene(new TestingScene());
             else
-                SceneManager.getInstance().showScene(new MainMenuScene());
+                SceneManager.getInstance().showScene(new CreditsScene());
     }
 }

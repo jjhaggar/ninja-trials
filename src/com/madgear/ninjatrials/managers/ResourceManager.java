@@ -276,7 +276,9 @@ public class ResourceManager {
     public static ITextureRegion intro1TrialCut;
     public static ITextureRegion intro1TrialJump;
     public static ITextureRegion intro1TrialRun;
-    public static ITextureRegion intro1TrialThrow;
+    public static ITextureRegion intro1TrialShuriken;
+    public static ITextureRegion intro1WordmaskNinja;
+    public static ITextureRegion intro1WordmaskTrials;
 
     // INTRO2
     public static ITextureRegion intro2CommonBg;
@@ -1621,8 +1623,7 @@ public class ResourceManager {
      * Loads the splash intro resources.
      */
     public synchronized void loadSplashIntroResources() {
-
-        // MadGear SVG Logo
+        // Texture of MadGear SVG Logo
         SVGBitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/splash/");
         if (splashLogo == null){
             BuildableBitmapTextureAtlas mBuildableBitmapTextureAtlas;
@@ -1639,32 +1640,19 @@ public class ResourceManager {
 	                Debug.e(e);
 	        }
         }
-
-        // MadGear logo sound menuLogoMadgear
-        SoundFactory.setAssetBasePath("sounds/");
-        try {
-            menuLogoMadgear = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "menu_logo_madgear.ogg");
-        }
-        catch (final IOException e) {
-            Log.v("Sounds Load","Exception:" + e.getMessage());
-        }
     }
 
     /**
      * Unloads the splash intro resources.
      */
     public synchronized void unloadSplashIntroResources() {
-        // Texture of MadGear logo
+        // Texture of MadGear SVG logo
         if(splashLogo!=null) {
             if(splashLogo.getTexture().isLoadedToHardware()) {
                 splashLogo.getTexture().unload();
                 splashLogo = null;
 		    }
 		}
-		// Sound of MadGear logo
-		if (!menuLogoMadgear.isReleased())
-            menuLogoMadgear.release();
     }
 
     public synchronized void loadIntro1Resources() {
@@ -1726,15 +1714,47 @@ public class ResourceManager {
                     intro1TrialRunT, activity, "intro1_trial_run.jpg", 0, 0);
             intro1TrialRunT.load();
         }
-        if (intro1TrialThrow == null) {
+        if (intro1TrialShuriken == null) {
             BitmapTextureAtlas intro1TrialThrowT = new BitmapTextureAtlas(textureManager, 1242, 643,
                     mTransparentTextureOption);
-            intro1TrialThrow = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro1TrialThrowT, activity, "intro1_trial_throw.jpg", 0, 0);
+            intro1TrialShuriken = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    intro1TrialThrowT, activity, "intro1_trial_shuriken.jpg", 0, 0);
             intro1TrialThrowT.load();
         }
-    }
+        // SVG images
+        SVGBitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/intro_1/");
+        if (intro1WordmaskNinja == null){
+            BuildableBitmapTextureAtlas mBuildableBitmapTextureAtlas;
+	        mBuildableBitmapTextureAtlas = new BuildableBitmapTextureAtlas(
+                    textureManager, 1900, 1080, TextureOptions.NEAREST);
+	        intro1WordmaskNinja = SVGBitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    mBuildableBitmapTextureAtlas, context, "intro1_wordmask_ninja.svg", 1800, 1080);
+	        try {
+	                mBuildableBitmapTextureAtlas.build(
+                            new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                            BitmapTextureAtlas>(0, 1, 0));
+	                mBuildableBitmapTextureAtlas.load();
+	        } catch (final TextureAtlasBuilderException e) {
+	                Debug.e(e);
+	        }
+        }
 
+        if (intro1WordmaskTrials == null){
+            BuildableBitmapTextureAtlas mBuildableBitmapTextureAtlas;
+	        mBuildableBitmapTextureAtlas = new BuildableBitmapTextureAtlas(
+                    textureManager, 1400, 1024, TextureOptions.NEAREST);
+	        intro1WordmaskTrials = SVGBitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    mBuildableBitmapTextureAtlas, context, "intro1_wordmask_trials.svg", 1400, 800);
+	        try {
+	                mBuildableBitmapTextureAtlas.build(
+                            new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                            BitmapTextureAtlas>(0, 1, 0));
+	                mBuildableBitmapTextureAtlas.load();
+	        } catch (final TextureAtlasBuilderException e) {
+	                Debug.e(e);
+	        }
+        }
+    }
 
     public synchronized void unloadIntro1Resources() {
         if (intro1Gradient != null && intro1Gradient.getTexture().isLoadedToHardware()) {
@@ -1769,9 +1789,17 @@ public class ResourceManager {
                 intro1TrialRun.getTexture().unload();
                 intro1TrialRun = null;
         }
-        if (intro1TrialThrow != null && intro1TrialThrow.getTexture().isLoadedToHardware()) {
-                intro1TrialThrow.getTexture().unload();
-                intro1TrialThrow = null;
+        if (intro1TrialShuriken != null && intro1TrialShuriken.getTexture().isLoadedToHardware()) {
+                intro1TrialShuriken.getTexture().unload();
+                intro1TrialShuriken = null;
+        }
+        if (intro1WordmaskNinja != null && intro1WordmaskNinja.getTexture().isLoadedToHardware()) {
+        	intro1WordmaskNinja.getTexture().unload();
+        	intro1WordmaskNinja = null;
+        }
+        if (intro1WordmaskTrials != null && intro1WordmaskTrials.getTexture().isLoadedToHardware()) {
+        	intro1WordmaskTrials.getTexture().unload();
+        	intro1WordmaskTrials = null;
         }
         // Garbage Collector:
         System.gc();
