@@ -97,8 +97,16 @@
 
 
     <!-- Group-Start: Records Screen -->
-        <!-- Option Menu title -->
-        <string name="record_default_name">MADGEAR GAMES</string>
+        <!-- Record screen title -->
+        <string name="record_title">Best Ninjas</string>
+        <!-- Record screen title -->
+        <string name="record_today">Today</string>  
+        <!-- Record screen title -->
+        <string name="record_month">Month</string> 
+        <!-- Record screen title -->
+        <string name="record_ever">Ever</string> 
+        <!-- Record default name -->
+        <string name="record_default_name" translatable="false">MADGEAR</string>
     <!-- Group-End: Records Screen -->
 
 

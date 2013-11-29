@@ -29,6 +29,7 @@ import com.madgear.ninjatrials.MainMenuScene;
 import com.madgear.ninjatrials.MainOptionsScene;
 import com.madgear.ninjatrials.MapScene;
 import com.madgear.ninjatrials.PlayerSelectionScene;
+import com.madgear.ninjatrials.RecordsScene;
 import com.madgear.ninjatrials.ResultLoseScene;
 import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.managers.ResourceManager;
@@ -122,6 +123,13 @@ public class TestingScene extends GameScene {
             @Override
             public void onAction() {
                 SceneManager.getInstance().showScene(new AchievementsScene());
+            }
+        });
+        
+        testGrid.addItem(new TestGridItem("Records") {
+            @Override
+            public void onAction() {
+                SceneManager.getInstance().showScene(new RecordsScene());
             }
         });
         

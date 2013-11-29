@@ -97,7 +97,7 @@ public class DataLoadAndSaveTestScene extends GameScene {
     private void deleteData() {
         file = c.getFileStreamPath(UserData.ACHIEV_FILE_NAME);
         if(file.delete()) Log.i("data test", "achiev file deleted");
-        file = new File(UserData.RECORDS_FILE_NAME);
+        file = c.getFileStreamPath(UserData.RECORDS_FILE_NAME);
         if(file.delete()) Log.i("data test", "records file deleted");
         
     }

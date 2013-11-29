@@ -208,6 +208,11 @@ public class ResourceManager {
     public static final int MENU_ACHIEV_BIG_COLS = 6;
     public static final int MENU_ACHIEV_BIG_ROWS = 6;
 
+    // MENU RECORDS
+    public static ITextureRegion menuRecordsShoHead;
+    public static ITextureRegion menuRecordsShoHeadGold;
+    public static ITextureRegion menuRecordsRyokoHead;
+    public static ITextureRegion menuRecordsRyokoHeadGold;
 
     // MENU MAP
     public static ITiledTextureRegion menuMapBackgroundMarks;
@@ -2292,6 +2297,49 @@ public class ResourceManager {
         if (menuAchievementsSuccessStamp != null && menuAchievementsSuccessStamp.getTexture().isLoadedToHardware()) {
                 menuAchievementsSuccessStamp.getTexture().unload();
                 menuAchievementsSuccessStamp = null;
+        }
+    }
+    
+    
+    public synchronized void loadRecordsResources() {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/results/");
+
+        BitmapTextureAtlas recordHeadsT = new BitmapTextureAtlas(textureManager, 100, 100,
+                mTransparentTextureOption);
+        ITextureRegion recordHeadsTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                recordHeadsT, activity, "results_records_winner_faces.png", 0, 0);
+        recordHeadsT.load();
+        
+        menuRecordsRyokoHead = TextureRegionFactory.
+                extractFromTexture(recordHeadsT, 0, 0, 50, 50, false);
+        
+        menuRecordsRyokoHeadGold = TextureRegionFactory.
+                extractFromTexture(recordHeadsT, 0, 50, 50, 50, false);
+        
+        menuRecordsShoHead = TextureRegionFactory.
+                extractFromTexture(recordHeadsT, 50, 0, 50, 50, false);
+        
+        menuRecordsShoHeadGold = TextureRegionFactory.
+                extractFromTexture(recordHeadsT, 50, 50, 50, 50, false);
+    }
+    
+    
+    public synchronized void unloadRecordsResources() { 
+        if (menuRecordsRyokoHead != null && menuRecordsRyokoHead.getTexture().isLoadedToHardware()) {
+            menuRecordsRyokoHead.getTexture().unload();
+            menuRecordsRyokoHead = null;
+        }
+        if (menuRecordsRyokoHeadGold != null && menuRecordsRyokoHeadGold.getTexture().isLoadedToHardware()) {
+            menuRecordsRyokoHeadGold.getTexture().unload();
+            menuRecordsRyokoHeadGold = null;
+        }
+        if (menuRecordsShoHead != null && menuRecordsShoHead.getTexture().isLoadedToHardware()) {
+            menuRecordsShoHead.getTexture().unload();
+            menuRecordsShoHead = null;
+        }
+        if (menuRecordsShoHeadGold != null && menuRecordsShoHeadGold.getTexture().isLoadedToHardware()) {
+            menuRecordsShoHeadGold.getTexture().unload();
+            menuRecordsShoHeadGold = null;
         }
     }
 
