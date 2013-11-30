@@ -141,6 +141,10 @@ public class GameManager {
     public static void incrementScore(int pIncrementBy){
         score += pIncrementBy;
     }
+    
+    public static void resetScore() {
+        score = 0;
+    }
 
     public static int getCurrentTrial() {
         return currentTrial;

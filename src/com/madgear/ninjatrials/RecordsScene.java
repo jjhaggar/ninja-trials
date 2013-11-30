@@ -89,6 +89,9 @@ public class RecordsScene extends GameScene {
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(recordsTittle);
         
+        // Update records:
+        GameManager.recordsTableSet.update();
+        
         // Today records:
         todayRT = new RecordsTableEntity(372, HEIGHT - 230,
                 ResourceManager.getInstance().loadAndroidRes().getString(R.string.record_today),
