@@ -101,7 +101,7 @@ public class SelectionStripe extends Entity {
         items = itemsArray;
         xPos = x;
         yPos = y;
-        select(itemSelectedIndex);
+        select(itemSelectedIndex, false);
     }
 
     /**
@@ -151,9 +151,11 @@ public class SelectionStripe extends Entity {
         items = itemsArray;
         xPos = x;
         yPos = y;
-        select(itemSelectedIndex);
+       
+        select(itemSelectedIndex, false);
     }
     
+
     /**
      * Move the selected item to the left/up one.
      */
@@ -217,13 +219,18 @@ public class SelectionStripe extends Entity {
      * Set the color and size of the text to the "selected" values.
      * @param selectedItem The index of the selected item.
      */
-    private void select(int selectedItem) {
+    private void select(int selectedItem, boolean soundEnabled) {
         textItems[selectedItem].clearEntityModifiers();
         textItems[selectedItem].registerEntityModifier(
                         new ScaleModifier(SCALE_TIME, SCALE_INIT, SCALE_FINAL));
         textItems[selectedItem].setColor(android.graphics.Color.YELLOW);
-        SFXManager.playSound(ResourceManager.getInstance().menuFocus);
+        if(soundEnabled)
+            SFXManager.playSound(ResourceManager.getInstance().menuFocus);
         addDelay();
+    }
+    
+    private void select(int selectedItem) {
+        select(selectedItem, true);        
     }
 
     private void addDelay() {

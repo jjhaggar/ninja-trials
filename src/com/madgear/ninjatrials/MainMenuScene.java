@@ -19,6 +19,8 @@
 
 package com.madgear.ninjatrials;
 
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.Entity;
 import org.andengine.entity.modifier.ScaleModifier;
 import org.andengine.entity.scene.Scene;
@@ -47,6 +49,8 @@ public class MainMenuScene extends GameScene {
     private final String[] menuOptions = {ResourceManager.getInstance().loadAndroidRes().getString(R.string.main_menu_options),
     		ResourceManager.getInstance().loadAndroidRes().getString(R.string.main_menu_play),
     		ResourceManager.getInstance().loadAndroidRes().getString(R.string.main_menu_achievements)};
+    private TimerHandler timerHandler;
+    private static final float GO_CHAR_INFO_TIME = 12f;
 
     /**
      * MainMenuScene constructor.
@@ -101,20 +105,26 @@ public class MainMenuScene extends GameScene {
                 ResourceManager.getInstance().mainTitle,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(tittle);
-        tittle.registerEntityModifier(new ScaleModifier(6f, 0.95f, 1.1f));
+        //tittle.registerEntityModifier(new ScaleModifier(6f, 0.95f, 1.1f));
         
         // Selection Stripe:
         selectionStripe = new SelectionStripe(WIDTH / 2, HEIGHT / 2 - 300, 
                 SelectionStripe.DISP_HORIZONTAL, 500f,
                 menuOptions, SelectionStripe.TEXT_ALIGN_CENTER, 1);
         attachChild(selectionStripe);
+        
+        // Go to Character info scene when some time passed and no key is pressed.
+        timerHandler = new TimerHandler(GO_CHAR_INFO_TIME , true, new ITimerCallback() {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                SceneManager.getInstance().showScene(new CharacterIntroScene());
+            } 
+        });
+        registerUpdateHandler(timerHandler);
     }
 
     @Override
-    public void onHideScene() {
-        // TODO Auto-generated method stub
-        
-    }
+    public void onHideScene() {}
 
     @Override
     public void onUnloadScene() {
@@ -124,11 +134,13 @@ public class MainMenuScene extends GameScene {
     @Override
     public void onPressDpadLeft() {
         selectionStripe.movePrevious();
+        timerHandler.reset(); // Key pressed
     }
 
     @Override
     public void onPressDpadRight() {
         selectionStripe.moveNext();
+        timerHandler.reset();  // Key pressed
     }
 
     @Override

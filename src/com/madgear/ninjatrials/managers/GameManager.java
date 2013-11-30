@@ -30,7 +30,7 @@ public class GameManager {
 
     // GENERAL:
     // Use DEBUG_MODE = true for show the testing scene.
-    public static final boolean DEBUG_MODE = true;
+    public static final boolean DEBUG_MODE = false;
 
     // Use OUYA_CONTROL = true for testing Ouya controls. Use OUYA_CONTROL = false for testing on smartphones
     public static final boolean OUYA_CONTROL = false;

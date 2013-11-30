@@ -31,10 +31,12 @@ import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.records.Record;
 import com.madgear.ninjatrials.records.RecordsTable;
 import com.madgear.ninjatrials.records.RecordsTableSet;
+import com.madgear.ninjatrials.sequences.SplashIntroScene;
 import com.madgear.ninjatrials.test.TestingScene;
 
 /**
@@ -47,8 +49,7 @@ public class RecordsScene extends GameScene {
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
     
-    
-    private static final float SHOW_SCENE_TIME = 10f;
+    private static final float SHOW_SCENE_TIME = 12f;
     private boolean pressButtonEnabled = true;
     private TimerHandler timerHandler;
     private Text recordsTittle;
@@ -105,7 +106,18 @@ public class RecordsScene extends GameScene {
                 ResourceManager.getInstance().loadAndroidRes().getString(R.string.record_ever),
                 GameManager.recordsTableSet.allTimeRecords);
         attachChild(alltimeRT);
+        
+        // Go to when some time passed.
+        timerHandler = new TimerHandler(SHOW_SCENE_TIME , true, new ITimerCallback() {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                skip();
+            } 
+        });
+        registerUpdateHandler(timerHandler);
 
+        // Music!
+        SFXManager.playMusic(ResourceManager.getInstance().records);
     }
 
     @Override
@@ -121,20 +133,36 @@ public class RecordsScene extends GameScene {
     // INTERFACE -----------------------------------------------
     
     /**
-     * If we press the O button go to the next scene or testing scene.
+     * Skip the Intro Scene.
      */
-    @Override
-    public void onPressButtonO() {
-        if(pressButtonEnabled)
+    private void skip() {
+        if(pressButtonEnabled){
+            SFXManager.stopMusic(ResourceManager.getInstance().records);
             if(GameManager.DEBUG_MODE)
                 SceneManager.getInstance().showScene(new TestingScene());
             else
-                SceneManager.getInstance().showScene(new MainMenuScene());
+                SceneManager.getInstance().showScene(new SplashIntroScene());
+        }
     }
-    
     @Override
     public void onPressButtonMenu() {
-        onPressButtonO();
+        skip();
+    }
+    @Override
+    public void onPressButtonO() {
+        skip();
+    }
+    @Override
+    public void onPressButtonU() {
+        skip();
+    }
+    @Override
+    public void onPressButtonY() {
+        skip();
+    }
+    @Override
+    public void onPressButtonA() {
+        skip();
     }
     
     // AUX CLASS ------------------------------------------------
