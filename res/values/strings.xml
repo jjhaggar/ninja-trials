@@ -270,12 +270,12 @@
                 Prove you\'re worthy of being a true KazenoKage ninja.
             </string>
             <!-- Ryoko answers to her master -->
-            <string name="intro2_1p_sho_04_ryoko">
+            <string name="intro2_1p_sho_04_sho">
                 Yes, master!
             </string>
-            <!-- After leaving, Sho speaks to herself -->
-            <string name="intro2_1p_sho_05_ryoko">
-                I\'ll be a kunoichi... (blah, blah)
+            <!-- After leaving, Sho speaks to himself -->
+            <string name="intro2_1p_sho_05_sho">
+                I\'ll be a ninja... (blah, blah)
             </string>
         <!-- Group-End: Intro 2 Scene - 1p Sho -->
 

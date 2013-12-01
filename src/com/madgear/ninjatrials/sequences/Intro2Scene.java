@@ -28,7 +28,6 @@ import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.GameScene;
-import com.madgear.ninjatrials.MainMenuScene;
 import com.madgear.ninjatrials.MapScene;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
@@ -89,8 +88,7 @@ public class Intro2Scene extends GameScene {
         // Choose the right sequence to show. Only 2 now, but there'll be 9 different ones later
         switch (GameManager.getSelectedCharacter()) {
         case GameManager.CHAR_SHO:
-            // TODO Create Intro2SequenceShoEasy() and call it here
-            sequenceEntity = new Intro2SequenceRyokoEasy();
+            sequenceEntity = new Intro2SequenceShoEasy();
             break;
         case GameManager.CHAR_RYOKO:
             sequenceEntity = new Intro2SequenceRyokoEasy();

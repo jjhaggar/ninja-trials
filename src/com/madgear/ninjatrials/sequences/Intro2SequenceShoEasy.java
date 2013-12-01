@@ -38,12 +38,12 @@ import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 
 /**
- * This is the Second Intro Sequence class (choosing Ryoko and Easy).
+ * This is the Second Intro Sequence class (choosing Sho and Easy).
  * @author Madgear Games
  *
  */
 @SuppressWarnings("static-access")
-public class Intro2SequenceRyokoEasy extends Entity implements Sequence{
+public class Intro2SequenceShoEasy extends Entity implements Sequence{
 
     private final float SCREEN_WIDTH = ResourceManager.getInstance().cameraWidth;
     private final float SCREEN_HEIGHT = ResourceManager.getInstance().cameraHeight;
@@ -64,30 +64,30 @@ public class Intro2SequenceRyokoEasy extends Entity implements Sequence{
     private Sprite sprBG1;
     private Sprite sprBG2;
     private AnimatedSprite sprMaster;
-    private AnimatedSprite sprRyokoBow;
-    private Sprite sprRyokoStanding;
+    private AnimatedSprite sprShoBow;
+    private Sprite sprShoStanding;
     private Sprite sprBalloonSpeak;
     private Sprite sprBalloonSpeakLoud;
     private Sprite sprBalloonThink;
 
     // Constructors
-    public Intro2SequenceRyokoEasy() {
+    public Intro2SequenceShoEasy() {
         this(0f);  // loading screen disabled.
     }
 
-    public Intro2SequenceRyokoEasy(float min) {
+    public Intro2SequenceShoEasy(float min) {
         // Initial register of sub-sequence timers, and also show first sub-sequence.
         goToNextSubSequence();
     }
 
-    // SubSequence 1: Master speaking to his disciple Ryoko
+    // SubSequence 1: Master speaking to his disciple Sho
     private void subSequence1() {
 
         // Update actual sequence
         actualSequence = 1;
 
         // Calculate & Set animation times
-        float aTRyokoSpeaking = timeDurationSubSeq1 * 0.75f;
+        float aTShoSpeaking = timeDurationSubSeq1 * 0.75f;
 
         // Add Sprites and text
 
@@ -117,39 +117,40 @@ public class Intro2SequenceRyokoEasy extends Entity implements Sequence{
                 SCREEN_WIDTH * 0.20f, SCREEN_HEIGHT * 0.7f,
                 ResourceManager.getInstance().fontSmall,
                 ResourceManager.getInstance().loadAndroidRes()
-                .getString(R.string.intro2_1p_ryoko_03_master), // TODO Complete the dialogs
+                .getString(R.string.intro2_1p_sho_03_master), // TODO Complete the dialogs
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         this.attachChild(txtMaster);
 
-        sprRyokoBow = new AnimatedSprite(SCREEN_WIDTH * 0.7f, SCREEN_HEIGHT * 0.25f,
-                ResourceManager.getInstance().intro2CommonRyoko.getWidth(),
-                ResourceManager.getInstance().intro2CommonRyoko.getHeight(),
-                ResourceManager.getInstance().intro2CommonRyoko,
+        sprShoBow = new AnimatedSprite(SCREEN_WIDTH * 0.7f, SCREEN_HEIGHT * 0.25f,
+                ResourceManager.getInstance().intro2CommonSho.getWidth(),
+                ResourceManager.getInstance().intro2CommonSho.getHeight(),
+                ResourceManager.getInstance().intro2CommonSho,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        sprRyokoBow.animate( (long)(aTRyokoSpeaking * 1000), false);
-        attachChild(sprRyokoBow);
+        sprShoBow.animate( (long)(aTShoSpeaking * 1000), false);
+        sprShoBow.setFlippedHorizontal(true);
+        attachChild(sprShoBow);
 
         sprBalloonSpeakLoud = new Sprite(SCREEN_WIDTH * 0.8f, SCREEN_HEIGHT * 0.5f,
-                ResourceManager.getInstance().intro2CommonRyokoTextBalloon.getWidth(),
-                ResourceManager.getInstance().intro2CommonRyokoTextBalloon.getHeight(),
-                ResourceManager.getInstance().intro2CommonRyokoTextBalloon,
+                ResourceManager.getInstance().intro2CommonShoTextBalloon.getWidth(),
+                ResourceManager.getInstance().intro2CommonShoTextBalloon.getHeight(),
+                ResourceManager.getInstance().intro2CommonShoTextBalloon,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         sprBalloonSpeakLoud.setAlpha(0);
         attachChild(sprBalloonSpeakLoud);
 
-        final Text txtRyoko = new Text(
+        final Text txtSho = new Text(
                 SCREEN_WIDTH * 0.8f, SCREEN_HEIGHT * 0.5f,
                 ResourceManager.getInstance().fontMedium,
                 ResourceManager.getInstance().loadAndroidRes()
-                    .getString(R.string.intro2_1p_ryoko_04_ryoko),
+                    .getString(R.string.intro2_1p_sho_04_sho),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        txtRyoko.setAlpha(0);
-        this.attachChild(txtRyoko);
+        txtSho.setAlpha(0);
+        this.attachChild(txtSho);
 
         // Create & add Modifiers to Sprites and Text
-        DelayModifier modDelBalloon = new DelayModifier(aTRyokoSpeaking,
+        DelayModifier modDelBalloon = new DelayModifier(aTShoSpeaking,
                 new IEntityModifierListener() {
                     @Override
                     public void onModifierStarted(IModifier<IEntity> pModifier,
@@ -160,7 +161,7 @@ public class Intro2SequenceRyokoEasy extends Entity implements Sequence{
                     public void onModifierFinished(
                             IModifier<IEntity> pModifier, IEntity pItem) {
                         sprBalloonSpeakLoud.setAlpha(1f);
-                        txtRyoko.setAlpha(1f);
+                        txtSho.setAlpha(1f);
                         sprMaster.stopAnimation(0);
                         sprBalloonSpeak.setAlpha(0f);
                         txtMaster.setAlpha(0f);
@@ -172,7 +173,7 @@ public class Intro2SequenceRyokoEasy extends Entity implements Sequence{
         SFXManager.playMusic(ResourceManager.getInstance().intro2);
     }
 
-    // SubSequence 2: Ryoko is thinking
+    // SubSequence 2: Sho is thinking
     private void subSequence2() {
 
         // Update actual sequence
@@ -181,34 +182,35 @@ public class Intro2SequenceRyokoEasy extends Entity implements Sequence{
         // Add Sprites and text
 
         sprBG2 = new Sprite(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f,
-                ResourceManager.getInstance().intro2RyokoBg.getWidth(),
-                ResourceManager.getInstance().intro2RyokoBg.getHeight(),
-                ResourceManager.getInstance().intro2RyokoBg,
+                ResourceManager.getInstance().intro2ShoBg.getWidth(),
+                ResourceManager.getInstance().intro2ShoBg.getHeight(),
+                ResourceManager.getInstance().intro2ShoBg,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(sprBG2);
 
-        sprRyokoStanding = new Sprite(SCREEN_WIDTH * 0.25f, SCREEN_HEIGHT * 0.45f,
-                ResourceManager.getInstance().intro2Ryoko.getWidth(),
-                ResourceManager.getInstance().intro2Ryoko.getHeight(),
-                ResourceManager.getInstance().intro2Ryoko,
+        sprShoStanding = new Sprite(SCREEN_WIDTH * 0.25f, SCREEN_HEIGHT * 0.45f,
+                ResourceManager.getInstance().intro2Sho.getWidth(),
+                ResourceManager.getInstance().intro2Sho.getHeight(),
+                ResourceManager.getInstance().intro2Sho,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        attachChild(sprRyokoStanding);
+        attachChild(sprShoStanding);
 
         sprBalloonThink= new Sprite(SCREEN_WIDTH * 0.70f, SCREEN_HEIGHT * 0.75f,
-                ResourceManager.getInstance().intro2RyokoBalloonText.getWidth(),
-                ResourceManager.getInstance().intro2RyokoBalloonText.getHeight(),
-                ResourceManager.getInstance().intro2RyokoBalloonText,
+                ResourceManager.getInstance().intro2ShoBalloonText.getWidth(),
+                ResourceManager.getInstance().intro2ShoBalloonText.getHeight(),
+                ResourceManager.getInstance().intro2ShoBalloonText,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+        sprBalloonThink.setFlippedHorizontal(true);
         attachChild(sprBalloonThink);
 
-        final Text txtRyoko = new Text(
+        final Text txtSho = new Text(
                 SCREEN_WIDTH * 0.75f, SCREEN_HEIGHT * 0.75f,
                 ResourceManager.getInstance().fontBig,
                 ResourceManager.getInstance().loadAndroidRes()
-                .getString(R.string.intro2_1p_ryoko_05_ryoko),
+                .getString(R.string.intro2_1p_sho_05_sho),
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        this.attachChild(txtRyoko);
+        this.attachChild(txtSho);
 
         // Create & add Modifiers to Sprites and text
 
@@ -270,7 +272,7 @@ public class Intro2SequenceRyokoEasy extends Entity implements Sequence{
                 subSequence1();
             }
         }
-        if (timeSubSeq2Start > 0f){ // Sub-sequence 2: Ryoko thinking
+        if (timeSubSeq2Start > 0f){ // Sub-sequence 2: Sho thinking
             timerSubSequence2 = new TimerHandler(timeSubSeq2Start, false, new ITimerCallback(){
                 @Override
                 public void onTimePassed(TimerHandler pTimerHandler) {
