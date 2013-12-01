@@ -35,6 +35,7 @@ import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.sequences.Intro1Scene;
+import com.madgear.ninjatrials.sequences.Intro2Scene;
 import com.madgear.ninjatrials.sequences.SplashIntroScene;
 import com.madgear.ninjatrials.trials.TrialSceneCut;
 import com.madgear.ninjatrials.trials.TrialSceneJump;
@@ -91,6 +92,13 @@ public class TestingScene extends GameScene {
      * Add items to the grid
      */
     private void populateGrid() {
+        testGrid.addItem(new TestGridItem("Intro2") {
+            @Override
+            public void onAction() {
+                SceneManager.getInstance().showScene(new Intro2Scene());
+            }
+        });
+
         testGrid.addItem(new TestGridItem("Intro1") {
             @Override
             public void onAction() {

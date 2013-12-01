@@ -30,7 +30,7 @@ public class GameManager {
 
     // GENERAL:
     // Use DEBUG_MODE = true for show the testing scene.
-    public static final boolean DEBUG_MODE = false;
+    public static final boolean DEBUG_MODE = true;
 
     // Use OUYA_CONTROL = true for testing Ouya controls. Use OUYA_CONTROL = false for testing on smartphones
     public static final boolean OUYA_CONTROL = false;
@@ -54,8 +54,13 @@ public class GameManager {
     public static final int TRIAL_SHURIKEN = 4;
     public static final int TRIAL_FINAL = TRIAL_SHURIKEN;
     public static final int TRIAL_START = TRIAL_RUN;
-    
 
+    public static final int SEQUENCE_SKIP_DIRECTLY = 0;
+    public static final int SEQUENCE_ASK_BEFORE_SKIP = 1;
+    public static final int SEQUENCE_CANNOT_SKIP = 2;
+
+
+    public static int sequenceBehaviourAtPress = SEQUENCE_SKIP_DIRECTLY;
 
     public static ResultTrial player1result;
     public static ResultTrial player2result;
