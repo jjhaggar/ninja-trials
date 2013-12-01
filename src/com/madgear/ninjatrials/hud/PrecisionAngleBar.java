@@ -51,6 +51,8 @@ public class PrecisionAngleBar extends Entity {
     private int semicycle = 0;
     private Sprite angleBar, cursor;
 	private Rectangle rectangleCursor;
+	private boolean tooHigh = false;
+	private float jump = 1; 
 
     /**
      * Contruct a PowerBarCursor object.
@@ -61,7 +63,7 @@ public class PrecisionAngleBar extends Entity {
      * calculate the cursor speed.
      */
     public PrecisionAngleBar(float posX, float posY, float timeRound) {
-        curXInit = posX + 100;
+        curXInit = posX + 300;
         curYInit = posY - 100;
         semicycle = 0;
         angleBar = new Sprite(posX, posY,
@@ -72,7 +74,7 @@ public class PrecisionAngleBar extends Entity {
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(angleBar);
         attachChild(cursor);
-        speed = 2 * (cursorMax - cursorMin) / timeRound;
+        speed = 2.5f * (cursorMax - cursorMin) / timeRound;
         setIgnoreUpdate(true);
     }
 
@@ -83,6 +85,16 @@ public class PrecisionAngleBar extends Entity {
     public void setCursorValue(float value) {
         if (value >= cursorMin && value <= cursorMax)
             cursorValue = value;
+    }
+    
+    public void setCursorValueToBeginning(){
+    	cursorValue =  0;
+    	direction = 1;
+    	jump = 1;
+    }
+    
+    public void ActivateTooHigh(){
+    	tooHigh = true;
     }
 
     /**
@@ -104,14 +116,15 @@ public class PrecisionAngleBar extends Entity {
      * @return An integer value from -100 (left) to 100 (right). 0 is the center value.
      */
     public float[] getPowerValue() {
-    	if (cursorValue == 0 )
-    		cursorValue = 0.001f;
-    	if (cursorValue == cursorMax )
-    		cursorValue = cursorMax - 0.001f;
+    	if (cursorValue <= 0 )
+    		cursorValue = cursorMax - 5f;
+    	if (cursorValue >= cursorMax - 5f )
+    		cursorValue = cursorMax - 5f;
     	
-    	float[] result = new float[] {cursorValue, (float) Math.sqrt(Math.pow(cursorMax, 2) - Math.pow(cursorValue, 2))};
+    	float[] result = new float[] {cursorValue, (float) Math.sqrt(Math.pow(cursorMax, 2) - Math.pow(cursorValue, 2)), jump};
     	if (Double.isNaN(result[0]) || Double.isNaN(result[1]))
-    		result = new float[] { 1, 1};
+    		result = new float[] { cursorMax - 5f, (float) Math.sqrt(Math.pow(cursorMax, 2) - Math.pow(cursorMax - 5f, 2)), jump};
+    	
     	return result;
         
     }
@@ -123,6 +136,14 @@ public class PrecisionAngleBar extends Entity {
      */
     public int getSemicycle() {
         return semicycle;
+    }
+    
+    public float getJumpValue() {
+    	return jump;
+    }
+    
+    public void setJumpValue(float jumpInput) {
+    	jump = jumpInput;
     }
 
     /**
@@ -142,20 +163,29 @@ public class PrecisionAngleBar extends Entity {
         if (pSecondsElapsed < 0.2)
             cursorValue += pSecondsElapsed * speed * direction;
         
-        //the position of Y it's done relative to X to form a semicircle
-        float posX = curXInit + cursorValue;
-        float posY = curYInit + (float) Math.sqrt(Math.pow(cursorMax, 2) - Math.pow(cursorValue, 2));
-        cursor.setX(posX);
-        cursor.setY(posY);
+        if (cursorValue > cursorMax)
+        	cursorValue = cursorMax;
+        
         
         if (cursorValue >= cursorMax) {
             direction = -1;
+            jump = -1;
             semicycle++;
+            cursorValue = 0;
+            if (tooHigh)
+            	stop();
         }
         if (cursorValue <= (cursorMax / 2.0f)) {
             direction = 1;
             semicycle++;
         }
+        
+      //the position of Y it's done relative to X to form a semicircle
+        float posX = curXInit - cursorValue;
+        float posY = curYInit + 200 - ((float) cursorMax - cursorValue);
+        cursor.setX(posX);
+        cursor.setY(posY);
+        
         super.onManagedUpdate(pSecondsElapsed);
     }
 }

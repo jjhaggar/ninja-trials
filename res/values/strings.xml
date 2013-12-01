@@ -424,9 +424,9 @@
         <!--  -->
         <string name="result_win_jump_time">Jump Results</string>
         <!--  -->
-        <string name="result_win_jump_perfect_jump_combo">Perfect Jump Combo</string>
+        <string name="result_win_jump_perfect_jump_combo">Perfect Jumps</string>
         <!--  -->
-        <string name="result_win_jump_max_perfect_jump_combo">Max Perfect Jump Combo</string>
+        <string name="result_win_jump_max_perfect_jump_combo">Perfect Jump Combo</string>
         <!--  -->
         <string name="result_win_shuriken">Shuriken Results</string>
         <!--  -->

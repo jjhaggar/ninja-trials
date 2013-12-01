@@ -144,6 +144,10 @@ public class ParallaxBackground2d extends Background {
 		private Boolean mRepeatY; //final Boolean mRepeatY; // chapucillas JJ		
 		final IShape mShape;
 		final Boolean mShouldCull;
+		private int mNumRepeatX = -1;
+		private int mNumRepeatY = -1;
+		private int mNumRepeatActualX = 0;
+		private int mNumRepeatActualY = 0;
 
 		// ===========================================================
 		// Constructors
@@ -168,6 +172,18 @@ public class ParallaxBackground2d extends Background {
 			this.mShouldCull = false;
 			this.mShape = pShape;
 		}			
+		
+		// add an x or y only repeating strip, also configurable number of Repeats
+		public ParallaxBackground2dEntity(final float pParallaxFactorX, final float pParallaxFactorY, final IShape pShape, final Boolean pRepeatX, final Boolean pRepeatY, int pNumRepeatX, int pNumRepeatY) {
+			this.mParallaxFactorX = pParallaxFactorX;
+			this.mParallaxFactorY = pParallaxFactorY;
+			this.mRepeatX = pRepeatX;
+			this.mRepeatY = pRepeatY;
+			this.mShouldCull = false;
+			this.mShape = pShape;
+			this.mNumRepeatX = pNumRepeatX;
+			this.mNumRepeatY = pNumRepeatY;
+		}	
 		
 		// add an x or y only repeating strip or non repeating feature that may be culled when off screen
 		public ParallaxBackground2dEntity(final float pParallaxFactorX, final float pParallaxFactorY, final IShape pShape, final Boolean pRepeatX, final Boolean pRepeatY, final Boolean pShouldCull) {
@@ -211,22 +227,43 @@ public class ParallaxBackground2d extends Background {
 
 				//reposition
 				float baseOffsetX = (pParallaxValueX * this.mParallaxFactorX);
+				Boolean culled = false;
+					if (this.mRepeatX && mNumRepeatX != -1) {
+						if (((baseOffsetX + (shapeWidthScaled*2)) * (mNumRepeatX / 2) < 0) || ((baseOffsetX * (mNumRepeatX / 2)) > cameraWidth)) {
+							culled = true;
+						}
+					}	
 				if (this.mRepeatX) {
+					mNumRepeatActualX ++;
 					baseOffsetX = baseOffsetX % shapeWidthScaled;
 					while(baseOffsetX > 0) {
 						baseOffsetX -= shapeWidthScaled;
 					}
 				}			
+				
 				float baseOffsetY = (pParallaxValueY * this.mParallaxFactorY);
+				//if a entity has a number of repeats on it, when all of them are passed then it will be culled from then on
+				// to calculate the actual position baseoffset divided by shape is used
+				if (this.mRepeatY && mNumRepeatY != -1) {
+						mNumRepeatActualY = (int)(-baseOffsetY / shapeHeightScaled);
+						
+					if (((baseOffsetY + (shapeHeightScaled*2) * (mNumRepeatY / 2)) < 0) || ((baseOffsetY * (mNumRepeatY / 2)) > cameraHeight)) {
+						culled = true;
+					}
+				}
 				if (this.mRepeatY) {
+					
 					baseOffsetY = baseOffsetY % shapeHeightScaled;
 					while(baseOffsetY > 0) {
+						mNumRepeatActualY ++;
 						baseOffsetY -= shapeHeightScaled;
 					}				
 				}
 				
+				
+				
 				//optionally screen cull non repeating items
-				Boolean culled = false;
+				
 				if (mShouldCull) {
 					if (!this.mRepeatX) {
 						if ((baseOffsetY + (shapeHeightScaled*2) < 0) || (baseOffsetY > cameraHeight)) {
@@ -247,7 +284,8 @@ public class ParallaxBackground2d extends Background {
 					float currentMaxY = baseOffsetY;
 					do {														//rows
 						this.mShape.onDraw(pGLState, pCamera);
-						if (this.mRepeatY) {
+						// if an entity has a limited number of repeats, last time will not extend the image further
+						if (this.mRepeatY && mNumRepeatY != mNumRepeatActualY + 1) {
 							currentMaxY = baseOffsetY;							
 							do {												//columns
 								pGLState.translateModelViewGLMatrixf(0, shapeHeightScaled, 0);

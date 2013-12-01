@@ -19,6 +19,7 @@
 
 package com.madgear.ninjatrials.trials;
 
+import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
@@ -37,12 +38,14 @@ import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.AnimatedSprite;
+import org.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.adt.align.HorizontalAlign;
 
+import android.test.PerformanceTestCase;
 import android.util.Log;
 import android.view.KeyEvent;
 
@@ -50,6 +53,8 @@ import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.GameScene;
 import com.madgear.ninjatrials.MainMenuScene;
 import com.madgear.ninjatrials.R;
+import com.madgear.ninjatrials.ResultLoseScene;
+import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.hud.Chronometer;
@@ -68,16 +73,30 @@ import com.madgear.ninjatrials.utils.ParallaxBackground2d.ParallaxBackground2dEn
  *
  */
 public class TrialSceneJump extends GameScene {
-    private static final int SCORE_POOR = 20;
-    private static final int SCORE_GREAT = 90;
+    public static final int SCORE_THUG = 5000;
+    public static final int SCORE_NINJA = 7000;
+    public static final int SCORE_NINJA_MASTER = 9000;
+    public static final int SCORE_GRAND_MASTER = 9500;
+    
     private float timeRound;  // tiempo para ciclo de powerbar
-    private float timeMax = 10; // Tiempo mÃ¡ximo para corte:
+    private float timeMax = 10; // Tiempo mÃƒÂ¡ximo para corte:
     private float timeCounter = timeMax; // Tiempo total que queda para el corte
-    private int frameNum = 0; // Contador para la animaciÃ³n
+    private int frameNum = 0; // Contador para la animaciÃƒÂ³n
     private float timerStartedIn = 0; // control de tiempo
     private float origX, origY = 0.0f;
+    private boolean jumpMessage = true;
+    private boolean firstJump = false;
+    private boolean falling = false;
+    private float seconds = 0.0f;
+    private boolean die = false;
     
-    private float[] destiny = {0, 0};
+    private int numberPerfectJumps = 0;
+    private int numberPerfectJumpsInARow = 0;
+    private int numberPerfectJumpsInARowMax = 0;
+    private boolean comboActive = true;
+    
+    private float[] destinyg = {0, 0};
+    private float[] lastDestinyg = {0, 0};
     
 
     private float WIDTH = ResourceManager.getInstance().cameraWidth;
@@ -90,50 +109,52 @@ public class TrialSceneJump extends GameScene {
     // Basurillas JJ:
     
     private final VertexBufferObjectManager vertexBufferObjectManager = 
-    		ResourceManager.getInstance().engine.getVertexBufferObjectManager(); // Así me ahorro esta llamada cada 2x3
+    		ResourceManager.getInstance().engine.getVertexBufferObjectManager(); // AsÃ­ me ahorro esta llamada cada 2x3
     private ParallaxBackground2d parallaxLayer; // capa parallax
     
     // Sprites BG
 	private Sprite mSpr_bg01_statues, 
 	mSpr_bg01_bamboo_low1, mSpr_bg01_bamboo_mid1_a, mSpr_bg01_bamboo_mid1_b, mSpr_bg01_bamboo_mid1_c, mSpr_bg01_bamboo_high1, 
-	mSpr_bg01_bamboo_low2, mSpr_bg01_bamboo_mid2_a, mSpr_bg01_bamboo_mid2_b, mSpr_bg01_bamboo_mid2_c, mSpr_bg01_bamboo_high2, // 2º tronco de bambú
+	mSpr_bg01_bamboo_low2, mSpr_bg01_bamboo_mid2_a, mSpr_bg01_bamboo_mid2_b, mSpr_bg01_bamboo_mid2_c, mSpr_bg01_bamboo_high2, // 2Âº tronco de bambÃº
 	mSpr_bg02_forest1_low, mSpr_bg02_forest1_mid1, mSpr_bg02_forest1_mid2, mSpr_bg02_forest1_high, 
 	mSpr_bg03_forest2_low, mSpr_bg03_forest2_mid, mSpr_bg03_forest2_high, 
 	mSpr_bg04_mount, mSpr_bg05_pagoda, mSpr_bg06_clouds, mSpr_bg07_lake, mSpr_bg08_fuji, mSpr_bg09_sky;
     
-	// Factor de las capas Parallax (según el factor parallax las capas se mueven a diferente velocidad)
+	// Factor de las capas Parallax (segÃºn el factor parallax las capas se mueven a diferente velocidad)
 	// fFPL = floatFactorParallaxLayer 
 	private final float fFPL01 =-10.0f; // Bambu rebotable   
 	private final float fFPL02 = -9.0f; // Bosque bambu cercano
-	private final float fFPL03 = -5.5f; // Bosque bambu lejano // HABRÍA QUE CREAR OTRO BOSQUE de BAMBÚ MÁS
-	private final float fFPL04 = -4.5f; // montaña cercana
+	private final float fFPL03 = -5.5f; // Bosque bambu lejano // HABRÃ�A QUE CREAR OTRO BOSQUE de BAMBÃš MÃ�S
+	private final float fFPL04 = -4.5f; // montaÃ±a cercana
 	private final float fFPL05 = -4.0f; // pagoda
 	private final float fFPL06 = -2.0f; // nubes
 	private final float fFPL07 = -2.0f; // lago
 	private final float fFPL08 = -1.8f; // m. fuji
 	private final float fFPL09 = -0.5f; // cielo
 	
-	// Posición inicial de los sprites del fondo
-	private int pBX1 = 350; // posición bambú ancho 1
-	private int pBX2 = 1300; // posición bambú ancho 2
-	private int pMY = 800; // posición montaña cercana
+	// PosiciÃ³n inicial de los sprites del fondo
+	private int pBX1 = 150; // posiciÃ³n bambÃº ancho 1
+	private int pBX2 = 1700; // posiciÃ³n bambÃº ancho 2
+	private float jumpLeft = 350f; //posicion ninja izq
+	private float jumpRight = 1570f; //posicion ninja dcha
+	private int pMY = 800; // posiciÃ³n montaÃ±a cercana
 	private int pPX = 1400; 
-	private int pPY = 1200;  // posición pagoda
-	private int pCY = 1600; // posición nubes
+	private int pPY = 1200;  // posiciÃ³n pagoda
+	private int pCY = 1600; // posiciÃ³n nubes
 	private int pLY = 400; // posicion lago
-	private int pFY = 850; // posición fuji
+	private int pFY = 850; // posiciÃ³n fuji
 	
-	// CHAPUZA PARA HACER EL BAMBÚ (hago que se cambie la variable "repetición" en la entidad paralax bambú dependiendo de a qué altura estemos ^^U): 
-	// Sólo necesitaríamos variables en los objetos ParallaxBackground2dEntity a los que vamos a cambiar alguna propiedad
-	// Como hay un problema con los bucles, no se está usando esto como se havcía en el ejemplo de GitHub
-	private ParallaxBackground2dEntity pBE01, pBE02;//...Estoy pensando que símplemente se podría cambiar la visibilidad del sprite, pero también sería una chapuza así que lo dejo así por ahora ^^U
-	private final int repBamboo = 9; // Veces que se repite el cuerpo del bambu
+	// CHAPUZA PARA HACER EL BAMBÃš (hago que se cambie la variable "repeticiÃ³n" en la entidad paralax bambÃº dependiendo de a quÃ© altura estemos ^^U): 
+	// SÃ³lo necesitarÃ­amos variables en los objetos ParallaxBackground2dEntity a los que vamos a cambiar alguna propiedad
+	// Como hay un problema con los bucles, no se estÃ¡ usando esto como se havcÃ­a en el ejemplo de GitHub
+	private ParallaxBackground2dEntity pBE01, pBE02;//...Estoy pensando que sÃ­mplemente se podrÃ­a cambiar la visibilidad del sprite, pero tambiÃ©n serÃ­a una chapuza asÃ­ que lo dejo asÃ­ por ahora ^^U
+	private final int repBamboo = 10; // Veces que se repite el cuerpo del bambu
 	private float desplazamientoParallaxVertical = 0;
 	private float desplazamientoParallaxHorizontal = 0;	
 	private boolean autoScroll = false;
 	
-	// Bucle de actualización. Lo usaba para la chapuza de repetir verticalmente o no los dos bambús en los que se rebota.
-	// Es una chapuza horrible, lo dejo sólo de momento, si podemos encontrar otra forma de hacerlo mejor que mejor
+	// Bucle de actualizaciÃ³n. Lo usaba para la chapuza de repetir verticalmente o no los dos bambÃºs en los que se rebota.
+	// Es una chapuza horrible, lo dejo sÃ³lo de momento, si podemos encontrar otra forma de hacerlo mejor que mejor
 	/*
 	private float actualizacionesPorSegundo = 60.0f;
 	final private IUpdateHandler bucleActualizaciones = new TimerHandler(1 / actualizacionesPorSegundo, true, new ITimerCallback() {
@@ -151,7 +172,7 @@ public class TrialSceneJump extends GameScene {
 			if (parallaxLayer.getParallaxValueY() < 0) {autoScrollUp();}
 			if (parallaxLayer.getParallaxValueY() > 820) { autoScrollDown();}
 			
-			if (parallaxLayer.getParallaxValueY() > 0 && parallaxLayer.getParallaxValueY() < 50 && pBE01.getmRepeatY()){ // este "if" es innecesario en la fase rel, lo tengo sólo para pruebas
+			if (parallaxLayer.getParallaxValueY() > 0 && parallaxLayer.getParallaxValueY() < 50 && pBE01.getmRepeatY()){ // este "if" es innecesario en la fase rel, lo tengo sÃ³lo para pruebas
 				pBE01.setmRepeatY(false);
 				mSpr_bg01_bamboo_mid1_b.setY( mSpr_bg01_bamboo_low1.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight() );
 				pBE02.setmRepeatY(false);
@@ -177,13 +198,13 @@ public class TrialSceneJump extends GameScene {
 	*/
 	
 	
-	
+	private Camera mCamera;
     private GameHUD gameHUD;
     private PrecisionAngleBar angleBar;
     private Chronometer chrono;
     private Character mCharacter;
     private boolean cutEnabled = false;
-    public TimerHandler trialTimerHandler; // era private, esto es una chapuza para poder salir de aquí pulsando Back
+    public TimerHandler trialTimerHandler; // era private, esto es una chapuza para poder salir de aquÃ­ pulsando Back
     private IUpdateHandler trialUpdateHandler;
     private final float readyTime = 4f;
     private final float endingTime = 6f;
@@ -201,7 +222,7 @@ public class TrialSceneJump extends GameScene {
     public Scene onLoadingScreenLoadAndShown() {
         Scene loadingScene = new Scene(); // Provisional, sera una clase externa
         loadingScene.getBackground().setColor(0.3f, 0.3f, 0.6f);
-        // Añadimos algo de texto:
+        // AÃ±adimos algo de texto:
         final Text loadingText = new Text(
                 ResourceManager.getInstance().cameraWidth * 0.5f,
                 ResourceManager.getInstance().cameraHeight * 0.3f,
@@ -222,15 +243,20 @@ public class TrialSceneJump extends GameScene {
     public void onLoadScene() {
        ResourceManager.getInstance().loadJumpSceneResources();
         setTrialDiff(GameManager.getSelectedDiff());
+        GameManager.setCurrentTrial(3); //jumpTrial
   //      bg = new SpriteBackground(new Sprite(width * 0.5f, height * 0.5f,
   //              ResourceManager.getInstance().cutBackground,
   //              ResourceManager.getInstance().engine.getVertexBufferObjectManager()));
   //      setBackground(bg);
        mStatue = new Statue();
        mCharacter = new Character(WIDTH / 2 - 120, HEIGHT / 2);
+       //destinyg[1] = HEIGHT / 2;
+       //lastDestinyg[1] = HEIGHT / 2;
+       
+       mCamera = ResourceManager.getInstance().engine.getCamera();
         gameHUD = new GameHUD();
         angleBar = new PrecisionAngleBar(200f, 200f, timeRound);
-        chrono = new Chronometer(WIDTH - 200, HEIGHT - 200, 10, 0);
+        chrono = new Chronometer(WIDTH - 200, HEIGHT - 200, 0, 100);
         
 
     }
@@ -298,34 +324,66 @@ public class TrialSceneJump extends GameScene {
             @Override
             public void onUpdate(float pSecondsElapsed) {
             	
-            	// System.out.println("pSecondsElapsed="+pSecondsElapsed); //ESTE BUCLE SE ESTÁ EJECUTANDO "DE GRATIS" 
-    			System.out.println("ParallaxValX="+parallaxLayer.getParallaxValueX() );
-    			System.out.println("ParallaxValY="+parallaxLayer.getParallaxValueY() );
+            	seconds += pSecondsElapsed;
+            	//System.out.println("pSecondsElapsed="+seconds); //ESTE BUCLE SE ESTÃ� EJECUTANDO "DE GRATIS" 
+    			//System.out.println("ParallaxValX="+parallaxLayer.getParallaxValueX() );
+    			//System.out.println("ParallaxValY="+parallaxLayer.getParallaxValueY() );
     			
-               // if(chrono.isTimeOut()) {
-                 //   TrialSceneJump.this.unregisterUpdateHandler(trialUpdateHandler);
-                  //  timeOut();
-               // }
+    			//here the camera and the parallax are updated
+    			if (lastDestinyg[1] <= destinyg[1] && firstJump && seconds >= 0.1f && destinyg[1] != 0f && !die)	{
+    			lastDestinyg[1] += (destinyg[1] - lastDestinyg[1]) * 0.05f + pSecondsElapsed * 100;
+    	        parallaxLayer.setParallaxValue(0, lastDestinyg[1] / 10f);
+    			mCamera.setCenter(WIDTH / 2, lastDestinyg[1] + 200);
+    	        //System.out.println("destiny"+lastDestinyg[1]);
+    	        seconds = 0f;
+    			}
+    			else if (lastDestinyg[1] > destinyg[1] && scoreJump [2] == -1 && lastDestinyg[1] != 0f && !die) {
+    				lastDestinyg[1] += (destinyg[1] - lastDestinyg[1]) * 0.05f - pSecondsElapsed * 100f;
+    				parallaxLayer.setParallaxValue(0, lastDestinyg[1] / 10f);
+    				mCamera.setCenter(WIDTH / 2, lastDestinyg[1] + 200);
+    			}
+    				
+    			
+    			if (seconds >= 0.5f && jumpMessage) {
+    				gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_jump_go), 0, 1);
+    		         // Dani, lo de "Jump!" sÃ³lo tiene que mostrarse una vez al principio, no cada vez que se salte :)
+    		        	chrono.stop();
+    		        	chrono.setTimeValue(0f);
+    		        	jumpMessage = false;
+    		        	cutEnabled = true;
+    			}
+    			
+    			if (angleBar.getJumpValue() == -1)
+    				jumpSequence();
             }
             @Override public void reset() {}
         };
-        registerUpdateHandler(trialUpdateHandler);
-        gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_jump_go), 0, 1); // Dani, lo de "Jump!" sólo tiene que mostrarse una vez al principio, no cada vez que se salte :)
-        chrono.start();
+        registerUpdateHandler(trialUpdateHandler);      
+        
       //  precisionBar.start();
-        angleBar.start();
-        cutEnabled = true;
+        
+       
+        angleBar.setAlpha(0);
+        
     }
-
   
+
     public void jumpSequence() {
+    	
+    	firstJump = true;
         cutEnabled = false;
+        angleBar.setAlpha(1);
         chrono.stop();
     //    precisionBar.stop();
         angleBar.stop();
         scoreJump = getScoreJump();
         frameNum = 0;
-        origin = mCharacter.jump(origin, scoreJump); // <-
+        
+        if (scoreJump[2] == 1)
+        	origin = mCharacter.jump(origin, scoreJump); // <-
+        else
+        	origin = mCharacter.fall(origin, scoreJump);
+        
         trialTimerHandler = new TimerHandler(0.1f, new ITimerCallback() {
             @Override
             public void onTimePassed(final TimerHandler pTimerHandler) {
@@ -335,27 +393,133 @@ public class TrialSceneJump extends GameScene {
                 frameNum++;
             }
         });
-        actionSequence();
+        
+        chrono.start();
+        seconds = 0.0f;
+        if (destinyg[1] < 9040f && !falling)
+        	actionSequence();
+        else {
+        	//actionSequence();
+        	endingAnimationSequence();
+        }
+        
         registerUpdateHandler(trialTimerHandler);
-        cutEnabled = true;
+    }
+    
+    /**
+     * Calculates the trial score.
+     * Score = 100 - abs(precision bar power value) - precision bar semicycle number * 3
+     * @return The Trial Score (int from 0 to 100).
+     */
+    public float[] getScoreJump() {
+        float[] trialScore;
+        //trialScore = 100 - Math.abs(precisionBar.getPowerValue()) - precisionBar.getSemicycle() * 3;
+        trialScore = angleBar.getPowerValue();
+        
+        //if direction is -1 it means it went too far
+        if (trialScore[2] == -1 && !firstJump)
+        	falling = true;
+        
+        //max score in x is 195 (capped if above)
+        if (trialScore[0] == 195f && comboActive) {
+        	numberPerfectJumps++;
+        	numberPerfectJumpsInARow++;
+        	if (numberPerfectJumpsInARow > numberPerfectJumpsInARowMax)
+        		numberPerfectJumpsInARowMax = numberPerfectJumpsInARow;
+        }
+        else if (trialScore[0] == 195f)
+        {
+        	numberPerfectJumps++;
+        	numberPerfectJumpsInARow++;
+        	comboActive = true;
+        }
+        else
+        {
+        	numberPerfectJumpsInARow = 0;
+        	comboActive = false;
+        }
+        return trialScore;
     }
 
+    public void endingAnimationSequence() {
+    	//do something
+    	chrono.stop();
+    	if (!falling)
+    		saveTrialResults();
+    	else
+    		GameManager.player1result.jumpTime = 50;
+    	endingSequence();
+    }
+    public void saveTrialResults() {
+    	 GameManager.player1result.jumpTime = chrono.getTimeValue();
+         GameManager.player1result.jumpPerfectJumpCombo = numberPerfectJumps;
+         GameManager.player1result.jumpMaxPerfectJumpCombo = numberPerfectJumpsInARowMax;
+    }
+    
+    /**
+     * Calculates the trial score.
+     * Score = 100 - abs(precision bar power value) - precision bar semicycle number * 3
+     * @return The Trial Score (int from 0 to 100).
+     */
+    public static int getScore() {  	
+    	return getTimeScore()  + getPerfectJumpScore() + getMaxPerfectJumpScore();
+    }
+
+    public static int getStamp(int score) {
+        int stamp = ResultWinScene.STAMP_THUG;
+
+        if(score >= SCORE_GRAND_MASTER)
+            stamp = ResultWinScene.STAMP_GRAND_MASTER;
+        else if(score >= SCORE_NINJA_MASTER)
+            stamp = ResultWinScene.STAMP_NINJA_MASTER;
+        else if(score >= SCORE_NINJA)
+            stamp = ResultWinScene.STAMP_NINJA;
+
+        return stamp;
+    }
+
+    public static int getTimeScore() {
+        
+    	//maybe add a factor. 14 secs + 10 perfect + 7 combo = 
+    	//TODO: un poco mas de margen para que se vea que te has pasao, que el graduado de salto mas lineal
+    	// en cuanto llegue que se quede parao. sonidos. musica
+    	int timeScore = Math.round((50 - (GameManager.player1result.jumpTime - 10)) * 100);
+    	System.out.println("time="+(int) GameManager.player1result.jumpTime);
+    	return (int) timeScore;
+    }
+
+    public static int getPerfectJumpScore() {
+        
+    	System.out.println("perfects"+GameManager.player1result.jumpPerfectJumpCombo);
+    	return GameManager.player1result.jumpPerfectJumpCombo * 100;
+    }
+
+    public static int getMaxPerfectJumpScore() {
+        
+    	System.out.println("MaxPerfects"+GameManager.player1result.jumpMaxPerfectJumpCombo);
+    	return GameManager.player1result.jumpMaxPerfectJumpCombo * 500;
+    }
+    
     /**
      * Shows the score and the final animation. Clean the HUD and calls to the next scene.
      */
     private void endingSequence() {
-        String message;
-        GameManager.incrementScore(score);
-        if(score <= SCORE_POOR) {
-            message = "POOR " + score;
+        //GameManager.incrementScore(score);
+        score = getScore();
+        //different animations when winning in the future
+        if(score >= SCORE_GRAND_MASTER) {
+            //endingSequencePerfect();
+        	//gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_jump_go), 0, 1);
         }
-        else if(score >= SCORE_GREAT) {
-            message = "GREAT! " + score;
+        else if(score >= SCORE_NINJA_MASTER) {
+        	//gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_jump_go), 0, 1);
         }
-        else {
-            message = "MEDIUM " + score;
+        else if(score >= SCORE_THUG) {
+        	//gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_jump_go), 0, 1);
+        } else {
+        	//gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_jump_go), 0, 1);
         }
-        gameHUD.showComboMessage("Your score is...\n" + message);
+
         trialTimerHandler= new TimerHandler(endingTime, new ITimerCallback()
         {
             @Override
@@ -363,12 +527,16 @@ public class TrialSceneJump extends GameScene {
             {
                 TrialSceneJump.this.unregisterUpdateHandler(trialTimerHandler);
                 gameHUD.detachChildren();
-                SceneManager.getInstance().showScene(new MainMenuScene());
+                if(score < SCORE_THUG)
+                    SceneManager.getInstance().showScene(new ResultLoseScene());
+                else
+                    SceneManager.getInstance().showScene(new ResultWinScene());
             }
         });
         registerUpdateHandler(trialTimerHandler);
     }
 
+    
     /**
      * When time is out the cut is not enabled. Calls ending secuence.
      */
@@ -392,7 +560,7 @@ public class TrialSceneJump extends GameScene {
     }
 
     /*
-    // Para salir del trial y volver al menu de selección de escenas
+    // Para salir del trial y volver al menu de selecciÃ³n de escenas
 	public void onPressDpadLeft() { 
 		TrialSceneJump.this.unregisterUpdateHandler(trialTimerHandler);
         gameHUD.detachChildren();
@@ -406,7 +574,7 @@ public class TrialSceneJump extends GameScene {
 	}
 	*/
 	// Lo siguiente evita el funcionamiento de onPressDpadLeft(), onPressDpadUp() y onPressDpadDown() de 
-    // arriba, por eso los comento y dejo sólo el onKeyDown
+    // arriba, por eso los comento y dejo sÃ³lo el onKeyDown
 	@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)){
@@ -422,14 +590,14 @@ public class TrialSceneJump extends GameScene {
         	parallaxLayer.offsetParallaxValue(0, 2);
         }
 		if ((keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME || 
-				keyCode == KeyEvent.KEYCODE_DPAD_LEFT)){ // Salir del trial y volver al menu de selección de escenas
+				keyCode == KeyEvent.KEYCODE_DPAD_LEFT)){ // Salir del trial y volver al menu de selecciÃ³n de escenas
 			TrialSceneJump.this.unregisterUpdateHandler(trialTimerHandler);
 	        gameHUD.detachChildren();
 			SceneManager.getInstance().showScene(new TestingScene());
         }
         return true;
     }
-    // Para salir del trial y volver al menu de selección de escenas
+    // Para salir del trial y volver al menu de selecciÃ³n de escenas
 	
 	@Override
 	public void onPressButtonA () { 
@@ -459,32 +627,7 @@ public class TrialSceneJump extends GameScene {
             timeRound = 1;
     }
 
-    
-    /**
-     * Calculates the trial score.
-     * Score = 100 - abs(precision bar power value) - precision bar semicycle number * 3
-     * @return The Trial Score (int from 0 to 100).
-     */
-    public static int getScore() {
-        float[] trialScore = new float[1];
-        //trialScore = 100 - Math.abs(precisionBar.getPowerValue()) - precisionBar.getSemicycle() * 3;
-       // trialScore = angleBar.getPowerValue();
-        return (int)trialScore[0];
-    }
-    
-    /**
-     * Calculates the trial score.
-     * Score = 100 - abs(precision bar power value) - precision bar semicycle number * 3
-     * @return The Trial Score (int from 0 to 100).
-     */
-    public float[] getScoreJump() {
-        float[] trialScore;
-        //trialScore = 100 - Math.abs(precisionBar.getPowerValue()) - precisionBar.getSemicycle() * 3;
-        trialScore = angleBar.getPowerValue();
-        return trialScore;
-    }
 
-    
 // Auxiliary Classes
 
     /**
@@ -498,45 +641,154 @@ public class TrialSceneJump extends GameScene {
 			charSprite = new AnimatedSprite(posX, posY,
                     ResourceManager.getInstance().jumpChSho,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+			charSprite.setScale(2.91f);
             attachChild(charSprite);
         }
         
         public void start() {
-        	charSprite.animate(new long[] { 300, 300 }, 1, 2, true);
+        	charSprite.animate(new long[] { 300, 300 }, new int[] {1, 2}, true);
+        	numberPerfectJumps = 0;
+        	numberPerfectJumpsInARow = 0;
         //	Path path = new Path(2).to(0f, 0f).to(0f,0f);
         	
         //	charSprite.registerEntityModifier(new PathModifier(.0f, path));
         }
         
-        public float[] jump(float[] origin, float[] score) {
-        	float angle = (float) Math.atan(score[0]/score[1]);
-        	float[] destiny = {0, 0};
-        	float xDistance = WIDTH - 50;
-        	// x will be 0 or 100 always
-        	if (origin[0] == 50f){
-        		destiny[0] = xDistance;
+        public float[] fall(float[] origin, float[] score) {
+        	angleBar.setJumpValue(1);
+        	float[] destiny = new float[] {0, 0};
+        	if (origin[0] == jumpLeft){
+        		//if he falls, it will land a little bit right
+        		destiny[0] = jumpLeft + 200f;
         		charSprite.setFlippedHorizontal(false);
         	}
         	else{
-        		destiny[0] = 50f;
+        		destiny[0] = jumpRight - 200f;
         		charSprite.setFlippedHorizontal(true);
         	}
-        	charSprite.animate(new long[] { 100, 100, 100, 100, 100
-        			, 100, 100, 100}, new int[] {8, 9, 10, 11, 12, 13, 14, 15},
-        			false);
         	
-        	destiny[1] = ((float) (Math.tan(angle) * xDistance)) * 0.1f + origin[1]; // its correct (float) (Math.tan(angle) * xDistance) + origin[1];
-        	
-        	//erase later
-        	if (destiny[1] > 1800f)
+        	if (origin[1] > 2000f){
+        		//fall and lose
+        		falling = true;
+        		die = true;
+        		angleBar.ActivateTooHigh();
+        		destiny[1] = origin[1] - 1000f;
+        		
+        		charSprite.animate(new long[] { 75, 75, 75, 75, 75
+            			, 75, 75, 75}, new int[] {20, 21, 20, 21, 22, 23, 22, 23}, false);
+            	Path path = new Path(2).to(origin[0], origin[1])
+            			.to(destiny[0],destiny[1]);
+            	charSprite.registerEntityModifier(new PathModifier(1f, path));	
+        	}
+        	else{
+        		//fall and continue playing
         		destiny[1] = 0f;
+        		charSprite.animate(new long[] { 75, 75, 75, 75, 75
+            			, 75, 75, 75}, new int[] {20, 21, 20, 21, 22, 23, 22, 23}, false, new IAnimationListener(){
+    				@Override
+    				public void onAnimationFinished(AnimatedSprite pAnimatedSprite){
+    					start();
+    					angleBar.setCursorValueToBeginning();
+						cutEnabled = true;
+    				}
+					@Override
+					public void onAnimationStarted(
+							AnimatedSprite pAnimatedSprite,
+							int pInitialLoopCount) {
+					}
+					@Override
+					public void onAnimationFrameChanged(
+							AnimatedSprite pAnimatedSprite,
+							int pOldFrameIndex, int pNewFrameIndex) {	
+					}
+					@Override
+					public void onAnimationLoopFinished(
+							AnimatedSprite pAnimatedSprite,
+							int pRemainingLoopCount, int pInitialLoopCount) {
+					}
+    	});
+            	Path path = new Path(2).to(origin[0], origin[1])
+            			.to(destiny[0],destiny[1]);
+            	charSprite.registerEntityModifier(new PathModifier(1f, path));	
+        	}
+        		
+        	destinyg = destiny;
+        	return destiny;
+        }
+        
+        public float[] jump(float[] origin, float[] score) {
+        	float angle = (float) Math.atan(score[0]/score[1]);
+        	//float xDistance = 1270f;
+        	// x will be 0 or 100 always
+        	float[] destiny = new float[] {0, 0};
+        	if (origin[0] == jumpLeft){
+        		destiny[0] = jumpRight;
+        		charSprite.setFlippedHorizontal(false);
+        	}
+        	else{
+        		destiny[0] = jumpLeft;
+        		charSprite.setFlippedHorizontal(true);
+        	}
         	
+        	
+        	destiny[1] = ((float) (Math.tan(angle) * jumpRight)) * 0.1f + origin[1]; // its correct (float) (Math.tan(angle) * xDistance) + origin[1];
+        	
+        	if (destiny[1] - origin[1] > 1000f)
+        		destiny[1] = origin[1] + 1000f;
+        		
+        	if (destiny[1] > 9050f)
+        	{
+        		destiny[1] = 9050f;
+        		//do another animation
+        	}
+        	
+        	charSprite.animate(new long[] { 75, 75, 75, 75, 75
+        			, 75, 75, 75}, new int[] {8, 9, 10, 11, 12, 13, 14, 15}, false, new IAnimationListener(){
+        				@Override
+        				public void onAnimationFinished(AnimatedSprite pAnimatedSprite){
+        				
+        				}
+
+						@Override
+						public void onAnimationStarted(
+								AnimatedSprite pAnimatedSprite,
+								int pInitialLoopCount) {
+							
+							
+						}
+
+						@Override
+						public void onAnimationFrameChanged(
+								AnimatedSprite pAnimatedSprite,
+								int pOldFrameIndex, int pNewFrameIndex) {
+							if (pNewFrameIndex == 6) {
+								angleBar.setCursorValueToBeginning();
+								angleBar.start();
+								cutEnabled = true;
+							}
+							
+							
+						}
+
+						@Override
+						public void onAnimationLoopFinished(
+								AnimatedSprite pAnimatedSprite,
+								int pRemainingLoopCount, int pInitialLoopCount) {
+							
+							
+						}
+        	});
+        	
+
         	Path path = new Path(2).to(origin[0], origin[1])
         			.to(destiny[0],destiny[1]);
         	
-        	charSprite.registerEntityModifier(new PathModifier(.4f, path));
+        	charSprite.registerEntityModifier(new PathModifier(.3f, path));
         	if (Double.isNaN(destiny[0]) || Double.isNaN(destiny[1]))
         		destiny = origin;
+        	
+        	
+        	destinyg = destiny;
         	return destiny;
         }
 
@@ -562,7 +814,7 @@ public class TrialSceneJump extends GameScene {
 		mSpr_bg09_sky = new Sprite(0, 0,
                     ResourceManager.getInstance().jumpBg9Sky,
                     ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-		mSpr_bg09_sky.setOffsetCenter(0, 0); // Si no hacemos esto, los sprites tienen su offset en el centro, así los colocamos abajo a la izquierda de la imagen
+		mSpr_bg09_sky.setOffsetCenter(0, 0); // Si no hacemos esto, los sprites tienen su offset en el centro, asÃ­ los colocamos abajo a la izquierda de la imagen
 		mSpr_bg09_sky.setPosition(0, 0);
     			
     			
@@ -588,7 +840,7 @@ public class TrialSceneJump extends GameScene {
 		mSpr_bg05_pagoda.setOffsetCenter(0, 0);
 		mSpr_bg05_pagoda.setPosition(pPX, pPY);
 		
-		// Sprite Montaña cercana
+		// Sprite MontaÃ±a cercana
 		mSpr_bg04_mount= new Sprite(0, 0, ResourceManager.getInstance().jumpBg4Mount, vertexBufferObjectManager);
 		mSpr_bg04_mount.setOffsetCenter(0, 0);
 		mSpr_bg04_mount.setPosition(0, pMY);
@@ -625,13 +877,13 @@ public class TrialSceneJump extends GameScene {
 		mSpr_bg01_bamboo_mid1_a = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
 		mSpr_bg01_bamboo_mid1_a.setOffsetCenter(0, 0);
 		mSpr_bg01_bamboo_mid1_a.setPosition(pBX1, mSpr_bg01_bamboo_low1.getHeight()); //68);
-		mSpr_bg01_bamboo_mid1_b = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
-		mSpr_bg01_bamboo_mid1_b.setOffsetCenter(0, 0);
-		mSpr_bg01_bamboo_mid1_b.setPosition(pBX1, mSpr_bg01_bamboo_low1.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight() ); 
-		mSpr_bg01_bamboo_mid1_c = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
-		mSpr_bg01_bamboo_mid1_c.setOffsetCenter(0, 0);
-		mSpr_bg01_bamboo_mid1_c.setPosition(pBX1, mSpr_bg01_bamboo_low1.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight()*(repBamboo-1) ); 
-		mSpr_bg01_bamboo_high1 = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
+		//mSpr_bg01_bamboo_mid1_b = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
+		//mSpr_bg01_bamboo_mid1_b.setOffsetCenter(0, 0);
+		//mSpr_bg01_bamboo_mid1_b.setPosition(pBX1, mSpr_bg01_bamboo_low1.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight() ); 
+		//mSpr_bg01_bamboo_mid1_c = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
+		//mSpr_bg01_bamboo_mid1_c.setOffsetCenter(0, 0);
+		//mSpr_bg01_bamboo_mid1_c.setPosition(pBX1, mSpr_bg01_bamboo_low1.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight()*(repBamboo-1) ); 
+		mSpr_bg01_bamboo_high1 = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooTop, vertexBufferObjectManager);
 		mSpr_bg01_bamboo_high1.setOffsetCenter(0, 0);
 		mSpr_bg01_bamboo_high1.setPosition(pBX1, mSpr_bg01_bamboo_low1.getHeight()+ mSpr_bg01_bamboo_mid1_a.getHeight()*repBamboo); // 989);  		
 		
@@ -642,12 +894,12 @@ public class TrialSceneJump extends GameScene {
 		mSpr_bg01_bamboo_mid2_a = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
 		mSpr_bg01_bamboo_mid2_a.setOffsetCenter(0, 0);
 		mSpr_bg01_bamboo_mid2_a.setPosition(pBX2, mSpr_bg01_bamboo_low2.getHeight()); //68);
-		mSpr_bg01_bamboo_mid2_b = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
-		mSpr_bg01_bamboo_mid2_b.setOffsetCenter(0, 0);
-		mSpr_bg01_bamboo_mid2_b.setPosition(pBX2, mSpr_bg01_bamboo_low2.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight() ); 
-		mSpr_bg01_bamboo_mid2_c = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
-		mSpr_bg01_bamboo_mid2_c.setOffsetCenter(0, 0);
-		mSpr_bg01_bamboo_mid2_c.setPosition(pBX2, mSpr_bg01_bamboo_low2.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight()*(repBamboo-1) ); 
+		//mSpr_bg01_bamboo_mid2_b = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
+		//mSpr_bg01_bamboo_mid2_b.setOffsetCenter(0, 0);
+		//mSpr_bg01_bamboo_mid2_b.setPosition(pBX2, mSpr_bg01_bamboo_low2.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight() ); 
+		//mSpr_bg01_bamboo_mid2_c = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooMiddle, vertexBufferObjectManager);
+		//mSpr_bg01_bamboo_mid2_c.setOffsetCenter(0, 0);
+		//mSpr_bg01_bamboo_mid2_c.setPosition(pBX2, mSpr_bg01_bamboo_low2.getHeight() + mSpr_bg01_bamboo_mid1_a.getHeight()*(repBamboo-1) ); 
 		mSpr_bg01_bamboo_high2 = new Sprite(0, 0, ResourceManager.getInstance().jumpBg1BambooTop, vertexBufferObjectManager);
 		mSpr_bg01_bamboo_high2.setOffsetCenter(0, 0);
 		mSpr_bg01_bamboo_high2.setPosition(pBX2, mSpr_bg01_bamboo_low2.getHeight()+ mSpr_bg01_bamboo_mid1_a.getHeight()*repBamboo); // 989);  		
@@ -659,7 +911,7 @@ public class TrialSceneJump extends GameScene {
 		
 		
 		
-		// Creamos el fondo parallax y a continuación le asignamos las entidades parallax
+		// Creamos el fondo parallax y a continuaciÃ³n le asignamos las entidades parallax
 		parallaxLayer = new ParallaxBackground2d(0, 0, 0); 
 		
 		// Cielo
@@ -668,7 +920,7 @@ public class TrialSceneJump extends GameScene {
 		// Fuji
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL08, fFPL08, mSpr_bg08_fuji, false, false));
 		
-		// Bosque de bambú lejano
+		// Bosque de bambÃº lejano
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL07, fFPL07, mSpr_bg07_lake, false, false));
 				
 		// Nubes
@@ -677,15 +929,15 @@ public class TrialSceneJump extends GameScene {
 		// Pagoda
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL05, fFPL05, mSpr_bg05_pagoda, false, false));
 		
-		// Montaña
+		// MontaÃ±a
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL04, fFPL04, mSpr_bg04_mount, false, false));
 		
-		// Bosque de bambú lejano
+		// Bosque de bambÃº lejano
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL03, fFPL03, mSpr_bg03_forest2_low, false, false));
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL03, fFPL03, mSpr_bg03_forest2_mid, false, false));
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL03, fFPL03, mSpr_bg03_forest2_high, false, false));
 
-		// Bosque de bambú cercano
+		// Bosque de bambÃº cercano
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL02, fFPL02, mSpr_bg02_forest1_low, false, false));
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL02, fFPL02, mSpr_bg02_forest1_mid1, false, false));
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL02, fFPL02, mSpr_bg02_forest1_mid2, false, false));
@@ -693,22 +945,23 @@ public class TrialSceneJump extends GameScene {
 		
 		// Bambu rebotable izquierdo
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_low1, false, false));
-		pBE01 = new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid1_a, false, false);
+		pBE01 = new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid1_a, false, true, -1, 10);
 		parallaxLayer.attachParallaxEntity(pBE01); 
-		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid1_b, false, false)); //pBE01);
-		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid1_c, false, false)); 
-		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_high1, false, false));
+		//parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid1_b, false, false)); //pBE01);
+		//parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid1_c, false, false)); 
+		
 		// Bambu rebotable derecho		
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_low2, false, false));
-		pBE02 = new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid2_a, false, false);
+		pBE02 = new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid2_a, false, true, -1, 10);
 		parallaxLayer.attachParallaxEntity(pBE02);
-		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid2_b, false, false));
-		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid2_c, false, false));
+		//parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid2_b, false, false));
+		//parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_mid2_c, false, false));
+		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_high1, false, false));
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_bamboo_high2, false, false));
 		// Estatuas
 		parallaxLayer.attachParallaxEntity(new ParallaxBackground2d.ParallaxBackground2dEntity(fFPL01, fFPL01, mSpr_bg01_statues, false, false));
 
-		// Añadimos el fondo parallax a la escena
+		// AÃ±adimos el fondo parallax a la escena
 		this.setBackground(parallaxLayer); 
 		
 		// Registramos el manejador de actualizaciones
@@ -721,30 +974,7 @@ public class TrialSceneJump extends GameScene {
 		// return this;
     }
     
-    
-
-
-    public static int getStamp(int score2) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    public static int getTimeScore() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    public static int getPerfectJumpScore() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    public static int getMaxPerfectJumpScore() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-    
-    // Basurillas para que el scroll se mueva automáticamente sin necesidad de usar las clases Auto---ParallaxBackground
+    // Basurillas para que el scroll se mueva automÃ¡ticamente sin necesidad de usar las clases Auto---ParallaxBackground
     public void autoScrollUp(){
     	if (autoScroll)
     		desplazamientoParallaxVertical = 1;    	

@@ -98,8 +98,9 @@ public class ResultWinScene extends GameScene {
     @Override
     public void onShowScene() {
 
-        if (GameManager.DEBUG_MODE == true)
-            loadTestData();
+        //if (GameManager.DEBUG_MODE == true)
+            //loadTestData();
+        	
 
         // Background:
         bg = new SpriteBackground(new Sprite(WIDTH/2, HEIGHT/2,
@@ -225,7 +226,7 @@ public class ResultWinScene extends GameScene {
             stamp.setCurrentTileIndex(TrialSceneJump.getStamp(TrialSceneJump.getScore()));
             scoreItemsNumber = 3;
             scoreItemArray[0] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_jump_time),
-                    String.valueOf(GameManager.player1result.jumpTime),
+                    String.valueOf(String.format("%.2f", GameManager.player1result.jumpTime)),
                     TrialSceneJump.getTimeScore());
             scoreItemArray[1] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_jump_perfect_jump_combo),
                     String.valueOf(GameManager.player1result.jumpPerfectJumpCombo),
