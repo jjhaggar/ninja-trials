@@ -28,12 +28,14 @@ import org.andengine.util.adt.align.HorizontalAlign;
 import android.content.Context;
 import android.util.Log;
 import com.madgear.ninjatrials.GameScene;
+import com.madgear.ninjatrials.achievements.AchievementSetNinjaTrial;
 import com.madgear.ninjatrials.hud.SelectionStripe;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.managers.UserData;
 import com.madgear.ninjatrials.records.Record;
+import com.madgear.ninjatrials.records.RecordsTableSet;
 
 public class DataLoadAndSaveTestScene extends GameScene {
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
@@ -92,13 +94,18 @@ public class DataLoadAndSaveTestScene extends GameScene {
 
 
     /**
-     * Delete data files
+     * Delete data files and variables
      */
     private void deleteData() {
+        
         file = c.getFileStreamPath(UserData.ACHIEV_FILE_NAME);
         if(file.delete()) Log.i("data test", "achiev file deleted");
+        GameManager.player1achiev = new AchievementSetNinjaTrial();
+        GameManager.player2achiev = new AchievementSetNinjaTrial();
+        
         file = c.getFileStreamPath(UserData.RECORDS_FILE_NAME);
         if(file.delete()) Log.i("data test", "records file deleted");
+        GameManager.recordsTableSet = new RecordsTableSet();
         
     }
 

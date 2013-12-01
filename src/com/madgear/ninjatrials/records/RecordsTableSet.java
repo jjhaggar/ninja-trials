@@ -21,6 +21,8 @@ package com.madgear.ninjatrials.records;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.madgear.ninjatrials.managers.GameManager;
+
 public class RecordsTableSet implements Serializable {
 
     // Serial version:
@@ -38,6 +40,17 @@ public class RecordsTableSet implements Serializable {
         todayRecords = new RecordsTable(SIZE);
         monthRecords = new RecordsTable(SIZE);
         allTimeRecords = new RecordsTable(SIZE);
+    }
+    
+    /**
+     * Save player score
+     */
+    public void savePlayerScore() {
+        // TODO: player profile
+        insert(new Record(
+                1, "Player1",
+                GameManager.getSelectedCharacter(),
+                GameManager.getCurrentScore()));
     }
     
     /**

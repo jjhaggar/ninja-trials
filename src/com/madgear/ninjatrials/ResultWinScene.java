@@ -314,6 +314,9 @@ public class ResultWinScene extends GameScene {
             SceneManager.getInstance().showScene(new TestingScene());
         else
             if(GameManager.getCurrentTrial() == GameManager.TRIAL_FINAL) {
+                // Save player score:
+                GameManager.recordsTableSet.savePlayerScore();
+                // Go to ending scene!
                 SceneManager.getInstance().showScene(new EndingScene());
             }
             else {

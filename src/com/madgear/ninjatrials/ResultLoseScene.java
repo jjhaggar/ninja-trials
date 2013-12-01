@@ -35,6 +35,7 @@ import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.records.Record;
 import com.madgear.ninjatrials.test.TestingScene;
 import com.madgear.ninjatrials.trials.TrialSceneCut;
 import com.madgear.ninjatrials.trials.TrialSceneJump;
@@ -184,7 +185,14 @@ public class ResultLoseScene extends GameScene {
             case 0:
                 // Yes
                 SFXManager.stopMusic(ResourceManager.getInstance().loseMusic);
+                
+                // Lives -1
                 GameManager.setLives(GameManager.getLives() - 1);
+                
+                // Score = 0
+                GameManager.resetScore();
+                
+                
                 if(GameManager.DEBUG_MODE)
                     SceneManager.getInstance().showScene(new TestingScene());
                 else
@@ -215,6 +223,9 @@ public class ResultLoseScene extends GameScene {
     }
 
     private void gameOver() {
+        // Save player score:
+        GameManager.recordsTableSet.savePlayerScore();                
+        
         clearUpdateHandlers();
         SFXManager.stopMusic(ResourceManager.getInstance().loseMusic);
         //pressEnabled = false;
