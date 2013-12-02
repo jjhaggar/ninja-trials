@@ -964,20 +964,20 @@ public class ResourceManager {
             jumpChShoBit.load();
         }
 
-        //if (jumpEffectPreparation == null) {
-        //    BuildableBitmapTextureAtlas jumpEffectPreparationBit = new BuildableBitmapTextureAtlas(
-        //            textureManager, 590, 406, mTransparentTextureOption);
-        //    jumpEffectPreparation = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-        //            jumpEffectPreparationBit, context, "jump_effect_preparation.png", 2, 2);
-        //    try {
-        //        jumpEffectPreparationBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
-        //                BitmapTextureAtlas>(0, 0, 0));
-        //    }
-        //    catch (TextureAtlasBuilderException e) {
-        //        e.printStackTrace();
-        //    }
-        //    jumpEffectPreparationBit.load();
-        //}
+        if (jumpEffectPreparation == null) {
+            BuildableBitmapTextureAtlas jumpEffectPreparationBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 590, 406, mTransparentTextureOption);
+            jumpEffectPreparation = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    jumpEffectPreparationBit, context, "jump_effect_preparation.png", 2, 2);
+            try {
+                jumpEffectPreparationBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            jumpEffectPreparationBit.load();
+        }
 
         //if (jumpEffectWallKick == null) {
         //    BuildableBitmapTextureAtlas jumpEffectWallKickBit = new BuildableBitmapTextureAtlas(
