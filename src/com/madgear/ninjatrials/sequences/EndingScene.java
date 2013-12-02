@@ -21,6 +21,7 @@ package com.madgear.ninjatrials.sequences;
 
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.Entity;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
@@ -33,7 +34,7 @@ import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.test.TestingScene;
 
 /**
- * This is a testing class.
+ * This is the Ending class.
  * @author Madgear Games
  *
  */
@@ -41,6 +42,7 @@ public class EndingScene extends GameScene {
     private static final float PUSH_DELAY_TIME = 2f;
     private boolean pressButtonEnabled = false;
     private TimerHandler timerHandler;
+    private Sequence sequenceEntity;
     
     public EndingScene() {
         this(0f);  // loading screen disabled.
@@ -59,9 +61,9 @@ public class EndingScene extends GameScene {
     
     @Override
     public Scene onLoadingScreenLoadAndShown() {
-        Scene loadingScene = new Scene(); // Provisional, sera una clase externa
-        loadingScene.getBackground().setColor(0.3f, 0.0f, 0.0f);
-        // Añadimos algo de texto:
+        Scene loadingScene = new Scene(); // Provisional, it will be an external class
+        loadingScene.getBackground().setColor(0.3f, 0.3f, 0.6f);
+        // Some text added:
         final Text loadingText = new Text(
                 ResourceManager.getInstance().cameraWidth * 0.5f,
                 ResourceManager.getInstance().cameraHeight * 0.3f,
@@ -76,39 +78,84 @@ public class EndingScene extends GameScene {
     public void onLoadingScreenUnloadAndHidden() {}
 
     @Override
-    public void onLoadScene() {}
+    public void onLoadScene() {
+        ResourceManager.getInstance().loadEndingResources();
+    }
 
     @Override
     public void onShowScene() {
-        this.getBackground().setColor(0.5f, 0.3f, 0.0f);
-        final Text loadingText = new Text(
-                ResourceManager.getInstance().cameraWidth * 0.5f,
-                ResourceManager.getInstance().cameraHeight * 0.5f,
-                ResourceManager.getInstance().fontMedium,
-                "Ending Scene\n" +
-                "Press O for action\n" +
-                "You must wait for " + PUSH_DELAY_TIME + " seconds.\n",
-                new TextOptions(HorizontalAlign.CENTER),
-                ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        this.attachChild(loadingText);
-
+        // Choose the right sequence to show. Only 2 now, but there'll be 9 different ones later
+        switch (GameManager.getSelectedCharacter()) {
+        case GameManager.CHAR_SHO:
+            sequenceEntity = new EndingSequenceShoEasy();
+            break;
+        case GameManager.CHAR_RYOKO:
+            sequenceEntity = new EndingSequenceRyokoEasy();
+            break;
+        default:
+            break;
+        }
+        this.attachChild((Entity)sequenceEntity);
     }
 
     @Override
     public void onHideScene() {}
 
     @Override
-    public void onUnloadScene() {}
-    
-    /**
-     * If we press the O button go to the next scene or testing scene.
-     */
+    public void onUnloadScene() {
+        ResourceManager.getInstance().unloadEndingResources();
+    }
+
+    protected void skip() {
+        skip(GameManager.sequenceBehaviourAtPress);
+    }
+
+    protected void skip(int sequenceBehaviour) {
+        if(pressButtonEnabled){
+            switch (sequenceBehaviour) {
+            case GameManager.SEQUENCE_CANNOT_SKIP:
+                // Don't do anything. The sequence cannot be skipped.
+                break;
+            case GameManager.SEQUENCE_ASK_BEFORE_SKIP:
+                // TODO Ask before skip. Show confirmation dialog.
+                break;
+            case GameManager.SEQUENCE_SKIP_DIRECTLY:
+                // Skip the sequence without asking.
+                if (sequenceEntity.isInLastSubSequence()) {
+                    sequenceEntity.stopMusicAndSFX();
+                    if(GameManager.DEBUG_MODE)
+                        SceneManager.getInstance().showScene(new TestingScene());
+                    else
+                        SceneManager.getInstance().showScene(new CreditsScene());
+                }
+                else{
+                    sequenceEntity.goToNextSubSequence();
+                }
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void onPressButtonMenu() {
+        skip();
+    }
     @Override
     public void onPressButtonO() {
-        if(pressButtonEnabled)
-            if(GameManager.DEBUG_MODE)
-                SceneManager.getInstance().showScene(new TestingScene());
-            else
-                SceneManager.getInstance().showScene(new CreditsScene());
+        skip();
+    }
+    @Override
+    public void onPressButtonU() {
+        skip();
+    }
+    @Override
+    public void onPressButtonY() {
+        skip();
+    }
+    @Override
+    public void onPressButtonA() {
+        skip();
     }
 }
