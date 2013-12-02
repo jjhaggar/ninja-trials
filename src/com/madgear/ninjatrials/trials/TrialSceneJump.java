@@ -249,7 +249,7 @@ public class TrialSceneJump extends GameScene {
   //              ResourceManager.getInstance().engine.getVertexBufferObjectManager()));
   //      setBackground(bg);
        mStatue = new Statue();
-       mCharacter = new Character(WIDTH / 2 - 120, HEIGHT / 2);
+       mCharacter = new Character(WIDTH / 2 - 300, 320); //(WIDTH / 2 - 120, HEIGHT / 2);
        //destinyg[1] = HEIGHT / 2;
        //lastDestinyg[1] = HEIGHT / 2;
        
@@ -421,13 +421,13 @@ public class TrialSceneJump extends GameScene {
         	falling = true;
         
         //max score in x is 195 (capped if above)
-        if (trialScore[0] == 195f && comboActive) {
+        if (trialScore[0] == angleBar.getMaxScore() && comboActive) {
         	numberPerfectJumps++;
         	numberPerfectJumpsInARow++;
         	if (numberPerfectJumpsInARow > numberPerfectJumpsInARowMax)
         		numberPerfectJumpsInARowMax = numberPerfectJumpsInARow;
         }
-        else if (trialScore[0] == 195f)
+        else if (trialScore[0] == angleBar.getMaxScore())
         {
         	numberPerfectJumps++;
         	numberPerfectJumpsInARow++;
@@ -480,10 +480,11 @@ public class TrialSceneJump extends GameScene {
 
     public static int getTimeScore() {
         
-    	//maybe add a factor. 14 secs + 10 perfect + 7 combo = 
-    	//TODO: un poco mas de margen para que se vea que te has pasao, que el graduado de salto mas lineal
-    	// en cuanto llegue que se quede parao. sonidos. musica
-    	int timeScore = Math.round((50 - (GameManager.player1result.jumpTime - 10)) * 100);
+    	//maybe add a factor. 13 secs + 9 perfect + 9 combo = 9800 aprox
+    	//TODO: ajustar precision angle bar. poner cabeza. poner animacion del final. poner efectos graficos
+    	//que cuando se pase el tiempo (50) se pierda
+    	// . sonidos. musica
+    	int timeScore = Math.round((50 - (GameManager.player1result.jumpTime - 8)) * 100); //8 seg es el minimo
     	System.out.println("time="+(int) GameManager.player1result.jumpTime);
     	return (int) timeScore;
     }
@@ -761,7 +762,7 @@ public class TrialSceneJump extends GameScene {
 						public void onAnimationFrameChanged(
 								AnimatedSprite pAnimatedSprite,
 								int pOldFrameIndex, int pNewFrameIndex) {
-							if (pNewFrameIndex == 6) {
+							if (pNewFrameIndex == 6 && destinyg[1] < 9040f) {
 								angleBar.setCursorValueToBeginning();
 								angleBar.start();
 								cutEnabled = true;
