@@ -45,6 +45,8 @@ import org.andengine.entity.text.TextOptions;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.adt.align.HorizontalAlign;
 
+import tv.ouya.console.api.OuyaController;
+
 import android.test.PerformanceTestCase;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -574,7 +576,6 @@ public class TrialSceneJump extends GameScene {
     @Override
     public void onPressButtonO() {
         if (cutEnabled) {
-      //      cutSequence();
         	jumpSequence();
         }
     }
@@ -615,6 +616,8 @@ public class TrialSceneJump extends GameScene {
 	        gameHUD.detachChildren();
 			SceneManager.getInstance().showScene(new TestingScene());
         }
+		if ((keyCode == OuyaController.BUTTON_O)) // Chapucilla para que el mando OUYA funcione
+			onPressButtonO();
         return true;
     }
     // Para salir del trial y volver al menu de selecciÃ³n de escenas
@@ -1059,14 +1062,6 @@ public class TrialSceneJump extends GameScene {
 		// return this;
     }
     
-    // Basurillas para que el scroll se mueva automÃ¡ticamente sin necesidad de usar las clases Auto---ParallaxBackground
-    public void autoScrollUp(){
-    	if (autoScroll)
-    		desplazamientoParallaxVertical = 1;    	
-    }
-    public void autoScrollDown(){
-    	if (autoScroll)
-    		desplazamientoParallaxVertical = -1;    	
-    }
+
     
 }
