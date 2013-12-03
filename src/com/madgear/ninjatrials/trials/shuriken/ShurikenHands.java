@@ -25,13 +25,15 @@ public class ShurikenHands extends Entity{
 	private ShurikenCoordinates coordinates;
 	private Sprite[] handsSprites = new Sprite[3];
 	private boolean ignoreInputBecauseMoving = false;
-	private float movementDistanceDelta = 50; // pixels
-	private float movementTimeDelta = .025f; // seconds
+	private float movementDistanceDelta = 25; // pixels
+	private float movementTimeDelta = .020f; // seconds
 	private int movementAnimationExtraTimeMargin = 13; // miliseconds
 	private IUpdateHandler shurikenUpdateHandler;
 	private float shurikenLaunchTime;
 	private AnimatedSprite hands;
 	private int shurikenAnimationCounter;
+	private boolean movingLeft = false;
+	private boolean movingRight = false;
 	
 	public ShurikenHands() {
 		float posX = SCRNWIDTH/2;
@@ -51,17 +53,24 @@ public class ShurikenHands extends Entity{
 		hands = new AnimatedSprite(posX, posY, handsITTR, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
 		hands.setCurrentTileIndex(2);				
 		attachChild(hands);
+		Timer timer = new Timer();
+		timer.schedule(new HandsMovementTrigger(this), 50);
 	}
 	public void moveLeft() {
+		movingLeft = true;		
+		/*
 		if (coordinates.x - movementDistanceDelta >= 0 && !ignoreInputBecauseMoving){
 			ignoreInputBecauseMoving = true;
 			TrialSceneShuriken.moveSprite(hands, coordinates.x, coordinates.y, coordinates.x - movementDistanceDelta, coordinates.y, movementTimeDelta);
 			coordinates.x = coordinates.x - movementDistanceDelta;
 			Timer timer = new Timer();
 			timer.schedule(new HandsMovementWaiter(this), (int)(movementTimeDelta * 1000) + movementAnimationExtraTimeMargin);
-		}			
+		}
+		*/
 	}
 	public void moveRight() {
+		movingRight = true;
+		/*
 		if (coordinates.x + movementDistanceDelta <= SCRNWIDTH && !ignoreInputBecauseMoving){
 			ignoreInputBecauseMoving = true;
 			TrialSceneShuriken.moveSprite(hands, coordinates.x, coordinates.y, coordinates.x + movementDistanceDelta, coordinates.y, movementTimeDelta);
@@ -69,9 +78,11 @@ public class ShurikenHands extends Entity{
 			Timer timer = new Timer();
 			timer.schedule(new HandsMovementWaiter(this), (int)(movementTimeDelta * 1000) + movementAnimationExtraTimeMargin);
 		}
+		*/
 	}
 	public void stop() {
-		
+		movingLeft = false;
+		movingRight = false;
 	}
 	public void hide() {
 		// TODO Las oculta lentamente por la parte inferior de la pantalla.
@@ -126,6 +137,28 @@ public class ShurikenHands extends Entity{
 		@Override
 		public void run() {
 			hands.ignoreInputBecauseMoving = false;			
+		}		
+	}
+	private class HandsMovementTrigger extends TimerTask {		
+		ShurikenHands hands;
+		
+		public HandsMovementTrigger(ShurikenHands hands){
+			super();
+			this.hands = hands;
+		}
+		
+		@Override
+		public void run() {
+			if (hands.movingLeft) {
+				TrialSceneShuriken.moveSprite(hands.hands, coordinates.x, coordinates.y, coordinates.x - movementDistanceDelta, coordinates.y, movementTimeDelta);
+				coordinates.x = coordinates.x - movementDistanceDelta;
+			}
+			else if (hands.movingRight) {
+				TrialSceneShuriken.moveSprite(hands.hands, coordinates.x, coordinates.y, coordinates.x + movementDistanceDelta, coordinates.y, movementTimeDelta);
+				coordinates.x = coordinates.x + movementDistanceDelta;
+			}
+			Timer timer = new Timer();
+			timer.schedule(new HandsMovementTrigger(hands), 25);
 		}		
 	}
 }
