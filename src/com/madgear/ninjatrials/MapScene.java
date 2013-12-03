@@ -1,7 +1,10 @@
 package com.madgear.ninjatrials;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.Entity;
@@ -48,8 +51,10 @@ public class MapScene extends GameScene {
 	private float playerToPlacePositionXAdjustment = 10;
 	private float playerToPlacePositionYAdjustment = 75;
 	
-	private int currentPosition = 0; // Where is this parameter value?
-	private int nextPosition = 1; // Where is this parameter value?
+	private String currentTrial; //"jump", "run", "shuriken" or "cut"
+	private String nextTrial; //"jump", "run", "shuriken" or "cut"
+	private int currentPosition;
+	private int nextPosition;
 
 	@Override
 	public Scene onLoadingScreenLoadAndShown() {
@@ -63,6 +68,7 @@ public class MapScene extends GameScene {
 	public void onLoadScene() {
 		ResourceManager.getInstance().loadMenuMapResources();
 		setBackground(getBG());
+		getCurrentAndNextTrialsAndPositions();		
 	}
 
 	@Override
@@ -79,7 +85,7 @@ public class MapScene extends GameScene {
 		for(Place p : places) {
 			attachChild(p);
 		}
-		parchment = new Parchment(SCRNWIDTH/4, SCRNHEIGHT*3/4);
+		parchment = new Parchment(SCRNWIDTH/4, SCRNHEIGHT*3/4, nextTrial);
 		attachChild(parchment);
 		places.get(currentPosition).setStatus("selected");
 		player = new Player(places.get(currentPosition).posX + playerToPlacePositionXAdjustment, places.get(currentPosition).posY + playerToPlacePositionYAdjustment);
@@ -172,6 +178,49 @@ public class MapScene extends GameScene {
         return new SpriteBackground(backgroundSprite);     
 	}
 	
+	/**
+	 * Gets current and next trials from GameManager.
+	 * Sets currentTrial, currentPosition, nextTrial, nextPosition values.
+	 */
+	private void getCurrentAndNextTrialsAndPositions() {
+		switch(GameManager.getCurrentTrial()) {
+		    case GameManager.TRIAL_RUN:
+		    	currentTrial = "run";
+		    	currentPosition = 0;
+		        break;
+		    case GameManager.TRIAL_JUMP:
+		    	currentTrial = "jump";
+		    	currentPosition = 1;
+		        break;
+		    case GameManager.TRIAL_CUT:
+		    	currentTrial = "cut";
+		    	currentPosition = 2;
+		        break;
+		    case GameManager.TRIAL_SHURIKEN:
+		    	currentTrial = "shuriken";
+		    	currentPosition = 3;
+		        break;
+	    }
+		switch(GameManager.nextTrial(GameManager.getCurrentTrial())) {
+		    case GameManager.TRIAL_RUN:
+		    	nextTrial = "run";
+		    	nextPosition = 0;
+		        break;
+		    case GameManager.TRIAL_JUMP:
+		    	nextTrial = "jump";
+		    	nextPosition = 1;
+		        break;
+		    case GameManager.TRIAL_CUT:
+		    	nextTrial = "cut";
+		    	nextPosition = 2;
+		        break;
+		    case GameManager.TRIAL_SHURIKEN:
+		    	nextTrial = "shuriken";
+		    	nextPosition = 3;
+		        break;
+	    }		
+	}
+	
 	private class Place extends Entity{
 		private float posX, posY;
 		private int orderingPosition;
@@ -211,18 +260,26 @@ public class MapScene extends GameScene {
 		private AnimatedSprite parchment;
 		private AnimatedSprite print;
 		
+		private Map<String,Integer> printsIndexes;
+		
 		private float printToParchmentPositionXAdjustment = -50;
 		private float printToParchmentPositionYAdjustment = 0;
 		private float printToParchmentScaleAdjustment = .8f;
 		private float printToParchmentRotationAdjustment = -20f;
 		
-		public Parchment(float posX, float posY) {
+		public Parchment(float posX, float posY, String trialname) {
+			printsIndexes = new HashMap<String, Integer>();
+			printsIndexes.put("jump", 0);
+			printsIndexes.put("shuriken", 1);
+			printsIndexes.put("run", 2);
+			printsIndexes.put("cut", 3);
 			ITiledTextureRegion parchmentITTR = ResourceManager.getInstance().menuMapScroll;
 			parchment = new AnimatedSprite(posX, posY, parchmentITTR, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
 			parchment.setAlpha(0f);
 			attachChild(parchment);
 			ITiledTextureRegion printITTR = ResourceManager.getInstance().menuMapDrawings;
 			print = new AnimatedSprite(posX + printToParchmentPositionXAdjustment, posY + printToParchmentPositionYAdjustment, printITTR, ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+			print.setCurrentTileIndex(printsIndexes.get(trialname));
 			print.setRotation(printToParchmentRotationAdjustment);
 			print.setScale(printToParchmentScaleAdjustment);
 			print.setAlpha(0f);

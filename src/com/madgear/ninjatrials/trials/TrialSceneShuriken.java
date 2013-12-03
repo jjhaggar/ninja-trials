@@ -379,15 +379,18 @@ public class TrialSceneShuriken extends GameScene{
 	}
 	public void onPressDpadLeft() {
 		hands.moveLeft();
+		
 	}
     public void onPressDpadRight() {
     	hands.moveRight();
+    	Log.d("Bruno", "DpadRight pressed.");
     }
     public void onReleaseDpadLeft() {
 		hands.stop();
 	}
     public void onReleaseDpadRight() {
     	hands.stop();
+    	Log.d("Bruno", "DpadRight released.");
     }
 	
 	public static int getScore() {
