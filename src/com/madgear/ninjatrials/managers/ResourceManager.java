@@ -155,7 +155,7 @@ public class ResourceManager {
     public static Sound trialCutKatanaWhoosh2;
 
 
-	// RUN SCENE
+    // RUN SCENE
     public static ITiledTextureRegion runSho;
     public static ITiledTextureRegion runRyoko;
     public static ITextureRegion runBgFloor;
@@ -305,17 +305,19 @@ public class ResourceManager {
     public static Music gameOverMusic;
     public static Sound gameOver;
 
-    // ENDING
-    public static ITextureRegion endingCreditsBackground;
-    public static ITextureRegion endingCreditsCategories;
-    public static ITextureRegion endingCreditsLogoAndengine;
-    public static ITextureRegion endingCreditsLogoEstudioevergreen;
+    // ENDING (placeholders)
     public static ITextureRegion endingRyokoEasyBg;
     public static ITextureRegion endingRyokoEasy;
     public static ITextureRegion endingShoEasyBg;
     public static ITextureRegion endingShoEasy;
 
-    // FONTS:
+    // CREDITS
+    public static ITextureRegion endingCreditsBackground;
+    public static ITiledTextureRegion endingCreditsCategories;
+    public static ITextureRegion endingCreditsLogoAndengine;
+    public static ITextureRegion endingCreditsLogoEstudioevergreen;
+
+    // FONTS
     public Font fontSmall;        // pequeño
     public Font fontMedium;        // mediano
     public Font fontBig;        // grande
@@ -652,10 +654,10 @@ public class ResourceManager {
         
         // Angle Bar:
         if (hudAngleBarCursor == null) {
-        	BitmapTextureAtlas hudAngleBarCursorT = new BitmapTextureAtlas(
+            BitmapTextureAtlas hudAngleBarCursorT = new BitmapTextureAtlas(
                     textureManager, 353, 257, mTransparentTextureOption);
             hudAngleBarCursor = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-            		hudAngleBarCursorT, activity, "hud_angle_indicator.png", 0, 0);
+                    hudAngleBarCursorT, activity, "hud_angle_indicator.png", 0, 0);
             hudAngleBarCursorT.load();
         }
 
@@ -773,8 +775,8 @@ public class ResourceManager {
         }
         if(hudAngleBarCursor!=null) {
             if(hudAngleBarCursor.getTexture().isLoadedToHardware()) {
-            	hudAngleBarCursor.getTexture().unload();
-            	hudAngleBarCursor = null;
+                hudAngleBarCursor.getTexture().unload();
+                hudAngleBarCursor = null;
             }
         }
         if(hudCursor!=null) {
@@ -820,7 +822,7 @@ public class ResourceManager {
     }
 
     public synchronized void loadJumpSceneResources() {
-    	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trial_jump/");
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trial_jump/");
 
         if (jumpBg1StoneStatues == null) {
             BitmapTextureAtlas jumpBg1StoneStatuesT = new BitmapTextureAtlas(textureManager, 442, 310,
@@ -853,9 +855,9 @@ public class ResourceManager {
         }
 
         // Bamboo in which the characters rebound (3 pieces)
- 		// ^ 91 px 
- 		// | 921 px 
- 		// v 68 px 
+         // ^ 91 px
+         // | 921 px
+         // v 68 px
         BitmapTextureAtlas bTA_Bamboo = new BitmapTextureAtlas(textureManager, 89, 1080,
                 mTransparentTextureOption);
         ITextureRegion iTR_Bamboo = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
@@ -866,26 +868,26 @@ public class ResourceManager {
         jumpBg1BambooBottom = TextureRegionFactory.extractFromTexture(bTA_Bamboo, 0, 1012, 89, 68);
 
         // Nearest bamboo forest
- 		// ^ 44 px 
- 		// | 718 px 
- 		// v 318 px  
+         // ^ 44 px
+         // | 718 px
+         // v 318 px
         BitmapTextureAtlas bTABambooForest1 = new BitmapTextureAtlas(textureManager, 1920, 1080,
                 mTransparentTextureOption);
         ITextureRegion iTRBambooForest1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-        		bTABambooForest1, activity, "jump_bg_2_bamboo_forest_1.png", 0, 0);
+                bTABambooForest1, activity, "jump_bg_2_bamboo_forest_1.png", 0, 0);
         bTABambooForest1.load();
         jumpBg2BambooForest1Top = TextureRegionFactory.extractFromTexture(bTABambooForest1, 0, 0, 1920, 44);
         jumpBg2BambooForest1Middle = TextureRegionFactory.extractFromTexture(bTABambooForest1, 0, 44, 1920, 718);
         jumpBg2BambooForest1Bottom = TextureRegionFactory.extractFromTexture(bTABambooForest1, 0, 763, 1920, 318);
 
         // Farthest bamboo forest
- 		// ^ 80 px 
- 		// | 536 px 
- 		// v 464 px 
- 		BitmapTextureAtlas bTABambooForest2 = new BitmapTextureAtlas(textureManager, 1920, 1080,
+         // ^ 80 px
+         // | 536 px
+         // v 464 px
+         BitmapTextureAtlas bTABambooForest2 = new BitmapTextureAtlas(textureManager, 1920, 1080,
                 mTransparentTextureOption);
         ITextureRegion iTRBambooForest2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-        		bTABambooForest2, activity, "jump_bg_3_bamboo_forest_2.png", 0, 0);
+                bTABambooForest2, activity, "jump_bg_3_bamboo_forest_2.png", 0, 0);
         bTABambooForest2.load();
         jumpBg3BambooForest2Top = TextureRegionFactory.extractFromTexture(bTABambooForest2, 0, 0, 1920, 80);
         jumpBg3BambooForest2Middle = TextureRegionFactory.extractFromTexture(bTABambooForest2, 0, 80, 1920, 536);
@@ -1015,42 +1017,42 @@ public class ResourceManager {
         }
 
         // CAMBIOS JJ ******************************* INICIO
-	    if (jumpBg1BambooTop != null && jumpBg1BambooTop.getTexture().isLoadedToHardware()) {
-	        jumpBg1BambooTop.getTexture().unload();
-	        jumpBg1BambooTop = null;
-	    }
-	    if (jumpBg1BambooMiddle != null && jumpBg1BambooMiddle.getTexture().isLoadedToHardware()) {
-	        jumpBg1BambooMiddle.getTexture().unload();
-	        jumpBg1BambooMiddle = null;
-	    }
-	    if (jumpBg1BambooBottom != null && jumpBg1BambooBottom.getTexture().isLoadedToHardware()) {
-	        jumpBg1BambooBottom.getTexture().unload();
-	        jumpBg1BambooBottom = null;
-	    }
-	    if (jumpBg2BambooForest1Top != null && jumpBg2BambooForest1Top.getTexture().isLoadedToHardware()) {
+        if (jumpBg1BambooTop != null && jumpBg1BambooTop.getTexture().isLoadedToHardware()) {
+            jumpBg1BambooTop.getTexture().unload();
+            jumpBg1BambooTop = null;
+        }
+        if (jumpBg1BambooMiddle != null && jumpBg1BambooMiddle.getTexture().isLoadedToHardware()) {
+            jumpBg1BambooMiddle.getTexture().unload();
+            jumpBg1BambooMiddle = null;
+        }
+        if (jumpBg1BambooBottom != null && jumpBg1BambooBottom.getTexture().isLoadedToHardware()) {
+            jumpBg1BambooBottom.getTexture().unload();
+            jumpBg1BambooBottom = null;
+        }
+        if (jumpBg2BambooForest1Top != null && jumpBg2BambooForest1Top.getTexture().isLoadedToHardware()) {
             jumpBg2BambooForest1Top.getTexture().unload();
             jumpBg2BambooForest1Top = null;
-	    }
-	    if (jumpBg2BambooForest1Middle != null && jumpBg2BambooForest1Middle.getTexture().isLoadedToHardware()) {
+        }
+        if (jumpBg2BambooForest1Middle != null && jumpBg2BambooForest1Middle.getTexture().isLoadedToHardware()) {
             jumpBg2BambooForest1Middle.getTexture().unload();
             jumpBg2BambooForest1Middle = null;
-	    }
-	    if (jumpBg2BambooForest1Bottom != null && jumpBg2BambooForest1Bottom.getTexture().isLoadedToHardware()) {
+        }
+        if (jumpBg2BambooForest1Bottom != null && jumpBg2BambooForest1Bottom.getTexture().isLoadedToHardware()) {
             jumpBg2BambooForest1Bottom.getTexture().unload();
             jumpBg2BambooForest1Bottom = null;
-	    }
-	    if (jumpBg3BambooForest2Top != null && jumpBg3BambooForest2Top.getTexture().isLoadedToHardware()) {
+        }
+        if (jumpBg3BambooForest2Top != null && jumpBg3BambooForest2Top.getTexture().isLoadedToHardware()) {
             jumpBg3BambooForest2Top.getTexture().unload();
             jumpBg3BambooForest2Top = null;
-	    }
-	    if (jumpBg3BambooForest2Middle != null && jumpBg3BambooForest2Middle.getTexture().isLoadedToHardware()) {
+        }
+        if (jumpBg3BambooForest2Middle != null && jumpBg3BambooForest2Middle.getTexture().isLoadedToHardware()) {
             jumpBg3BambooForest2Middle.getTexture().unload();
             jumpBg3BambooForest2Middle = null;
-	    }
-	    if (jumpBg3BambooForest2Bottom != null && jumpBg3BambooForest2Bottom.getTexture().isLoadedToHardware()) {
+        }
+        if (jumpBg3BambooForest2Bottom != null && jumpBg3BambooForest2Bottom.getTexture().isLoadedToHardware()) {
             jumpBg3BambooForest2Bottom.getTexture().unload();
             jumpBg3BambooForest2Bottom = null;
-	    }
+        }
         // CAMBIOS JJ ******************************* FIN
 
         if (jumpBg4Mount != null && jumpBg4Mount.getTexture().isLoadedToHardware()) {
@@ -1497,7 +1499,7 @@ public class ResourceManager {
             BitmapTextureAtlas shurikenShurikenT = new BitmapTextureAtlas(textureManager, 196, 418,
                     mTransparentTextureOption);
             shurikenShuriken = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-            		shurikenShurikenT, activity, "shuriken_shuriken.png", 0, 0);
+                    shurikenShurikenT, activity, "shuriken_shuriken.png", 0, 0);
             shurikenShurikenT.load();
             shurikenShurikens = new ITextureRegion[6];
             shurikenShurikens[0] = TextureRegionFactory.extractFromTexture(shurikenShurikenT, 0, 0, 54, 26-0, false);
@@ -1594,13 +1596,13 @@ public class ResourceManager {
                 shurikenShuriken = null;
         }
         if (shurikenShurikens != null) {
-        	for (ITextureRegion shuriken: shurikenShurikens) {
-            	if (shuriken != null && shuriken.getTexture().isLoadedToHardware()) {
-            		shuriken.getTexture().unload();
-            		shuriken = null;
-            	}        	
+            for (ITextureRegion shuriken: shurikenShurikens) {
+                if (shuriken != null && shuriken.getTexture().isLoadedToHardware()) {
+                    shuriken.getTexture().unload();
+                    shuriken = null;
+                }
             }
-        	shurikenShurikens = null;
+            shurikenShurikens = null;
         }
         if (shurikenStrawman1 != null && shurikenStrawman1.getTexture().isLoadedToHardware()) {
                 shurikenStrawman1.getTexture().unload();
@@ -1632,18 +1634,18 @@ public class ResourceManager {
         SVGBitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/splash/");
         if (splashLogo == null){
             BuildableBitmapTextureAtlas mBuildableBitmapTextureAtlas;
-	        mBuildableBitmapTextureAtlas = new BuildableBitmapTextureAtlas(
+            mBuildableBitmapTextureAtlas = new BuildableBitmapTextureAtlas(
                     textureManager, 1024, 1024, TextureOptions.NEAREST);
-	        splashLogo = SVGBitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            splashLogo = SVGBitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     mBuildableBitmapTextureAtlas, context, "splash_logo_madgear.svg", 800, 800);
-	        try {
-	                mBuildableBitmapTextureAtlas.build(
+            try {
+                    mBuildableBitmapTextureAtlas.build(
                             new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                             BitmapTextureAtlas>(0, 1, 0));
-	                mBuildableBitmapTextureAtlas.load();
-	        } catch (final TextureAtlasBuilderException e) {
-	                Debug.e(e);
-	        }
+                    mBuildableBitmapTextureAtlas.load();
+            } catch (final TextureAtlasBuilderException e) {
+                    Debug.e(e);
+            }
         }
     }
 
@@ -1656,8 +1658,8 @@ public class ResourceManager {
             if(splashLogo.getTexture().isLoadedToHardware()) {
                 splashLogo.getTexture().unload();
                 splashLogo = null;
-		    }
-		}
+            }
+        }
     }
 
     public synchronized void loadIntro1Resources() {
@@ -1730,34 +1732,34 @@ public class ResourceManager {
         SVGBitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/intro_1/");
         if (intro1WordmaskNinja == null){
             BuildableBitmapTextureAtlas mBuildableBitmapTextureAtlas;
-	        mBuildableBitmapTextureAtlas = new BuildableBitmapTextureAtlas(
+            mBuildableBitmapTextureAtlas = new BuildableBitmapTextureAtlas(
                     textureManager, 1900, 1080, TextureOptions.NEAREST);
-	        intro1WordmaskNinja = SVGBitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            intro1WordmaskNinja = SVGBitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     mBuildableBitmapTextureAtlas, context, "intro1_wordmask_ninja.svg", 1800, 1080);
-	        try {
-	                mBuildableBitmapTextureAtlas.build(
+            try {
+                    mBuildableBitmapTextureAtlas.build(
                             new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                             BitmapTextureAtlas>(0, 1, 0));
-	                mBuildableBitmapTextureAtlas.load();
-	        } catch (final TextureAtlasBuilderException e) {
-	                Debug.e(e);
-	        }
+                    mBuildableBitmapTextureAtlas.load();
+            } catch (final TextureAtlasBuilderException e) {
+                    Debug.e(e);
+            }
         }
 
         if (intro1WordmaskTrials == null){
             BuildableBitmapTextureAtlas mBuildableBitmapTextureAtlas;
-	        mBuildableBitmapTextureAtlas = new BuildableBitmapTextureAtlas(
+            mBuildableBitmapTextureAtlas = new BuildableBitmapTextureAtlas(
                     textureManager, 1400, 1024, TextureOptions.NEAREST);
-	        intro1WordmaskTrials = SVGBitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            intro1WordmaskTrials = SVGBitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     mBuildableBitmapTextureAtlas, context, "intro1_wordmask_trials.svg", 1400, 800);
-	        try {
-	                mBuildableBitmapTextureAtlas.build(
+            try {
+                    mBuildableBitmapTextureAtlas.build(
                             new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                             BitmapTextureAtlas>(0, 1, 0));
-	                mBuildableBitmapTextureAtlas.load();
-	        } catch (final TextureAtlasBuilderException e) {
-	                Debug.e(e);
-	        }
+                    mBuildableBitmapTextureAtlas.load();
+            } catch (final TextureAtlasBuilderException e) {
+                    Debug.e(e);
+            }
         }
     }
 
@@ -1799,12 +1801,12 @@ public class ResourceManager {
                 intro1TrialShuriken = null;
         }
         if (intro1WordmaskNinja != null && intro1WordmaskNinja.getTexture().isLoadedToHardware()) {
-        	intro1WordmaskNinja.getTexture().unload();
-        	intro1WordmaskNinja = null;
+            intro1WordmaskNinja.getTexture().unload();
+            intro1WordmaskNinja = null;
         }
         if (intro1WordmaskTrials != null && intro1WordmaskTrials.getTexture().isLoadedToHardware()) {
-        	intro1WordmaskTrials.getTexture().unload();
-        	intro1WordmaskTrials = null;
+            intro1WordmaskTrials.getTexture().unload();
+            intro1WordmaskTrials = null;
         }
         // Garbage Collector:
         System.gc();
@@ -1988,21 +1990,29 @@ public class ResourceManager {
         System.gc();
     }
 
+    // TODO Divide into several (probably 9) loadEndingResources() and one loadCreditsResources()
     public synchronized void loadEndingResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/endings/");
         if (endingCreditsBackground == null) {
-            BitmapTextureAtlas endingCreditsBackgroundT = new BitmapTextureAtlas(textureManager, 1920, 1080,
-                    mTransparentTextureOption);
+            BitmapTextureAtlas endingCreditsBackgroundT = new BitmapTextureAtlas(textureManager,
+                    1920, 1080, mTransparentTextureOption);
             endingCreditsBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                     endingCreditsBackgroundT, activity, "ending_credits_background.png", 0, 0);
             endingCreditsBackgroundT.load();
         }
         if (endingCreditsCategories == null) {
-            BitmapTextureAtlas endingCreditsCategoriesT = new BitmapTextureAtlas(textureManager, 1200, 1020,
-                    mTransparentTextureOption);
-            endingCreditsCategories = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    endingCreditsCategoriesT, activity, "ending_credits_categories.png", 0, 0);
-            endingCreditsCategoriesT.load();
+            BuildableBitmapTextureAtlas endingCredCategBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 1200, 1020, mTransparentTextureOption);
+            endingCreditsCategories = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    endingCredCategBit, context, "ending_credits_categories.png", 3, 3);
+            try {
+                endingCredCategBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            endingCredCategBit.load();
         }
         if (endingCreditsLogoAndengine == null) {
             BitmapTextureAtlas endingCreditsLogoAndengineT = new BitmapTextureAtlas(textureManager, 389, 389,

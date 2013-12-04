@@ -456,7 +456,135 @@
     <!-- Group-End: Ending Screens (twelve endings) -->
 
 
-    <!-- Group-Start: Credits Screen -->
-    <!-- Group-End: Credits Screen -->
+    <!-- MegaGroup-Start: Credits Screen -->
+        <!-- Group-Start: Programming -->
+            <!-- Credits Programming Section Title -->
+            <string name="credits_programming_title">
+                Programming
+            </string>
+            <!--  -->
+            <string name="credits_programming_wargo">
+                Wargo
+            </string>
+            <!--  -->
+            <string name="credits_programming_wargo_name">
+                Alfonso Hidalgo
+            </string>
+            <!--  -->
+            <string name="credits_programming_bralmu">
+                Bralmu
+            </string>
+            <!--  -->
+            <string name="credits_programming_bralmu_name">
+                Bruno Alba
+            </string>
+            <!--  -->
+            <string name="credits_programming_danpelgar">
+                Danpelgar
+            </string>
+            <!--  -->
+            <string name="credits_programming_danpelgar_name">
+                Daniel Pellicer
+            </string>
+            <!--  -->
+            <string name="credits_programming_jjhaggar">
+                JJHaggar
+            </string>
+            <!--  -->
+            <string name="credits_programming_jjhaggar_name">
+                Juan J. Ligero
+            </string>
+            <!--  -->
+            <string name="credits_programming_virako">
+                Virako
+            </string>
+            <!--  -->
+            <string name="credits_programming_virako_name">
+                Víctor Ramírez
+            </string>
+        <!-- Group-End: Programming -->
+        <!-- Group-Start: Music and SFX -->
+            <!-- Credits Music Section Title -->
+            <string name="credits_music_title">
+                Music
+            </string>
+            <!--  -->
+            <string name="credits_music_evergreen">
+                Estudio EverGreen
+            </string>
+            <!--  -->
+            <string name="credits_music_evergreen_danpelgar">
+                Danpelgar
+            </string>
+                        <!--  -->
+            <string name="credits_music_evergreen_danpelgar_name">
+                Daniel Pellicer
+            </string>
+            <!--  -->
+            <string name="credits_music_evergreen_musamic">
+                Musamic
+            </string>
+                        <!--  -->
+            <string name="credits_music_evergreen_musamic_name">
+                Samuel Föger
+            </string>
+        <!-- Group-End: Music and SFX -->
+        <!-- Group-Start: Graphics -->
+            <!-- Credits Graphics Section Title -->
+            <string name="credits_graphics_title">
+                Graphics
+            </string>
+            <!--  -->
+            <string name="credits_graphics_jjhaggar">
+                JJHaggar
+            </string>
+            <!--  -->
+            <string name="credits_graphics_jjhaggar_name">
+                Juan J. Ligero
+            </string>
+        <!-- Group-End: Graphics -->
+        <!-- Group-Start: Special Thanks -->
+            <!-- Credits Special Thanks Section Title -->
+            <string name="credits_thanks_title">
+                Special Thanks
+            </string>
+            <!--  -->
+            <string name="credits_thanks_pigsaint">
+                Pig Saint
+            </string>
+            <!--  -->
+            <string name="credits_thanks_pigsaint_name">
+                Ryoga Hibiki
+            </string>
+            <!--  -->
+            <string name="credits_thanks_otaruk">
+                Otaruk
+            </string>
+            <!--  -->
+            <string name="credits_thanks_otaruk_name">
+                Álvaro Fernández
+            </string>
+            <!--  -->
+            <string name="credits_thanks_inixtrom">
+                Inixtrom
+            </string>
+            <!--  -->
+            <string name="credits_thanks_inixtrom_name">
+                Sergio Romero
+            </string>
+            <!--  -->
+            <string name="credits_thanks_engine_title">
+                Engine
+            </string>
+            <!--  -->
+            <string name="credits_thanks_engine_nicolas">
+                Nicolas Gramlich
+            </string>
+            <!--  -->
+            <string name="credits_thanks_engine_nicolas_andengine">
+                Maker of AndEngine
+            </string>
+            <!-- Group-End: Special Thanks -->
+    <!-- MegaGroup-End: Credits Screen -->
 
 </resources>
