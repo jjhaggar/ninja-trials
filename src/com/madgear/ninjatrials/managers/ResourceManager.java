@@ -1546,20 +1546,6 @@ public class ResourceManager {
                     shurikenStrawman3T, activity, "shuriken_strawman_3.png", 0, 0);
             shurikenStrawman3T.load();
         }
-        if (shurikenTempShuriken == null) {
-            BitmapTextureAtlas shurikenTempShurikenT = new BitmapTextureAtlas(textureManager, 128, 128,
-                    mTransparentTextureOption);
-            shurikenTempShuriken = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenTempShurikenT, activity, "shuriken_temp_shuriken.png", 0, 0);
-            shurikenTempShurikenT.load();
-        }
-        if (shurikenTempStrawman == null) {
-            BitmapTextureAtlas shurikenTempStrawmanT = new BitmapTextureAtlas(textureManager, 480, 820,
-                    mTransparentTextureOption);
-            shurikenTempStrawman = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenTempStrawmanT, activity, "shuriken_temp_strawman.png", 0, 0);
-            shurikenTempStrawmanT.load();
-        }
     }
 
     public synchronized void unloadShurikenSceneResources() {
