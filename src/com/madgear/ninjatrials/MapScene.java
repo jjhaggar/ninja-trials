@@ -85,7 +85,7 @@ public class MapScene extends GameScene {
 		for(Place p : places) {
 			attachChild(p);
 		}
-		parchment = new Parchment(SCRNWIDTH/4, SCRNHEIGHT*3/4, nextTrial);
+		parchment = new Parchment(SCRNWIDTH/4, SCRNHEIGHT*3/4, currentTrial);
 		attachChild(parchment);
 		places.get(currentPosition).setStatus("selected");
 		player = new Player(places.get(currentPosition).posX + playerToPlacePositionXAdjustment, places.get(currentPosition).posY + playerToPlacePositionYAdjustment);
@@ -158,9 +158,13 @@ public class MapScene extends GameScene {
         // Go to the current trial again:
         switch(GameManager.getCurrentTrial()) {
         case GameManager.TRIAL_RUN:
-        case GameManager.TRIAL_JUMP:
+            SceneManager.getInstance().showScene(new TrialSceneRun());
+            break;
         case GameManager.TRIAL_CUT:
             SceneManager.getInstance().showScene(new TrialSceneCut());
+            break;
+        case GameManager.TRIAL_JUMP:
+            SceneManager.getInstance().showScene(new TrialSceneJump());
             break;
         case GameManager.TRIAL_SHURIKEN:
             SceneManager.getInstance().showScene(new TrialSceneShuriken());

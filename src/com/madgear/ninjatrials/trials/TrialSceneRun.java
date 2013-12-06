@@ -35,6 +35,7 @@ import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.GameScene;
 import com.madgear.ninjatrials.R;
+import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.hud.Chronometer;
 import com.madgear.ninjatrials.hud.PowerBar;
@@ -278,7 +279,10 @@ private void runFinish() {
             public void onTimePassed(final TimerHandler pTimerHandler) {
                 TrialSceneRun.this.unregisterUpdateHandler(trialTimerHandler);
                 resetScene();
-                SceneManager.getInstance().showScene(new TestingScene());
+                if(GameManager.DEBUG_MODE)
+                    SceneManager.getInstance().showScene(new TestingScene());
+                else
+                    SceneManager.getInstance().showScene(new ResultWinScene());
             }
         });
         registerUpdateHandler(trialTimerHandler);
