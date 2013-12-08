@@ -58,6 +58,7 @@ import com.madgear.ninjatrials.R;
 import com.madgear.ninjatrials.ResultLoseScene;
 import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
 import com.madgear.ninjatrials.hud.Chronometer;
 import com.madgear.ninjatrials.hud.GameHUD;
@@ -207,11 +208,12 @@ public class TrialSceneJump extends GameScene {
     private Chronometer chrono;
     private Character mCharacter;
     private ShineOnFloor mShineOnFloor;
+    private ShineOnWall mShineOnWall;
     private boolean cutEnabled = false;
     public TimerHandler trialTimerHandler; // era private, esto es una chapuza para poder salir de aquÃ­ pulsando Back
     private IUpdateHandler trialUpdateHandler;
     private final float readyTime = 4f;
-    private final float endingTime = 6f;
+    private final float endingTime = 2f;
     private int score = 0;
     private float[] scoreJump;
 
@@ -263,6 +265,8 @@ public class TrialSceneJump extends GameScene {
         chrono = new Chronometer(WIDTH - 200, HEIGHT - 200, 0, 50);
         mShineOnFloor = new ShineOnFloor(WIDTH / 2 - 300, 150);
         mShineOnFloor.activate();
+        mShineOnWall = new ShineOnWall(WIDTH / 2 - 300, 150);
+        mShineOnWall.activate();
         
 
     }
@@ -280,10 +284,10 @@ public class TrialSceneJump extends GameScene {
         
         attachChild(mCharacter);
         attachChild(mShineOnFloor);
+        attachChild(mShineOnWall);
         ResourceManager.getInstance().engine.getCamera().setHUD(gameHUD);
         gameHUD.attachChild(angleBar);
         gameHUD.attachChild(chrono);
-        
 
         readySequence();
     }
@@ -354,6 +358,7 @@ public class TrialSceneJump extends GameScene {
     			
     			if (seconds >= 0.5f && jumpMessage) {
     				gameHUD.showMessage(ResourceManager.getInstance().loadAndroidRes().getString(R.string.trial_jump_go), 0, 1);
+    				SFXManager.playMusic(ResourceManager.getInstance().trialJump);
     		         // Dani, lo de "Jump!" sÃ³lo tiene que mostrarse una vez al principio, no cada vez que se salte :)
     		        	chrono.stop();
     		        	chrono.setTimeValue(0f);
@@ -374,7 +379,6 @@ public class TrialSceneJump extends GameScene {
     			if (destinyg[1] > 0)
     				mShineOnFloor.setVisible(false);
     			else {
-    				mShineOnFloor.setVisible(true);
     				mShineOnFloor.shine();
     			}
             }
@@ -401,8 +405,25 @@ public class TrialSceneJump extends GameScene {
         scoreJump = getScoreJump();
         frameNum = 0;
         
-        if (scoreJump[2] == 1)
+        //delete in final (now used to test perfects ;)
+        boolean itShined = false;
+        //
+        if (scoreJump[2] == 1) {
+        	if (scoreJump[0] == angleBar.getMaxScore() && destinyg[1] != 0) {
+        		SFXManager.playSound(ResourceManager.getInstance().trialJumpWhoosh3);
+        		mShineOnWall.shine();
+        		itShined = true;
+        	}
+        	else if (scoreJump[0] > angleBar.getMaxScore() - 30)
+        		SFXManager.playSound(ResourceManager.getInstance().trialJumpWhoosh2);
+        	else 
+        		SFXManager.playSound(ResourceManager.getInstance().trialJumpWhoosh1);
+        		
         	origin = mCharacter.jump(origin, scoreJump); // <-
+        	//delete in final (now used to test perfects ;)
+        	System.out.println("score = "+ scoreJump[0] + "maxScore="+ angleBar.getMaxScore()+ "itShined="+ itShined);
+        	//
+        }
         else
         	origin = mCharacter.fall(origin, scoreJump);
         
@@ -466,6 +487,7 @@ public class TrialSceneJump extends GameScene {
     public void endingAnimationSequence() {
     	//do something
     	chrono.stop();
+    	SFXManager.stopMusic(ResourceManager.getInstance().trialJump);
     	if (!falling)
     		saveTrialResults();
     	else
@@ -503,9 +525,11 @@ public class TrialSceneJump extends GameScene {
     public static int getTimeScore() {
         
     	//maybe add a factor. 13 secs + 9 perfect + 9 combo = 9800 aprox
-    	//TODO: poner cabeza. poner efectos graficos de suelo (buscar sitio para segunda vez) y de pared si perfect
-    	// . sonidos. musica
-    	int timeScore = Math.round((50 - (GameManager.player1result.jumpTime - 8)) * 100); //8 seg es el minimo
+    	//TODO: segunda iteración: Que la cámara no pierda de vista al personaje.
+    	//poner cabeza (cambia con cursor).
+    	//  que cuando alf termine los logros se guarde.
+    	//las dificultades (pixeles de perfect y tiempo maximo)
+    	int timeScore = Math.round((50 - (GameManager.player1result.jumpTime - 8)) * 150); //8 seg es el minimo
     	System.out.println("time="+(int) GameManager.player1result.jumpTime);
     	return (int) timeScore;
     }
@@ -513,13 +537,13 @@ public class TrialSceneJump extends GameScene {
     public static int getPerfectJumpScore() {
         
     	System.out.println("perfects"+GameManager.player1result.jumpPerfectJumpCombo);
-    	return GameManager.player1result.jumpPerfectJumpCombo * 100;
+    	return GameManager.player1result.jumpPerfectJumpCombo * 75;
     }
 
     public static int getMaxPerfectJumpScore() {
         
     	System.out.println("MaxPerfects"+GameManager.player1result.jumpMaxPerfectJumpCombo);
-    	return GameManager.player1result.jumpMaxPerfectJumpCombo * 500;
+    	return GameManager.player1result.jumpMaxPerfectJumpCombo * 425;
     }
     
     /**
@@ -701,7 +725,34 @@ public class TrialSceneJump extends GameScene {
         		destiny[1] = origin[1] - 1000f;
         		
         		charSprite.animate(new long[] { 125, 125, 125, 125, 125,
-        				125, 125, 125}, new int[] {20, 21, 20, 21, 22, 23, 22, 23}, false);
+        				125, 125, 125}, new int[] {20, 21, 20, 21, 22, 23, 22, 23}, false,  new IAnimationListener(){
+    				@Override
+    				public void onAnimationFinished(AnimatedSprite pAnimatedSprite){
+    					SFXManager.playSound(ResourceManager.getInstance().trialJumpThud);
+    				}
+					@Override
+					public void onAnimationStarted(
+							AnimatedSprite pAnimatedSprite,
+							int pInitialLoopCount) {
+						SFXManager.playSound(ResourceManager.getInstance().trialJumpFall);
+					}
+					@Override
+					public void onAnimationFrameChanged(
+							AnimatedSprite pAnimatedSprite,
+							int pOldFrameIndex, int pNewFrameIndex) {
+						if (pNewFrameIndex == 1)
+							SFXManager.playSound(ResourceManager.getInstance().trialJumpWobble);
+						else if (pNewFrameIndex == 5)
+							SFXManager.playSound(ResourceManager.getInstance().trialJumpSlip);
+						
+							
+					}
+					@Override
+					public void onAnimationLoopFinished(
+							AnimatedSprite pAnimatedSprite,
+							int pRemainingLoopCount, int pInitialLoopCount) {
+					}
+    	});
             	Path path = new Path(2).to(origin[0], origin[1])
             			.to(destiny[0],destiny[1]);
             	charSprite.registerEntityModifier(new PathModifier(1f, path));	
@@ -709,6 +760,7 @@ public class TrialSceneJump extends GameScene {
         	else{
         		//fall and continue playing
         		destiny[1] = 0f;
+        		destinyg = destiny;
         		charSprite.animate(new long[] { 125, 125, 125, 125, 125,
         				125, 125, 125}, new int[] {20, 21, 20, 21, 22, 23, 22, 23}, false, new IAnimationListener(){
     				@Override
@@ -716,9 +768,11 @@ public class TrialSceneJump extends GameScene {
     					start();
     					angleBar.setCursorValueToBeginning();
 						cutEnabled = true;
-						//TODO: search the correct place for this
-						mShineOnFloor.setX(mCharacter.getX());
-		        		mShineOnFloor.setY(mCharacter.getY() - 170f);
+						mShineOnFloor.setX(destinyg[0] - 640f);
+		        		mShineOnFloor.setY(destinyg[1] - 300f);
+		        		mShineOnFloor.setVisible(true);
+		        		//In this one it will continue playing so the sound is slightly different.
+		        		SFXManager.playSound(ResourceManager.getInstance().trialJumpThud);
     				}
 					@Override
 					public void onAnimationStarted(
@@ -728,7 +782,13 @@ public class TrialSceneJump extends GameScene {
 					@Override
 					public void onAnimationFrameChanged(
 							AnimatedSprite pAnimatedSprite,
-							int pOldFrameIndex, int pNewFrameIndex) {	
+							int pOldFrameIndex, int pNewFrameIndex) {
+						if (pNewFrameIndex == 1)
+							SFXManager.playSound(ResourceManager.getInstance().trialJumpWobble);
+						else if (pNewFrameIndex == 5)
+							SFXManager.playSound(ResourceManager.getInstance().trialJumpSlip);
+						
+							
 					}
 					@Override
 					public void onAnimationLoopFinished(
@@ -795,6 +855,10 @@ public class TrialSceneJump extends GameScene {
 								angleBar.setCursorValueToBeginning();
 								angleBar.start();
 								cutEnabled = true;
+								if (Math.random() > 0.5)
+									SFXManager.playSound(ResourceManager.getInstance().trialJumpTap1);
+								else
+									SFXManager.playSound(ResourceManager.getInstance().trialJumpTap2);
 							}
 							
 							
@@ -810,6 +874,7 @@ public class TrialSceneJump extends GameScene {
         	});
         	}
         	else {
+        		//SFXManager.playSound(ResourceManager.getInstance().trialJumpReach);
         		charSprite.animate(new long[] { 75, 75, 75, 75, 75
             			, 75, 75, 75}, new int[] {8, 9, 10, 11, 16, 17, 18, 19}, false);
         		if (destiny[0] == jumpRight) {
@@ -820,7 +885,6 @@ public class TrialSceneJump extends GameScene {
         			destiny[0] -= 160f;
         			destiny[1] += 130f;
         		}
-        			
         	}
         		
         	
@@ -874,6 +938,54 @@ public class TrialSceneJump extends GameScene {
                                     int pRemainingLoopCount, int pInitialLoopCount) {}
                             @Override
                             public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {}
+                });
+            	}
+            }
+        }
+
+        private class ShineOnWall extends Entity {
+            private final static long SPARK_TIME = 200;
+            private AnimatedSprite shineSprite;
+            private boolean active = false;
+
+            public ShineOnWall(float posX, float posY) {
+                shineSprite = new AnimatedSprite(posX, posY,
+                        ResourceManager.getInstance().jumpEffectWallKick,
+                        ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+                shineSprite.setVisible(false);
+                attachChild(shineSprite);
+            }
+            
+            public void activate() {
+            	active = true;
+            }
+
+            public void shine() {
+            	if (active) {
+            		//active = false;
+            	shineSprite.setX(destinyg[0]);
+            	shineSprite.setY(destinyg[1]);
+            	if (destinyg[0] > WIDTH / 2)
+            		shineSprite.setFlippedHorizontal(true);
+            	else
+            		shineSprite.setFlippedHorizontal(false);
+            	
+                shineSprite.setVisible(true);
+                shineSprite.animate(
+                        new long[] {SPARK_TIME / 4, SPARK_TIME / 4, SPARK_TIME / 4, SPARK_TIME / 4},
+                        new int[] {0,1,2,3},
+                        false, new IAnimationListener(){
+                            @Override
+                            public void onAnimationStarted(AnimatedSprite pAnimatedSprite,
+                                    int pInitialLoopCount) {}
+                            @Override
+                            public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite,
+                                    int pOldFrameIndex, int pNewFrameIndex) {}
+                            @Override
+                            public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite,
+                                    int pRemainingLoopCount, int pInitialLoopCount) {}
+                            @Override
+                            public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {shineSprite.setVisible(false);}
                 });
             	}
             }

@@ -981,20 +981,20 @@ public class ResourceManager {
             jumpEffectPreparationBit.load();
         }
 
-        //if (jumpEffectWallKick == null) {
-        //    BuildableBitmapTextureAtlas jumpEffectWallKickBit = new BuildableBitmapTextureAtlas(
-        //            textureManager, 406, 590, mTransparentTextureOption);
-        //    jumpEffectWallKick = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-        //            jumpEffectWallKickBit, context, "jump_effect_wall_kick.png", 2, 2);
-        //    try {
-        //        jumpEffectWallKickBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
-        //                BitmapTextureAtlas>(0, 0, 0));
-        //    }
-        //    catch (TextureAtlasBuilderException e) {
-        //        e.printStackTrace();
-        //    }
-        //    jumpEffectWallKickBit.load();
-        //}
+        if (jumpEffectWallKick == null) {
+            BuildableBitmapTextureAtlas jumpEffectWallKickBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 406, 590, mTransparentTextureOption);
+            jumpEffectWallKick = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    jumpEffectWallKickBit, context, "jump_effect_wall_kick.png", 2, 2);
+            try {
+                jumpEffectWallKickBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            jumpEffectWallKickBit.load();
+        }
     }
 
 
