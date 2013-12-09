@@ -40,14 +40,14 @@ public class GameManager {
 
     public static final int CHAR_RYOKO = 0;
     public static final int CHAR_SHO = 1;
-
+    
     public static final int PLAYER_LEFT = 0;
     public static final int PLAYER_RIGHT = 1;
-
+    
     public static final int DIFF_EASY = 0;
     public static final int DIFF_MEDIUM = 1;
     public static final int DIFF_HARD = 2;
-
+    
     public static final int TRIAL_RUN = 1;
     public static final int TRIAL_CUT = 2;
     public static final int TRIAL_JUMP = 3;
@@ -69,7 +69,7 @@ public class GameManager {
     public static AchievementSetNinjaTrial player2achiev;
 
     public static RecordsTableSet recordsTableSet;
-
+    
     private static int score;
     private static int currentTrial;
     private static int lives;
@@ -91,7 +91,7 @@ public class GameManager {
         return INSTANCE;
     }*/
 
-
+    
     // Métodos:
 
     public static void resetGame(){
@@ -107,7 +107,7 @@ public class GameManager {
         player2achiev = new AchievementSetNinjaTrial();
         recordsTableSet = new RecordsTableSet();
     }
-
+    
     /**
      * Called when press PLAY in the main Menu Scene.
      */
@@ -122,7 +122,7 @@ public class GameManager {
     public static void setSelectedCharacter(int c) {
         selectedCharacter = c;
     }
-
+    
     public static int getSelectedCharacter() {
         return selectedCharacter;
     }
@@ -130,7 +130,7 @@ public class GameManager {
     public static void setSelectedDiff(int d) {
         selectedDiff = d;
     }
-
+    
     public static int getSelectedDiff() {
         return selectedDiff;
     }
@@ -146,7 +146,7 @@ public class GameManager {
     public static void incrementScore(int pIncrementBy){
         score += pIncrementBy;
     }
-
+    
     public static void resetScore() {
         score = 0;
     }
@@ -154,20 +154,34 @@ public class GameManager {
     public static int getCurrentTrial() {
         return currentTrial;
     }
-
+    
     public static void setCurrentTrial(int t) {
         currentTrial = t;
     }
-
+    
     public static int nextTrial(int currentTrial) {
-        int nextTrial = -1;
+        // TODO: fix trial order:
+        int nextTrial = TRIAL_RUN;
         switch(currentTrial) {
         case TRIAL_RUN: nextTrial = TRIAL_CUT; break;
-        case TRIAL_CUT: nextTrial = TRIAL_JUMP; break;
+        //case TRIAL_CUT: nextTrial = TRIAL_JUMP; break;
+        case TRIAL_CUT: nextTrial = TRIAL_SHURIKEN; break;
         case TRIAL_JUMP: nextTrial = TRIAL_SHURIKEN; break;
         case TRIAL_SHURIKEN: nextTrial = TRIAL_RUN; break;
         }
         return nextTrial;
+    }
+    
+    public static int previousTrial(int currentTrial) {
+        // TODO: fix trial order:
+        int previousTrial = TRIAL_SHURIKEN;
+        switch(currentTrial) {
+        case TRIAL_SHURIKEN: previousTrial = TRIAL_JUMP; break;
+        case TRIAL_JUMP: previousTrial = TRIAL_CUT; break;
+        case TRIAL_CUT: previousTrial = TRIAL_RUN; break;
+        case TRIAL_RUN: previousTrial = TRIAL_SHURIKEN; break;
+        }
+        return previousTrial;
     }
 
     public static int getLives() {
