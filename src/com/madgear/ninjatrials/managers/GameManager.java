@@ -30,7 +30,7 @@ public class GameManager {
 
     // GENERAL:
     // Use DEBUG_MODE = true for show the testing scene.
-    public static final boolean DEBUG_MODE = false;
+    public static final boolean DEBUG_MODE = true;
 
     // Use OUYA_CONTROL = true for testing Ouya controls. Use OUYA_CONTROL = false for testing on smartphones
     public static final boolean OUYA_CONTROL = false;
@@ -40,14 +40,14 @@ public class GameManager {
 
     public static final int CHAR_RYOKO = 0;
     public static final int CHAR_SHO = 1;
-    
+
     public static final int PLAYER_LEFT = 0;
     public static final int PLAYER_RIGHT = 1;
-    
+
     public static final int DIFF_EASY = 0;
     public static final int DIFF_MEDIUM = 1;
     public static final int DIFF_HARD = 2;
-    
+
     public static final int TRIAL_RUN = 1;
     public static final int TRIAL_CUT = 2;
     public static final int TRIAL_JUMP = 3;
@@ -69,7 +69,7 @@ public class GameManager {
     public static AchievementSetNinjaTrial player2achiev;
 
     public static RecordsTableSet recordsTableSet;
-    
+
     private static int score;
     private static int currentTrial;
     private static int lives;
@@ -91,7 +91,7 @@ public class GameManager {
         return INSTANCE;
     }*/
 
-    
+
     // Métodos:
 
     public static void resetGame(){
@@ -107,7 +107,7 @@ public class GameManager {
         player2achiev = new AchievementSetNinjaTrial();
         recordsTableSet = new RecordsTableSet();
     }
-    
+
     /**
      * Called when press PLAY in the main Menu Scene.
      */
@@ -122,7 +122,7 @@ public class GameManager {
     public static void setSelectedCharacter(int c) {
         selectedCharacter = c;
     }
-    
+
     public static int getSelectedCharacter() {
         return selectedCharacter;
     }
@@ -130,7 +130,7 @@ public class GameManager {
     public static void setSelectedDiff(int d) {
         selectedDiff = d;
     }
-    
+
     public static int getSelectedDiff() {
         return selectedDiff;
     }
@@ -146,7 +146,7 @@ public class GameManager {
     public static void incrementScore(int pIncrementBy){
         score += pIncrementBy;
     }
-    
+
     public static void resetScore() {
         score = 0;
     }
@@ -154,11 +154,11 @@ public class GameManager {
     public static int getCurrentTrial() {
         return currentTrial;
     }
-    
+
     public static void setCurrentTrial(int t) {
         currentTrial = t;
     }
-    
+
     public static int nextTrial(int currentTrial) {
         int nextTrial = -1;
         switch(currentTrial) {

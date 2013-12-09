@@ -19,10 +19,6 @@
 
 package com.madgear.ninjatrials.managers;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Typeface;
-import android.util.Log;
 import java.io.IOException;
 
 import org.andengine.audio.music.Music;
@@ -33,7 +29,6 @@ import org.andengine.engine.Engine;
 import org.andengine.extension.svg.opengl.texture.atlas.bitmap.SVGBitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
-import org.andengine.opengl.texture.ITexture;
 import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
@@ -42,13 +37,14 @@ import org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSource;
 import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtlasBuilder;
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
-import org.andengine.opengl.texture.bitmap.AssetBitmapTexture;
-import org.andengine.opengl.texture.bitmap.BitmapTexture;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.texture.region.TextureRegionFactory;
-import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.util.debug.Debug;
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.Log;
 
 import com.madgear.ninjatrials.NinjaTrials;
 
@@ -95,7 +91,7 @@ public class ResourceManager {
     public static ITextureRegion runMarkP2;
     public static ITiledTextureRegion cutHead;
     public static ITiledTextureRegion jumpHead;
-    public static ITiledTextureRegion runHead;
+    public ITiledTextureRegion runHead;
     public static ITiledTextureRegion shurikenHead;
 
 
@@ -104,19 +100,19 @@ public class ResourceManager {
     public static ITextureRegion jumpBg1BambooTop;
     public static ITextureRegion jumpBg1BambooMiddle;
     public static ITextureRegion jumpBg1BambooBottom;
-    
+
     public static ITextureRegion jumpBg1StoneStatues;
-    
+
     public static ITextureRegion jumpBg2BambooForest1; //borrable
     public static ITextureRegion jumpBg2BambooForest1Top;
     public static ITextureRegion jumpBg2BambooForest1Middle;
     public static ITextureRegion jumpBg2BambooForest1Bottom;
-    
+
     public static ITextureRegion jumpBg3BambooForest2; //borrable
     public static ITextureRegion jumpBg3BambooForest2Top;
     public static ITextureRegion jumpBg3BambooForest2Middle;
     public static ITextureRegion jumpBg3BambooForest2Bottom;
-    
+
     public static ITextureRegion jumpBg4Mount;
     public static ITextureRegion jumpBg5Pagoda;
     public static ITextureRegion jumpBg6Clouds;
@@ -136,7 +132,7 @@ public class ResourceManager {
     public static ITextureRegion cutCandleBottom;
     public static ITextureRegion cutCandleLight;
     public static ITextureRegion cutEyes;
-    public static ITextureRegion cutBackground;
+    public ITextureRegion cutBackground;
     public static ITextureRegion cutSweatDrop;
     public static ITiledTextureRegion cutCharSparkle;
     public static ITextureRegion cutSwordSparkle1;
@@ -156,11 +152,11 @@ public class ResourceManager {
 
 
     // RUN SCENE
-    public static ITiledTextureRegion runSho;
-    public static ITiledTextureRegion runRyoko;
-    public static ITextureRegion runBgFloor;
-    public static ITextureRegion runBgTreesFront;
-    public static ITextureRegion runBgTreesBack;
+    public ITiledTextureRegion runSho;
+    public ITiledTextureRegion runRyoko;
+    public ITextureRegion runBgFloor;
+    public ITextureRegion runBgTreesFront;
+    public ITextureRegion runBgTreesBack;
     public static ITextureRegion runDushStart;
     public static ITextureRegion runDushContinue;
 
@@ -336,8 +332,8 @@ public class ResourceManager {
 
     public float cameraScaleFactorX = 1;
     public float cameraScaleFactorY = 1;
-    
-    
+
+
     // MUSICS
     public static Music credits;
     public static Music ending;
@@ -522,8 +518,8 @@ public class ResourceManager {
         // Sound bars:
         BitmapTextureAtlas mainOptionsSoundBarsT = new BitmapTextureAtlas(textureManager, 575, 220,
                 mTransparentTextureOption);
-        ITextureRegion mainOptionsSoundBarsTR = BitmapTextureAtlasTextureRegionFactory.
-                createFromAsset(mainOptionsSoundBarsT, activity, "menu_options_volume.png", 0, 0);
+        BitmapTextureAtlasTextureRegionFactory.createFromAsset(mainOptionsSoundBarsT, activity,
+        		"menu_options_volume.png", 0, 0);
         mainOptionsSoundBarsT.load();
         mainOptionsSoundBarsActive = TextureRegionFactory.
                 extractFromTexture(mainOptionsSoundBarsT, 0, 0, 575, 110, false);
@@ -582,9 +578,8 @@ public class ResourceManager {
         if(controllerOuya==null) {
             BitmapTextureAtlas controllerOuyaT = new BitmapTextureAtlas(textureManager, 1164, 791,
                     mTransparentTextureOption);
-            controllerOuya = BitmapTextureAtlasTextureRegionFactory.
-                    createFromAsset(
-                            controllerOuyaT, activity, "menu_options_controller_ouya.png", 0, 0);
+            controllerOuya = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    controllerOuyaT, activity, "menu_options_controller_ouya.png", 0, 0);
             controllerOuyaT.load();
         }
 
@@ -592,9 +587,8 @@ public class ResourceManager {
         if(controllerMarks==null) {
             BitmapTextureAtlas controllerMarksT = new BitmapTextureAtlas(textureManager, 1195, 717,
                     mTransparentTextureOption);
-            controllerMarks = BitmapTextureAtlasTextureRegionFactory.
-                    createFromAsset(
-                            controllerMarksT, activity, "menu_options_controller_marks.png", 0, 0);
+            controllerMarks = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    controllerMarksT, activity, "menu_options_controller_marks.png", 0, 0);
             controllerMarksT.load();
         }
 
@@ -602,9 +596,8 @@ public class ResourceManager {
         if (controllerOptionsPattern == null) {
             BuildableBitmapTextureAtlas controllerOptionsPatternT = new BuildableBitmapTextureAtlas(
                     textureManager, 319, 319, TextureOptions.REPEATING_BILINEAR);
-            controllerOptionsPattern = BitmapTextureAtlasTextureRegionFactory
-                    .createFromAsset(controllerOptionsPatternT, activity,
-                            "menu_main_pattern_3.png");
+            controllerOptionsPattern = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+            		controllerOptionsPatternT, activity, "menu_main_pattern_3.png");
             try {
                 controllerOptionsPatternT.build(
                         new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
@@ -651,7 +644,7 @@ public class ResourceManager {
                     hudPowerBarCursorT, activity, "hud_precision_indicator.png", 0, 0);
             hudPowerBarCursorT.load();
         }
-        
+
         // Angle Bar:
         if (hudAngleBarCursor == null) {
             BitmapTextureAtlas hudAngleBarCursorT = new BitmapTextureAtlas(
@@ -697,7 +690,7 @@ public class ResourceManager {
         // LineMark
         BitmapTextureAtlas runMarkBit = new BitmapTextureAtlas(textureManager, 140, 116,
                 mTransparentTextureOption);
-        ITextureRegion runMark = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+        BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                 runMarkBit, activity, "run_line_mark.png", 0, 0);
         runMarkBit.load();
         if (runMarkP1 == null)
@@ -860,7 +853,7 @@ public class ResourceManager {
          // v 68 px
         BitmapTextureAtlas bTA_Bamboo = new BitmapTextureAtlas(textureManager, 89, 1080,
                 mTransparentTextureOption);
-        ITextureRegion iTR_Bamboo = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+        BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                 bTA_Bamboo, activity, "jump_bg_1_bamboo.png", 0, 0);
         bTA_Bamboo.load();
         jumpBg1BambooTop = TextureRegionFactory.extractFromTexture(bTA_Bamboo, 0, 0, 89, 91);
@@ -873,7 +866,7 @@ public class ResourceManager {
          // v 318 px
         BitmapTextureAtlas bTABambooForest1 = new BitmapTextureAtlas(textureManager, 1920, 1080,
                 mTransparentTextureOption);
-        ITextureRegion iTRBambooForest1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+        BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                 bTABambooForest1, activity, "jump_bg_2_bamboo_forest_1.png", 0, 0);
         bTABambooForest1.load();
         jumpBg2BambooForest1Top = TextureRegionFactory.extractFromTexture(bTABambooForest1, 0, 0, 1920, 44);
@@ -886,7 +879,7 @@ public class ResourceManager {
          // v 464 px
          BitmapTextureAtlas bTABambooForest2 = new BitmapTextureAtlas(textureManager, 1920, 1080,
                 mTransparentTextureOption);
-        ITextureRegion iTRBambooForest2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+        BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                 bTABambooForest2, activity, "jump_bg_3_bamboo_forest_2.png", 0, 0);
         bTABambooForest2.load();
         jumpBg3BambooForest2Top = TextureRegionFactory.extractFromTexture(bTABambooForest2, 0, 0, 1920, 80);
@@ -1118,7 +1111,7 @@ public class ResourceManager {
         // Arbol:
         BitmapTextureAtlas cutTreeT = new BitmapTextureAtlas(textureManager, 640, 950,
                 mTransparentTextureOption);
-        ITextureRegion cutTreeTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+        BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                 cutTreeT, activity, "cut_breakable_tree.png", 0, 0);
         cutTreeT.load();
         cutTreeTop = TextureRegionFactory.extractFromTexture(cutTreeT, 0, 0, 640, 403, false);
@@ -1128,7 +1121,7 @@ public class ResourceManager {
         // Farol:
         BitmapTextureAtlas cutCandleT = new BitmapTextureAtlas(textureManager, 310, 860,
                 mTransparentTextureOption);
-        ITextureRegion cutCandleTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+        BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                 cutCandleT, activity, "cut_breakable_candle_base.png", 0, 0);
         cutCandleT.load();
         cutCandleTop = TextureRegionFactory.extractFromTexture(cutCandleT, 0, 0, 310, 515, false);
@@ -1138,7 +1131,7 @@ public class ResourceManager {
         // Luz del farol:
         BitmapTextureAtlas cutCandleLightT = new BitmapTextureAtlas(textureManager, 760, 380,
                 mTransparentTextureOption);
-        ITextureRegion cutCandleLightAllTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+        BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                 cutCandleLightT, activity, "cut_breakable_candle_light.png", 0, 0);
         cutCandleLightT.load();
         cutCandleLight = TextureRegionFactory.extractFromTexture(cutCandleLightT, 0, 0, 388, 380,
@@ -2184,7 +2177,7 @@ public class ResourceManager {
 
     public synchronized void loadMenuAchievementsResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
-        
+
         if (menuAchievementsContainerDescription == null) {
             BitmapTextureAtlas menuAchievementsContainerDescriptionT = new BitmapTextureAtlas(textureManager, 438, 285,
                     mTransparentTextureOption);
@@ -2213,12 +2206,12 @@ public class ResourceManager {
             } catch (TextureAtlasBuilderException e) { e.printStackTrace(); }
             menuAchievementsIconsBigT.load();
         }
-        
+
         // Icons Small
         if (menuAchievementsIconsSmall == null) {
         BitmapTextureAtlas menuAchievementsIconsSmallT = new BitmapTextureAtlas(textureManager,
                 952, 1360, mTransparentTextureOption);
-        
+
         ITextureRegion menuAchievementsIconsSmall = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                 menuAchievementsIconsSmallT, activity, "menu_achievements_icons_small.png", 0, 0);
         menuAchievementsIconsSmallT.load();
@@ -2226,7 +2219,7 @@ public class ResourceManager {
         // Fill TiledSprites matrix :)
         menuAchievementsIconsArray = new ITiledTextureRegion[MENU_ACHIEV_COLS][MENU_ACHIEV_ROWS];
         for(int i = 0; i < MENU_ACHIEV_ROWS; i++)
-            for(int j = 0; j < MENU_ACHIEV_COLS; j++) {                
+            for(int j = 0; j < MENU_ACHIEV_COLS; j++) {
                 menuAchievementsIconsArray[j][i] = TextureRegionFactory.extractTiledFromTexture(
                         menuAchievementsIconsSmall.getTexture(),
                         j * MENU_ACHIEV_ICON_SIZE,
@@ -2245,7 +2238,7 @@ public class ResourceManager {
                     menuAchievementsSelectionMarkT, activity, "menu_achievements_icons_small_selection_mark.png", 0, 0);
             menuAchievementsSelectionMarkT.load();
         }
-        
+
         if (menuAchievementsIngameContainer == null) {
             BitmapTextureAtlas menuAchievementsIngameContainerT = new BitmapTextureAtlas(textureManager, 806, 192,
                     mTransparentTextureOption);
@@ -2295,32 +2288,32 @@ public class ResourceManager {
                 menuAchievementsSuccessStamp = null;
         }
     }
-    
-    
+
+
     public synchronized void loadRecordsResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/results/");
 
         BitmapTextureAtlas recordHeadsT = new BitmapTextureAtlas(textureManager, 100, 100,
                 mTransparentTextureOption);
-        ITextureRegion recordHeadsTR = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+        BitmapTextureAtlasTextureRegionFactory.createFromAsset(
                 recordHeadsT, activity, "results_records_winner_faces.png", 0, 0);
         recordHeadsT.load();
-        
+
         menuRecordsRyokoHead = TextureRegionFactory.
                 extractFromTexture(recordHeadsT, 0, 0, 50, 50, false);
-        
+
         menuRecordsRyokoHeadGold = TextureRegionFactory.
                 extractFromTexture(recordHeadsT, 0, 50, 50, 50, false);
-        
+
         menuRecordsShoHead = TextureRegionFactory.
                 extractFromTexture(recordHeadsT, 50, 0, 50, 50, false);
-        
+
         menuRecordsShoHeadGold = TextureRegionFactory.
                 extractFromTexture(recordHeadsT, 50, 50, 50, 50, false);
     }
-    
-    
-    public synchronized void unloadRecordsResources() { 
+
+
+    public synchronized void unloadRecordsResources() {
         if (menuRecordsRyokoHead != null && menuRecordsRyokoHead.getTexture().isLoadedToHardware()) {
             menuRecordsRyokoHead.getTexture().unload();
             menuRecordsRyokoHead = null;
@@ -2481,40 +2474,40 @@ public class ResourceManager {
 
     public synchronized void loadMenuSelectedResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
-     
+
         // Ryoko:
         BitmapTextureAtlas menuSelectChRyokoBit =
                 new BitmapTextureAtlas(textureManager, 870, 1028, mTransparentTextureOption);
-        ITextureRegion menuSelectChRyokoTR = BitmapTextureAtlasTextureRegionFactory.
+        BitmapTextureAtlasTextureRegionFactory.
                 createFromAsset(menuSelectChRyokoBit, activity, "menu_select_ch_ryoko.png", 0, 0);
         menuSelectChRyokoBit.load();
         menuSelectChRyoko =
             TextureRegionFactory.extractFromTexture(menuSelectChRyokoBit, 0, 0, 435, 1028, false);
         menuSelectChRyokoOutline =
             TextureRegionFactory.extractFromTexture(menuSelectChRyokoBit, 435, 0, 435, 1028, false);
-        
+
         // Sho:
         BitmapTextureAtlas menuSelectChShoBit =
                 new BitmapTextureAtlas(textureManager, 1310, 1120, mTransparentTextureOption);
-        ITextureRegion menuSelectChShoTR = BitmapTextureAtlasTextureRegionFactory.
+        BitmapTextureAtlasTextureRegionFactory.
                 createFromAsset(menuSelectChShoBit, activity, "menu_select_ch_sho.png", 0, 0);
         menuSelectChShoBit.load();
         menuSelectChSho =
             TextureRegionFactory.extractFromTexture(menuSelectChShoBit, 0, 0, 655, 1028, false);
         menuSelectChShoOutline =
             TextureRegionFactory.extractFromTexture(menuSelectChShoBit, 655, 0, 655, 1028, false);
-        
+
         // Clouds:
         BitmapTextureAtlas menuSelectCloudsBit =
                 new BitmapTextureAtlas(textureManager, 1422, 537, mTransparentTextureOption);
-        ITextureRegion menuSelectCloudsTR = BitmapTextureAtlasTextureRegionFactory.
+        BitmapTextureAtlasTextureRegionFactory.
                 createFromAsset(menuSelectCloudsBit, activity, "menu_select_clouds.png", 0, 0);
         menuSelectCloudsBit.load();
         menuSelectClouds1 =
             TextureRegionFactory.extractFromTexture(menuSelectCloudsBit, 0, 0, 711, 537, false);
         menuSelectClouds2 =
             TextureRegionFactory.extractFromTexture(menuSelectCloudsBit, 711, 0, 711, 537, false);
-        
+
 /*        if (menuSelectChRyoko == null) {
             BuildableBitmapTextureAtlas menuSelectChRyokoBit = new BuildableBitmapTextureAtlas(
                     textureManager, 870, 1028, mTransparentTextureOption);
@@ -2543,7 +2536,7 @@ public class ResourceManager {
             }
             menuSelectChShoBit.load();
         }
-        
+
         if (menuSelectClouds == null) {
             BitmapTextureAtlas menuSelectCloudsT = new BitmapTextureAtlas(textureManager, 1422, 537,
                     mTransparentTextureOption);
@@ -2551,9 +2544,9 @@ public class ResourceManager {
                     menuSelectCloudsT, activity, "menu_select_clouds.png", 0, 0);
             menuSelectCloudsT.load();
         }
-        
+
         */
-        
+
         if (menuSelectDifficulty == null) {
             BitmapTextureAtlas menuSelectDifficultyT = new BitmapTextureAtlas(textureManager, 1649, 633,
                     mTransparentTextureOption);
@@ -2589,27 +2582,27 @@ public class ResourceManager {
             menuSelectChRyoko.getTexture().unload();
             menuSelectChRyoko = null;
         }
-        
+
         if (menuSelectChRyokoOutline != null && menuSelectChRyokoOutline.getTexture().isLoadedToHardware()) {
             menuSelectChRyokoOutline.getTexture().unload();
             menuSelectChRyokoOutline = null;
         }
-        
+
         if (menuSelectChSho != null && menuSelectChSho.getTexture().isLoadedToHardware()) {
                 menuSelectChSho.getTexture().unload();
                 menuSelectChSho = null;
-        }        
-        
+        }
+
         if (menuSelectChShoOutline != null && menuSelectChShoOutline.getTexture().isLoadedToHardware()) {
             menuSelectChShoOutline.getTexture().unload();
             menuSelectChShoOutline = null;
         }
-        
+
         if (menuSelectClouds1 != null && menuSelectClouds1.getTexture().isLoadedToHardware()) {
                 menuSelectClouds1.getTexture().unload();
                 menuSelectClouds1 = null;
         }
-        
+
         if (menuSelectClouds2 != null && menuSelectClouds2.getTexture().isLoadedToHardware()) {
             menuSelectClouds2.getTexture().unload();
             menuSelectClouds2 = null;
@@ -2690,7 +2683,7 @@ public class ResourceManager {
         System.gc();
     }
 
-    
+
     public synchronized void loadResultWinResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/results/");
 
@@ -2804,8 +2797,8 @@ public class ResourceManager {
         // Garbage Collector:
         System.gc();
     }
-    
-    
+
+
     public synchronized void loadGameOverResources() {
     }
 
@@ -3315,7 +3308,7 @@ public class ResourceManager {
                 pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "go3v2.ttf",
                 192f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
         fontXBig.load();
-        
+
         // CharacterIntroScene fonts
         fontLatinChrName = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
                 pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "DejaVuSans.ttf",
