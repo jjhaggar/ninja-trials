@@ -110,6 +110,7 @@ public class NinjaTrials extends BaseGameActivity {
         // Recursos del HUD:
         ResourceManager.getInstance().loadHUDResources();
 
+        
 /*        // TODO probando a cargar todos los recursos
         ResourceManager.getInstance().loadMainMenuResources();
         ResourceManager.getInstance().loadOptionResources();

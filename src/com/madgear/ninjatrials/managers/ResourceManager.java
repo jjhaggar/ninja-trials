@@ -98,7 +98,8 @@ public class ResourceManager {
     public static ITiledTextureRegion runHead;
     public static ITiledTextureRegion shurikenHead;
 
-
+    public static ITextureRegion hudAchievementIngameContainer;
+    
     // JUMP TRIAL:
     public static ITextureRegion jumpBg1Bamboo; // borrable
     public static ITextureRegion jumpBg1BambooTop;
@@ -207,7 +208,7 @@ public class ResourceManager {
     public static ITextureRegion menuAchievementsSelectionMark;
     public static final int MENU_ACHIEV_BIG_COLS = 6;
     public static final int MENU_ACHIEV_BIG_ROWS = 6;
-
+    
     // MENU RECORDS
     public static ITextureRegion menuRecordsShoHead;
     public static ITextureRegion menuRecordsShoHeadGold;
@@ -762,6 +763,16 @@ public class ResourceManager {
             }
             shurikenHeadBit.load();
         }
+        
+        // Achievement ingame container
+        if (hudAchievementIngameContainer == null) {
+            BitmapTextureAtlas achievementIngameContainerT =new BitmapTextureAtlas(
+                    textureManager, 806, 192, mTransparentTextureOption);
+            hudAchievementIngameContainer = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    achievementIngameContainerT, activity,
+                    "hud_achievements_ingame_container.png", 0, 0);
+            achievementIngameContainerT.load();
+        }
     }
 
     public synchronized void unloadHUDResources() {
@@ -816,6 +827,10 @@ public class ResourceManager {
         if (shurikenHead != null && shurikenHead.getTexture().isLoadedToHardware()) {
             shurikenHead.getTexture().unload();
             shurikenHead = null;
+        }
+        if (hudAchievementIngameContainer != null && hudAchievementIngameContainer.getTexture().isLoadedToHardware()) {
+            hudAchievementIngameContainer.getTexture().unload();
+            hudAchievementIngameContainer = null;
         }
     }
 

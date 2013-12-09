@@ -29,6 +29,7 @@ public class AchievementSet implements Serializable {
      * Serial Version:
      */
     private static final long serialVersionUID = 1L;
+    
     public Achievement[] achievements;
     
     /**
@@ -43,7 +44,7 @@ public class AchievementSet implements Serializable {
      * 
      * @return The total number of achievements.
      */
-    public int getAchievementNum() {
+    public int getAchievementsNumber() {
         return achievements.length;
     }
     
@@ -51,7 +52,7 @@ public class AchievementSet implements Serializable {
      * Computes the total number of achiements completed.
      * @return The number of completed achiements.
      */
-    public int getCompletedAchievements() {
+    public int getCompletedAchievementsNumber() {
         int completedAchievements = 0;
         for(int i = 0; i < achievements.length; i++)
             if (achievements[i].completed)

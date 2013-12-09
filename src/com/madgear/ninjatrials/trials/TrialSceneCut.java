@@ -237,6 +237,8 @@ public class TrialSceneCut extends GameScene {
             @Override public void reset() {}
         };
         registerUpdateHandler(trialUpdateHandler);
+        
+        //gameHUD.showAchievementCompleted(1);
     }
 
     /**

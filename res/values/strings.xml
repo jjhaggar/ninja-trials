@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     
     <!-- 
@@ -163,54 +162,50 @@
 
 
     <!-- Group-Start: Achievements Screen -->
-        <!-- Achievement 1 Name (locked) -->
-        <string name="achievement_01_locked">The runner</string>
-        <!-- Achievement 1 Description (locked) - RUN TRIAL: Run 200Km, we\'ll have to do something with unit conversions here ^^U -->
-        <string name="achievement_01_locked_desc">Run a total of 200 Km\nProgress: %2$d / %2$d %2$s</string>
-        <!-- Achievement 1 Name (unlocked) -->
-        <string name="achievement_01_unlocked">The runner</string>
-        <!-- Achievement 1 Description (unlocked) - RUN TRIAL: Run 200Km -->
-        <string name="achievement_01_unlocked_desc">Run a total of 200 Km\nProgress: %2$d / %2$d %2$s\nYou Run like the Wind!! :D</string>
-        <!-- Achievement 2 Name (locked) -->
-        <string name="achievement_02_locked">StrawMan\'s Massacre</string>
-        <!-- Achievement 2 Description (locked) - SHURIKEN TRIAL: Destroy 500 StrawMen -->
-        <string name="achievement_02_locked_desc">Destroy 500 StrawMen\nProgress: %2$d / %2$d Strawmen</string>
-        <!-- Achievement 2 Name (unlocked) -->
-        <string name="achievement_02_unlocked">StrawMan\'s Massacre</string>
-        <!-- Achievement 2 Description (unlocked) - SHURIKEN TRIAL: Destroy 500 StrawMen -->
-        <string name="achievement_02_unlocked_desc">Destroy 500 StrawMen\nProgress: %2$d / %2$d Strawmen\nHooray! You defeated the 500 StrawMen!!</string>
-        <!-- Achievement 3 Name (locked) -->
-        <string name="achievement_03_locked">Perfect Jumper</string>
-        <!-- Achievement 3 Description (locked) - JUMP: Perform 100 perfect jumps -->
-        <string name="achievement_03_locked_desc">Perform 100 perfect jumps\nProgress: %2$d / %2$d Jumps</string>
-        <!-- Achievement 3 Name (unlocked) -->
-        <string name="achievement_03_unlocked">Perfect Jumper</string>
-        <!-- Achievement 3 Description (unlocked) - JUMP: Perform 100 perfect jumps -->
-        <string name="achievement_03_unlocked_desc">Perform 100 perfect jumps\nProgress: %2$d / %2$d Jumps\nJump! Jump! Jump!</string>
-        <!-- Achievement 4 Name (locked) -->
-        <string name="achievement_04_locked">Master of Sword</string>
-        <!-- Achievement 4 Description (locked) - CUT TRIAL: Achieve a single cut with 100% precision -->
-        <string name="achievement_04_locked_desc">Achieve a single cut with 100% precision.</string>
-        <!-- Achievement 4 Name (unlocked) -->
-        <string name="achievement_04_unlocked">Master of Sword</string>
-        <!-- Achievement 4 Description (unlocked) - CUT TRIAL: Achieve a single cut with 100% precision -->
-        <string name="achievement_04_unlocked_desc">Achieve a single cut with 100% precision.\nMusashi Miyamoto couldn\'t have done better!</string>
-        <!-- Achievement 5 Name (locked) -->
-        <string name="achievement_05_locked">\?\?\?</string>
-        <!-- Achievement 5 Description (locked) - GAME: Play the game for at least 100 hours -->
-        <string name="achievement_05_locked_desc">\?\?\?</string>
-        <!-- Achievement 5 Name (unlocked) -->
-        <string name="achievement_05_unlocked">A Ninja is One Who Endures</string>
-        <!-- Achievement 5 Description (unlocked) - GAME: Play the game for at least 100 hours -->
-        <string name="achievement_05_unlocked_desc">Play the game for at least 100 hours.\nProgress: %2$d / %2$d hours.\nIt seems that you really like this game, eh? ;)</string>
-        <!-- Achievement 6 Name (locked) -->
-        <string name="achievement_06_locked">\?\?\?</string>
-        <!-- Achievement 6 Description (locked) - GAME (SECRET): Get all default records replaced by players records -->
-        <string name="achievement_06_locked_desc">\?\?\?</string>
-        <!-- Achievement 6 Name (unlocked) http://en.wikipedia.org/wiki/All_your_base_are_belong_to_us -->
-        <string name="achievement_06_unlocked">All your record are belong to us</string>
-        <!-- Achievement 6 Description (unlocked) - GAME (SECRET): Get all default records replaced by players records -->
-        <string name="achievement_06_unlocked_desc">Get all default records replaced by players records.\nFor great justice.</string>
+        <!-- Achievement 1 Name -->
+        <string name="achievement_01_name">The runner</string>
+        <!-- Achievement 1 Description - RUN TRIAL: Run 200Km, we\'ll have to do something with unit conversions here ^^U -->
+        <string name="achievement_01_desc">Run a total of 200 Km</string>
+        <!-- Achievement 1 Success sentence - RUN TRIAL: Run 200Km -->
+        <string name="achievement_01_success">You Run like the Wind!! :D</string>
+        <!-- Achievement 2 Name -->
+        <string name="achievement_02_name">StrawMan\'s Massacre</string>
+        <!-- Achievement 2 Description - SHURIKEN TRIAL: Destroy 500 StrawMen -->
+        <string name="achievement_02_desc">Destroy 500 StrawMen</string>
+        <!-- Achievement 2 Success sentence - SHURIKEN TRIAL: Destroy 500 StrawMen -->
+        <string name="achievement_02_success">Hooray! You defeated the 500 StrawMen!!</string>
+        <!-- Achievement 3 Name -->
+        <string name="achievement_03_name">Perfect Jumper</string>
+        <!-- Achievement 3 Description - JUMP: Perform 100 perfect jumps -->
+        <string name="achievement_03_desc">Perform 100 perfect jumps</string>
+        <!-- Achievement 3 Success sentence - JUMP: Perform 100 perfect jumps -->
+        <string name="achievement_03_success">Jump! Jump! Jump!</string>
+        <!-- Achievement 4 Name -->
+        <string name="achievement_04_name">Master of Sword</string>
+        <!-- Achievement 4 Description - CUT TRIAL: Achieve a single cut with 100% precision -->
+        <string name="achievement_04_desc">Achieve a single cut with 100% precision.</string>
+        <!-- Achievement 4 Success sentence - CUT TRIAL: Achieve a single cut with 100% precision -->
+        <string name="achievement_04_success">Musashi Miyamoto couldn\'t have done better!</string>
+        <!-- Achievement 5 Clue tittle -->
+        <string name="achievement_05_clue_tittle">\?\?\?</string>
+        <!-- Achievement 5 Clue description - GAME: Play the game for at least 100 hours -->
+        <string name="achievement_05_clue_desc">\?\?\?</string>
+        <!-- Achievement 5 Name -->
+        <string name="achievement_05_name">A Ninja is One Who Endures</string>
+        <!-- Achievement 5 Description - GAME: Play the game for at least 100 hours -->
+        <string name="achievement_05_desc">Play the game for at least 100 hours.</string>
+        <!-- Achievement 5 Success sentence-->
+        <string name="achievement_05_success">It seems that you really like this game, eh? ;)</string>        
+        <!-- Achievement 6 Clue tittle -->        
+        <string name="achievement_06_clue_tittle">\?\?\?</string>
+        <!-- Achievement 6 Clue description - GAME (SECRET): Get all default records replaced by players records -->
+        <string name="achievement_06_clue_desc">\?\?\?</string>
+        <!-- Achievement 6 Name http://en.wikipedia.org/wiki/All_your_base_are_belong_to_us -->
+        <string name="achievement_06_name">All your record are belong to us</string>
+        <!-- Achievement 6 Description -->
+        <string name="achievement_06_desc">Get all default records replaced by players records.</string>
+        <!-- Achievement 6 Success sentence -->
+        <string name="achievement_06_success">For great justice.</string>
     <!-- Group-End: Achievements Screen -->
 
 
@@ -458,5 +453,6 @@
 
     <!-- Group-Start: Credits Screen -->
     <!-- Group-End: Credits Screen -->
+        
 
 </resources>

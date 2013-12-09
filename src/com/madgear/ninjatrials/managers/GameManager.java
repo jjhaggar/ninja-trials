@@ -34,6 +34,9 @@ public class GameManager {
 
     // Use OUYA_CONTROL = true for testing Ouya controls. Use OUYA_CONTROL = false for testing on smartphones
     public static final boolean OUYA_CONTROL = false;
+    
+    // Use ACHIEV_DEBUG_MODE = true for test values in achievments (easier goals).
+    public static final boolean ACHIEV_DEBUG_MODE = true;
 
     private static final int SCORE_INIT = 0;
     public static final int LIVES_INIT = 3;

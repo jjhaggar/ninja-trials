@@ -54,11 +54,14 @@ public class GameHUD extends HUD {
     private final static float WIDTH = ResourceManager.getInstance().cameraWidth;
     private final static float HEIGHT = ResourceManager.getInstance().cameraHeight;
     private final static Font DEF_FONT = ResourceManager.getInstance().fontBig;
+    private static AchievementNotify achievNotif = new AchievementNotify();
 
     /**
      * GameHUD constructor
      */
-    public GameHUD() {}
+    public GameHUD() {
+        attachChild(achievNotif);
+    }
     
     /**
      * Writes a message in the screen (centered).
@@ -167,5 +170,9 @@ public class GameHUD extends HUD {
      */
     public void hideComboMessage() {
         textMessage.setAlpha(0);
+    }
+    
+    public void showAchievementCompleted(int achievNumber) {
+        achievNotif.showAchievementCompleted(achievNumber);
     }
 }

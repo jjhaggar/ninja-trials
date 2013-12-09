@@ -20,23 +20,30 @@ package com.madgear.ninjatrials.achievements;
 
 import java.io.Serializable;
 
+import com.madgear.ninjatrials.R;
 import com.madgear.ninjatrials.managers.GameManager;
+import com.madgear.ninjatrials.managers.ResourceManager;
 
 public class AchievementSetNinjaTrial extends AchievementSet implements Serializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
+
     public static final int ACHIEV_NUM = 35;
-    
+
+    // ACHIEV. PROGRESSION VALUES:
+    private static final int ACHIEV_01_TOTAL_KMS = 200;
+    private static final int ACHIEV_01_TOTAL_KMS_TEST = 5;
+    private static final int ACHIEV_02_TOTAL_STRAWMEN = 500;
+    private static final int ACHIEV_02_TOTAL_STRAWMEN_TEST = 10;
+    private static final int ACHIEV_03_TOTAL_PERFECT_JUMPS = 100;
+    private static final int ACHIEV_03_TOTAL_PERFECT_JUMPS_TEST = 10;
+    private static final int ACHIEV_05_TOTAL_HOURS = 100;
+    private static final int ACHIEV_05_TOTAL_HOURS_TEST = 1;
+
     
     public AchievementSetNinjaTrial() {
         super(ACHIEV_NUM);
-        if(GameManager.DEBUG_MODE)
-            initTest();
-        else
-            init();
+        init();
     }
     
     
@@ -44,23 +51,58 @@ public class AchievementSetNinjaTrial extends AchievementSet implements Serializ
      * Initializes the Ninja Trials achiev. set.
      */
     public void init() {
-        // TODO: put real initial values here!
-        //...........
-        
-        // Remove when true achievements loaded.
-        initTest();
-    }
-    
-    
-    /**
-     * Initializes the Ninja Trials achiev. testing set.
-     */
-    public void initTest() {
+        // Default setup
         for(int i = 0; i < ACHIEV_NUM; i++) {
-            achievements[i] = new Achievement("Nombre"+i, "Descrp"+i, "Exito"+i);
+            achievements[i] = new Achievement("Nombre"+i+1, "Descrp"+i+1, "Exito"+i+1);
         }
         
-        // put initial test values here!
+        // Achiev 1: Run a total of 200 Km
+        achievements[0] = new Achievement(
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_01_name),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_01_desc),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_01_success),
+                0, GameManager.ACHIEV_DEBUG_MODE ? ACHIEV_01_TOTAL_KMS_TEST : ACHIEV_01_TOTAL_KMS);
+        
+        // Achiev 2: Destroy 500 StrawMen
+        achievements[1] = new Achievement(
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_02_name),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_02_desc),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_02_success),
+                0, GameManager.ACHIEV_DEBUG_MODE ? ACHIEV_02_TOTAL_STRAWMEN_TEST : ACHIEV_02_TOTAL_STRAWMEN);
+        
+        // Achiev 3: Perform 100 perfect jumps
+        achievements[2] = new Achievement(
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_03_name),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_03_desc),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_03_success),
+                0, GameManager.ACHIEV_DEBUG_MODE ? ACHIEV_03_TOTAL_PERFECT_JUMPS_TEST : ACHIEV_03_TOTAL_PERFECT_JUMPS);
+        
+        // Achiev 4: Achieve a single cut with 100% precision.
+        achievements[3] = new Achievement(
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_04_name),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_04_desc),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_04_success));
+        
+        // Achiev 5: Play the game for at least 100 hours.
+        achievements[4] = new Achievement(
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_05_name),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_05_desc),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_05_success),
+                0, GameManager.ACHIEV_DEBUG_MODE ? ACHIEV_05_TOTAL_HOURS_TEST : ACHIEV_05_TOTAL_HOURS,
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_05_clue_tittle),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_05_clue_desc));
+        
+        // Achiev 6: Get all default records replaced by players records.
+        achievements[5] = new Achievement(
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_06_name),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_06_desc),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_06_success),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_06_clue_tittle),
+                ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_06_clue_desc));    
+
+        
+        /*
+        // EXAMPLES:
         
         // basic:
         achievements[0] = new Achievement("Basic", "Descripion basic", "Success basic!!!");
@@ -97,8 +139,7 @@ public class AchievementSetNinjaTrial extends AchievementSet implements Serializ
                 "Sucess prog and secret!!!", 0, 100,
                 "Clue name prog and sec", "Clue description prog and sec");
         achievements[7].completed = true;
-        
-        
-        //.........
+
+*/
     }
 }
