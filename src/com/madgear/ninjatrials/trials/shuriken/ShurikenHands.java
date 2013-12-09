@@ -17,7 +17,6 @@ import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.trials.TrialSceneShuriken;
-import com.madgear.ninjatrials.trials.run.RunCharacter;
 
 public class ShurikenHands extends Entity{
 	private final float SCRNWIDTH = ResourceManager.getInstance().cameraWidth;

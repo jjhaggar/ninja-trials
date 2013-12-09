@@ -1324,7 +1324,7 @@ public class ResourceManager {
         // Sho
         if (runSho == null) {
             BuildableBitmapTextureAtlas runShoBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 2115, 2028, mTransparentTextureOption);
+                    textureManager, 1058, 1014, mTransparentTextureOption);
             runSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
                     runShoBit, context, "run_ch_sho.png", 5, 4);
             try {
@@ -1340,7 +1340,7 @@ public class ResourceManager {
         // Ryoko
         if (runRyoko == null) {
             BuildableBitmapTextureAtlas runRyokoBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 2115, 2028, mTransparentTextureOption);
+                    textureManager, 1058, 1014, mTransparentTextureOption);
             runRyoko = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
                     runRyokoBit, context, "run_ch_ryoko.png", 5, 4);
             try {

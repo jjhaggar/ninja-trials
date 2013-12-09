@@ -54,6 +54,7 @@ public class RunCharacter extends Entity {
     public RunCharacter(float posX, float posY, ITiledTextureRegion tiledTexture) {
         charSprite = new AnimatedSprite(posX, posY, tiledTexture,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+        charSprite.setScale(2.0f); // This is needed because of the texture size limits
         attachChild(charSprite);
     }
 
