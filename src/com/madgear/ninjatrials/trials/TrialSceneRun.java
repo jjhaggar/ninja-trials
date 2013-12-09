@@ -299,20 +299,11 @@ private void runFinish() {
     }
 
     /**
-     * Control the touch event.
-     *
-     * @param pScene Scene
-     * @param pSceneTouchEvent TouchEvent
-     *
-     * @return true if event detected is key down, else false.
+     * Input control (Ouya gamepad and touch event).
      */
-	@Override
-	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-		if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN) {
-            updatePower(powerIncrement);
-			return true;
-		}
-		return false;
+    @Override
+    public void onPressButtonO() {
+        updatePower(powerIncrement);
     }
 
     public static int getTimeScore() {
