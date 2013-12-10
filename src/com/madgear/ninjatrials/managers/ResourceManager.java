@@ -175,6 +175,7 @@ public class ResourceManager {
     public static ITextureRegion shurikenStrawman3;
     public static ITextureRegion shurikenTempShuriken;
     public static ITextureRegion shurikenTempStrawman;
+    public static ITiledTextureRegion shurikenEffectHit;
 
     // HOW TO PLAY
     public static ITextureRegion howToPlayArrow;
@@ -519,7 +520,7 @@ public class ResourceManager {
         BitmapTextureAtlas mainOptionsSoundBarsT = new BitmapTextureAtlas(textureManager, 575, 220,
                 mTransparentTextureOption);
         BitmapTextureAtlasTextureRegionFactory.createFromAsset(mainOptionsSoundBarsT, activity,
-        		"menu_options_volume.png", 0, 0);
+                "menu_options_volume.png", 0, 0);
         mainOptionsSoundBarsT.load();
         mainOptionsSoundBarsActive = TextureRegionFactory.
                 extractFromTexture(mainOptionsSoundBarsT, 0, 0, 575, 110, false);
@@ -597,7 +598,7 @@ public class ResourceManager {
             BuildableBitmapTextureAtlas controllerOptionsPatternT = new BuildableBitmapTextureAtlas(
                     textureManager, 319, 319, TextureOptions.REPEATING_BILINEAR);
             controllerOptionsPattern = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-            		controllerOptionsPatternT, activity, "menu_main_pattern_3.png");
+                    controllerOptionsPatternT, activity, "menu_main_pattern_3.png");
             try {
                 controllerOptionsPatternT.build(
                         new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
@@ -1539,6 +1540,21 @@ public class ResourceManager {
                     shurikenStrawman3T, activity, "shuriken_strawman_3.png", 0, 0);
             shurikenStrawman3T.load();
         }
+
+        if (shurikenEffectHit == null) {
+            BuildableBitmapTextureAtlas shurikenEffectHitBit = new BuildableBitmapTextureAtlas(
+                    textureManager, 140, 200, mTransparentTextureOption);
+            shurikenEffectHit = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    shurikenEffectHitBit, context, "shuriken_effect_hit.png", 2, 1);
+            try {
+                shurikenEffectHitBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
+                        BitmapTextureAtlas>(0, 0, 0));
+            }
+            catch (TextureAtlasBuilderException e) {
+                e.printStackTrace();
+            }
+            shurikenEffectHitBit.load();
+        }
     }
 
     public synchronized void unloadShurikenSceneResources() {
@@ -1602,6 +1618,10 @@ public class ResourceManager {
         if (shurikenTempStrawman != null && shurikenTempStrawman.getTexture().isLoadedToHardware()) {
                 shurikenTempStrawman.getTexture().unload();
                 shurikenTempStrawman = null;
+        }
+        if (shurikenEffectHit != null && shurikenEffectHit.getTexture().isLoadedToHardware()) {
+            shurikenEffectHit.getTexture().unload();
+            shurikenEffectHit = null;
         }
     }
 
