@@ -34,7 +34,7 @@ public class AchievementSetNinjaTrial extends AchievementSet implements Serializ
     private static final int ACHIEV_01_TOTAL_MS = 200000;
     private static final int ACHIEV_01_TOTAL_MS_TEST = 300;
     private static final int ACHIEV_02_TOTAL_STRAWMEN = 500;
-    private static final int ACHIEV_02_TOTAL_STRAWMEN_TEST = 10;
+    private static final int ACHIEV_02_TOTAL_STRAWMEN_TEST = 15;
     private static final int ACHIEV_03_TOTAL_PERFECT_JUMPS = 100;
     private static final int ACHIEV_03_TOTAL_PERFECT_JUMPS_TEST = 10;
     private static final int ACHIEV_05_TOTAL_HOURS = 100;

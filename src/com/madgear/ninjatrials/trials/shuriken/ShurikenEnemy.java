@@ -9,6 +9,7 @@ import org.andengine.opengl.texture.region.ITiledTextureRegion;
 
 import android.util.Log;
 
+import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.trials.TrialSceneShuriken;
@@ -56,14 +57,14 @@ public class ShurikenEnemy extends Entity{
 		 * Aparece al fondo
 		 * Va recorriendo horizontalmente la pantalla
 		 * Se acerca de forma alternada
-		 * Hay dos “carriles” horizontales, uno lejos y otro a media distancia.
+		 * Hay dos ï¿½carrilesï¿½ horizontales, uno lejos y otro a media distancia.
 		 * Si no son abatidos por los shurikens los enemigos
-		 * bajarán primero por el que está lejos y recorrerán
-		 * una parte del “carril”, tras eso subirán de nuevo
-		 * a los árboles y bajarán en el “carril”
-		 * que está a media distancia, recorrerán una parte de ese carril
-		 * y volverán a ascender a los árboles, tras
-		 * eso caerá junto al personaje y mostrará el strawman con cartel     
+		 * bajarï¿½n primero por el que estï¿½ lejos y recorrerï¿½n
+		 * una parte del ï¿½carrilï¿½, tras eso subirï¿½n de nuevo
+		 * a los ï¿½rboles y bajarï¿½n en el ï¿½carrilï¿½
+		 * que estï¿½ a media distancia, recorrerï¿½n una parte de ese carril
+		 * y volverï¿½n a ascender a los ï¿½rboles, tras
+		 * eso caerï¿½ junto al personaje y mostrarï¿½ el strawman con cartel     
 		 */
 		startTime = ResourceManager.getInstance().engine.getSecondsElapsedTotal();
 		enemyUpdateHandler = new IUpdateHandler() {

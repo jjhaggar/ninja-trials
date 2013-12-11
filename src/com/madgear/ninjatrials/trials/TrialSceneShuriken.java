@@ -40,6 +40,7 @@ import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.managers.UserData;
 import com.madgear.ninjatrials.test.MusicTest;
 import com.madgear.ninjatrials.test.TestingScene;
 import com.madgear.ninjatrials.trials.shuriken.ShurikenCoordinates;
@@ -268,8 +269,8 @@ public class TrialSceneShuriken extends GameScene{
 					}
 				}
 				if (enemy.getLifes() <= 0) {					
-					tempEnemiesLeft--;
-					tempEnemiesDefeated++;
+				    tempEnemiesLeft--;
+				    tempEnemiesDefeated++;
 				}
 			}
 			enemiesDefeated = tempEnemiesDefeated;
@@ -292,10 +293,13 @@ public class TrialSceneShuriken extends GameScene{
 	 * Shows ResultWinScene or ResultsLoseScene
 	 */
 	private void gameOver() {
+        // Save Achievements:
+        UserData.saveAchiev(ResourceManager.getInstance().context);
+        
 		Log.d("Bruno", "GameOver");
 		gameFinished = true;
 		generateEnemiesTimer.cancel();
-		SFXManager.pauseMusic(ResourceManager.getInstance().trialShurikens);
+		SFXManager.stopMusic(ResourceManager.getInstance().trialShurikens);
 		gameEndTime = ResourceManager.getInstance().engine.getSecondsElapsedTotal();
 		if (shurikensLaunched == 0) {
 			precissionScore = 0;
@@ -347,6 +351,17 @@ public class TrialSceneShuriken extends GameScene{
 					hit = true;
 				}
 				if (hit) {
+				    
+				    // TODO: controlar si se ha muerto o no.
+                    // Achievement 2:
+                    if(!GameManager.player1achiev.achievements[1].isCompleted()) {
+                        GameManager.player1achiev.achievements[1].progressIncrement(1);
+                        if(GameManager.player1achiev.achievements[1].isCompleted()) {
+                            gameHUD.showAchievementCompleted(2);
+                            GameManager.player1achiev.unlock(2);
+                        }
+                    }
+				    
 					enemy.hit();
 					break;
 				}
