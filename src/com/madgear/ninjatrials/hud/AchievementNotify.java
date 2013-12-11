@@ -20,9 +20,7 @@ package com.madgear.ninjatrials.hud;
 
 import org.andengine.entity.Entity;
 import org.andengine.entity.modifier.DelayModifier;
-import org.andengine.entity.modifier.FadeInModifier;
 import org.andengine.entity.modifier.MoveModifier;
-import org.andengine.entity.modifier.ParallelEntityModifier;
 import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
@@ -32,6 +30,11 @@ import org.andengine.util.adt.align.HorizontalAlign;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 
+/**
+ * Used by game HUD.
+ * @author Madgear Games
+ *
+ */
 public class AchievementNotify extends Entity {
     private static final int MOVE_TIME = 1;
     private static final int DELAY_TIME = 3;
@@ -43,46 +46,40 @@ public class AchievementNotify extends Entity {
         achievContainerSprite = new Sprite(0, 0,
                 ResourceManager.getInstance().hudAchievementIngameContainer,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        achievContainerSprite.setVisible(false);
 
         achievContainerText = new Text(0, 0,
                 ResourceManager.getInstance().fontMedium,
                 "achievement name placeholder text achievement name placeholder text",
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-        achievContainerText.setVisible(false);
         
-        achievContainerSprite.attachChild(achievContainerText);
+        setVisible(false);
         attachChild(achievContainerSprite);
+        attachChild(achievContainerText);
     }
     
     
+    /**
+     * Show a box that informs the achievment is unlocked.
+     * @param achievNumber The achievement number (the vector value + 1). For example, if we want
+     * showing the achievement 4 (Achieve a single cut with 100% precision)
+     * we must put achievNumber = 4
+     */
     public void showAchievementCompleted(int achievNumber) {
+        setVisible(false);
         achievContainerText.setText(GameManager.player1achiev.achievements[achievNumber - 1].name);
-        achievContainerSprite.setX(
-                ResourceManager.getInstance().cameraWidth + achievContainerSprite.getWidth()/2);
-        achievContainerSprite.setY(ResourceManager.getInstance().cameraHeight * 2/3);
-        achievContainerSprite.setVisible(true);
-        achievContainerText.setVisible(true);
+        setX(ResourceManager.getInstance().cameraWidth + getWidth()/2);
+        setY(ResourceManager.getInstance().cameraHeight * 2/3);
+        setVisible(true);
         
-        achievContainerSprite.registerEntityModifier(new SequenceEntityModifier(
-                new MoveModifier(
-                        MOVE_TIME,
-                        achievContainerSprite.getX(),
-                        achievContainerSprite.getY(),
-                        achievContainerSprite.getX() - achievContainerSprite.getWidth()/2 - 20,
-                        achievContainerSprite.getY()),
-                        
-                        new DelayModifier(DELAY_TIME),
-                        
-                        new MoveModifier(
-                                MOVE_TIME,
-                                achievContainerSprite.getX(),
-                                achievContainerSprite.getY(),
-                                achievContainerSprite.getX() + achievContainerSprite.getWidth()/2 + 20,
-                                achievContainerSprite.getY())
-                ));
-        
-        
+        registerEntityModifier(new SequenceEntityModifier(
+                new MoveModifier(MOVE_TIME, getX(), getY(), getX() - getWidth() - 20, getY()),
+                new DelayModifier(DELAY_TIME),
+                new MoveModifier(MOVE_TIME, getX() - getWidth() - 20, getY(), getX(), getY())));
     }
+    
+    
+    public float getWidth() {
+        return achievContainerSprite.getWidth();
+    }    
 }

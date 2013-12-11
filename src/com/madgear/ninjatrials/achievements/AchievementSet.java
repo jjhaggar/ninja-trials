@@ -59,4 +59,8 @@ public class AchievementSet implements Serializable {
                 completedAchievements++;
         return completedAchievements;
     }
+    
+    public void unlock(int achievNumber) {
+        achievements[achievNumber - 1].completed = true;
+    }
 }

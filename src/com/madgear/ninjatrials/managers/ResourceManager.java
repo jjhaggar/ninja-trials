@@ -2265,14 +2265,6 @@ public class ResourceManager {
             menuAchievementsSelectionMarkT.load();
         }
         
-        if (menuAchievementsIngameContainer == null) {
-            BitmapTextureAtlas menuAchievementsIngameContainerT = new BitmapTextureAtlas(textureManager, 806, 192,
-                    mTransparentTextureOption);
-            menuAchievementsIngameContainer = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuAchievementsIngameContainerT, activity, "menu_achievements_ingame_container.png", 0, 0);
-            menuAchievementsIngameContainerT.load();
-        }
-
         if (menuAchievementsSuccessStamp == null) {
             BitmapTextureAtlas menuAchievementsSuccessStampT = new BitmapTextureAtlas(textureManager, 260, 260,
                     mTransparentTextureOption);
@@ -2302,11 +2294,6 @@ public class ResourceManager {
         if (menuAchievementsIconsSmall != null && menuAchievementsIconsSmall.getTexture().isLoadedToHardware()) {
                 menuAchievementsIconsSmall.getTexture().unload();
                 menuAchievementsIconsSmall = null;
-        }
-
-        if (menuAchievementsIngameContainer != null && menuAchievementsIngameContainer.getTexture().isLoadedToHardware()) {
-                menuAchievementsIngameContainer.getTexture().unload();
-                menuAchievementsIngameContainer = null;
         }
 
         if (menuAchievementsSuccessStamp != null && menuAchievementsSuccessStamp.getTexture().isLoadedToHardware()) {

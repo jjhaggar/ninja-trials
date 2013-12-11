@@ -182,4 +182,8 @@ public class GameManager {
     public static void setLives(int t) {
         lives = t;
     }
+    
+    public static void achievementUnlocked(AchievementSetNinjaTrial achievSet, int achievNumber) {
+        
+    }
 }

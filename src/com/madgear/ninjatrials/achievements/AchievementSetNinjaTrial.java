@@ -40,6 +40,10 @@ public class AchievementSetNinjaTrial extends AchievementSet implements Serializ
     private static final int ACHIEV_05_TOTAL_HOURS = 100;
     private static final int ACHIEV_05_TOTAL_HOURS_TEST = 1;
 
+    // ACHIEV. DATA:
+    public static final int ACHIEV_04_CUT_PRECISSION = 100;
+    public static final int ACHIEV_04_CUT_PRECISSION_TEST = 80;
+
     
     public AchievementSetNinjaTrial() {
         super(ACHIEV_NUM);
@@ -53,7 +57,7 @@ public class AchievementSetNinjaTrial extends AchievementSet implements Serializ
     public void init() {
         // Default setup
         for(int i = 0; i < ACHIEV_NUM; i++) {
-            achievements[i] = new Achievement("Nombre"+i+1, "Descrp"+i+1, "Exito"+i+1);
+            achievements[i] = new Achievement("Nombre"+(i+1), "Descrp"+(i+1), "Exito"+(i+1));
         }
         
         // Achiev 1: Run a total of 200 Km

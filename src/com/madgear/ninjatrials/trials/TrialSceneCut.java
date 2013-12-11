@@ -46,6 +46,7 @@ import com.madgear.ninjatrials.MainMenuScene;
 import com.madgear.ninjatrials.R;
 import com.madgear.ninjatrials.ResultLoseScene;
 import com.madgear.ninjatrials.ResultWinScene;
+import com.madgear.ninjatrials.achievements.AchievementSetNinjaTrial;
 import com.madgear.ninjatrials.hud.Chronometer;
 import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.hud.HeadCharacter;
@@ -306,6 +307,20 @@ public class TrialSceneCut extends GameScene {
      * then go to the winning scene.
      */
     private void endingSequence() {
+        // Achiev 4: Achieve a single cut with 100% precision.
+        if(!GameManager.player1achiev.achievements[3].completed) {
+            int precission;
+            if(GameManager.ACHIEV_DEBUG_MODE)
+                precission = AchievementSetNinjaTrial.ACHIEV_04_CUT_PRECISSION_TEST;
+            else
+                precission = AchievementSetNinjaTrial.ACHIEV_04_CUT_PRECISSION;
+            
+            if(GameManager.player1result.cutConcentration >= precission) {
+                gameHUD.showAchievementCompleted(4);
+                GameManager.player1achiev.unlock(4);
+            }
+        }
+        
         //GameManager.incrementScore(score);
         score = getScore();
         if(score >= SCORE_GRAND_MASTER && !isTimeOut) {
