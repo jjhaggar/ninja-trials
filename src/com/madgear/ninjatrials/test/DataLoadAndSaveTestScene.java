@@ -69,7 +69,7 @@ public class DataLoadAndSaveTestScene extends GameScene {
         this.getBackground().setColor(0.9f, 0.2f, 0.9f);
 
         tittleText = new Text(WIDTH/2, HEIGHT - 200,
-                ResourceManager.getInstance().fontMedium, "Data Load and Save Test Scene",
+                ResourceManager.getInstance().fontMedium, "Clear Data Scene",
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
         attachChild(tittleText);
@@ -77,7 +77,7 @@ public class DataLoadAndSaveTestScene extends GameScene {
         // SelectionStripe:
         selectionStripe = new SelectionStripe(tittleText.getX(), tittleText.getY() - 400, 
                 SelectionStripe.DISP_VERTICAL, 200f,
-                new String[] {"Delete Data", "Write Achievs", "Write records"}, 
+                new String[] {"Clean Records", "Clean Achievements"}, 
                 SelectionStripe.TEXT_ALIGN_CENTER, 0);
         attachChild(selectionStripe);
         
@@ -92,23 +92,26 @@ public class DataLoadAndSaveTestScene extends GameScene {
     public void onUnloadScene() {
     }
 
-
-    /**
-     * Delete data files and variables
-     */
-    private void deleteData() {
-        
-        file = c.getFileStreamPath(UserData.ACHIEV_FILE_NAME);
-        if(file.delete()) Log.i("data test", "achiev file deleted");
-        GameManager.player1achiev = new AchievementSetNinjaTrial();
-        GameManager.player2achiev = new AchievementSetNinjaTrial();
-        
+    private void cleanRecords() {
         file = c.getFileStreamPath(UserData.RECORDS_FILE_NAME);
         if(file.delete()) Log.i("data test", "records file deleted");
         GameManager.recordsTableSet = new RecordsTableSet();
-        
+        UserData.saveRecords(ResourceManager.getInstance().context);        
     }
 
+    private void cleanAchievements() { 
+        file = c.getFileStreamPath(UserData.ACHIEV_FILE_NAME);
+        if(file.delete()) Log.i("data test", "achiev file deleted");
+        GameManager.player1achiev = new AchievementSetNinjaTrial();
+        GameManager.player2achiev = new AchievementSetNinjaTrial();  
+        UserData.saveAchiev(ResourceManager.getInstance().context);
+        // only save player1
+    }
+    
+    
+    
+    // UNUSED --------------------------
+    
     /**
      * Write some values in achievments and save.
      */
@@ -119,6 +122,7 @@ public class DataLoadAndSaveTestScene extends GameScene {
         GameManager.player1achiev.achievements[21].completed = true;
         UserData.saveAchiev(ResourceManager.getInstance().context);
     }
+    
     
     /**
      * Write some values in records and save.
@@ -141,7 +145,7 @@ public class DataLoadAndSaveTestScene extends GameScene {
 
     
     
-    // INTERFACE:
+    // INTERFACE --------------------------------------
 
 
     @Override
@@ -165,15 +169,11 @@ public class DataLoadAndSaveTestScene extends GameScene {
         switch(selectionStripe.getSelectedIndex()) {
         case 0:
             // Delete Data:
-            deleteData();
+            cleanRecords();
             break;
         case 1:
             // Write achiev:
-            writeAchiev();
-            break;
-        case 2:
-            // Write records:
-            writeRecords();
+            cleanAchievements();
             break;
         }
     }
