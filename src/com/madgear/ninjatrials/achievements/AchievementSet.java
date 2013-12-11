@@ -19,6 +19,9 @@
 package com.madgear.ninjatrials.achievements;
 import java.io.Serializable;
 
+import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.UserData;
+
 /**
  * @author Madgear Games
  *
@@ -62,5 +65,6 @@ public class AchievementSet implements Serializable {
     
     public void unlock(int achievNumber) {
         achievements[achievNumber - 1].completed = true;
+        UserData.saveAchiev(ResourceManager.getInstance().context);
     }
 }

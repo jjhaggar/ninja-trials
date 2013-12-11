@@ -36,8 +36,8 @@ import com.madgear.ninjatrials.managers.ResourceManager;
  *
  */
 public class AchievementNotify extends Entity {
-    private static final int MOVE_TIME = 1;
-    private static final int DELAY_TIME = 3;
+    private static final float MOVE_TIME = 0.5f;
+    private static final float DELAY_TIME = 3f;
 
     private Sprite achievContainerSprite;
     private Text achievContainerText;

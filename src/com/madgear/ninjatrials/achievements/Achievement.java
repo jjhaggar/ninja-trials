@@ -137,6 +137,10 @@ public class Achievement implements Serializable {
     }
     
     
+    public boolean isCompleted() {
+        return completed;
+    }
+    
     /**
      * Show a clue if is secret achiev and not completed, else show the name.
      * @return the name.

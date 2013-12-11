@@ -31,8 +31,8 @@ public class AchievementSetNinjaTrial extends AchievementSet implements Serializ
     public static final int ACHIEV_NUM = 35;
 
     // ACHIEV. PROGRESSION VALUES:
-    private static final int ACHIEV_01_TOTAL_KMS = 200;
-    private static final int ACHIEV_01_TOTAL_KMS_TEST = 5;
+    private static final int ACHIEV_01_TOTAL_MS = 200000;
+    private static final int ACHIEV_01_TOTAL_MS_TEST = 300;
     private static final int ACHIEV_02_TOTAL_STRAWMEN = 500;
     private static final int ACHIEV_02_TOTAL_STRAWMEN_TEST = 10;
     private static final int ACHIEV_03_TOTAL_PERFECT_JUMPS = 100;
@@ -65,7 +65,7 @@ public class AchievementSetNinjaTrial extends AchievementSet implements Serializ
                 ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_01_name),
                 ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_01_desc),
                 ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_01_success),
-                0, GameManager.ACHIEV_DEBUG_MODE ? ACHIEV_01_TOTAL_KMS_TEST : ACHIEV_01_TOTAL_KMS);
+                0, GameManager.ACHIEV_DEBUG_MODE ? ACHIEV_01_TOTAL_MS_TEST : ACHIEV_01_TOTAL_MS);
         
         // Achiev 2: Destroy 500 StrawMen
         achievements[1] = new Achievement(

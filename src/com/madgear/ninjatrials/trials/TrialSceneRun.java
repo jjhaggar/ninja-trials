@@ -42,6 +42,7 @@ import com.madgear.ninjatrials.hud.HeadCharacter;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.managers.UserData;
 import com.madgear.ninjatrials.test.TestingScene;
 import com.madgear.ninjatrials.trials.run.RunBg;
 import com.madgear.ninjatrials.trials.run.RunCharacter;
@@ -271,18 +272,32 @@ public class TrialSceneRun extends GameScene {
     /**
      * Calculate the score when you finish the trials or finish the trial time.
      */
-private void runFinish() {
-        runShowResults();
-        trialTimerHandler= new TimerHandler(endingTime, new ITimerCallback() {
-            @Override
-            public void onTimePassed(final TimerHandler pTimerHandler) {
-                TrialSceneRun.this.unregisterUpdateHandler(trialTimerHandler);
-                resetScene();
-                SceneManager.getInstance().showScene(new TestingScene());
-            }
-        });
-        registerUpdateHandler(trialTimerHandler);
-    }
+	private void runFinish() {
+
+	    // Achievement 1: Run 200 kms. / test mode = 2 m
+	    // distanceReached is in meters.
+	    if(!GameManager.player1achiev.achievements[0].isCompleted()) {
+	        GameManager.player1achiev.achievements[0].progressIncrement(distanceReached);
+	        if(GameManager.player1achiev.achievements[0].isCompleted()) {
+	            gameHUD.showAchievementCompleted(1);
+	            GameManager.player1achiev.unlock(1);
+	        }
+	    }
+	    else {
+	        UserData.saveAchiev(ResourceManager.getInstance().context);
+	    }
+
+	    runShowResults();
+	    trialTimerHandler= new TimerHandler(endingTime, new ITimerCallback() {
+	        @Override
+	        public void onTimePassed(final TimerHandler pTimerHandler) {
+	            TrialSceneRun.this.unregisterUpdateHandler(trialTimerHandler);
+	            resetScene();
+	            SceneManager.getInstance().showScene(new TestingScene());
+	        }
+	    });
+	    registerUpdateHandler(trialTimerHandler);
+	}
 
     /**
      * Reset Scene
