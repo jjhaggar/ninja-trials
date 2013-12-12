@@ -30,7 +30,6 @@ import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
 import tv.ouya.console.api.OuyaController;
-
 import android.view.KeyEvent;
 
 import com.madgear.ninjatrials.managers.GameManager;
@@ -42,6 +41,9 @@ import com.madgear.ninjatrials.test.TestingScene;
 
 
 public class NinjaTrials extends BaseGameActivity {
+
+    // Autodetected (don't change). true for testing Ouya controls. false for testing on smartphones
+	public static boolean OUYA_CONTROL;
 
     // Camera resolution in pixels
     private static final int WIDTH = 1920; // Ouya res.
@@ -74,8 +76,12 @@ public class NinjaTrials extends BaseGameActivity {
         engineOptions.getAudioOptions().setNeedsSound(true);
 
         // Controls
-        if (GameManager.OUYA_CONTROL){
-            OuyaController.init(this); // Necessary to listen for Ouya Controller's analogic events 
+        if (android.os.Build.MANUFACTURER.equals("OUYA")){ //... Device is an OUYA...
+            NinjaTrials.OUYA_CONTROL = true;
+            OuyaController.init(this); // Necessary to listen for Ouya Controller's analogic events
+        }
+        else{ //... Device is something else...
+            NinjaTrials.OUYA_CONTROL = false;
         }
 
         // Return the engineOptions object, passing it to the engine
