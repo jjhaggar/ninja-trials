@@ -79,8 +79,9 @@ public class GameManager {
     private static int selectedCharacter;
     private static int selectedDiff;
     private static String gameLanguage;
-
-
+    
+    public static float gameMenuInitTime;
+    public static float gamePlayedTime;
 
 
 /*    // Contructor:
@@ -121,7 +122,18 @@ public class GameManager {
         player1result = new ResultTrial();
         player2result = new ResultTrial();
     }
-
+    
+    public static void endGame() {
+        // GAME EXIT:
+        if (ResourceManager.getInstance().engine != null) {
+            SceneManager.getInstance().mCurrentScene.onHideManagedScene();
+            SceneManager.getInstance().mCurrentScene.onUnloadManagedScene();
+            ResourceManager.getInstance().unloadHUDResources();
+            ResourceManager.getInstance().unloadFonts();
+            System.exit(0);
+        }
+    }
+    
     public static void setSelectedCharacter(int c) {
         selectedCharacter = c;
     }

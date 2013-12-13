@@ -32,8 +32,10 @@ import com.madgear.ninjatrials.PlayerSelectionScene;
 import com.madgear.ninjatrials.RecordsScene;
 import com.madgear.ninjatrials.ResultLoseScene;
 import com.madgear.ninjatrials.ResultWinScene;
+import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.managers.UserData;
 import com.madgear.ninjatrials.sequences.EndingScene;
 import com.madgear.ninjatrials.sequences.Intro1Scene;
 import com.madgear.ninjatrials.sequences.Intro2Scene;
@@ -256,13 +258,7 @@ public class TestingScene extends GameScene {
 
     @Override
     public void onPressButtonMenu() {
-        if (ResourceManager.getInstance().engine != null) {
-            SceneManager.getInstance().mCurrentScene.onHideManagedScene();
-            SceneManager.getInstance().mCurrentScene.onUnloadManagedScene();
-            ResourceManager.getInstance().unloadHUDResources();
-            ResourceManager.getInstance().unloadFonts();
-            System.exit(0);
-        }
+        GameManager.endGame();
     }
 
     @Override

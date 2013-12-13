@@ -30,10 +30,12 @@ import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.util.adt.align.HorizontalAlign;
 
+import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.hud.SelectionStripe;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.managers.UserData;
 import com.madgear.ninjatrials.test.TestingScene;
 import com.madgear.ninjatrials.trials.TrialSceneJump;
 
@@ -50,7 +52,10 @@ public class MainMenuScene extends GameScene {
     		ResourceManager.getInstance().loadAndroidRes().getString(R.string.main_menu_play),
     		ResourceManager.getInstance().loadAndroidRes().getString(R.string.main_menu_achievements)};
     private TimerHandler timerHandler;
+    private GameHUD gameHUD;
     private static final float GO_CHAR_INFO_TIME = 12f;
+
+
 
     /**
      * MainMenuScene constructor.
@@ -121,6 +126,32 @@ public class MainMenuScene extends GameScene {
             } 
         });
         registerUpdateHandler(timerHandler);
+        
+        // HUD:
+        gameHUD = new GameHUD();
+        ResourceManager.getInstance().engine.getCamera().setHUD(gameHUD);
+        
+        // Check for achievement 5 (100 hours playing!):
+        if(!GameManager.player1achiev.achievements[4].isCompleted()) {
+            
+            GameManager.gamePlayedTime =
+                    ResourceManager.getInstance().engine.getSecondsElapsedTotal() - 
+                    GameManager.gameMenuInitTime;
+            
+            GameManager.gameMenuInitTime =
+                    ResourceManager.getInstance().engine.getSecondsElapsedTotal();
+
+            GameManager.player1achiev.achievements[4].
+                progressIncrement(Math.round(GameManager.gamePlayedTime / 60));
+            
+            if(GameManager.player1achiev.achievements[4].isCompleted()) {
+                gameHUD.showAchievementCompleted(5);
+                GameManager.player1achiev.unlock(5);
+            }
+            else {
+                UserData.saveAchiev(ResourceManager.getInstance().context);
+            }
+        }
     }
 
     @Override
@@ -165,14 +196,7 @@ public class MainMenuScene extends GameScene {
         if(GameManager.DEBUG_MODE)
             SceneManager.getInstance().showScene(new TestingScene());
         else {
-            // GAME EXIT:
-            if (ResourceManager.getInstance().engine != null) {
-                SceneManager.getInstance().mCurrentScene.onHideManagedScene();
-                SceneManager.getInstance().mCurrentScene.onUnloadManagedScene();
-                ResourceManager.getInstance().unloadHUDResources();
-                ResourceManager.getInstance().unloadFonts();
-                System.exit(0);
-            }
+            GameManager.endGame();
         }
     }
 }

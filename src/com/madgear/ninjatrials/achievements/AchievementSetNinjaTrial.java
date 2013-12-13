@@ -37,8 +37,8 @@ public class AchievementSetNinjaTrial extends AchievementSet implements Serializ
     private static final int ACHIEV_02_TOTAL_STRAWMEN_TEST = 15;
     private static final int ACHIEV_03_TOTAL_PERFECT_JUMPS = 100;
     private static final int ACHIEV_03_TOTAL_PERFECT_JUMPS_TEST = 10;
-    private static final int ACHIEV_05_TOTAL_HOURS = 100;
-    private static final int ACHIEV_05_TOTAL_HOURS_TEST = 1;
+    private static final int ACHIEV_05_TOTAL_MINUTES = 100*60;
+    private static final int ACHIEV_05_TOTAL_MINUTES_TEST = 5;
 
     // ACHIEV. DATA:
     public static final int ACHIEV_04_CUT_PRECISSION = 100;
@@ -92,7 +92,7 @@ public class AchievementSetNinjaTrial extends AchievementSet implements Serializ
                 ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_05_name),
                 ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_05_desc),
                 ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_05_success),
-                0, GameManager.ACHIEV_DEBUG_MODE ? ACHIEV_05_TOTAL_HOURS_TEST : ACHIEV_05_TOTAL_HOURS,
+                0, GameManager.ACHIEV_DEBUG_MODE ? ACHIEV_05_TOTAL_MINUTES_TEST : ACHIEV_05_TOTAL_MINUTES,
                 ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_05_clue_tittle),
                 ResourceManager.getInstance().loadAndroidRes().getString(R.string.achievement_05_clue_desc));
         
