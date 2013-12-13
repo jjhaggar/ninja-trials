@@ -274,10 +274,10 @@ private void runFinish() {
 	            gameHUD.showAchievementCompleted(1);
 	            GameManager.player1achiev.unlock(1);
 	        }
+	        else
+	            UserData.saveAchiev(ResourceManager.getInstance().context);
 	    }
-	    else {
-	        UserData.saveAchiev(ResourceManager.getInstance().context);
-	    }
+
 
         runShowResults();
         trialTimerHandler= new TimerHandler(endingTime, new ITimerCallback() {
