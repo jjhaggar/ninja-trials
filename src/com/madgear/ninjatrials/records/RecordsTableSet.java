@@ -21,7 +21,9 @@ package com.madgear.ninjatrials.records;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.madgear.ninjatrials.R;
 import com.madgear.ninjatrials.managers.GameManager;
+import com.madgear.ninjatrials.managers.ResourceManager;
 
 public class RecordsTableSet implements Serializable {
 
@@ -77,5 +79,16 @@ public class RecordsTableSet implements Serializable {
         if(currentDate.getMonth() > monthRecords.updateDate.getMonth()) {
             monthRecords = new RecordsTable(SIZE);
         }
+    }
+    
+    public boolean allDefaultRecordsReplaced() {
+        boolean allReplaced = false;
+
+        if(todayRecords.allDefaultRecordsReplaced() &&
+                monthRecords.allDefaultRecordsReplaced() &&
+                allTimeRecords.allDefaultRecordsReplaced())
+            allReplaced = true;
+
+        return allReplaced;
     }
 }

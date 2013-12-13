@@ -29,6 +29,8 @@ import org.andengine.entity.text.TextOptions;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.util.adt.align.HorizontalAlign;
 
+import com.madgear.ninjatrials.achievements.AchievementSetNinjaTrial;
+import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SFXManager;
@@ -54,6 +56,8 @@ public class RecordsScene extends GameScene {
     private TimerHandler timerHandler;
     private Text recordsTittle;
     private RecordsTableEntity todayRT, monthRT, alltimeRT;
+
+    private GameHUD gameHUD;
 
     
     public RecordsScene() {
@@ -121,6 +125,18 @@ public class RecordsScene extends GameScene {
 
         // Music!
         SFXManager.playMusic(ResourceManager.getInstance().records);
+        
+        // HUD:
+        gameHUD = new GameHUD();
+        ResourceManager.getInstance().engine.getCamera().setHUD(gameHUD);
+        
+        // Check achievement 6:
+        if(!GameManager.player1achiev.achievements[5].completed) {
+            if(GameManager.recordsTableSet.allDefaultRecordsReplaced()) {
+                gameHUD.showAchievementCompleted(6);
+                GameManager.player1achiev.unlock(6);
+            }
+        }
     }
 
     @Override
@@ -128,6 +144,7 @@ public class RecordsScene extends GameScene {
 
     @Override
     public void onUnloadScene() {
+        gameHUD.detachChildren();
         ResourceManager.getInstance().loadRecordsResources();
     }
     

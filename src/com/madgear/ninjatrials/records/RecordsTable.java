@@ -21,6 +21,9 @@ package com.madgear.ninjatrials.records;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.madgear.ninjatrials.R;
+import com.madgear.ninjatrials.managers.ResourceManager;
+
 public class RecordsTable implements Serializable {
 
     //  Serial version:
@@ -62,5 +65,21 @@ public class RecordsTable implements Serializable {
                 }
             }
         }
+    }
+    
+    /**
+     * 
+     * @return False if any record name equals MADGEAR. Else true.
+     */
+    public boolean allDefaultRecordsReplaced() {
+        boolean allReplaced = true;
+        for (int i = 0; i < recordsTable.length; i++) {
+            if (recordsTable[i].profileName == ResourceManager.getInstance().loadAndroidRes().
+                    getString(R.string.record_default_name)) {
+                allReplaced = false;
+            }
+        }
+        
+        return allReplaced;
     }
 }
