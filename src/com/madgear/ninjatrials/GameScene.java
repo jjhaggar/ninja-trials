@@ -78,7 +78,7 @@ public abstract class GameScene extends ManagedScene implements IUserInput, IOnS
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // OUYA Controller
-        if (GameManager.OUYA_CONTROL){
+        if (NinjaTrials.OUYA_CONTROL){
             boolean handled = OuyaController.onKeyDown(keyCode, event);
             // findOrCreatePlayer(event.getDeviceId());
             // System.out.println("Mando usado = " + event.getDeviceId() );
@@ -196,7 +196,7 @@ public abstract class GameScene extends ManagedScene implements IUserInput, IOnS
      */
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (GameManager.OUYA_CONTROL){
+        if (NinjaTrials.OUYA_CONTROL){
             boolean handled = OuyaController.onKeyUp(keyCode, event);
             switch (keyCode) {
             case OuyaController.BUTTON_O:

@@ -59,9 +59,8 @@ public class CharacterIntroScene extends GameScene{
 			loadAndroidRes().getString(R.string.app_ryoko);
 	private final String CHARACTER_NAME_SHO = ResourceManager.getInstance().
 			loadAndroidRes().getString(R.string.app_sho);
-	private String character = "Ryoko"; // Bruno: Where is this parameter value? 
-										// JJ: Its value should alternate between Sho & Ryoko each 
-										// time it is showed (maybe using a static variable) 
+	private static String lastCharacterShown;
+	private String character;
 
 	@Override
 	public Scene onLoadingScreenLoadAndShown() {
@@ -79,6 +78,13 @@ public class CharacterIntroScene extends GameScene{
 
 	@Override
 	public void onShowScene() {
+		if (lastCharacterShown == "Ryoko") {
+			character = "Sho";
+		}
+		else {
+			character = "Ryoko";
+		}
+		Log.d("CharacterInfoScene", "Showing "+character+". Last character shown was "+lastCharacterShown+".");
 		attachChild(new Character());
 		startTime = ResourceManager.getInstance().engine.getSecondsElapsedTotal();
 		updateHandler = new IUpdateHandler() {
@@ -99,7 +105,8 @@ public class CharacterIntroScene extends GameScene{
 
 	@Override
 	public void onUnloadScene() {
-		ResourceManager.getInstance().unloadCharacterProfileResources();		
+		lastCharacterShown = character;
+		ResourceManager.getInstance().unloadCharacterProfileResources();	
 	}
 	
 	private void skip() {
@@ -166,14 +173,13 @@ public class CharacterIntroScene extends GameScene{
 			public Character() {
 				
 				ITextureRegion characterITR;
-				if (character == CHARACTER_NAME_RYOKO) {
-
+				if (character == "Ryoko") {
 					characterITR = ResourceManager.getInstance().characterProfileRyoko;
 					name = ResourceManager.getInstance().loadAndroidRes().getString(R.string.profile_ryoko_name);
 					name_jp = ResourceManager.getInstance().loadAndroidRes().getString(R.string.profile_ryoko_name_jap);
 					info = ResourceManager.getInstance().loadAndroidRes().getString(R.string.profile_ryoko_info);
 		        }
-		        else{
+		        else {
 		        	characterITR = ResourceManager.getInstance().characterProfileSho;
                     name = ResourceManager.getInstance().loadAndroidRes().getString(R.string.profile_sho_name);
 					name_jp = ResourceManager.getInstance().loadAndroidRes().getString(R.string.profile_sho_name_jap);

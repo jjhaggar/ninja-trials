@@ -30,11 +30,9 @@ public class GameManager {
 
     // GENERAL:
     // Use DEBUG_MODE = true for show the testing scene.
-    public static final boolean DEBUG_MODE = true;
+    public static final boolean DEBUG_MODE = false;
 
-    // Use OUYA_CONTROL = true for testing Ouya controls. Use OUYA_CONTROL = false for testing on smartphones
-    public static final boolean OUYA_CONTROL = false;
-    
+   
     // Use ACHIEV_DEBUG_MODE = true for test values in achievments (easier goals).
     public static final boolean ACHIEV_DEBUG_MODE = true;
 
@@ -50,7 +48,8 @@ public class GameManager {
     public static final int DIFF_EASY = 0;
     public static final int DIFF_MEDIUM = 1;
     public static final int DIFF_HARD = 2;
-    
+
+    // Trials are ordered by its integer value
     public static final int TRIAL_RUN = 1;
     public static final int TRIAL_CUT = 2;
     public static final int TRIAL_JUMP = 3;
@@ -175,16 +174,15 @@ public class GameManager {
     }
     
     public static int nextTrial(int currentTrial) {
-        // TODO: fix trial order:
-        int nextTrial = TRIAL_RUN;
-        switch(currentTrial) {
-        case TRIAL_RUN: nextTrial = TRIAL_CUT; break;
-        //case TRIAL_CUT: nextTrial = TRIAL_JUMP; break;
-        case TRIAL_CUT: nextTrial = TRIAL_SHURIKEN; break;
-        case TRIAL_JUMP: nextTrial = TRIAL_SHURIKEN; break;
-        case TRIAL_SHURIKEN: nextTrial = TRIAL_RUN; break;
-        }
-        return nextTrial;
+        if (currentTrial < TRIAL_FINAL)
+            return (currentTrial + 1);
+        else return -1;
+    }
+    
+    public static int previousTrial(int currentTrial) {
+        if (currentTrial > TRIAL_START)
+            return (currentTrial - 1);
+        else return -1;
     }
 
     public static int getLives() {

@@ -45,7 +45,7 @@ public class PrecisionAngleBar extends Entity {
     private final float cursorMin = 0f;
     private final float cursorMax = 210f; //maybe dangerous. if doesnt work turn back to 200
     private float maxScore = cursorMax - 5f;
-    private float perfectScoreRange = cursorMax - 20f;
+    private float perfectScoreRange = cursorMax - 30f;
     private float cursorValue = 0f;
     private float speed;
     private int direction = 1;
@@ -123,7 +123,7 @@ public class PrecisionAngleBar extends Entity {
     public float[] getPowerValue() {
     	if (cursorValue <= 0 )
     		cursorValue = maxScore;
-    	if (cursorValue >= perfectScoreRange) //cursorMax - 10f
+    	if (cursorValue >= perfectScoreRange) //cursorMax - 20f
     		cursorValue = maxScore; //cursorMax - 5f if not changed up
     	
     	float[] result = new float[] {cursorValue, cursorMax - cursorValue, jump};

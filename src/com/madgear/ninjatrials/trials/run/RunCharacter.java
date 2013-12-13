@@ -22,18 +22,10 @@ package com.madgear.ninjatrials.trials.run;
 import org.andengine.entity.Entity;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
-import org.andengine.opengl.texture.TextureOptions;
-import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
-import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
-import org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas;
-import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSource;
-import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtlasBuilder;
-import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
-import org.andengine.util.debug.Debug;
 
-import com.madgear.ninjatrials.trials.TrialSceneRun;
 import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.trials.TrialSceneRun;
 
 
 /**
@@ -44,7 +36,6 @@ public class RunCharacter extends Entity {
     private AnimatedSprite charSprite;
 	private IAnimationListener anilis;
 	private IAnimationListener ani;
-	private float speed = 1;
     private final int[] ANIM_PREPARATION = new int[]{0, 1, 2};
     private final int[] ANIM_RUN_NORMAL = new int[]{3, 5, 6, 7, 8, 10};
     private final int[] ANIM_RUN_FAST = new int[]{11, 12, 13, 15, 16, 17};
@@ -63,6 +54,7 @@ public class RunCharacter extends Entity {
     public RunCharacter(float posX, float posY, ITiledTextureRegion tiledTexture) {
         charSprite = new AnimatedSprite(posX, posY, tiledTexture,
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+        charSprite.setScale(2.0f); // This is needed because of the texture size limits
         attachChild(charSprite);
     }
 
@@ -86,12 +78,12 @@ public class RunCharacter extends Entity {
 			}
 			@Override
 			public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-                //updateRunAnimation(TrialSceneRun.power);
+                updateRunAnimation(TrialSceneRun.power);
 			}
 		};
 
 		if (power > 0) {
-			long sM = (long)(100 * (50 / power));
+			long sM = 100 * (50 / power);
             if (power <= 50) {
 				charSprite.animate(new long[]{sM, sM, sM, sM, sM, sM}, ANIM_RUN_NORMAL, false, anilis);
             }

@@ -48,13 +48,13 @@ public class MapScene extends GameScene {
 	private List<Place> places;
 	private Parchment parchment;
 	private Player player;
-	private float playerToPlacePositionXAdjustment = 10;
-	private float playerToPlacePositionYAdjustment = 75;
+	private float playerToPlacePositionXAdjustment = SCRNWIDTH/1920*10;
+	private float playerToPlacePositionYAdjustment = SCRNHEIGHT/1080*75;
 	
 	private String currentTrial; //"jump", "run", "shuriken" or "cut"
-	private String nextTrial; //"jump", "run", "shuriken" or "cut"
+	private String previousTrial; //"jump", "run", "shuriken" or "cut"
 	private int currentPosition;
-	private int nextPosition;
+	private int previousPosition;
 
 	@Override
 	public Scene onLoadingScreenLoadAndShown() {
@@ -68,27 +68,32 @@ public class MapScene extends GameScene {
 	public void onLoadScene() {
 		ResourceManager.getInstance().loadMenuMapResources();
 		setBackground(getBG());
-		getCurrentAndNextTrialsAndPositions();		
+		getPreviousAndCurrentTrialsAndPositions();		
 	}
 
 	@Override
 	public void onShowScene() {
 		places = new ArrayList<Place>();
-		places.add(new Place(184, 368, 0, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_run)));
-		places.add(new Place(344, 370, 1, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_jump)));
-		places.add(new Place(920, 220, 2, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_cut)));
-		places.add(new Place(1076, 210, 3, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_shuriken)));
-		places.add(new Place(1322, 350, 4, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_air_cut)));
-		places.add(new Place(1040, 572, 5, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_vanish)));
-		places.add(new Place(966, 978, 6, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_balance)));
+		places.add(new Place(SCRNWIDTH/1920*184, SCRNHEIGHT/1080*368, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_run)));
+		places.add(new Place(SCRNWIDTH/1920*344, SCRNHEIGHT/1080*370, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_jump)));
+		places.add(new Place(SCRNWIDTH/1920*920, SCRNHEIGHT/1080*220, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_cut)));
+		places.add(new Place(SCRNWIDTH/1920*1076, SCRNHEIGHT/1080*210, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_shuriken)));
+		places.add(new Place(SCRNWIDTH/1920*1322, SCRNHEIGHT/1080*350, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_air_cut)));
+		places.add(new Place(SCRNWIDTH/1920*1040, SCRNHEIGHT/1080*572, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_vanish)));
+		places.add(new Place(SCRNWIDTH/1920*966, SCRNHEIGHT/1080*978, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_balance)));
 		// places.add(new Place(0, 0, 7, ResourceManager.getInstance().loadAndroidRes().getString(R.string.map_stage_ninpo)));
 		for(Place p : places) {
 			attachChild(p);
 		}
-		parchment = new Parchment(SCRNWIDTH/4, SCRNHEIGHT*3/4, nextTrial);
+		parchment = new Parchment(SCRNWIDTH/4, SCRNHEIGHT*3/4, currentTrial);
 		attachChild(parchment);
-		places.get(currentPosition).setStatus("selected");
-		player = new Player(places.get(currentPosition).posX + playerToPlacePositionXAdjustment, places.get(currentPosition).posY + playerToPlacePositionYAdjustment);
+		if (GameManager.getCurrentTrial() == GameManager.TRIAL_START) {
+			player = new Player(places.get(currentPosition).posX + playerToPlacePositionXAdjustment, places.get(currentPosition).posY + playerToPlacePositionYAdjustment);
+		}
+		else {
+			places.get(previousPosition).setStatus("selected");
+			player = new Player(places.get(previousPosition).posX + playerToPlacePositionXAdjustment, places.get(previousPosition).posY + playerToPlacePositionYAdjustment);
+		}		
 		attachChild(player);
 		SFXManager.playMusic(ResourceManager.getInstance().map);
 		startTime = ResourceManager.getInstance().engine.getSecondsElapsedTotal();
@@ -101,14 +106,16 @@ public class MapScene extends GameScene {
             	switch(animationState) {
             		case 0:
             			if (ResourceManager.getInstance().engine.getSecondsElapsedTotal() > startTime + delayToMovePlayer) {
-            				player.moveTo(places.get(nextPosition).posX + playerToPlacePositionXAdjustment, places.get(nextPosition).posY + playerToPlacePositionYAdjustment);
-            				places.get(currentPosition).setStatus("finished");
+            				if (GameManager.getCurrentTrial() != GameManager.TRIAL_START) {
+            					player.moveTo(places.get(currentPosition).posX + playerToPlacePositionXAdjustment, places.get(currentPosition).posY + playerToPlacePositionYAdjustment);
+                				places.get(previousPosition).setStatus("finished");
+            				}            				
             				animationState = 1;
             			}
             			break;
             		case 1:
             			if (ResourceManager.getInstance().engine.getSecondsElapsedTotal() > startTime + delayToUnfoldParchment) {
-            				places.get(nextPosition).setStatus("selected");
+            				places.get(currentPosition).setStatus("selected");
             				parchment.unfold();
             				animationState = 2;
             			}
@@ -124,6 +131,7 @@ public class MapScene extends GameScene {
             @Override public void reset() {}            
         };
         registerUpdateHandler(updateHandler);
+        Log.d("MapScene", "Previous trial was "+previousTrial+" next trial will be "+currentTrial+".");
 	}
 
 	@Override
@@ -132,7 +140,7 @@ public class MapScene extends GameScene {
 	@Override
 	public void onUnloadScene() {
 		SFXManager.pauseMusic(ResourceManager.getInstance().map);
-		ResourceManager.getInstance().unloadMenuMapResources();		
+		ResourceManager.getInstance().unloadMenuMapResources();
 	}
 	
 	/*
@@ -158,9 +166,13 @@ public class MapScene extends GameScene {
         // Go to the current trial again:
         switch(GameManager.getCurrentTrial()) {
         case GameManager.TRIAL_RUN:
-        case GameManager.TRIAL_JUMP:
+            SceneManager.getInstance().showScene(new TrialSceneRun());
+            break;
         case GameManager.TRIAL_CUT:
             SceneManager.getInstance().showScene(new TrialSceneCut());
+            break;
+        case GameManager.TRIAL_JUMP:
+            SceneManager.getInstance().showScene(new TrialSceneJump());
             break;
         case GameManager.TRIAL_SHURIKEN:
             SceneManager.getInstance().showScene(new TrialSceneShuriken());
@@ -182,7 +194,7 @@ public class MapScene extends GameScene {
 	 * Gets current and next trials from GameManager.
 	 * Sets currentTrial, currentPosition, nextTrial, nextPosition values.
 	 */
-	private void getCurrentAndNextTrialsAndPositions() {
+	private void getPreviousAndCurrentTrialsAndPositions() {
 		switch(GameManager.getCurrentTrial()) {
 		    case GameManager.TRIAL_RUN:
 		    	currentTrial = "run";
@@ -201,38 +213,36 @@ public class MapScene extends GameScene {
 		    	currentPosition = 3;
 		        break;
 	    }
-		switch(GameManager.nextTrial(GameManager.getCurrentTrial())) {
+		switch(GameManager.previousTrial(GameManager.getCurrentTrial())) {
 		    case GameManager.TRIAL_RUN:
-		    	nextTrial = "run";
-		    	nextPosition = 0;
+		    	previousTrial = "run";
+		    	previousPosition = 0;
 		        break;
 		    case GameManager.TRIAL_JUMP:
-		    	nextTrial = "jump";
-		    	nextPosition = 1;
+		    	previousTrial = "jump";
+		    	previousPosition = 1;
 		        break;
 		    case GameManager.TRIAL_CUT:
-		    	nextTrial = "cut";
-		    	nextPosition = 2;
+		    	previousTrial = "cut";
+		    	previousPosition = 2;
 		        break;
 		    case GameManager.TRIAL_SHURIKEN:
-		    	nextTrial = "shuriken";
-		    	nextPosition = 3;
+		    	previousTrial = "shuriken";
+		    	previousPosition = 3;
 		        break;
 	    }		
 	}
 	
-	private class Place extends Entity{
+	private class Place extends Entity {
 		private float posX, posY;
-		private int orderingPosition;
 		private String name;
 		private int status;
 		private AnimatedSprite marker;
 		private final String[] STATUSES = {"unavailable", "selected", "activated", "finished"};
 		
-		public Place (float posX, float posY, int orderingPosition, String name) {
+		public Place (float posX, float posY, String name) {
 			this.posX = posX;
 			this.posY = posY;
-			this.orderingPosition = orderingPosition;
 			this.name = name;
 			this.status = 0;
 			ITiledTextureRegion markerITTR = ResourceManager.getInstance().menuMapBackgroundMarks;
@@ -253,6 +263,10 @@ public class MapScene extends GameScene {
 			marker.setCurrentTileIndex(this.status);
 			return success;
 		}
+		
+		public String getName() {
+			return this.name;
+		}
 	}
 	
 	private class Parchment extends Entity {
@@ -262,7 +276,7 @@ public class MapScene extends GameScene {
 		
 		private Map<String,Integer> printsIndexes;
 		
-		private float printToParchmentPositionXAdjustment = -50;
+		private float printToParchmentPositionXAdjustment = SCRNWIDTH/1920*(-50);
 		private float printToParchmentPositionYAdjustment = 0;
 		private float printToParchmentScaleAdjustment = .8f;
 		private float printToParchmentRotationAdjustment = -20f;

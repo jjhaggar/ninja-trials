@@ -19,26 +19,21 @@
 
 package com.madgear.ninjatrials.trials;
 
-import org.andengine.entity.Entity;
-import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.scene.Scene;
-import org.andengine.entity.sprite.AnimatedSprite;
-import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.input.touch.TouchEvent;
-import org.andengine.opengl.texture.region.ITextureRegion;
-import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.util.adt.align.HorizontalAlign;
 
 import com.madgear.ninjatrials.GameScene;
 import com.madgear.ninjatrials.R;
-import com.madgear.ninjatrials.hud.GameHUD;
+import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.hud.Chronometer;
-import com.madgear.ninjatrials.hud.PowerBar;
+import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.hud.HeadCharacter;
+import com.madgear.ninjatrials.hud.PowerBar;
 import com.madgear.ninjatrials.managers.GameManager;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
@@ -78,7 +73,6 @@ public class TrialSceneRun extends GameScene {
     private Chronometer chrono;
     private GameHUD gameHUD;
     private HeadCharacter head;
-    private IUpdateHandler trialUpdateHandler;
     private PowerBar powerBar;
     private RunBg parallaxBackground;
     private RunCharacter character;
@@ -126,13 +120,11 @@ public class TrialSceneRun extends GameScene {
         head = new HeadCharacter(110, 110, ResourceManager.getInstance().runHead,
                 GameManager.getSelectedCharacter());
         head.setIndex(0);
-        if (GameManager.getSelectedCharacter() ==
-                GameManager.CHAR_SHO) {
+        if (GameManager.getSelectedCharacter() == GameManager.CHAR_SHO) {
             character = new RunCharacter(width / 2, height / 2,
                     ResourceManager.getInstance().runSho);
         }
-        else if (GameManager.getSelectedCharacter() ==
-                GameManager.CHAR_RYOKO) {
+        else if (GameManager.getSelectedCharacter() == GameManager.CHAR_RYOKO) {
             character = new RunCharacter(width / 2, height / 2,
                     ResourceManager.getInstance().runRyoko);
         }
@@ -251,7 +243,7 @@ public class TrialSceneRun extends GameScene {
     /**
      * Show the result of trial in screen.
      */
-	private void runShowResults() { // JJ: Results must be showed by using ResultWinScene and ResultLoseScene 
+	private void runShowResults() { // JJ: Results must be showed by using ResultWinScene and ResultLoseScene
 		clearUpdateHandlers();
 		canGainPower = false;
 		gameHUD.showMessage("Results:" + "\n"
@@ -272,7 +264,7 @@ public class TrialSceneRun extends GameScene {
     /**
      * Calculate the score when you finish the trials or finish the trial time.
      */
-	private void runFinish() {
+private void runFinish() {
 
 	    // Achievement 1: Run 200 kms. / test mode = 2 m
 	    // distanceReached is in meters.
@@ -287,17 +279,20 @@ public class TrialSceneRun extends GameScene {
 	        UserData.saveAchiev(ResourceManager.getInstance().context);
 	    }
 
-	    runShowResults();
-	    trialTimerHandler= new TimerHandler(endingTime, new ITimerCallback() {
-	        @Override
-	        public void onTimePassed(final TimerHandler pTimerHandler) {
-	            TrialSceneRun.this.unregisterUpdateHandler(trialTimerHandler);
-	            resetScene();
-	            SceneManager.getInstance().showScene(new TestingScene());
-	        }
-	    });
-	    registerUpdateHandler(trialTimerHandler);
-	}
+        runShowResults();
+        trialTimerHandler= new TimerHandler(endingTime, new ITimerCallback() {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                TrialSceneRun.this.unregisterUpdateHandler(trialTimerHandler);
+                resetScene();
+                if(GameManager.DEBUG_MODE)
+                    SceneManager.getInstance().showScene(new TestingScene());
+                else
+                    SceneManager.getInstance().showScene(new ResultWinScene());
+            }
+        });
+        registerUpdateHandler(trialTimerHandler);
+    }
 
     /**
      * Reset Scene
@@ -319,20 +314,11 @@ public class TrialSceneRun extends GameScene {
     }
 
     /**
-     * Control the touch event.
-     *
-     * @param pScene Scene
-     * @param pSceneTouchEvent TouchEvent
-     *
-     * @return true if event detected is key down, else false.
+     * Input control (Ouya gamepad and touch event).
      */
-	@Override
-	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-		if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN) {
-            updatePower(powerIncrement);
-			return true;
-		}
-		return false;
+    @Override
+    public void onPressButtonO() {
+        updatePower(powerIncrement);
     }
 
     public static int getTimeScore() {

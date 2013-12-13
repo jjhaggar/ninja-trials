@@ -247,7 +247,10 @@ public class PlayerSelectionScene extends GameScene {
                 @Override
                 public void onTimePassed(final TimerHandler pTimerHandler) {
                     PlayerSelectionScene.this.unregisterUpdateHandler(timerHandler);
-                    SceneManager.getInstance().showScene(new Intro2Scene());
+                    if(GameManager.DEBUG_MODE)
+                        SceneManager.getInstance().showScene(new TestingScene());
+                    else
+                        SceneManager.getInstance().showScene(new Intro2Scene());
                 } 
             });
             registerUpdateHandler(timerHandler);
