@@ -59,6 +59,7 @@ import com.madgear.ninjatrials.ResultLoseScene;
 import com.madgear.ninjatrials.ResultWinScene;
 import com.madgear.ninjatrials.managers.ResourceManager;
 import com.madgear.ninjatrials.managers.SceneManager;
+import com.madgear.ninjatrials.managers.UserData;
 import com.madgear.ninjatrials.hud.Chronometer;
 import com.madgear.ninjatrials.hud.GameHUD;
 import com.madgear.ninjatrials.hud.PrecisionAngleBar;
@@ -448,12 +449,18 @@ public class TrialSceneJump extends GameScene {
         	numberPerfectJumpsInARow++;
         	if (numberPerfectJumpsInARow > numberPerfectJumpsInARowMax)
         		numberPerfectJumpsInARowMax = numberPerfectJumpsInARow;
+        	
+        	// Achievement 3:
+        	checkAchievement3();
         }
         else if (trialScore[0] == angleBar.getMaxScore())
         {
         	numberPerfectJumps++;
         	numberPerfectJumpsInARow++;
         	comboActive = true;
+        	
+            // Achievement 3:
+            checkAchievement3();
         }
         else
         {
@@ -461,6 +468,19 @@ public class TrialSceneJump extends GameScene {
         	comboActive = false;
         }
         return trialScore;
+    }
+
+    /**
+     * Checks if achievment 3 is unlocked.
+     */
+    private void checkAchievement3() {
+        if(!GameManager.player1achiev.achievements[2].isCompleted()) {
+            GameManager.player1achiev.achievements[2].progressIncrement(1);
+            if(GameManager.player1achiev.achievements[2].isCompleted()) {
+                gameHUD.showAchievementCompleted(3);
+                GameManager.player1achiev.unlock(3);
+            }
+        }        
     }
 
     public void endingAnimationSequence() {
@@ -526,6 +546,9 @@ public class TrialSceneJump extends GameScene {
      * Shows the score and the final animation. Clean the HUD and calls to the next scene.
      */
     private void endingSequence() {
+        // Save perfect jumps achievement (#3):
+        UserData.saveAchiev(ResourceManager.getInstance().context);
+
         //GameManager.incrementScore(score);
         score = getScore();
         //different animations when winning in the future
