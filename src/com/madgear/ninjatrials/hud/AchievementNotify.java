@@ -20,6 +20,7 @@ package com.madgear.ninjatrials.hud;
 
 import org.andengine.entity.Entity;
 import org.andengine.entity.modifier.DelayModifier;
+import org.andengine.entity.modifier.FadeOutModifier;
 import org.andengine.entity.modifier.MoveModifier;
 import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.sprite.Sprite;
@@ -48,7 +49,7 @@ public class AchievementNotify extends Entity {
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
 
         achievContainerText = new Text(0, 0,
-                ResourceManager.getInstance().fontMedium,
+                ResourceManager.getInstance().fontSmall,
                 "achievement name placeholder text achievement name placeholder text",
                 new TextOptions(HorizontalAlign.CENTER),
                 ResourceManager.getInstance().engine.getVertexBufferObjectManager());
@@ -70,12 +71,14 @@ public class AchievementNotify extends Entity {
         achievContainerText.setText(GameManager.player1achiev.achievements[achievNumber - 1].name);
         setX(ResourceManager.getInstance().cameraWidth + getWidth()/2);
         setY(ResourceManager.getInstance().cameraHeight * 2/3);
+        setAlpha(1);
         setVisible(true);
         
         registerEntityModifier(new SequenceEntityModifier(
                 new MoveModifier(MOVE_TIME, getX(), getY(), getX() - getWidth() - 20, getY()),
                 new DelayModifier(DELAY_TIME),
-                new MoveModifier(MOVE_TIME, getX() - getWidth() - 20, getY(), getX(), getY())));
+                new MoveModifier(MOVE_TIME, getX() - getWidth() - 20, getY(), getX(), getY()),
+                new FadeOutModifier(0.5f)));
     }
     
     

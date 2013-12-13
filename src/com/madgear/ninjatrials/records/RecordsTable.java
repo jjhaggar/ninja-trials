@@ -74,8 +74,8 @@ public class RecordsTable implements Serializable {
     public boolean allDefaultRecordsReplaced() {
         boolean allReplaced = true;
         for (int i = 0; i < recordsTable.length; i++) {
-            if (recordsTable[i].profileName == ResourceManager.getInstance().loadAndroidRes().
-                    getString(R.string.record_default_name)) {
+            if (recordsTable[i].profileName.equals(ResourceManager.getInstance().loadAndroidRes().
+                    getString(R.string.record_default_name))) {
                 allReplaced = false;
             }
         }
