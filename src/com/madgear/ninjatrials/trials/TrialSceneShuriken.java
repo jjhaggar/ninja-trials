@@ -144,6 +144,7 @@ public class TrialSceneShuriken extends GameScene{
 
 	@Override
 	public void onUnloadScene() {
+        gameHUD.detachChildren();
 		ResourceManager.getInstance().unloadShurikenSceneResources();
 	}
 	
