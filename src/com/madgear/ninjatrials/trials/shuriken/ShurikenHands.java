@@ -33,6 +33,7 @@ public class ShurikenHands extends Entity{
 	private int shurikenAnimationCounter;
 	private boolean movingLeft = false;
 	private boolean movingRight = false;
+	private boolean busyHands = false; // flag to prevent multiple keypress events when holding the button.
 	
 	public ShurikenHands() {
 		float posX = SCRNWIDTH/2;
@@ -95,24 +96,30 @@ public class ShurikenHands extends Entity{
 		 * los shurikens se destruyen tras impactar/perderse
 		 * pueden simultanearse varios lanzamientos (no hay bloqueo)
 		 * la velocidad vertical es constante (shurikenSpeed)
-		 */		
-		hands.animate(200, 0);
-		ShurikenShuriken shuriken = new ShurikenShuriken();
-		attachChild(shuriken);
-		shuriken.launch(this.coordinates.x);
-		SFXManager.playSound(ResourceManager.getInstance().trialShurikenThrowing);
-		if (generateCustomRandom(.25f)) {
-			if (GameManager.getSelectedCharacter() == GameManager.CHAR_SHO) {
-				SFXManager.playSound(ResourceManager.getInstance().shoShurikenThrow);
-	        }
-	        else if (GameManager.getSelectedCharacter() == GameManager.CHAR_RYOKO) {
-	        	SFXManager.playSound(ResourceManager.getInstance().ryokoShurikenThrow);
-	        }
-	        else {
-	        	SFXManager.playSound(ResourceManager.getInstance().shoShurikenThrow);
-	        	Log.d("Bruno", "Warning: selected character unknown, using Sho as default.");
-	        }
-		}
+		 */	
+		if (!busyHands) {
+			busyHands = true;
+			hands.animate(200, 0);
+			ShurikenShuriken shuriken = new ShurikenShuriken();
+			attachChild(shuriken);
+			shuriken.launch(this.coordinates.x);
+			SFXManager.playSound(ResourceManager.getInstance().trialShurikenThrowing);
+			if (generateCustomRandom(.25f)) {
+				if (GameManager.getSelectedCharacter() == GameManager.CHAR_SHO) {
+					SFXManager.playSound(ResourceManager.getInstance().shoShurikenThrow);
+		        }
+		        else if (GameManager.getSelectedCharacter() == GameManager.CHAR_RYOKO) {
+		        	SFXManager.playSound(ResourceManager.getInstance().ryokoShurikenThrow);
+		        }
+		        else {
+		        	SFXManager.playSound(ResourceManager.getInstance().shoShurikenThrow);
+		        	Log.d("Bruno", "Warning: selected character unknown, using Sho as default.");
+		        }
+			}
+		}		
+	}
+	public void releaseHands() {
+		busyHands = false;
 	}
 	private boolean generateCustomRandom(float chanceOfTrue) {
 		Random randomGenerator = new Random();

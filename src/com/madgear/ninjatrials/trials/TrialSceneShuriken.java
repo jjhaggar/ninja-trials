@@ -393,6 +393,9 @@ public class TrialSceneShuriken extends GameScene{
 			checkForImpact();
 		}
 	}
+	public void onReleaseButtonO() {
+		hands.releaseHands();
+	}
 	public void onPressDpadLeft() {
 		hands.moveLeft();
 		
