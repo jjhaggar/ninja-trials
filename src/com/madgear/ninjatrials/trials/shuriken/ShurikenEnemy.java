@@ -20,6 +20,8 @@ public class ShurikenEnemy extends Entity{
 	private char direction; // r for right, l for left, n for none, i for invincible
 	private int lifes;
 	private float speed; // % of horizontal screen size per second
+	private long timeOnScreen_startTime;
+	private long timeOnScreen_deathTime;
 	private ShurikenCoordinates position;
 	private boolean playerHit = false;
 	private AnimatedSprite enemy;
@@ -67,6 +69,7 @@ public class ShurikenEnemy extends Entity{
 		 * eso caer� junto al personaje y mostrar� el strawman con cartel     
 		 */
 		startTime = ResourceManager.getInstance().engine.getSecondsElapsedTotal();
+		timeOnScreen_startTime = System.currentTimeMillis();
 		enemyUpdateHandler = new IUpdateHandler() {
             @Override
             public void onUpdate(float pSecondsElapsed) {
@@ -189,7 +192,14 @@ public class ShurikenEnemy extends Entity{
 	
 	private void destroy() {
 		Log.d("Bruno", "Enemy destroyed");
+		timeOnScreen_deathTime = System.currentTimeMillis();
 		SFXManager.playSound(ResourceManager.getInstance().trialShurikenStrawmanDestroyed);
 		this.hide();
+	}
+	
+	public long getTimeOnScreen() {
+		if (lifes == 0)
+			return timeOnScreen_deathTime - timeOnScreen_startTime;
+		return -1;
 	}
 }

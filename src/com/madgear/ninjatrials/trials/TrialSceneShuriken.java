@@ -62,15 +62,16 @@ public class TrialSceneShuriken extends GameScene{
 	private int AllowedImpactsOnPlayer = 1;
 	private int impactsOnPlayer = 0;
 	private ShurikenEnemyCounter shurikenEnemyCounterHUD;
-	private int enemyCount = 10;
+	private int enemyCount = 10; // used to calculate the score
 	private int enemiesLeft = enemyCount;
 	private int enemyInsertionInterval = 5; // seconds
 	private float enemySpeed = 0.25f; // % of horizontal screen size per second
 	private int enemyLifes = 1;
 	private float shurikenSpeed = 0.5f; // % of vertical screen size per second
 	private int currentImpactsOnPlayer = 0;
-	private int enemiesDefeated = 0;
-	private int shurikensLaunched = 0;
+	private int enemiesDefeated = 0; // used to calculate the score
+	private int shurikensLaunched = 0; // used to calculate the score
+	private long totalEnemyTimeOnScreen = 0; // used to calculate the score
 	private float gameStartTime;
 	private float gameEndTime;
 	IUpdateHandler trialUpdateHandler;
@@ -302,13 +303,15 @@ public class TrialSceneShuriken extends GameScene{
 		generateEnemiesTimer.cancel();
 		SFXManager.stopMusic(ResourceManager.getInstance().trialShurikens);
 		gameEndTime = ResourceManager.getInstance().engine.getSecondsElapsedTotal();
-		if (shurikensLaunched == 0) {
-			precissionScore = 0;
+		totalEnemyTimeOnScreen = 0;
+		for (ShurikenEnemy enemy: enemies) {
+			Log.d("Bruno", "Enemy time on screen "+enemy.getTimeOnScreen());
+			if (enemy.getTimeOnScreen() != -1)
+				totalEnemyTimeOnScreen += enemy.getTimeOnScreen();
 		}
-		else {
-			precissionScore = enemiesDefeated / shurikensLaunched;
-		}		
-		timeScore = (maxTime - (gameEndTime - gameStartTime)) / maxTime;
+		Log.d("Bruno", "Total time of enemies on screen "+totalEnemyTimeOnScreen+" ms.");
+		Log.d("Bruno", "Shurikens launched "+shurikensLaunched);
+		Log.d("Bruno", "Enemies defeated "+enemiesDefeated+" of "+enemyCount);
 		hands.hide();
 		if (impactsOnPlayer >= AllowedImpactsOnPlayer) {
 			SceneManager.getInstance().showScene(new ResultLoseScene());
