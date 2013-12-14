@@ -20,11 +20,11 @@ import com.madgear.ninjatrials.trials.TrialSceneShuriken;
 
 public class ShurikenHands extends Entity{
 	private final float SCRNWIDTH = ResourceManager.getInstance().cameraWidth;
-	private final float SCRENHEIGHT = ResourceManager.getInstance().cameraHeight;
+	private final float SCRNHEIGHT = ResourceManager.getInstance().cameraHeight;
 	private ShurikenCoordinates coordinates;
 	private Sprite[] handsSprites = new Sprite[3];
 	private boolean ignoreInputBecauseMoving = false;
-	private float movementDistanceDelta = 25; // pixels
+	private float movementDistanceDelta = SCRNWIDTH/1920*25; // pixels
 	private float movementTimeDelta = .020f; // seconds
 	private int movementAnimationExtraTimeMargin = 13; // miliseconds
 	private IUpdateHandler shurikenUpdateHandler;
@@ -37,7 +37,7 @@ public class ShurikenHands extends Entity{
 	
 	public ShurikenHands() {
 		float posX = SCRNWIDTH/2;
-		float posY = 160f;
+		float posY = SCRNHEIGHT/1080*160f;
 		this.coordinates = new ShurikenCoordinates(posX, posY);
 		ITiledTextureRegion handsITTR;
 		if (GameManager.getSelectedCharacter() == GameManager.CHAR_SHO) {
@@ -58,27 +58,9 @@ public class ShurikenHands extends Entity{
 	}
 	public void moveLeft() {
 		movingLeft = true;		
-		/*
-		if (coordinates.x - movementDistanceDelta >= 0 && !ignoreInputBecauseMoving){
-			ignoreInputBecauseMoving = true;
-			TrialSceneShuriken.moveSprite(hands, coordinates.x, coordinates.y, coordinates.x - movementDistanceDelta, coordinates.y, movementTimeDelta);
-			coordinates.x = coordinates.x - movementDistanceDelta;
-			Timer timer = new Timer();
-			timer.schedule(new HandsMovementWaiter(this), (int)(movementTimeDelta * 1000) + movementAnimationExtraTimeMargin);
-		}
-		*/
 	}
 	public void moveRight() {
 		movingRight = true;
-		/*
-		if (coordinates.x + movementDistanceDelta <= SCRNWIDTH && !ignoreInputBecauseMoving){
-			ignoreInputBecauseMoving = true;
-			TrialSceneShuriken.moveSprite(hands, coordinates.x, coordinates.y, coordinates.x + movementDistanceDelta, coordinates.y, movementTimeDelta);
-			coordinates.x = coordinates.x + movementDistanceDelta;
-			Timer timer = new Timer();
-			timer.schedule(new HandsMovementWaiter(this), (int)(movementTimeDelta * 1000) + movementAnimationExtraTimeMargin);
-		}
-		*/
 	}
 	public void stop() {
 		movingLeft = false;
