@@ -30,7 +30,7 @@ public class GameManager {
 
     // GENERAL:
     // Use DEBUG_MODE = true for show the testing scene.
-    public static final boolean DEBUG_MODE = false;
+    public static final boolean DEBUG_MODE = true;
 
    
     // Use ACHIEV_DEBUG_MODE = true for test values in achievments (easier goals).

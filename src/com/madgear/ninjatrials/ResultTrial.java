@@ -44,6 +44,6 @@ public class ResultTrial {
     public int jumpMaxPerfectJumpCombo;
     
     // SHURIKEN
-    public float shurikenTime;
+    public float shurikenAvgTime;
     public int shurikenPrecission;
 }

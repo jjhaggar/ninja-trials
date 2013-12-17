@@ -56,6 +56,15 @@ import com.madgear.ninjatrials.trials.shuriken.ShurikenHands;
  *
  */
 public class TrialSceneShuriken extends GameScene{
+    
+    public static final int SCORE_THUG = 5000;
+    public static final int SCORE_NINJA = 7000;
+    public static final int SCORE_NINJA_MASTER = 9000;
+    public static final int SCORE_GRAND_MASTER = 9500;
+    public static final int SCORE_TIME_BEST = 3000; // 3 seconds or less get max time score.
+    public static final int SCORE_TIME_WORST = 10000; // 10 seconds or more get the minimum time score (0).
+    public static final int SCORE_TIME_MAX = 5000;
+    public static final int SCORE_PRECISSION_MAX = 5000;
 	
 	private final float SCRNWIDTH = ResourceManager.getInstance().cameraWidth;
 	private final float SCRNHEIGHT = ResourceManager.getInstance().cameraHeight;
@@ -313,6 +322,10 @@ public class TrialSceneShuriken extends GameScene{
 		Log.d("Bruno", "Shurikens launched "+shurikensLaunched);
 		Log.d("Bruno", "Enemies defeated "+enemiesDefeated+" of "+enemyCount);
 		hands.hide();
+		
+		// Save trial results:
+        saveTrialResults();
+        
 		if (impactsOnPlayer >= AllowedImpactsOnPlayer) {
 			SceneManager.getInstance().showScene(new ResultLoseScene());
 		}
@@ -415,26 +428,53 @@ public class TrialSceneShuriken extends GameScene{
     	Log.d("Bruno", "DpadRight released.");
     }
 	
+    // SCORE------------------------------------
 	public static int getScore() {
-	    // TODO Auto-generated method stub
-	    return 1;
+	    return getTimeScore() + getPrecissionScore();
 	}
 
-	public static int getStamp(int score2) {
-	    // TODO Auto-generated method stub
-	    return 0;
+	public static int getStamp(int score) {
+        int stamp = ResultWinScene.STAMP_THUG;
+
+        if(score >= SCORE_GRAND_MASTER)
+            stamp = ResultWinScene.STAMP_GRAND_MASTER;
+        else if(score >= SCORE_NINJA_MASTER)
+            stamp = ResultWinScene.STAMP_NINJA_MASTER;
+        else if(score >= SCORE_NINJA)
+            stamp = ResultWinScene.STAMP_NINJA;
+
+        return stamp;
 	}
 
 	public static int getTimeScore() {
-	    // TODO Auto-generated method stub
-	    return 0;
+	    int score;
+	    
+	    score = Math.round(
+	            (SCORE_TIME_WORST - GameManager.player1result.shurikenAvgTime) * SCORE_TIME_MAX /
+	            (SCORE_TIME_WORST - SCORE_TIME_BEST));
+	    
+	    if(score > SCORE_TIME_MAX) score = SCORE_TIME_MAX;
+	    if(score < 0) score = 0;
+	    
+	    return score;
 	}
 
 	public static int getPrecissionScore() {
-	    // TODO Auto-generated method stub
-	    return 0;
+	    return Math.round(GameManager.player1result.shurikenPrecission * SCORE_PRECISSION_MAX / 100);
 	}
 	
+    /**
+     * Saves the trial results in the GameManager.
+     */
+    private void saveTrialResults() {
+        GameManager.player1result.shurikenAvgTime = totalEnemyTimeOnScreen / enemyCount; // ms
+        GameManager.player1result.shurikenPrecission = 
+                 Math.round(100 * enemyLifes * enemiesDefeated / shurikensLaunched);
+    }
+    
+    // fin SCORE-------------
+    
+    
 	/**
 	 * Moves an Sprite through the screen using PathModifier
 	 */

@@ -242,7 +242,7 @@ public class ResultWinScene extends GameScene {
             stamp.setCurrentTileIndex(TrialSceneShuriken.getStamp(TrialSceneShuriken.getScore()));
             scoreItemsNumber = 2;
             scoreItemArray[0] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_shuriken_time),
-                    String.valueOf(GameManager.player1result.shurikenTime),
+                    String.valueOf(GameManager.player1result.shurikenAvgTime / 1000),
                     TrialSceneShuriken.getTimeScore());
             scoreItemArray[1] = new ScoreItem(ResourceManager.getInstance().loadAndroidRes().getString(R.string.result_win_shuriken_precission),
                     String.valueOf(GameManager.player1result.shurikenPrecission),

@@ -426,7 +426,7 @@
         <!--  -->
         <string name="result_win_shuriken">Shuriken Results</string>
         <!--  -->
-        <string name="result_win_shuriken_time">Time</string>
+        <string name="result_win_shuriken_time">Avg. Time</string>
         <!--  -->
         <string name="result_win_shuriken_precission">Precission</string>
         <!--  -->
