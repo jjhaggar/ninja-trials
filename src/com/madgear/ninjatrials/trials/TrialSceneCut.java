@@ -308,7 +308,7 @@ public class TrialSceneCut extends GameScene {
      */
     private void endingSequence() {
         // Achiev 4: Achieve a single cut with 100% precision.
-        if(!GameManager.player1achiev.achievements[3].completed) {
+        if(!GameManager.getAchievSet().getAchiev(4).isCompleted()) {
             int precission;
             if(GameManager.ACHIEV_DEBUG_MODE)
                 precission = AchievementSetNinjaTrial.ACHIEV_04_CUT_PRECISSION_TEST;
@@ -317,7 +317,7 @@ public class TrialSceneCut extends GameScene {
             
             if(GameManager.player1result.cutConcentration >= precission) {
                 gameHUD.showAchievementCompleted(4);
-                GameManager.player1achiev.unlock(4);
+                GameManager.getAchievSet().getAchiev(4).unlock();
             }
         }
         

@@ -85,7 +85,7 @@ public class AchievementsScene extends GameScene {
         attachChild(achievTittle);
         
         // Main achievements grid:
-        achievementGrid = new AchievementGrid(662, HEIGHT/2, GameManager.player1achiev);
+        achievementGrid = new AchievementGrid(662, HEIGHT/2, GameManager.getAchievSet());
         attachChild(achievementGrid);
         
         // Achiev detail:
@@ -186,8 +186,9 @@ public class AchievementsScene extends GameScene {
                     itemX = getXfromCol(i);
                     itemY = getYfromRow(j);
                     
-                    items[i][j] = new AchievementItem(itemX, itemY, i, j, 
-                            set.achievements[j * COLS + i]);
+                    items[i][j] = new AchievementItem(itemX, itemY, i, j,
+                            set.getAchiev(j * COLS + i + 1));
+                            //set.achievements[j * COLS + i]);
                     attachChild(items[i][j]);
             }
             

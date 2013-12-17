@@ -358,11 +358,11 @@ public class TrialSceneShuriken extends GameScene{
 				    
 				    // TODO: controlar si se ha muerto o no.
                     // Achievement 2:
-                    if(!GameManager.player1achiev.achievements[1].isCompleted()) {
-                        GameManager.player1achiev.achievements[1].progressIncrement(1);
-                        if(GameManager.player1achiev.achievements[1].isCompleted()) {
+                    if(!GameManager.getAchievSet().getAchiev(2).isCompleted()) {
+                        GameManager.getAchievSet().getAchiev(2).progressIncrement(1);
+                        if(GameManager.getAchievSet().getAchiev(2).isCompleted()) {
                             gameHUD.showAchievementCompleted(2);
-                            GameManager.player1achiev.unlock(2);
+                            GameManager.getAchievSet().getAchiev(2).unlock();
                         }
                     }
 				    

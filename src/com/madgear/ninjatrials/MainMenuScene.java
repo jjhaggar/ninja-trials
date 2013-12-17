@@ -132,7 +132,7 @@ public class MainMenuScene extends GameScene {
         ResourceManager.getInstance().engine.getCamera().setHUD(gameHUD);
         
         // Check for achievement 5 (100 hours playing!):
-        if(!GameManager.player1achiev.achievements[4].isCompleted()) {
+        if(!GameManager.getAchievSet().getAchiev(5).isCompleted()) {
             
             GameManager.gamePlayedTime =
                     ResourceManager.getInstance().engine.getSecondsElapsedTotal() - 
@@ -141,12 +141,12 @@ public class MainMenuScene extends GameScene {
             GameManager.gameMenuInitTime =
                     ResourceManager.getInstance().engine.getSecondsElapsedTotal();
 
-            GameManager.player1achiev.achievements[4].
+            GameManager.getAchievSet().getAchiev(5).
                 progressIncrement(Math.round(GameManager.gamePlayedTime / 60));
             
-            if(GameManager.player1achiev.achievements[4].isCompleted()) {
+            if(GameManager.getAchievSet().getAchiev(5).isCompleted()) {
                 gameHUD.showAchievementCompleted(5);
-                GameManager.player1achiev.unlock(5);
+                GameManager.getAchievSet().getAchiev(5).unlock();
             }
             else {
                 UserData.saveAchiev(ResourceManager.getInstance().context);

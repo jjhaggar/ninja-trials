@@ -67,8 +67,8 @@ public class GameManager {
     public static ResultTrial player1result;
     public static ResultTrial player2result;
 
-    public static AchievementSetNinjaTrial player1achiev;
-    public static AchievementSetNinjaTrial player2achiev;
+    private static AchievementSetNinjaTrial player1achiev;
+    private static AchievementSetNinjaTrial player2achiev;
 
     public static RecordsTableSet recordsTableSet;
     
@@ -193,7 +193,11 @@ public class GameManager {
         lives = t;
     }
     
-    public static void achievementUnlocked(AchievementSetNinjaTrial achievSet, int achievNumber) {
-        
+    public static AchievementSetNinjaTrial getAchievSet() {
+        return player1achiev;
+    }
+    
+    public static void setAchievSet(AchievementSetNinjaTrial achievSet) {
+        player1achiev = achievSet;
     }
 }

@@ -68,7 +68,7 @@ public class AchievementNotify extends Entity {
      */
     public void showAchievementCompleted(int achievNumber) {
         setVisible(false);
-        achievContainerText.setText(GameManager.player1achiev.achievements[achievNumber - 1].name);
+        achievContainerText.setText(GameManager.getAchievSet().getAchiev(achievNumber).name);
         setX(ResourceManager.getInstance().cameraWidth + getWidth()/2);
         setY(ResourceManager.getInstance().cameraHeight * 2/3);
         setAlpha(1);

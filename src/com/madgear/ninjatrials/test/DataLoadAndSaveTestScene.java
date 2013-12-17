@@ -102,8 +102,8 @@ public class DataLoadAndSaveTestScene extends GameScene {
     private void cleanAchievements() { 
         file = c.getFileStreamPath(UserData.ACHIEV_FILE_NAME);
         if(file.delete()) Log.i("data test", "achiev file deleted");
-        GameManager.player1achiev = new AchievementSetNinjaTrial();
-        GameManager.player2achiev = new AchievementSetNinjaTrial();  
+        GameManager.setAchievSet(new AchievementSetNinjaTrial());
+        //GameManager.player2achiev = new AchievementSetNinjaTrial();  
         UserData.saveAchiev(ResourceManager.getInstance().context);
         // only save player1
     }
@@ -115,13 +115,13 @@ public class DataLoadAndSaveTestScene extends GameScene {
     /**
      * Write some values in achievments and save.
      */
-    private void writeAchiev() {
+/*    private void writeAchiev() {
         GameManager.player1achiev.achievements[20].name = "Test achiev";
         GameManager.player1achiev.achievements[20].completed = true;
         GameManager.player1achiev.achievements[21].name = "Test achiev2";
         GameManager.player1achiev.achievements[21].completed = true;
         UserData.saveAchiev(ResourceManager.getInstance().context);
-    }
+    }*/
     
     
     /**

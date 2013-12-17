@@ -290,11 +290,11 @@ public class TrialSceneRun extends GameScene {
     private void runFinish() {
 	    // Achievement 1: Run 200 kms. / test mode = 2 m
 	    // distanceReached is in meters.
-	    if(!GameManager.player1achiev.achievements[0].isCompleted()) {
-	        GameManager.player1achiev.achievements[0].progressIncrement(distanceReached);
-	        if(GameManager.player1achiev.achievements[0].isCompleted()) {
+	    if(!GameManager.getAchievSet().getAchiev(1).isCompleted()) {
+	        GameManager.getAchievSet().getAchiev(1).progressIncrement(distanceReached);
+	        if(GameManager.getAchievSet().getAchiev(1).isCompleted()) {
 	            this.gameHUD.showAchievementCompleted(1);
-	            GameManager.player1achiev.unlock(1);
+	            GameManager.getAchievSet().getAchiev(1).unlock();
 	        }
 	        else
 	            UserData.saveAchiev(ResourceManager.getInstance().context);

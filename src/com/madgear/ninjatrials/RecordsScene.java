@@ -131,10 +131,11 @@ public class RecordsScene extends GameScene {
         ResourceManager.getInstance().engine.getCamera().setHUD(gameHUD);
         
         // Check achievement 6:
-        if(!GameManager.player1achiev.achievements[5].completed) {
+        if(!GameManager.getAchievSet().getAchiev(6).isCompleted()) {
+        
             if(GameManager.recordsTableSet.allDefaultRecordsReplaced()) {
                 gameHUD.showAchievementCompleted(6);
-                GameManager.player1achiev.unlock(6);
+                GameManager.getAchievSet().getAchiev(6).unlock();
             }
         }
     }

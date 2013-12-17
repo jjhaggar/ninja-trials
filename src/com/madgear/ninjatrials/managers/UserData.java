@@ -100,7 +100,7 @@ public class UserData {
         try {
             FileInputStream fis = c.openFileInput(ACHIEV_FILE_NAME);
             ObjectInputStream is = new ObjectInputStream(fis);
-            GameManager.player1achiev = (AchievementSetNinjaTrial) is.readObject();
+            GameManager.setAchievSet((AchievementSetNinjaTrial) is.readObject());
             is.close();
             Log.i("UserData", "Achievs loaded from local machine. Path: " + c.getFilesDir());
         }
@@ -125,7 +125,7 @@ public class UserData {
         try {
             FileOutputStream fos = c.openFileOutput(ACHIEV_FILE_NAME, Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
-            os.writeObject(GameManager.player1achiev);
+            os.writeObject(GameManager.getAchievSet());
             os.close();
             Log.i("UserData", "Achievs writed to machine.");
         }

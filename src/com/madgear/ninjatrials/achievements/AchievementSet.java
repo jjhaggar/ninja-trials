@@ -33,7 +33,7 @@ public class AchievementSet implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     
-    public Achievement[] achievements;
+    Achievement[] achievements;
     
     /**
      * Constructs an achievement set.
@@ -63,8 +63,8 @@ public class AchievementSet implements Serializable {
         return completedAchievements;
     }
     
-    public void unlock(int achievNumber) {
-        achievements[achievNumber - 1].completed = true;
-        UserData.saveAchiev(ResourceManager.getInstance().context);
+    
+    public Achievement getAchiev(int achievNumber) {
+        return achievements[achievNumber -  1];
     }
 }

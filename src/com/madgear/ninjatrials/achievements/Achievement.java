@@ -20,6 +20,9 @@ package com.madgear.ninjatrials.achievements;
 
 import java.io.Serializable;
 
+import com.madgear.ninjatrials.managers.ResourceManager;
+import com.madgear.ninjatrials.managers.UserData;
+
 public class Achievement implements Serializable {
 
     public String name = "Achiev. Name";
@@ -158,5 +161,11 @@ public class Achievement implements Serializable {
     public String showDescription() {
         if(isSecret && !completed) return clueDescription;
         else return description;
+    }
+    
+    
+    public void unlock() {
+        completed = true;
+        UserData.saveAchiev(ResourceManager.getInstance().context);
     }
 }

@@ -495,11 +495,11 @@ public class TrialSceneJump extends GameScene {
      * Checks if achievment 3 is unlocked.
      */
     private void checkAchievement3() {
-        if(!GameManager.player1achiev.achievements[2].isCompleted()) {
-            GameManager.player1achiev.achievements[2].progressIncrement(1);
-            if(GameManager.player1achiev.achievements[2].isCompleted()) {
+        if(!GameManager.getAchievSet().getAchiev(3).isCompleted()) {
+            GameManager.getAchievSet().getAchiev(3).progressIncrement(1);
+            if(GameManager.getAchievSet().getAchiev(3).isCompleted()) {
                 gameHUD.showAchievementCompleted(3);
-                GameManager.player1achiev.unlock(3);
+                GameManager.getAchievSet().getAchiev(3).unlock();
             }
         }        
     }
