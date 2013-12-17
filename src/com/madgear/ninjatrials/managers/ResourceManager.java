@@ -82,7 +82,7 @@ public class ResourceManager {
     // HUD:
     public static ITextureRegion hudPowerBarCursor;
     public static ITextureRegion hudCursor;
-    public static ITextureRegion hudPowerBarPush;
+    public ITextureRegion hudPowerBarPush;
 
     public static ITextureRegion hudAngleBarCursor;
 
@@ -95,7 +95,7 @@ public class ResourceManager {
     public static ITiledTextureRegion shurikenHead;
 
     public static ITextureRegion hudAchievementIngameContainer;
-    
+
     // JUMP TRIAL:
     public static ITextureRegion jumpBg1Bamboo; // borrable
     public static ITextureRegion jumpBg1BambooTop;
@@ -205,7 +205,7 @@ public class ResourceManager {
     public static ITextureRegion menuAchievementsSelectionMark;
     public static final int MENU_ACHIEV_BIG_COLS = 6;
     public static final int MENU_ACHIEV_BIG_ROWS = 6;
-    
+
     // MENU RECORDS
     public static ITextureRegion menuRecordsShoHead;
     public static ITextureRegion menuRecordsShoHeadGold;
@@ -471,18 +471,18 @@ public class ResourceManager {
         // Main Menu Ninja Trials Logo:
         if(mainTitle==null) {
             BitmapTextureAtlas mainTitleT = new BitmapTextureAtlas(
-                    textureManager, 756, 495, mTransparentTextureOption);
+                    this.textureManager, 756, 495, mTransparentTextureOption);
             mainTitle = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    mainTitleT, activity, "menu_main_title.png", 0, 0);
+                    mainTitleT, this.activity, "menu_main_title.png", 0, 0);
             mainTitleT.load();
         }
 
         // Main Menu Pattern:
         if (mainTitlePattern1 == null) {
             BuildableBitmapTextureAtlas mainTitlePattern1T = new BuildableBitmapTextureAtlas(
-                    textureManager, 400, 300, TextureOptions.REPEATING_BILINEAR);
+                    this.textureManager, 400, 300, TextureOptions.REPEATING_BILINEAR);
             mainTitlePattern1 = BitmapTextureAtlasTextureRegionFactory
-                    .createFromAsset(mainTitlePattern1T, activity, "menu_main_pattern_1.png");
+                    .createFromAsset(mainTitlePattern1T, this.activity, "menu_main_pattern_1.png");
             try {
                 mainTitlePattern1T.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -518,9 +518,9 @@ public class ResourceManager {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
 
         // Sound bars:
-        BitmapTextureAtlas mainOptionsSoundBarsT = new BitmapTextureAtlas(textureManager, 575, 220,
+        BitmapTextureAtlas mainOptionsSoundBarsT = new BitmapTextureAtlas(this.textureManager, 575, 220,
                 mTransparentTextureOption);
-        BitmapTextureAtlasTextureRegionFactory.createFromAsset(mainOptionsSoundBarsT, activity,
+        BitmapTextureAtlasTextureRegionFactory.createFromAsset(mainOptionsSoundBarsT, this.activity,
                 "menu_options_volume.png", 0, 0);
         mainOptionsSoundBarsT.load();
         mainOptionsSoundBarsActive = TextureRegionFactory.
@@ -531,9 +531,9 @@ public class ResourceManager {
         // Option Menu Pattern:
         if (mainOptionsPattern == null) {
             BuildableBitmapTextureAtlas mainOptionsPatternT = new BuildableBitmapTextureAtlas(
-                    textureManager, 390, 361, TextureOptions.REPEATING_BILINEAR);
+                    this.textureManager, 390, 361, TextureOptions.REPEATING_BILINEAR);
             mainOptionsPattern = BitmapTextureAtlasTextureRegionFactory
-                    .createFromAsset(mainOptionsPatternT, activity, "menu_main_pattern_2.png");
+                    .createFromAsset(mainOptionsPatternT, this.activity, "menu_main_pattern_2.png");
             try {
                 mainOptionsPatternT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -578,28 +578,28 @@ public class ResourceManager {
 
         // Controller ouya:
         if(controllerOuya==null) {
-            BitmapTextureAtlas controllerOuyaT = new BitmapTextureAtlas(textureManager, 1164, 791,
+            BitmapTextureAtlas controllerOuyaT = new BitmapTextureAtlas(this.textureManager, 1164, 791,
                     mTransparentTextureOption);
             controllerOuya = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    controllerOuyaT, activity, "menu_options_controller_ouya.png", 0, 0);
+                    controllerOuyaT, this.activity, "menu_options_controller_ouya.png", 0, 0);
             controllerOuyaT.load();
         }
 
         // Controller marks:
         if(controllerMarks==null) {
-            BitmapTextureAtlas controllerMarksT = new BitmapTextureAtlas(textureManager, 1195, 717,
+            BitmapTextureAtlas controllerMarksT = new BitmapTextureAtlas(this.textureManager, 1195, 717,
                     mTransparentTextureOption);
             controllerMarks = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    controllerMarksT, activity, "menu_options_controller_marks.png", 0, 0);
+                    controllerMarksT, this.activity, "menu_options_controller_marks.png", 0, 0);
             controllerMarksT.load();
         }
 
         // Controller Option Pattern:
         if (controllerOptionsPattern == null) {
             BuildableBitmapTextureAtlas controllerOptionsPatternT = new BuildableBitmapTextureAtlas(
-                    textureManager, 319, 319, TextureOptions.REPEATING_BILINEAR);
+                    this.textureManager, 319, 319, TextureOptions.REPEATING_BILINEAR);
             controllerOptionsPattern = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    controllerOptionsPatternT, activity, "menu_main_pattern_3.png");
+                    controllerOptionsPatternT, this.activity, "menu_main_pattern_3.png");
             try {
                 controllerOptionsPatternT.build(
                         new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
@@ -641,70 +641,70 @@ public class ResourceManager {
         // Barra power cursor:
         if(hudPowerBarCursor==null) {
             BitmapTextureAtlas hudPowerBarCursorT = new BitmapTextureAtlas(
-                    textureManager, 240, 120, mTransparentTextureOption);
+                    this.textureManager, 240, 120, mTransparentTextureOption);
             hudPowerBarCursor = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    hudPowerBarCursorT, activity, "hud_precision_indicator.png", 0, 0);
+                    hudPowerBarCursorT, this.activity, "hud_precision_indicator.png", 0, 0);
             hudPowerBarCursorT.load();
         }
 
         // Angle Bar:
         if (hudAngleBarCursor == null) {
             BitmapTextureAtlas hudAngleBarCursorT = new BitmapTextureAtlas(
-                    textureManager, 353, 257, mTransparentTextureOption);
+                    this.textureManager, 353, 257, mTransparentTextureOption);
             hudAngleBarCursor = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    hudAngleBarCursorT, activity, "hud_angle_indicator.png", 0, 0);
+                    hudAngleBarCursorT, this.activity, "hud_angle_indicator.png", 0, 0);
             hudAngleBarCursorT.load();
         }
 
         if(hudCursor==null) {
-            BitmapTextureAtlas hudCursorT = new BitmapTextureAtlas(textureManager, 59, 52,
+            BitmapTextureAtlas hudCursorT = new BitmapTextureAtlas(this.textureManager, 59, 52,
                     mTransparentTextureOption);
             hudCursor = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudCursorT,
-                    activity, "hud_angle_cursor.png", 0, 0);
+                    this.activity, "hud_angle_cursor.png", 0, 0);
             hudCursorT.load();
         }
 
         // Cursor:
         if(hudCursor==null) {
-            BitmapTextureAtlas hudCursorT = new BitmapTextureAtlas(textureManager, 59, 52,
+            BitmapTextureAtlas hudCursorT = new BitmapTextureAtlas(this.textureManager, 59, 52,
                     mTransparentTextureOption);
             hudCursor = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudCursorT,
-                    activity, "hud_precision_cursor.png", 0, 0);
+                    this.activity, "hud_precision_cursor.png", 0, 0);
             hudCursorT.load();
         }
 
         // Barra power push:
-        if(hudPowerBarPush==null) {
-            BitmapTextureAtlas hudPowerBarPushT = new BitmapTextureAtlas(textureManager, 120, 240,
+        if(this.hudPowerBarPush==null) {
+            BitmapTextureAtlas hudPowerBarPushT = new BitmapTextureAtlas(this.textureManager, 120, 240,
                     mTransparentTextureOption);
-            hudPowerBarPush = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    hudPowerBarPushT, activity, "hud_power_indicator.png", 0, 0);
+            this.hudPowerBarPush = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    hudPowerBarPushT, this.activity, "hud_power_indicator.png", 0, 0);
             hudPowerBarPushT.load();
         }
         // LineBar
         if (runLineBar == null) {
-            BitmapTextureAtlas runLineBarBit = new BitmapTextureAtlas(textureManager, 1012, 80,
+            BitmapTextureAtlas runLineBarBit = new BitmapTextureAtlas(this.textureManager, 1012, 80,
                     mTransparentTextureOption);
             runLineBar = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    runLineBarBit, activity, "run_line_bar.png", 0, 0);
+                    runLineBarBit, this.activity, "run_line_bar.png", 0, 0);
             runLineBarBit.load();
         }
         // LineMark
-        BitmapTextureAtlas runMarkBit = new BitmapTextureAtlas(textureManager, 140, 116,
+        BitmapTextureAtlas runMarkBit = new BitmapTextureAtlas(this.textureManager, 140, 116,
                 mTransparentTextureOption);
         BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                runMarkBit, activity, "run_line_mark.png", 0, 0);
+                runMarkBit, this.activity, "run_line_mark.png", 0, 0);
         runMarkBit.load();
         if (runMarkP1 == null)
             runMarkP1 = TextureRegionFactory.extractFromTexture(runMarkBit, 0, 0, 70, 116, false);
         if (runMarkP2 == null)
             runMarkP2 = TextureRegionFactory.extractFromTexture(runMarkBit, 70, 0, 140, 116, false);
         // RunHead
-        if (runHead == null) {
+        if (this.runHead == null) {
             BuildableBitmapTextureAtlas runHeadBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 660, 440, mTransparentTextureOption);
-            runHead = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    runHeadBit, context, "hud_head_run.png", 3, 2);
+                    this.textureManager, 660, 440, mTransparentTextureOption);
+            this.runHead = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    runHeadBit, this.context, "hud_head_run.png", 3, 2);
             try {
                 runHeadBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -717,9 +717,9 @@ public class ResourceManager {
         // CutHead
         if (cutHead == null) {
             BuildableBitmapTextureAtlas cutHeadBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 660, 440, mTransparentTextureOption);
+                    this.textureManager, 660, 440, mTransparentTextureOption);
             cutHead = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    cutHeadBit, context, "hud_head_cut.png", 3, 2);
+                    cutHeadBit, this.context, "hud_head_cut.png", 3, 2);
             try {
                 cutHeadBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -732,9 +732,9 @@ public class ResourceManager {
         // JumpHead
         if (jumpHead == null) {
             BuildableBitmapTextureAtlas jumpHeadBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 660, 440, mTransparentTextureOption);
+                    this.textureManager, 660, 440, mTransparentTextureOption);
             jumpHead = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    jumpHeadBit, context, "hud_head_jump.png", 3, 2);
+                    jumpHeadBit, this.context, "hud_head_jump.png", 3, 2);
             try {
                 jumpHeadBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -747,9 +747,9 @@ public class ResourceManager {
         // ShurikenHead
         if (shurikenHead == null) {
             BuildableBitmapTextureAtlas shurikenHeadBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 660, 440, mTransparentTextureOption);
+                    this.textureManager, 660, 440, mTransparentTextureOption);
             shurikenHead = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    shurikenHeadBit, context, "hud_head_shuriken.png", 3, 2);
+                    shurikenHeadBit, this.context, "hud_head_shuriken.png", 3, 2);
             try {
                 shurikenHeadBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -759,13 +759,13 @@ public class ResourceManager {
             }
             shurikenHeadBit.load();
         }
-        
+
         // Achievement ingame container
         if (hudAchievementIngameContainer == null) {
             BitmapTextureAtlas achievementIngameContainerT =new BitmapTextureAtlas(
-                    textureManager, 806, 192, mTransparentTextureOption);
+                    this.textureManager, 806, 192, mTransparentTextureOption);
             hudAchievementIngameContainer = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    achievementIngameContainerT, activity,
+                    achievementIngameContainerT, this.activity,
                     "hud_achievements_ingame_container.png", 0, 0);
             achievementIngameContainerT.load();
         }
@@ -790,10 +790,10 @@ public class ResourceManager {
                 hudCursor = null;
             }
         }
-        if(hudPowerBarPush!=null) {
-            if(hudPowerBarPush.getTexture().isLoadedToHardware()) {
-                hudPowerBarPush.getTexture().unload();
-                hudPowerBarPush = null;
+        if(this.hudPowerBarPush!=null) {
+            if(this.hudPowerBarPush.getTexture().isLoadedToHardware()) {
+                this.hudPowerBarPush.getTexture().unload();
+                this.hudPowerBarPush = null;
             }
         }
         if (runLineBar != null && runLineBar.getTexture().isLoadedToHardware()) {
@@ -808,9 +808,9 @@ public class ResourceManager {
                 runMarkP2.getTexture().unload();
                 runMarkP2 = null;
         }
-        if (runHead != null && runHead.getTexture().isLoadedToHardware()) {
-                runHead.getTexture().unload();
-                runHead = null;
+        if (this.runHead != null && this.runHead.getTexture().isLoadedToHardware()) {
+                this.runHead.getTexture().unload();
+                this.runHead = null;
         }
         if (cutHead != null && cutHead.getTexture().isLoadedToHardware()) {
             cutHead.getTexture().unload();
@@ -834,32 +834,32 @@ public class ResourceManager {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trial_jump/");
 
         if (jumpBg1StoneStatues == null) {
-            BitmapTextureAtlas jumpBg1StoneStatuesT = new BitmapTextureAtlas(textureManager, 442, 310,
+            BitmapTextureAtlas jumpBg1StoneStatuesT = new BitmapTextureAtlas(this.textureManager, 442, 310,
                     mTransparentTextureOption);
             jumpBg1StoneStatues = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpBg1StoneStatuesT, activity, "jump_bg_1_stone_statues.png", 0, 0);
+                    jumpBg1StoneStatuesT, this.activity, "jump_bg_1_stone_statues.png", 0, 0);
             jumpBg1StoneStatuesT.load();
         }
 
         if (jumpBg1Bamboo == null) { // borrable si no me equivoco
-            BitmapTextureAtlas jumpBg1BambooT = new BitmapTextureAtlas(textureManager, 89, 1080,
+            BitmapTextureAtlas jumpBg1BambooT = new BitmapTextureAtlas(this.textureManager, 89, 1080,
                     mTransparentTextureOption);
             jumpBg1Bamboo = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpBg1BambooT, activity, "jump_bg_1_bamboo.png", 0, 0);
+                    jumpBg1BambooT, this.activity, "jump_bg_1_bamboo.png", 0, 0);
             jumpBg1BambooT.load();
         }
         if (jumpBg2BambooForest1 == null) { // borrable
-            BitmapTextureAtlas jumpBg2BambooForest1T = new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas jumpBg2BambooForest1T = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             jumpBg2BambooForest1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpBg2BambooForest1T, activity, "jump_bg_2_bamboo_forest_1.png", 0, 0);
+                    jumpBg2BambooForest1T, this.activity, "jump_bg_2_bamboo_forest_1.png", 0, 0);
             jumpBg2BambooForest1T.load();
         }
         if (jumpBg3BambooForest2 == null) {// borrable
-            BitmapTextureAtlas jumpBg3BambooForest2T = new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas jumpBg3BambooForest2T = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             jumpBg3BambooForest2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpBg3BambooForest2T, activity, "jump_bg_3_bamboo_forest_2.png", 0, 0);
+                    jumpBg3BambooForest2T, this.activity, "jump_bg_3_bamboo_forest_2.png", 0, 0);
             jumpBg3BambooForest2T.load();
         }
 
@@ -867,10 +867,10 @@ public class ResourceManager {
          // ^ 91 px
          // | 921 px
          // v 68 px
-        BitmapTextureAtlas bTA_Bamboo = new BitmapTextureAtlas(textureManager, 89, 1080,
+        BitmapTextureAtlas bTA_Bamboo = new BitmapTextureAtlas(this.textureManager, 89, 1080,
                 mTransparentTextureOption);
         BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                bTA_Bamboo, activity, "jump_bg_1_bamboo.png", 0, 0);
+                bTA_Bamboo, this.activity, "jump_bg_1_bamboo.png", 0, 0);
         bTA_Bamboo.load();
         jumpBg1BambooTop = TextureRegionFactory.extractFromTexture(bTA_Bamboo, 0, 0, 89, 91);
         jumpBg1BambooMiddle = TextureRegionFactory.extractFromTexture(bTA_Bamboo, 0, 91, 89, 921);
@@ -880,10 +880,10 @@ public class ResourceManager {
          // ^ 44 px
          // | 718 px
          // v 318 px
-        BitmapTextureAtlas bTABambooForest1 = new BitmapTextureAtlas(textureManager, 1920, 1080,
+        BitmapTextureAtlas bTABambooForest1 = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                 mTransparentTextureOption);
         BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                bTABambooForest1, activity, "jump_bg_2_bamboo_forest_1.png", 0, 0);
+                bTABambooForest1, this.activity, "jump_bg_2_bamboo_forest_1.png", 0, 0);
         bTABambooForest1.load();
         jumpBg2BambooForest1Top = TextureRegionFactory.extractFromTexture(bTABambooForest1, 0, 0, 1920, 44);
         jumpBg2BambooForest1Middle = TextureRegionFactory.extractFromTexture(bTABambooForest1, 0, 44, 1920, 718);
@@ -893,55 +893,55 @@ public class ResourceManager {
          // ^ 80 px
          // | 536 px
          // v 464 px
-         BitmapTextureAtlas bTABambooForest2 = new BitmapTextureAtlas(textureManager, 1920, 1080,
+         BitmapTextureAtlas bTABambooForest2 = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                 mTransparentTextureOption);
         BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                bTABambooForest2, activity, "jump_bg_3_bamboo_forest_2.png", 0, 0);
+                bTABambooForest2, this.activity, "jump_bg_3_bamboo_forest_2.png", 0, 0);
         bTABambooForest2.load();
         jumpBg3BambooForest2Top = TextureRegionFactory.extractFromTexture(bTABambooForest2, 0, 0, 1920, 80);
         jumpBg3BambooForest2Middle = TextureRegionFactory.extractFromTexture(bTABambooForest2, 0, 80, 1920, 536);
         jumpBg3BambooForest2Bottom = TextureRegionFactory.extractFromTexture(bTABambooForest2, 0, 80+536, 1920, 464);
 
         if (jumpBg4Mount == null) {
-            BitmapTextureAtlas jumpBg4MountT = new BitmapTextureAtlas(textureManager, 1920, 794,
+            BitmapTextureAtlas jumpBg4MountT = new BitmapTextureAtlas(this.textureManager, 1920, 794,
                     mTransparentTextureOption);
             jumpBg4Mount = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpBg4MountT, activity, "jump_bg_4_mount.png", 0, 0);
+                    jumpBg4MountT, this.activity, "jump_bg_4_mount.png", 0, 0);
             jumpBg4MountT.load();
         }
         if (jumpBg5Pagoda == null) {
-            BitmapTextureAtlas jumpBg5PagodaT = new BitmapTextureAtlas(textureManager, 650, 952,
+            BitmapTextureAtlas jumpBg5PagodaT = new BitmapTextureAtlas(this.textureManager, 650, 952,
                     mTransparentTextureOption);
             jumpBg5Pagoda = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpBg5PagodaT, activity, "jump_bg_5_pagoda.png", 0, 0);
+                    jumpBg5PagodaT, this.activity, "jump_bg_5_pagoda.png", 0, 0);
             jumpBg5PagodaT.load();
         }
         if (jumpBg6Clouds == null) {
-            BitmapTextureAtlas jumpBg6CloudsT = new BitmapTextureAtlas(textureManager, 1920, 503,
+            BitmapTextureAtlas jumpBg6CloudsT = new BitmapTextureAtlas(this.textureManager, 1920, 503,
                     mTransparentTextureOption);
             jumpBg6Clouds = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpBg6CloudsT, activity, "jump_bg_6_clouds.png", 0, 0);
+                    jumpBg6CloudsT, this.activity, "jump_bg_6_clouds.png", 0, 0);
             jumpBg6CloudsT.load();
         }
         if (jumpBg7Lake == null) {
-            BitmapTextureAtlas jumpBg7LakeT = new BitmapTextureAtlas(textureManager, 1920, 550,
+            BitmapTextureAtlas jumpBg7LakeT = new BitmapTextureAtlas(this.textureManager, 1920, 550,
                     mTransparentTextureOption);
             jumpBg7Lake = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpBg7LakeT, activity, "jump_bg_7_lake.png", 0, 0);
+                    jumpBg7LakeT, this.activity, "jump_bg_7_lake.png", 0, 0);
             jumpBg7LakeT.load();
         }
         if (jumpBg8MountFuji == null) {
-            BitmapTextureAtlas jumpBg8MountFujiT = new BitmapTextureAtlas(textureManager, 1920, 806,
+            BitmapTextureAtlas jumpBg8MountFujiT = new BitmapTextureAtlas(this.textureManager, 1920, 806,
                     mTransparentTextureOption);
             jumpBg8MountFuji = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpBg8MountFujiT, activity, "jump_bg_8_mount_fuji.png", 0, 0);
+                    jumpBg8MountFujiT, this.activity, "jump_bg_8_mount_fuji.png", 0, 0);
             jumpBg8MountFujiT.load();
         }
         if (jumpBg9Sky == null) {
-            BitmapTextureAtlas jumpBg9SkyT = new BitmapTextureAtlas(textureManager, 1920, 1471,
+            BitmapTextureAtlas jumpBg9SkyT = new BitmapTextureAtlas(this.textureManager, 1920, 1471,
                     mTransparentTextureOption);
             jumpBg9Sky = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    jumpBg9SkyT, activity, "jump_bg_9_sky.png", 0, 0);
+                    jumpBg9SkyT, this.activity, "jump_bg_9_sky.png", 0, 0);
             jumpBg9SkyT.load();
         }
 
@@ -962,9 +962,9 @@ public class ResourceManager {
 
         if (jumpChSho == null) {
             BuildableBitmapTextureAtlas jumpChShoBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 687, 1024, mTransparentTextureOption);
+                    this.textureManager, 687, 1024, mTransparentTextureOption);
             jumpChSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    jumpChShoBit, context, "jump_ch_sho_mini.png", 4, 6);
+                    jumpChShoBit, this.context, "jump_ch_sho_mini.png", 4, 6);
             try {
                 jumpChShoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -977,9 +977,9 @@ public class ResourceManager {
 
         if (jumpEffectPreparation == null) {
             BuildableBitmapTextureAtlas jumpEffectPreparationBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 590, 406, mTransparentTextureOption);
+                    this.textureManager, 590, 406, mTransparentTextureOption);
             jumpEffectPreparation = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    jumpEffectPreparationBit, context, "jump_effect_preparation.png", 2, 2);
+                    jumpEffectPreparationBit, this.context, "jump_effect_preparation.png", 2, 2);
             try {
                 jumpEffectPreparationBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -992,9 +992,9 @@ public class ResourceManager {
 
         if (jumpEffectWallKick == null) {
             BuildableBitmapTextureAtlas jumpEffectWallKickBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 406, 590, mTransparentTextureOption);
+                    this.textureManager, 406, 590, mTransparentTextureOption);
             jumpEffectWallKick = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    jumpEffectWallKickBit, context, "jump_effect_wall_kick.png", 2, 2);
+                    jumpEffectWallKickBit, this.context, "jump_effect_wall_kick.png", 2, 2);
             try {
                 jumpEffectWallKickBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1114,9 +1114,9 @@ public class ResourceManager {
         // Sho:
         if(cutSho==null) {
             BuildableBitmapTextureAtlas cutShoT = new BuildableBitmapTextureAtlas(
-                    textureManager, 1742, 1720, mTransparentTextureOption);
+                    this.textureManager, 1742, 1720, mTransparentTextureOption);
             cutSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    cutShoT, context, "cut_ch_sho_cut_anim.png", 2, 2);
+                    cutShoT, this.context, "cut_ch_sho_cut_anim.png", 2, 2);
             try {
                 cutShoT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1125,30 +1125,30 @@ public class ResourceManager {
         }
 
         // Arbol:
-        BitmapTextureAtlas cutTreeT = new BitmapTextureAtlas(textureManager, 640, 950,
+        BitmapTextureAtlas cutTreeT = new BitmapTextureAtlas(this.textureManager, 640, 950,
                 mTransparentTextureOption);
         BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                cutTreeT, activity, "cut_breakable_tree.png", 0, 0);
+                cutTreeT, this.activity, "cut_breakable_tree.png", 0, 0);
         cutTreeT.load();
         cutTreeTop = TextureRegionFactory.extractFromTexture(cutTreeT, 0, 0, 640, 403, false);
         cutTreeBottom = TextureRegionFactory.extractFromTexture(cutTreeT, 0, 404, 640, 546,
                 false);
 
         // Farol:
-        BitmapTextureAtlas cutCandleT = new BitmapTextureAtlas(textureManager, 310, 860,
+        BitmapTextureAtlas cutCandleT = new BitmapTextureAtlas(this.textureManager, 310, 860,
                 mTransparentTextureOption);
         BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                cutCandleT, activity, "cut_breakable_candle_base.png", 0, 0);
+                cutCandleT, this.activity, "cut_breakable_candle_base.png", 0, 0);
         cutCandleT.load();
         cutCandleTop = TextureRegionFactory.extractFromTexture(cutCandleT, 0, 0, 310, 515, false);
         cutCandleBottom = TextureRegionFactory.extractFromTexture(cutCandleT, 0, 516, 310, 344,
                 false);
 
         // Luz del farol:
-        BitmapTextureAtlas cutCandleLightT = new BitmapTextureAtlas(textureManager, 760, 380,
+        BitmapTextureAtlas cutCandleLightT = new BitmapTextureAtlas(this.textureManager, 760, 380,
                 mTransparentTextureOption);
         BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                cutCandleLightT, activity, "cut_breakable_candle_light.png", 0, 0);
+                cutCandleLightT, this.activity, "cut_breakable_candle_light.png", 0, 0);
         cutCandleLightT.load();
         cutCandleLight = TextureRegionFactory.extractFromTexture(cutCandleLightT, 0, 0, 388, 380,
                 false);
@@ -1156,9 +1156,9 @@ public class ResourceManager {
         // Espada 2:
         if(cutSwordSparkle2==null) {
             BuildableBitmapTextureAtlas cutSword2T = new BuildableBitmapTextureAtlas(
-                    textureManager, 1358, 1034, mTransparentTextureOption);
+                    this.textureManager, 1358, 1034, mTransparentTextureOption);
             cutSwordSparkle2 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    cutSword2T, context, "cut_sword_sparkle2.png", 2, 2);
+                    cutSword2T, this.context, "cut_sword_sparkle2.png", 2, 2);
             try {
                 cutSword2T.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1168,37 +1168,37 @@ public class ResourceManager {
 
         // Ojos:
         if(cutEyes==null) {
-            BitmapTextureAtlas cutEyesT =  new BitmapTextureAtlas(textureManager, 1416, 611,
+            BitmapTextureAtlas cutEyesT =  new BitmapTextureAtlas(this.textureManager, 1416, 611,
                     mTransparentTextureOption);
             cutEyes = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    cutEyesT, activity, "cut_ch_sho_eyes.png", 0, 0);
+                    cutEyesT, this.activity, "cut_ch_sho_eyes.png", 0, 0);
             cutEyesT.load();
         }
 
         // Fondo:
-        if(cutBackground==null) {
-            BitmapTextureAtlas cutBackgroundT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+        if(this.cutBackground==null) {
+            BitmapTextureAtlas cutBackgroundT = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
-            cutBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    cutBackgroundT, activity, "cut_background.png", 0, 0);
+            this.cutBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    cutBackgroundT, this.activity, "cut_background.png", 0, 0);
             cutBackgroundT.load();
         }
 
         // Gota:
         if(cutSweatDrop==null) {
-            BitmapTextureAtlas cutSweatDropT = new BitmapTextureAtlas(textureManager, 46, 107,
+            BitmapTextureAtlas cutSweatDropT = new BitmapTextureAtlas(this.textureManager, 46, 107,
                     mTransparentTextureOption);
             cutSweatDrop = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    cutSweatDropT, activity, "cut_ch_sweatdrop.png", 0, 0);
+                    cutSweatDropT, this.activity, "cut_ch_sweatdrop.png", 0, 0);
             cutSweatDropT.load();
         }
 
         // Character eye sparkle:
         if(cutCharSparkle==null) {
             BuildableBitmapTextureAtlas cutCharSparkleT = new BuildableBitmapTextureAtlas(
-                    textureManager, 300, 100, mTransparentTextureOption);
+                    this.textureManager, 300, 100, mTransparentTextureOption);
             cutCharSparkle = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    cutCharSparkleT, context, "cut_ch_sparkle.png", 3, 1);
+                    cutCharSparkleT, this.context, "cut_ch_sparkle.png", 3, 1);
             try {
                 cutCharSparkleT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1208,10 +1208,10 @@ public class ResourceManager {
 
         // Espada 1:
         if(cutSwordSparkle1==null) {
-            BitmapTextureAtlas cutSword1T = new BitmapTextureAtlas(textureManager, 503, 345,
+            BitmapTextureAtlas cutSword1T = new BitmapTextureAtlas(this.textureManager, 503, 345,
                     mTransparentTextureOption);
             cutSwordSparkle1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    cutSword1T, activity, "cut_sword_sparkle1.png", 0, 0);
+                    cutSword1T, this.activity, "cut_sword_sparkle1.png", 0, 0);
             cutSword1T.load();
         }
     }
@@ -1261,10 +1261,10 @@ public class ResourceManager {
                 cutEyes = null;
             }
         }
-        if(cutBackground!=null) {
-            if(cutBackground.getTexture().isLoadedToHardware()) {
-                cutBackground.getTexture().unload();
-                cutBackground = null;
+        if(this.cutBackground!=null) {
+            if(this.cutBackground.getTexture().isLoadedToHardware()) {
+                this.cutBackground.getTexture().unload();
+                this.cutBackground = null;
             }
         }
         if(cutSweatDrop!=null) {
@@ -1299,50 +1299,50 @@ public class ResourceManager {
     public synchronized void loadRunSceneResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trial_run/");
         // Background
-        if (runBgFloor == null) {
-            BitmapTextureAtlas RunBg1 = new BitmapTextureAtlas(textureManager, 1024, 326,
+        if (this.runBgFloor == null) {
+            BitmapTextureAtlas RunBg1 = new BitmapTextureAtlas(this.textureManager, 1024, 326,
                     mTransparentTextureOption);
-            runBgFloor = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    RunBg1, activity, "run_background_floor.png", 0, 0);
+            this.runBgFloor = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    RunBg1, this.activity, "run_background_floor.png", 0, 0);
             RunBg1.load();
         }
-        if (runBgTreesBack == null) {
-            BitmapTextureAtlas RunBg2 = new BitmapTextureAtlas(textureManager, 1021, 510,
+        if (this.runBgTreesBack == null) {
+            BitmapTextureAtlas RunBg2 = new BitmapTextureAtlas(this.textureManager, 1021, 510,
                     mTransparentTextureOption);
-            runBgTreesBack = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    RunBg2, activity, "run_background_trees_back.png", 0, 0);
+            this.runBgTreesBack = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    RunBg2, this.activity, "run_background_trees_back.png", 0, 0);
             RunBg2.load();
         }
-        if (runBgTreesFront == null) {
-            BitmapTextureAtlas RunBg3 = new BitmapTextureAtlas(textureManager, 1024, 754,
+        if (this.runBgTreesFront == null) {
+            BitmapTextureAtlas RunBg3 = new BitmapTextureAtlas(this.textureManager, 1024, 754,
                     mTransparentTextureOption);
-            runBgTreesFront = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    RunBg3, activity, "run_background_trees_front.png", 0, 0);
+            this.runBgTreesFront = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    RunBg3, this.activity, "run_background_trees_front.png", 0, 0);
             RunBg3.load();
         }
 
         // Dush
         if (runDushStart == null) {
-            BitmapTextureAtlas runDush = new BitmapTextureAtlas(textureManager, 1296, 1080,
+            BitmapTextureAtlas runDush = new BitmapTextureAtlas(this.textureManager, 1296, 1080,
                     mTransparentTextureOption);
             runDushStart = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    runDush, activity, "run_dust_start.png", 0, 0);
+                    runDush, this.activity, "run_dust_start.png", 0, 0);
             runDush.load();
         }
         if (runDushContinue == null) {
-            BitmapTextureAtlas runDush = new BitmapTextureAtlas(textureManager, 600, 600,
+            BitmapTextureAtlas runDush = new BitmapTextureAtlas(this.textureManager, 600, 600,
                     mTransparentTextureOption);
             runDushContinue = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    runDush, activity, "run_dust_continuous.png", 0, 0);
+                    runDush, this.activity, "run_dust_continuous.png", 0, 0);
             runDush.load();
         }
 
         // Sho
-        if (runSho == null) {
+        if (this.runSho == null) {
             BuildableBitmapTextureAtlas runShoBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 1058, 1014, mTransparentTextureOption);
-            runSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    runShoBit, context, "run_ch_sho.png", 5, 4);
+                    this.textureManager, 1058, 1014, mTransparentTextureOption);
+            this.runSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    runShoBit, this.context, "run_ch_sho.png", 5, 4);
             try {
                 runShoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1354,11 +1354,11 @@ public class ResourceManager {
         }
 
         // Ryoko
-        if (runRyoko == null) {
+        if (this.runRyoko == null) {
             BuildableBitmapTextureAtlas runRyokoBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 1058, 1014, mTransparentTextureOption);
-            runRyoko = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    runRyokoBit, context, "run_ch_ryoko.png", 5, 4);
+                    this.textureManager, 1058, 1014, mTransparentTextureOption);
+            this.runRyoko = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+                    runRyokoBit, this.context, "run_ch_ryoko.png", 5, 4);
             try {
                 runRyokoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1372,25 +1372,25 @@ public class ResourceManager {
 
 
     public synchronized void unloadRunSceneResources() {
-        if (runSho != null && runSho.getTexture().isLoadedToHardware()) {
-                runSho.getTexture().unload();
-                runSho = null;
+        if (this.runSho != null && this.runSho.getTexture().isLoadedToHardware()) {
+                this.runSho.getTexture().unload();
+                this.runSho = null;
         }
-        if (runRyoko != null && runRyoko.getTexture().isLoadedToHardware()) {
-                runRyoko.getTexture().unload();
-                runRyoko = null;
+        if (this.runRyoko != null && this.runRyoko.getTexture().isLoadedToHardware()) {
+                this.runRyoko.getTexture().unload();
+                this.runRyoko = null;
         }
-        if (runBgFloor != null && runBgFloor.getTexture().isLoadedToHardware()) {
-                runBgFloor.getTexture().unload();
-                runBgFloor = null;
+        if (this.runBgFloor != null && this.runBgFloor.getTexture().isLoadedToHardware()) {
+                this.runBgFloor.getTexture().unload();
+                this.runBgFloor = null;
         }
-        if (runBgTreesFront != null && runBgTreesFront.getTexture().isLoadedToHardware()) {
-                runBgTreesFront.getTexture().unload();
-                runBgTreesFront = null;
+        if (this.runBgTreesFront != null && this.runBgTreesFront.getTexture().isLoadedToHardware()) {
+                this.runBgTreesFront.getTexture().unload();
+                this.runBgTreesFront = null;
         }
-        if (runBgTreesBack != null && runBgTreesBack.getTexture().isLoadedToHardware()) {
-                runBgTreesBack.getTexture().unload();
-                runBgTreesBack = null;
+        if (this.runBgTreesBack != null && this.runBgTreesBack.getTexture().isLoadedToHardware()) {
+                this.runBgTreesBack.getTexture().unload();
+                this.runBgTreesBack = null;
         }
         if (runDushStart != null && runDushStart.getTexture().isLoadedToHardware()) {
                 runDushStart.getTexture().unload();
@@ -1407,18 +1407,18 @@ public class ResourceManager {
     public synchronized void loadShurikenSceneResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/trial_shuriken/");
         if (shurikenBackground == null) {
-            BitmapTextureAtlas shurikenBackgroundT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas shurikenBackgroundT = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             shurikenBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenBackgroundT, activity, "shuriken_background.png", 0, 0);
+                    shurikenBackgroundT, this.activity, "shuriken_background.png", 0, 0);
             shurikenBackgroundT.load();
         }
 
         if (shurikenRyokoHands == null) {
             BuildableBitmapTextureAtlas shurikenRyokoHandsBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 740, 960, mTransparentTextureOption);
+                    this.textureManager, 740, 960, mTransparentTextureOption);
             shurikenRyokoHands = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    shurikenRyokoHandsBit, context, "shuriken_ryoko_hands.png", 1, 3);
+                    shurikenRyokoHandsBit, this.context, "shuriken_ryoko_hands.png", 1, 3);
             try {
                 shurikenRyokoHandsBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1431,9 +1431,9 @@ public class ResourceManager {
 
         if (shurikenRyokoLose == null) {
             BuildableBitmapTextureAtlas shurikenRyokoLoseBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 1500, 978, mTransparentTextureOption);
+                    this.textureManager, 1500, 978, mTransparentTextureOption);
             shurikenRyokoLose = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    shurikenRyokoLoseBit, context, "shuriken_ryoko_lose.png", 2, 1);
+                    shurikenRyokoLoseBit, this.context, "shuriken_ryoko_lose.png", 2, 1);
             try {
                 shurikenRyokoLoseBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1446,9 +1446,9 @@ public class ResourceManager {
 
         if (shurikenRyokoWin == null) {
             BuildableBitmapTextureAtlas shurikenRyokoWinBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 1400, 1036, mTransparentTextureOption);
+                    this.textureManager, 1400, 1036, mTransparentTextureOption);
             shurikenRyokoWin = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    shurikenRyokoWinBit, context, "shuriken_ryoko_win.png", 2, 1);
+                    shurikenRyokoWinBit, this.context, "shuriken_ryoko_win.png", 2, 1);
             try {
                 shurikenRyokoWinBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1461,9 +1461,9 @@ public class ResourceManager {
 
         if (shurikenShoHands == null) {
             BuildableBitmapTextureAtlas shurikenShoHandsBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 740, 960, mTransparentTextureOption);
+                    this.textureManager, 740, 960, mTransparentTextureOption);
             shurikenShoHands = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    shurikenShoHandsBit, context, "shuriken_sho_hands.png", 1, 3);
+                    shurikenShoHandsBit, this.context, "shuriken_sho_hands.png", 1, 3);
             try {
                 shurikenShoHandsBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1476,9 +1476,9 @@ public class ResourceManager {
 
         if (shurikenShoLose == null) {
             BuildableBitmapTextureAtlas shurikenShoLoseBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 1500, 978, mTransparentTextureOption);
+                    this.textureManager, 1500, 978, mTransparentTextureOption);
             shurikenShoLose = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    shurikenShoLoseBit, context, "shuriken_sho_lose.png", 2, 1);
+                    shurikenShoLoseBit, this.context, "shuriken_sho_lose.png", 2, 1);
             try {
                 shurikenShoLoseBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1491,9 +1491,9 @@ public class ResourceManager {
 
         if (shurikenShoWin == null) {
             BuildableBitmapTextureAtlas shurikenShoWinBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 1400, 1036, mTransparentTextureOption);
+                    this.textureManager, 1400, 1036, mTransparentTextureOption);
             shurikenShoWin = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    shurikenShoWinBit, context, "shuriken_sho_win.png", 2, 1);
+                    shurikenShoWinBit, this.context, "shuriken_sho_win.png", 2, 1);
             try {
                 shurikenShoWinBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1505,10 +1505,10 @@ public class ResourceManager {
         }
 
         if (shurikenShuriken == null) {
-            BitmapTextureAtlas shurikenShurikenT = new BitmapTextureAtlas(textureManager, 196, 418,
+            BitmapTextureAtlas shurikenShurikenT = new BitmapTextureAtlas(this.textureManager, 196, 418,
                     mTransparentTextureOption);
             shurikenShuriken = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenShurikenT, activity, "shuriken_shuriken.png", 0, 0);
+                    shurikenShurikenT, this.activity, "shuriken_shuriken.png", 0, 0);
             shurikenShurikenT.load();
             shurikenShurikens = new ITextureRegion[6];
             shurikenShurikens[0] = TextureRegionFactory.extractFromTexture(shurikenShurikenT, 0, 0, 54, 26-0, false);
@@ -1521,9 +1521,9 @@ public class ResourceManager {
 
         if (shurikenStrawman1 == null) {
             BuildableBitmapTextureAtlas shurikenStrawman1Bit = new BuildableBitmapTextureAtlas(
-                    textureManager, 1023, 640, mTransparentTextureOption);
+                    this.textureManager, 1023, 640, mTransparentTextureOption);
             shurikenStrawman1 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    shurikenStrawman1Bit, context, "shuriken_strawman_1.png", 3, 1);
+                    shurikenStrawman1Bit, this.context, "shuriken_strawman_1.png", 3, 1);
             try {
                 shurikenStrawman1Bit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1536,9 +1536,9 @@ public class ResourceManager {
 
         if (shurikenStrawman2 == null) {
             BuildableBitmapTextureAtlas shurikenStrawman2Bit = new BuildableBitmapTextureAtlas(
-                    textureManager, 1688, 1056, mTransparentTextureOption);
+                    this.textureManager, 1688, 1056, mTransparentTextureOption);
             shurikenStrawman2 = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    shurikenStrawman2Bit, context, "shuriken_strawman_2.png", 3, 1);
+                    shurikenStrawman2Bit, this.context, "shuriken_strawman_2.png", 3, 1);
             try {
                 shurikenStrawman2Bit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1549,18 +1549,18 @@ public class ResourceManager {
             shurikenStrawman2Bit.load();
         }
         if (shurikenStrawman3 == null) {
-            BitmapTextureAtlas shurikenStrawman3T = new BitmapTextureAtlas(textureManager, 1068, 1635,
+            BitmapTextureAtlas shurikenStrawman3T = new BitmapTextureAtlas(this.textureManager, 1068, 1635,
                     mTransparentTextureOption);
             shurikenStrawman3 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    shurikenStrawman3T, activity, "shuriken_strawman_3.png", 0, 0);
+                    shurikenStrawman3T, this.activity, "shuriken_strawman_3.png", 0, 0);
             shurikenStrawman3T.load();
         }
 
         if (shurikenEffectHit == null) {
             BuildableBitmapTextureAtlas shurikenEffectHitBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 140, 200, mTransparentTextureOption);
+                    this.textureManager, 140, 200, mTransparentTextureOption);
             shurikenEffectHit = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    shurikenEffectHitBit, context, "shuriken_effect_hit.png", 2, 1);
+                    shurikenEffectHitBit, this.context, "shuriken_effect_hit.png", 2, 1);
             try {
                 shurikenEffectHitBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1649,9 +1649,9 @@ public class ResourceManager {
         if (splashLogo == null){
             BuildableBitmapTextureAtlas mBuildableBitmapTextureAtlas;
             mBuildableBitmapTextureAtlas = new BuildableBitmapTextureAtlas(
-                    textureManager, 1024, 1024, TextureOptions.NEAREST);
+                    this.textureManager, 1024, 1024, TextureOptions.NEAREST);
             splashLogo = SVGBitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    mBuildableBitmapTextureAtlas, context, "splash_logo_madgear.svg", 800, 800);
+                    mBuildableBitmapTextureAtlas, this.context, "splash_logo_madgear.svg", 800, 800);
             try {
                     mBuildableBitmapTextureAtlas.build(
                             new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
@@ -1680,66 +1680,66 @@ public class ResourceManager {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/intro_1/");
 
         if (intro1Gradient == null) {
-            BitmapTextureAtlas intro1GradientT = new BitmapTextureAtlas(textureManager, 1900, 1651,
+            BitmapTextureAtlas intro1GradientT = new BitmapTextureAtlas(this.textureManager, 1900, 1651,
                     mTransparentTextureOption);
             intro1Gradient = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro1GradientT, activity, "intro1_gradient.jpg", 0, 0);
+                    intro1GradientT, this.activity, "intro1_gradient.jpg", 0, 0);
             intro1GradientT.load();
         }
         if (intro1Logo == null) {
-            BitmapTextureAtlas intro1LogoT = new BitmapTextureAtlas(textureManager, 756, 495,
+            BitmapTextureAtlas intro1LogoT = new BitmapTextureAtlas(this.textureManager, 756, 495,
                     mTransparentTextureOption);
             intro1Logo = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro1LogoT, activity, "intro1_logo.png", 0, 0);
+                    intro1LogoT, this.activity, "intro1_logo.png", 0, 0);
             intro1LogoT.load();
         }
         if (intro1Ryoko == null) {
-            BitmapTextureAtlas intro1RyokoT = new BitmapTextureAtlas(textureManager, 706, 1563,
+            BitmapTextureAtlas intro1RyokoT = new BitmapTextureAtlas(this.textureManager, 706, 1563,
                     mTransparentTextureOption);
             intro1Ryoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro1RyokoT, activity, "intro1_ryoko.png", 0, 0);
+                    intro1RyokoT, this.activity, "intro1_ryoko.png", 0, 0);
             intro1RyokoT.load();
         }
         if (intro1Shapes == null) {
-            BitmapTextureAtlas intro1ShapesT = new BitmapTextureAtlas(textureManager, 1900, 1651,
+            BitmapTextureAtlas intro1ShapesT = new BitmapTextureAtlas(this.textureManager, 1900, 1651,
                     mTransparentTextureOption);
             intro1Shapes = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro1ShapesT, activity, "intro1_shapes.png", 0, 0);
+                    intro1ShapesT, this.activity, "intro1_shapes.png", 0, 0);
             intro1ShapesT.load();
         }
         if (intro1Sho == null) {
-            BitmapTextureAtlas intro1ShoT = new BitmapTextureAtlas(textureManager, 981, 1734,
+            BitmapTextureAtlas intro1ShoT = new BitmapTextureAtlas(this.textureManager, 981, 1734,
                     mTransparentTextureOption);
             intro1Sho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro1ShoT, activity, "intro1_sho.png", 0, 0);
+                    intro1ShoT, this.activity, "intro1_sho.png", 0, 0);
             intro1ShoT.load();
         }
         if (intro1TrialCut == null) {
-            BitmapTextureAtlas intro1TrialCutT = new BitmapTextureAtlas(textureManager, 1260, 641,
+            BitmapTextureAtlas intro1TrialCutT = new BitmapTextureAtlas(this.textureManager, 1260, 641,
                     mTransparentTextureOption);
             intro1TrialCut = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro1TrialCutT, activity, "intro1_trial_cut.jpg", 0, 0);
+                    intro1TrialCutT, this.activity, "intro1_trial_cut.jpg", 0, 0);
             intro1TrialCutT.load();
         }
         if (intro1TrialJump == null) {
-            BitmapTextureAtlas intro1TrialJumpT = new BitmapTextureAtlas(textureManager, 1240, 637,
+            BitmapTextureAtlas intro1TrialJumpT = new BitmapTextureAtlas(this.textureManager, 1240, 637,
                     mTransparentTextureOption);
             intro1TrialJump = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro1TrialJumpT, activity, "intro1_trial_jump.jpg", 0, 0);
+                    intro1TrialJumpT, this.activity, "intro1_trial_jump.jpg", 0, 0);
             intro1TrialJumpT.load();
         }
         if (intro1TrialRun == null) {
-            BitmapTextureAtlas intro1TrialRunT = new BitmapTextureAtlas(textureManager, 1258, 643,
+            BitmapTextureAtlas intro1TrialRunT = new BitmapTextureAtlas(this.textureManager, 1258, 643,
                     mTransparentTextureOption);
             intro1TrialRun = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro1TrialRunT, activity, "intro1_trial_run.jpg", 0, 0);
+                    intro1TrialRunT, this.activity, "intro1_trial_run.jpg", 0, 0);
             intro1TrialRunT.load();
         }
         if (intro1TrialShuriken == null) {
-            BitmapTextureAtlas intro1TrialThrowT = new BitmapTextureAtlas(textureManager, 1242, 643,
+            BitmapTextureAtlas intro1TrialThrowT = new BitmapTextureAtlas(this.textureManager, 1242, 643,
                     mTransparentTextureOption);
             intro1TrialShuriken = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro1TrialThrowT, activity, "intro1_trial_shuriken.jpg", 0, 0);
+                    intro1TrialThrowT, this.activity, "intro1_trial_shuriken.jpg", 0, 0);
             intro1TrialThrowT.load();
         }
         // SVG images
@@ -1747,9 +1747,9 @@ public class ResourceManager {
         if (intro1WordmaskNinja == null){
             BuildableBitmapTextureAtlas mBuildableBitmapTextureAtlas;
             mBuildableBitmapTextureAtlas = new BuildableBitmapTextureAtlas(
-                    textureManager, 1900, 1080, TextureOptions.NEAREST);
+                    this.textureManager, 1900, 1080, TextureOptions.NEAREST);
             intro1WordmaskNinja = SVGBitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    mBuildableBitmapTextureAtlas, context, "intro1_wordmask_ninja.svg", 1800, 1080);
+                    mBuildableBitmapTextureAtlas, this.context, "intro1_wordmask_ninja.svg", 1800, 1080);
             try {
                     mBuildableBitmapTextureAtlas.build(
                             new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
@@ -1763,9 +1763,9 @@ public class ResourceManager {
         if (intro1WordmaskTrials == null){
             BuildableBitmapTextureAtlas mBuildableBitmapTextureAtlas;
             mBuildableBitmapTextureAtlas = new BuildableBitmapTextureAtlas(
-                    textureManager, 1400, 1024, TextureOptions.NEAREST);
+                    this.textureManager, 1400, 1024, TextureOptions.NEAREST);
             intro1WordmaskTrials = SVGBitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    mBuildableBitmapTextureAtlas, context, "intro1_wordmask_trials.svg", 1400, 800);
+                    mBuildableBitmapTextureAtlas, this.context, "intro1_wordmask_trials.svg", 1400, 800);
             try {
                     mBuildableBitmapTextureAtlas.build(
                             new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
@@ -1830,18 +1830,18 @@ public class ResourceManager {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/intro_2/");
 
         if (intro2CommonBg == null) {
-            BitmapTextureAtlas intro2CommonBgT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas intro2CommonBgT = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             intro2CommonBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro2CommonBgT, activity, "intro2_common_bg.png", 0, 0);
+                    intro2CommonBgT, this.activity, "intro2_common_bg.png", 0, 0);
             intro2CommonBgT.load();
         }
 
         if (intro2CommonMaster == null) {
             BuildableBitmapTextureAtlas intro2CommonMasterBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 698, 374, mTransparentTextureOption);
+                    this.textureManager, 698, 374, mTransparentTextureOption);
             intro2CommonMaster = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    intro2CommonMasterBit, context, "intro2_common_master.png", 2, 1);
+                    intro2CommonMasterBit, this.context, "intro2_common_master.png", 2, 1);
             try {
                 intro2CommonMasterBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1852,18 +1852,18 @@ public class ResourceManager {
             intro2CommonMasterBit.load();
         }
         if (intro2CommonMasterTextBalloon == null) {
-            BitmapTextureAtlas intro2CommonMasterTextBalloonT = new BitmapTextureAtlas(textureManager, 502, 236,
+            BitmapTextureAtlas intro2CommonMasterTextBalloonT = new BitmapTextureAtlas(this.textureManager, 502, 236,
                     mTransparentTextureOption);
             intro2CommonMasterTextBalloon = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro2CommonMasterTextBalloonT, activity, "intro2_common_master_text_balloon.png", 0, 0);
+                    intro2CommonMasterTextBalloonT, this.activity, "intro2_common_master_text_balloon.png", 0, 0);
             intro2CommonMasterTextBalloonT.load();
         }
 
         if (intro2CommonRyoko == null) {
             BuildableBitmapTextureAtlas intro2CommonRyokoBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 586, 764, mTransparentTextureOption);
+                    this.textureManager, 586, 764, mTransparentTextureOption);
             intro2CommonRyoko = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    intro2CommonRyokoBit, context, "intro2_common_ryoko.png", 1, 2);
+                    intro2CommonRyokoBit, this.context, "intro2_common_ryoko.png", 1, 2);
             try {
                 intro2CommonRyokoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1874,18 +1874,18 @@ public class ResourceManager {
             intro2CommonRyokoBit.load();
         }
         if (intro2CommonRyokoTextBalloon == null) {
-            BitmapTextureAtlas intro2CommonRyokoTextBalloonT = new BitmapTextureAtlas(textureManager, 598, 436,
+            BitmapTextureAtlas intro2CommonRyokoTextBalloonT = new BitmapTextureAtlas(this.textureManager, 598, 436,
                     mTransparentTextureOption);
             intro2CommonRyokoTextBalloon = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro2CommonRyokoTextBalloonT, activity, "intro2_common_ryoko_text_balloon.png", 0, 0);
+                    intro2CommonRyokoTextBalloonT, this.activity, "intro2_common_ryoko_text_balloon.png", 0, 0);
             intro2CommonRyokoTextBalloonT.load();
         }
 
         if (intro2CommonSho == null) {
             BuildableBitmapTextureAtlas intro2CommonShoBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 586, 764, mTransparentTextureOption);
+                    this.textureManager, 586, 764, mTransparentTextureOption);
             intro2CommonSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    intro2CommonShoBit, context, "intro2_common_sho.png", 1, 2);
+                    intro2CommonShoBit, this.context, "intro2_common_sho.png", 1, 2);
             try {
                 intro2CommonShoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -1896,52 +1896,52 @@ public class ResourceManager {
             intro2CommonShoBit.load();
         }
         if (intro2CommonShoTextBalloon == null) {
-            BitmapTextureAtlas intro2CommonShoTextBalloonT = new BitmapTextureAtlas(textureManager, 598, 436,
+            BitmapTextureAtlas intro2CommonShoTextBalloonT = new BitmapTextureAtlas(this.textureManager, 598, 436,
                     mTransparentTextureOption);
             intro2CommonShoTextBalloon = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro2CommonShoTextBalloonT, activity, "intro2_common_sho_text_balloon.png", 0, 0);
+                    intro2CommonShoTextBalloonT, this.activity, "intro2_common_sho_text_balloon.png", 0, 0);
             intro2CommonShoTextBalloonT.load();
         }
         if (intro2RyokoBalloonText == null) {
-            BitmapTextureAtlas intro2RyokoBalloonTextT = new BitmapTextureAtlas(textureManager, 987, 505,
+            BitmapTextureAtlas intro2RyokoBalloonTextT = new BitmapTextureAtlas(this.textureManager, 987, 505,
                     mTransparentTextureOption);
             intro2RyokoBalloonText = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro2RyokoBalloonTextT, activity, "intro2_ryoko_balloon_text.png", 0, 0);
+                    intro2RyokoBalloonTextT, this.activity, "intro2_ryoko_balloon_text.png", 0, 0);
             intro2RyokoBalloonTextT.load();
         }
         if (intro2RyokoBg == null) {
-            BitmapTextureAtlas intro2RyokoBgT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas intro2RyokoBgT = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             intro2RyokoBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro2RyokoBgT, activity, "intro2_ryoko_bg.png", 0, 0);
+                    intro2RyokoBgT, this.activity, "intro2_ryoko_bg.png", 0, 0);
             intro2RyokoBgT.load();
         }
         if (intro2Ryoko == null) {
-            BitmapTextureAtlas intro2RyokoT = new BitmapTextureAtlas(textureManager, 633, 989,
+            BitmapTextureAtlas intro2RyokoT = new BitmapTextureAtlas(this.textureManager, 633, 989,
                     mTransparentTextureOption);
             intro2Ryoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro2RyokoT, activity, "intro2_ryoko.png", 0, 0);
+                    intro2RyokoT, this.activity, "intro2_ryoko.png", 0, 0);
             intro2RyokoT.load();
         }
         if (intro2ShoBalloonText == null) {
-            BitmapTextureAtlas intro2ShoBalloonTextT = new BitmapTextureAtlas(textureManager, 987, 505,
+            BitmapTextureAtlas intro2ShoBalloonTextT = new BitmapTextureAtlas(this.textureManager, 987, 505,
                     mTransparentTextureOption);
             intro2ShoBalloonText = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro2ShoBalloonTextT, activity, "intro2_sho_balloon_text.png", 0, 0);
+                    intro2ShoBalloonTextT, this.activity, "intro2_sho_balloon_text.png", 0, 0);
             intro2ShoBalloonTextT.load();
         }
         if (intro2ShoBg == null) {
-            BitmapTextureAtlas intro2ShoBgT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas intro2ShoBgT = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             intro2ShoBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro2ShoBgT, activity, "intro2_sho_bg.png", 0, 0);
+                    intro2ShoBgT, this.activity, "intro2_sho_bg.png", 0, 0);
             intro2ShoBgT.load();
         }
         if (intro2Sho == null) {
-            BitmapTextureAtlas intro2ShoT = new BitmapTextureAtlas(textureManager, 813, 1049,
+            BitmapTextureAtlas intro2ShoT = new BitmapTextureAtlas(this.textureManager, 813, 1049,
                     mTransparentTextureOption);
             intro2Sho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    intro2ShoT, activity, "intro2_sho.png", 0, 0);
+                    intro2ShoT, this.activity, "intro2_sho.png", 0, 0);
             intro2ShoT.load();
         }
     }
@@ -2008,17 +2008,17 @@ public class ResourceManager {
     public synchronized void loadEndingResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/endings/");
         if (endingCreditsBackground == null) {
-            BitmapTextureAtlas endingCreditsBackgroundT = new BitmapTextureAtlas(textureManager,
+            BitmapTextureAtlas endingCreditsBackgroundT = new BitmapTextureAtlas(this.textureManager,
                     1920, 1080, mTransparentTextureOption);
             endingCreditsBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    endingCreditsBackgroundT, activity, "ending_credits_background.png", 0, 0);
+                    endingCreditsBackgroundT, this.activity, "ending_credits_background.png", 0, 0);
             endingCreditsBackgroundT.load();
         }
         if (endingCreditsCategories == null) {
             BuildableBitmapTextureAtlas endingCredCategBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 1200, 1020, mTransparentTextureOption);
+                    this.textureManager, 1200, 1020, mTransparentTextureOption);
             endingCreditsCategories = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    endingCredCategBit, context, "ending_credits_categories.png", 3, 3);
+                    endingCredCategBit, this.context, "ending_credits_categories.png", 3, 3);
             try {
                 endingCredCategBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -2029,45 +2029,45 @@ public class ResourceManager {
             endingCredCategBit.load();
         }
         if (endingCreditsLogoAndengine == null) {
-            BitmapTextureAtlas endingCreditsLogoAndengineT = new BitmapTextureAtlas(textureManager, 389, 389,
+            BitmapTextureAtlas endingCreditsLogoAndengineT = new BitmapTextureAtlas(this.textureManager, 389, 389,
                     mTransparentTextureOption);
             endingCreditsLogoAndengine = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    endingCreditsLogoAndengineT, activity, "ending_credits_logo_andengine.png", 0, 0);
+                    endingCreditsLogoAndengineT, this.activity, "ending_credits_logo_andengine.png", 0, 0);
             endingCreditsLogoAndengineT.load();
         }
         if (endingCreditsLogoEstudioevergreen == null) {
-            BitmapTextureAtlas endingCreditsLogoEstudioevergreenT = new BitmapTextureAtlas(textureManager, 389, 389,
+            BitmapTextureAtlas endingCreditsLogoEstudioevergreenT = new BitmapTextureAtlas(this.textureManager, 389, 389,
                     mTransparentTextureOption);
             endingCreditsLogoEstudioevergreen = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    endingCreditsLogoEstudioevergreenT, activity, "ending_credits_logo_estudioevergreen.png", 0, 0);
+                    endingCreditsLogoEstudioevergreenT, this.activity, "ending_credits_logo_estudioevergreen.png", 0, 0);
             endingCreditsLogoEstudioevergreenT.load();
         }
         if (endingRyokoEasyBg == null) {
-            BitmapTextureAtlas endingRyokoEasyBgT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas endingRyokoEasyBgT = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             endingRyokoEasyBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    endingRyokoEasyBgT, activity, "ending_ryoko_easy_bg.png", 0, 0);
+                    endingRyokoEasyBgT, this.activity, "ending_ryoko_easy_bg.png", 0, 0);
             endingRyokoEasyBgT.load();
         }
         if (endingRyokoEasy == null) {
-            BitmapTextureAtlas endingRyokoEasyT = new BitmapTextureAtlas(textureManager, 633, 989,
+            BitmapTextureAtlas endingRyokoEasyT = new BitmapTextureAtlas(this.textureManager, 633, 989,
                     mTransparentTextureOption);
             endingRyokoEasy = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    endingRyokoEasyT, activity, "ending_ryoko_easy.png", 0, 0);
+                    endingRyokoEasyT, this.activity, "ending_ryoko_easy.png", 0, 0);
             endingRyokoEasyT.load();
         }
         if (endingShoEasyBg == null) {
-            BitmapTextureAtlas endingShoEasyBgT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas endingShoEasyBgT = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             endingShoEasyBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    endingShoEasyBgT, activity, "ending_sho_easy_bg.png", 0, 0);
+                    endingShoEasyBgT, this.activity, "ending_sho_easy_bg.png", 0, 0);
             endingShoEasyBgT.load();
         }
         if (endingShoEasy == null) {
-            BitmapTextureAtlas endingShoEasyT = new BitmapTextureAtlas(textureManager, 813, 1049,
+            BitmapTextureAtlas endingShoEasyT = new BitmapTextureAtlas(this.textureManager, 813, 1049,
                     mTransparentTextureOption);
             endingShoEasy = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    endingShoEasyT, activity, "ending_sho_easy.png", 0, 0);
+                    endingShoEasyT, this.activity, "ending_sho_easy.png", 0, 0);
             endingShoEasyT.load();
         }
     }
@@ -2112,26 +2112,26 @@ public class ResourceManager {
     public synchronized void loadHowToPlayResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
         if (howToPlayArrow == null) {
-            BitmapTextureAtlas howToPlayArrowT = new BitmapTextureAtlas(textureManager, 149, 203,
+            BitmapTextureAtlas howToPlayArrowT = new BitmapTextureAtlas(this.textureManager, 149, 203,
                     mTransparentTextureOption);
             howToPlayArrow = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    howToPlayArrowT, activity, "how_to_play_arrow.png", 0, 0);
+                    howToPlayArrowT, this.activity, "how_to_play_arrow.png", 0, 0);
             howToPlayArrowT.load();
         }
 
         if (howToPlayButton == null) {
-            BitmapTextureAtlas howToPlayButtonT = new BitmapTextureAtlas(textureManager, 182, 254,
+            BitmapTextureAtlas howToPlayButtonT = new BitmapTextureAtlas(this.textureManager, 182, 254,
                     mTransparentTextureOption);
             howToPlayButton = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    howToPlayButtonT, activity, "how_to_play_button.png", 0, 0);
+                    howToPlayButtonT, this.activity, "how_to_play_button.png", 0, 0);
             howToPlayButtonT.load();
         }
 
         if (howToPlayDigitalPad == null) {
-            BitmapTextureAtlas howToPlayDigitalPadT = new BitmapTextureAtlas(textureManager, 471, 334,
+            BitmapTextureAtlas howToPlayDigitalPadT = new BitmapTextureAtlas(this.textureManager, 471, 334,
                     mTransparentTextureOption);
             howToPlayDigitalPad = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    howToPlayDigitalPadT, activity, "how_to_play_digital_pad.png", 0, 0);
+                    howToPlayDigitalPadT, this.activity, "how_to_play_digital_pad.png", 0, 0);
             howToPlayDigitalPadT.load();
         }
     }
@@ -2156,34 +2156,34 @@ public class ResourceManager {
     public synchronized void loadCharacterProfileResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
         if (characterProfileBackground1 == null) {
-            BitmapTextureAtlas characterProfileBackground1T = new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas characterProfileBackground1T = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             characterProfileBackground1 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    characterProfileBackground1T, activity, "character_profile_background_1.png", 0, 0);
+                    characterProfileBackground1T, this.activity, "character_profile_background_1.png", 0, 0);
             characterProfileBackground1T.load();
         }
 
         if (characterProfileBackground2 == null) {
-            BitmapTextureAtlas characterProfileBackground2T = new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas characterProfileBackground2T = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             characterProfileBackground2 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    characterProfileBackground2T, activity, "character_profile_background_2.png", 0, 0);
+                    characterProfileBackground2T, this.activity, "character_profile_background_2.png", 0, 0);
             characterProfileBackground2T.load();
         }
 
         if (characterProfileRyoko == null) {
-            BitmapTextureAtlas characterProfileRyokoT = new BitmapTextureAtlas(textureManager, 706, 1563,
+            BitmapTextureAtlas characterProfileRyokoT = new BitmapTextureAtlas(this.textureManager, 706, 1563,
                     mTransparentTextureOption);
             characterProfileRyoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    characterProfileRyokoT, activity, "character_profile_ryoko.png", 0, 0);
+                    characterProfileRyokoT, this.activity, "character_profile_ryoko.png", 0, 0);
             characterProfileRyokoT.load();
         }
 
         if (characterProfileSho == null) {
-            BitmapTextureAtlas characterProfileShoT = new BitmapTextureAtlas(textureManager, 981, 1734,
+            BitmapTextureAtlas characterProfileShoT = new BitmapTextureAtlas(this.textureManager, 981, 1734,
                     mTransparentTextureOption);
             characterProfileSho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    characterProfileShoT, activity, "character_profile_sho.png", 0, 0);
+                    characterProfileShoT, this.activity, "character_profile_sho.png", 0, 0);
             characterProfileShoT.load();
         }
     }
@@ -2214,27 +2214,27 @@ public class ResourceManager {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
 
         if (menuAchievementsContainerDescription == null) {
-            BitmapTextureAtlas menuAchievementsContainerDescriptionT = new BitmapTextureAtlas(textureManager, 438, 285,
+            BitmapTextureAtlas menuAchievementsContainerDescriptionT = new BitmapTextureAtlas(this.textureManager, 438, 285,
                     mTransparentTextureOption);
             menuAchievementsContainerDescription = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuAchievementsContainerDescriptionT, activity, "menu_achievements_container_description.png", 0, 0);
+                    menuAchievementsContainerDescriptionT, this.activity, "menu_achievements_container_description.png", 0, 0);
             menuAchievementsContainerDescriptionT.load();
         }
 
         if (menuAchievementsContainerIcons == null) {
-            BitmapTextureAtlas menuAchievementsContainerIconsT = new BitmapTextureAtlas(textureManager, 1063, 820,
+            BitmapTextureAtlas menuAchievementsContainerIconsT = new BitmapTextureAtlas(this.textureManager, 1063, 820,
                     mTransparentTextureOption);
             menuAchievementsContainerIcons = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuAchievementsContainerIconsT, activity, "menu_achievements_container_icons.png", 0, 0);
+                    menuAchievementsContainerIconsT, this.activity, "menu_achievements_container_icons.png", 0, 0);
             menuAchievementsContainerIconsT.load();
         }
 
         // Icons Big
         if(menuAchievementsIconsBig == null) {
             BuildableBitmapTextureAtlas menuAchievementsIconsBigT = new BuildableBitmapTextureAtlas(
-                    textureManager, 1140, 1140, mTransparentTextureOption);
+                    this.textureManager, 1140, 1140, mTransparentTextureOption);
             menuAchievementsIconsBig = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    menuAchievementsIconsBigT, context, "menu_achievements_icons_big.png", 6, 6);
+                    menuAchievementsIconsBigT, this.context, "menu_achievements_icons_big.png", 6, 6);
             try {
                 menuAchievementsIconsBigT.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -2244,11 +2244,11 @@ public class ResourceManager {
 
         // Icons Small
         if (menuAchievementsIconsSmall == null) {
-        BitmapTextureAtlas menuAchievementsIconsSmallT = new BitmapTextureAtlas(textureManager,
+        BitmapTextureAtlas menuAchievementsIconsSmallT = new BitmapTextureAtlas(this.textureManager,
                 952, 1360, mTransparentTextureOption);
 
         ITextureRegion menuAchievementsIconsSmall = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                menuAchievementsIconsSmallT, activity, "menu_achievements_icons_small.png", 0, 0);
+                menuAchievementsIconsSmallT, this.activity, "menu_achievements_icons_small.png", 0, 0);
         menuAchievementsIconsSmallT.load();
 
         // Fill TiledSprites matrix :)
@@ -2267,18 +2267,26 @@ public class ResourceManager {
 
         // Selection Mark:
         if(menuAchievementsSelectionMark == null) {
-            BitmapTextureAtlas menuAchievementsSelectionMarkT = new BitmapTextureAtlas(textureManager, 136, 136,
+            BitmapTextureAtlas menuAchievementsSelectionMarkT = new BitmapTextureAtlas(this.textureManager, 136, 136,
                     mTransparentTextureOption);
             menuAchievementsSelectionMark = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuAchievementsSelectionMarkT, activity, "menu_achievements_icons_small_selection_mark.png", 0, 0);
+                    menuAchievementsSelectionMarkT, this.activity, "menu_achievements_icons_small_selection_mark.png", 0, 0);
             menuAchievementsSelectionMarkT.load();
         }
-        
+
+        if (menuAchievementsIngameContainer == null) {
+            BitmapTextureAtlas menuAchievementsIngameContainerT = new BitmapTextureAtlas(this.textureManager, 806, 192,
+                    mTransparentTextureOption);
+            menuAchievementsIngameContainer = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+                    menuAchievementsIngameContainerT, this.activity, "menu_achievements_ingame_container.png", 0, 0);
+            menuAchievementsIngameContainerT.load();
+        }
+
         if (menuAchievementsSuccessStamp == null) {
-            BitmapTextureAtlas menuAchievementsSuccessStampT = new BitmapTextureAtlas(textureManager, 260, 260,
+            BitmapTextureAtlas menuAchievementsSuccessStampT = new BitmapTextureAtlas(this.textureManager, 260, 260,
                     mTransparentTextureOption);
             menuAchievementsSuccessStamp = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuAchievementsSuccessStampT, activity, "menu_achievements_success_stamp.png", 0, 0);
+                    menuAchievementsSuccessStampT, this.activity, "menu_achievements_success_stamp.png", 0, 0);
             menuAchievementsSuccessStampT.load();
         }
     }
@@ -2315,10 +2323,10 @@ public class ResourceManager {
     public synchronized void loadRecordsResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/results/");
 
-        BitmapTextureAtlas recordHeadsT = new BitmapTextureAtlas(textureManager, 100, 100,
+        BitmapTextureAtlas recordHeadsT = new BitmapTextureAtlas(this.textureManager, 100, 100,
                 mTransparentTextureOption);
         BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                recordHeadsT, activity, "results_records_winner_faces.png", 0, 0);
+                recordHeadsT, this.activity, "results_records_winner_faces.png", 0, 0);
         recordHeadsT.load();
 
         menuRecordsRyokoHead = TextureRegionFactory.
@@ -2359,9 +2367,9 @@ public class ResourceManager {
 
         if (menuMapBackgroundMarks == null) {
             BuildableBitmapTextureAtlas menuMapBackgroundMarksBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 94, 152, mTransparentTextureOption);
+                    this.textureManager, 94, 152, mTransparentTextureOption);
             menuMapBackgroundMarks = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    menuMapBackgroundMarksBit, context, "menu_map_background_marks.png", 1, 4);
+                    menuMapBackgroundMarksBit, this.context, "menu_map_background_marks.png", 1, 4);
             try {
                 menuMapBackgroundMarksBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -2373,19 +2381,19 @@ public class ResourceManager {
         }
 
         if (menuMapBackground == null) {
-            BitmapTextureAtlas menuMapBackgroundT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas menuMapBackgroundT = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             menuMapBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuMapBackgroundT, activity, "menu_map_background.png", 0, 0);
+                    menuMapBackgroundT, this.activity, "menu_map_background.png", 0, 0);
             menuMapBackgroundT.load();
         }
 
 
         if (menuMapChRyoko == null) {
             BuildableBitmapTextureAtlas menuMapChRyokoBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 192, 330, mTransparentTextureOption);
+                    this.textureManager, 192, 330, mTransparentTextureOption);
             menuMapChRyoko = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    menuMapChRyokoBit, context, "menu_map_ch_ryoko.png", 2, 2);
+                    menuMapChRyokoBit, this.context, "menu_map_ch_ryoko.png", 2, 2);
             try {
                 menuMapChRyokoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -2399,9 +2407,9 @@ public class ResourceManager {
 
         if (menuMapChSho == null) {
             BuildableBitmapTextureAtlas menuMapChShoBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 192, 330, mTransparentTextureOption);
+                    this.textureManager, 192, 330, mTransparentTextureOption);
             menuMapChSho = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    menuMapChShoBit, context, "menu_map_ch_sho.png", 2, 2);
+                    menuMapChShoBit, this.context, "menu_map_ch_sho.png", 2, 2);
             try {
                 menuMapChShoBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -2415,9 +2423,9 @@ public class ResourceManager {
 
         if (menuMapDrawings == null) {
             BuildableBitmapTextureAtlas menuMapDrawingsBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 1106, 962, mTransparentTextureOption);
+                    this.textureManager, 1106, 962, mTransparentTextureOption);
             menuMapDrawings = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    menuMapDrawingsBit, context, "menu_map_drawings.png", 2, 2);
+                    menuMapDrawingsBit, this.context, "menu_map_drawings.png", 2, 2);
             try {
                 menuMapDrawingsBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -2430,9 +2438,9 @@ public class ResourceManager {
 
         if (menuMapScroll == null) {
             BuildableBitmapTextureAtlas menuMapScrollBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 1568, 1632, mTransparentTextureOption);
+                    this.textureManager, 1568, 1632, mTransparentTextureOption);
             menuMapScroll = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    menuMapScrollBit, context, "menu_map_scroll.png", 2, 2);
+                    menuMapScrollBit, this.context, "menu_map_scroll.png", 2, 2);
             try {
                 menuMapScrollBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -2479,10 +2487,10 @@ public class ResourceManager {
     public synchronized void loadMenuPauseResources() {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menus/");
         if (menuPauseBambooFrame == null) {
-            BitmapTextureAtlas menuPauseBambooFrameT = new BitmapTextureAtlas(textureManager, 1192, 717,
+            BitmapTextureAtlas menuPauseBambooFrameT = new BitmapTextureAtlas(this.textureManager, 1192, 717,
                     mTransparentTextureOption);
             menuPauseBambooFrame = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuPauseBambooFrameT, activity, "menu_pause_bamboo_frame.png", 0, 0);
+                    menuPauseBambooFrameT, this.activity, "menu_pause_bamboo_frame.png", 0, 0);
             menuPauseBambooFrameT.load();
         }
     }
@@ -2499,9 +2507,9 @@ public class ResourceManager {
 
         // Ryoko:
         BitmapTextureAtlas menuSelectChRyokoBit =
-                new BitmapTextureAtlas(textureManager, 870, 1028, mTransparentTextureOption);
+                new BitmapTextureAtlas(this.textureManager, 870, 1028, mTransparentTextureOption);
         BitmapTextureAtlasTextureRegionFactory.
-                createFromAsset(menuSelectChRyokoBit, activity, "menu_select_ch_ryoko.png", 0, 0);
+                createFromAsset(menuSelectChRyokoBit, this.activity, "menu_select_ch_ryoko.png", 0, 0);
         menuSelectChRyokoBit.load();
         menuSelectChRyoko =
             TextureRegionFactory.extractFromTexture(menuSelectChRyokoBit, 0, 0, 435, 1028, false);
@@ -2510,9 +2518,9 @@ public class ResourceManager {
 
         // Sho:
         BitmapTextureAtlas menuSelectChShoBit =
-                new BitmapTextureAtlas(textureManager, 1310, 1120, mTransparentTextureOption);
+                new BitmapTextureAtlas(this.textureManager, 1310, 1120, mTransparentTextureOption);
         BitmapTextureAtlasTextureRegionFactory.
-                createFromAsset(menuSelectChShoBit, activity, "menu_select_ch_sho.png", 0, 0);
+                createFromAsset(menuSelectChShoBit, this.activity, "menu_select_ch_sho.png", 0, 0);
         menuSelectChShoBit.load();
         menuSelectChSho =
             TextureRegionFactory.extractFromTexture(menuSelectChShoBit, 0, 0, 655, 1028, false);
@@ -2521,9 +2529,9 @@ public class ResourceManager {
 
         // Clouds:
         BitmapTextureAtlas menuSelectCloudsBit =
-                new BitmapTextureAtlas(textureManager, 1422, 537, mTransparentTextureOption);
+                new BitmapTextureAtlas(this.textureManager, 1422, 537, mTransparentTextureOption);
         BitmapTextureAtlasTextureRegionFactory.
-                createFromAsset(menuSelectCloudsBit, activity, "menu_select_clouds.png", 0, 0);
+                createFromAsset(menuSelectCloudsBit, this.activity, "menu_select_clouds.png", 0, 0);
         menuSelectCloudsBit.load();
         menuSelectClouds1 =
             TextureRegionFactory.extractFromTexture(menuSelectCloudsBit, 0, 0, 711, 537, false);
@@ -2570,31 +2578,31 @@ public class ResourceManager {
         */
 
         if (menuSelectDifficulty == null) {
-            BitmapTextureAtlas menuSelectDifficultyT = new BitmapTextureAtlas(textureManager, 1649, 633,
+            BitmapTextureAtlas menuSelectDifficultyT = new BitmapTextureAtlas(this.textureManager, 1649, 633,
                     mTransparentTextureOption);
             menuSelectDifficulty = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuSelectDifficultyT, activity, "menu_select_difficulty.png", 0, 0);
+                    menuSelectDifficultyT, this.activity, "menu_select_difficulty.png", 0, 0);
             menuSelectDifficultyT.load();
         }
         if (menuSelectMoon == null) {
-            BitmapTextureAtlas menuSelectMoonT = new BitmapTextureAtlas(textureManager, 940, 905,
+            BitmapTextureAtlas menuSelectMoonT = new BitmapTextureAtlas(this.textureManager, 940, 905,
                     mTransparentTextureOption);
             menuSelectMoon = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuSelectMoonT, activity, "menu_select_moon.png", 0, 0);
+                    menuSelectMoonT, this.activity, "menu_select_moon.png", 0, 0);
             menuSelectMoonT.load();
         }
         if (menuSelectRoof == null) {
-            BitmapTextureAtlas menuSelectRoofT = new BitmapTextureAtlas(textureManager, 1585, 385,
+            BitmapTextureAtlas menuSelectRoofT = new BitmapTextureAtlas(this.textureManager, 1585, 385,
                     mTransparentTextureOption);
             menuSelectRoof = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuSelectRoofT, activity, "menu_select_roof.png", 0, 0);
+                    menuSelectRoofT, this.activity, "menu_select_roof.png", 0, 0);
             menuSelectRoofT.load();
         }
         if (menuSelectSky == null) {
-            BitmapTextureAtlas menuSelectSkyT = new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas menuSelectSkyT = new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             menuSelectSky = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    menuSelectSkyT, activity, "menu_select_sky.png", 0, 0);
+                    menuSelectSkyT, this.activity, "menu_select_sky.png", 0, 0);
             menuSelectSkyT.load();
         }
     }
@@ -2655,28 +2663,28 @@ public class ResourceManager {
 
         // Bg:
         if(loseBg==null) {
-            BitmapTextureAtlas loseBgT =  new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas loseBgT =  new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             loseBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    loseBgT, activity, "results_lose_background.png", 0, 0);
+                    loseBgT, this.activity, "results_lose_background.png", 0, 0);
             loseBgT.load();
         }
 
         // Sho:
         if(loseCharSho==null) {
-            BitmapTextureAtlas loseCharShoT =  new BitmapTextureAtlas(textureManager, 797, 440,
+            BitmapTextureAtlas loseCharShoT =  new BitmapTextureAtlas(this.textureManager, 797, 440,
                     mTransparentTextureOption);
             loseCharSho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    loseCharShoT, activity, "results_lose_ch_sho.png", 0, 0);
+                    loseCharShoT, this.activity, "results_lose_ch_sho.png", 0, 0);
             loseCharShoT.load();
         }
 
         // Ryoko:
         if(loseCharRyoko==null) {
-            BitmapTextureAtlas loseCharRyokoT =  new BitmapTextureAtlas(textureManager, 797, 440,
+            BitmapTextureAtlas loseCharRyokoT =  new BitmapTextureAtlas(this.textureManager, 797, 440,
                     mTransparentTextureOption);
             loseCharRyoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    loseCharRyokoT, activity, "results_lose_ch_ryoko.png", 0, 0);
+                    loseCharRyokoT, this.activity, "results_lose_ch_ryoko.png", 0, 0);
             loseCharRyokoT.load();
         }
     }
@@ -2711,46 +2719,46 @@ public class ResourceManager {
 
         // Bg:
         if(winBg==null) {
-            BitmapTextureAtlas winBgT =  new BitmapTextureAtlas(textureManager, 1920, 1080,
+            BitmapTextureAtlas winBgT =  new BitmapTextureAtlas(this.textureManager, 1920, 1080,
                     mTransparentTextureOption);
             winBg = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    winBgT, activity, "results_win_background.png", 0, 0);
+                    winBgT, this.activity, "results_win_background.png", 0, 0);
             winBgT.load();
         }
 
         // Scroll:
         if(winScroll==null) {
-            BitmapTextureAtlas winScrollT =  new BitmapTextureAtlas(textureManager, 1064, 1029,
+            BitmapTextureAtlas winScrollT =  new BitmapTextureAtlas(this.textureManager, 1064, 1029,
                     mTransparentTextureOption);
             winScroll = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    winScrollT, activity, "results_win_scroll.png", 0, 0);
+                    winScrollT, this.activity, "results_win_scroll.png", 0, 0);
             winScrollT.load();
         }
 
         // Sho:
         if(winCharSho==null) {
-            BitmapTextureAtlas winCharShoT =  new BitmapTextureAtlas(textureManager, 437, 799,
+            BitmapTextureAtlas winCharShoT =  new BitmapTextureAtlas(this.textureManager, 437, 799,
                     mTransparentTextureOption);
             winCharSho = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    winCharShoT, activity, "results_win_ch_sho.png", 0, 0);
+                    winCharShoT, this.activity, "results_win_ch_sho.png", 0, 0);
             winCharShoT.load();
         }
 
         // Ryoko:
         if(winCharRyoko==null) {
-            BitmapTextureAtlas winCharRyokoT =  new BitmapTextureAtlas(textureManager, 395, 767,
+            BitmapTextureAtlas winCharRyokoT =  new BitmapTextureAtlas(this.textureManager, 395, 767,
                     mTransparentTextureOption);
             winCharRyoko = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-                    winCharRyokoT, activity, "results_win_ch_ryoko.png", 0, 0);
+                    winCharRyokoT, this.activity, "results_win_ch_ryoko.png", 0, 0);
             winCharRyokoT.load();
         }
 
         // Drawings:
         if (winDrawings == null) {
             BuildableBitmapTextureAtlas winDrawingsBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 1106, 962, mTransparentTextureOption);
+                    this.textureManager, 1106, 962, mTransparentTextureOption);
             winDrawings = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    winDrawingsBit, context, "results_win_drawings.png", 2, 2);
+                    winDrawingsBit, this.context, "results_win_drawings.png", 2, 2);
             try {
                 winDrawingsBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -2764,9 +2772,9 @@ public class ResourceManager {
         // Stamps:
         if (winStampRanking == null) {
             BuildableBitmapTextureAtlas winStampRankingBit = new BuildableBitmapTextureAtlas(
-                    textureManager, 780, 400, mTransparentTextureOption);
+                    this.textureManager, 780, 400, mTransparentTextureOption);
             winStampRanking = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
-                    winStampRankingBit, context, "results_win_stamp_ranking.png", 2, 2);
+                    winStampRankingBit, this.context, "results_win_stamp_ranking.png", 2, 2);
             try {
                 winStampRankingBit.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource,
                         BitmapTextureAtlas>(0, 0, 0));
@@ -2832,31 +2840,31 @@ public class ResourceManager {
         MusicFactory.setAssetBasePath("music/");
         try {
             credits = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "credits.ogg");
+                    this.activity.getMusicManager(), this.context, "credits.ogg");
             ending = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "ending.ogg");
+                    this.activity.getMusicManager(), this.context, "ending.ogg");
             intro1 = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "intro1.ogg");
+                    this.activity.getMusicManager(), this.context, "intro1.ogg");
             intro2 = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "intro2.ogg");
+                    this.activity.getMusicManager(), this.context, "intro2.ogg");
             map = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "map.ogg");
+                    this.activity.getMusicManager(), this.context, "map.ogg");
             records = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "records.ogg");
+                    this.activity.getMusicManager(), this.context, "records.ogg");
             trialJump = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "trial_jump.ogg");
+                    this.activity.getMusicManager(), this.context, "trial_jump.ogg");
             trialCut = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "trial_cut_music.ogg");
+                    this.activity.getMusicManager(), this.context, "trial_cut_music.ogg");
             trialRun = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "trial_run.ogg");
+                    this.activity.getMusicManager(), this.context, "trial_run.ogg");
             trialShurikens = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "trial_shurikens.ogg");
+                    this.activity.getMusicManager(), this.context, "trial_shurikens.ogg");
             loseMusic = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "result_lose.ogg");
+                    this.activity.getMusicManager(), this.context, "result_lose.ogg");
             winMusic = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "result_win.ogg");
+                    this.activity.getMusicManager(), this.context, "result_win.ogg");
             gameOverMusic = MusicFactory.createMusicFromAsset(
-                    activity.getMusicManager(), context, "game_over.ogg");
+                    this.activity.getMusicManager(), this.context, "game_over.ogg");
         }
         catch (final IOException e) {
             Log.v("Sounds Load","Exception:" + e.getMessage());
@@ -2896,201 +2904,201 @@ public class ResourceManager {
         SoundFactory.setAssetBasePath("sounds/");
         try {
             effectEyeGleam = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "effect_eye_gleam.ogg");
+                    this.activity.getSoundManager(), this.context, "effect_eye_gleam.ogg");
             effectMasterHit = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "effect_master_hit.ogg");
+                    this.activity.getSoundManager(), this.context, "effect_master_hit.ogg");
             effectSweatDrop = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "effect_sweat_drop.ogg");
+                    this.activity.getSoundManager(), this.context, "effect_sweat_drop.ogg");
             judge1 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_1.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_1.ogg");
             judge2 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_2.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_2.ogg");
             judge3 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_3.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_3.ogg");
             judge4 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_4.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_4.ogg");
             judge5 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_5.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_5.ogg");
             judge6 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_6.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_6.ogg");
             judge7 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_7.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_7.ogg");
             judge8 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_8.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_8.ogg");
             judge9 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_9.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_9.ogg");
             judgeExcellent = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_excellent.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_excellent.ogg");
             judgeGood = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_good.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_good.ogg");
             judgeGo = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_go.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_go.ogg");
             judgeGreat = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_great.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_great.ogg");
             judgeReady = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_ready.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_ready.ogg");
             menuAchievement = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "menu_achievement.ogg");
+                    this.activity.getSoundManager(), this.context, "menu_achievement.ogg");
             menuActivate = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "menu_activate.ogg");
+                    this.activity.getSoundManager(), this.context, "menu_activate.ogg");
             menuBack = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "menu_back.ogg");
+                    this.activity.getSoundManager(), this.context, "menu_back.ogg");
             menuFocus = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "menu_focus.ogg");
+                    this.activity.getSoundManager(), this.context, "menu_focus.ogg");
             menuIntro1 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "menu_intro1.ogg");
+                    this.activity.getSoundManager(), this.context, "menu_intro1.ogg");
             menuLogoMadgear = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "menu_logo_madgear.ogg");
+                    this.activity.getSoundManager(), this.context, "menu_logo_madgear.ogg");
             menuRank = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "menu_rank.ogg");
+                    this.activity.getSoundManager(), this.context, "menu_rank.ogg");
             ryokoCutCut = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_cut_cut.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_cut_cut.ogg");
             ryokoCutLose = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_cut_lose.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_cut_lose.ogg");
             ryokoCutWin = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_cut_win.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_cut_win.ogg");
             ryokoJumpCharge = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_jump_charge.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_jump_charge.ogg");
             ryokoJumpFall = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_jump_fall.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_jump_fall.ogg");
             ryokoJumpHop = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_jump_hop.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_jump_hop.ogg");
             ryokoJumpLose = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_jump_lose.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_jump_lose.ogg");
             ryokoJumpWin = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_jump_win.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_jump_win.ogg");
             ryokoMenuContinue = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_menu_continue.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_menu_continue.ogg");
             ryokoMenuGameOver = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_menu_game_over.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_menu_game_over.ogg");
             ryokoRunCharge = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_run_charge.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_run_charge.ogg");
             ryokoRunLose = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_run_lose.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_run_lose.ogg");
             ryokoRunStart = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_run_start.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_run_start.ogg");
             ryokoRunWin = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_run_win.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_run_win.ogg");
             ryokoShurikenLose = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_shuriken_lose.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_shuriken_lose.ogg");
             ryokoShurikenThrow = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_shuriken_throw.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_shuriken_throw.ogg");
             ryokoShurikenWin = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "ryoko_shuriken_win.ogg");
+                    this.activity.getSoundManager(), this.context, "ryoko_shuriken_win.ogg");
             shoCutCut = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_cut_cut.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_cut_cut.ogg");
             shoCutLose = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_cut_lose.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_cut_lose.ogg");
             shoCutWin = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_cut_win.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_cut_win.ogg");
             shoJumpCharge = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_jump_charge.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_jump_charge.ogg");
             shoJumpFall = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_jump_fall.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_jump_fall.ogg");
             shoJumpHop = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_jump_hop.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_jump_hop.ogg");
             shoJumpLose = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_jump_lose.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_jump_lose.ogg");
             shoJumpWin = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_jump_win.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_jump_win.ogg");
             shoMenuContinue = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_menu_continue.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_menu_continue.ogg");
             shoMenuGameOver = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_menu_game_over.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_menu_game_over.ogg");
             shoRunCharge = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_run_charge.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_run_charge.ogg");
             shoRunLose = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_run_lose.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_run_lose.ogg");
             shoRunStart = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_run_start.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_run_start.ogg");
             shoRunWin = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_run_win.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_run_win.ogg");
             shoShurikenLose = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_shuriken_lose.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_shuriken_lose.ogg");
             shoShurikenThrow = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_shuriken_throw.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_shuriken_throw.ogg");
             shoShurikenWin = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "sho_shuriken_win.ogg");
+                    this.activity.getSoundManager(), this.context, "sho_shuriken_win.ogg");
             trialCutCandleBlowOut = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_candle_blow_out.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_cut_candle_blow_out.ogg");
             trialCutCandleShowingCut = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_candle_showing_cut.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_cut_candle_showing_cut.ogg");
             trialCutCandleThud = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_candle_thud.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_cut_candle_thud.ogg");
             trialCutCandleWobble = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_candle_wobble.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_cut_candle_wobble.ogg");
             trialCutCandleWoobleThud = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_candle_wooble_thud.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_cut_candle_wooble_thud.ogg");
             trialCutEyesZoomV2 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_eyes_zoom_v2.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_cut_eyes_zoom_v2.ogg");
             trialCutEyesZoom = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_eyes_zoom.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_cut_eyes_zoom.ogg");
             trialCutKatana1 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_katana_cut1.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_cut_katana_cut1.ogg");
             trialCutKatana2 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_katana_cut2.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_cut_katana_cut2.ogg");
             trialCutKatana3 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_katana_cut3.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_cut_katana_cut3.ogg");
             trialCutKatanaWhoosh = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_katana_whoosh1.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_cut_katana_whoosh1.ogg");
             trialCutKatanaWhoosh2 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_katana_whoosh2.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_cut_katana_whoosh2.ogg");
             trialCutKatanaWhoosh3 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_cut_katana_whoosh3.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_cut_katana_whoosh3.ogg");
             trialJumpFall = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_jump_fall.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_jump_fall.ogg");
             trialJumpReach = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_jump_reach.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_jump_reach.ogg");
             trialJumpSlip = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_jump_slip.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_jump_slip.ogg");
             trialJumpTap1 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_jump_tap1.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_jump_tap1.ogg");
             trialJumpTap2 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_jump_tap2.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_jump_tap2.ogg");
             trialJumpThud = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_jump_thud.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_jump_thud.ogg");
             trialJumpWhoosh1 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_jump_whoosh1.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_jump_whoosh1.ogg");
             trialJumpWhoosh2 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_jump_whoosh2.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_jump_whoosh2.ogg");
             trialJumpWhoosh3 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_jump_whoosh3.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_jump_whoosh3.ogg");
             trialJumpWobble = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_jump_wobble.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_jump_wobble.ogg");
             trialRunTap1 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_run_tap1.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_run_tap1.ogg");
             trialRunTap2 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_run_tap2.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_run_tap2.ogg");
             trialRunTap3 = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_run_tap3.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_run_tap3.ogg");
             trialRunWind1Start = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_run_wind_1_start.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_run_wind_1_start.ogg");
             trialRunWind2Running = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_run_wind_2_running.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_run_wind_2_running.ogg");
             trialRunWind3End = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_run_wind_3_end.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_run_wind_3_end.ogg");
             trialShurikenStrawmanAscend = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_shuriken_strawman_ascend.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_shuriken_strawman_ascend.ogg");
             trialShurikenStrawmanDescend = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_shuriken_strawman_descend.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_shuriken_strawman_descend.ogg");
             trialShurikenStrawmanDestroyed = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_shuriken_strawman_destroyed.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_shuriken_strawman_destroyed.ogg");
             trialShurikenStrawmanHit = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_shuriken_strawman_hit.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_shuriken_strawman_hit.ogg");
             trialShurikenStrawmanMove = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_shuriken_strawman_move.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_shuriken_strawman_move.ogg");
             trialShurikenThrowing = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "trial_shuriken_throwing.ogg");
+                    this.activity.getSoundManager(), this.context, "trial_shuriken_throwing.ogg");
             loseYouLose = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_you_lose.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_you_lose.ogg");
             winYouWin = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_you_win.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_you_win.ogg");
             winPointsSum = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "menu_points_sum.ogg");
+                    this.activity.getSoundManager(), this.context, "menu_points_sum.ogg");
             winPointsTotal = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "menu_points_total.ogg");
+                    this.activity.getSoundManager(), this.context, "menu_points_total.ogg");
             gameOver = SoundFactory.createSoundFromAsset(
-                    activity.getSoundManager(), context, "judge_game_over.ogg");
+                    this.activity.getSoundManager(), this.context, "judge_game_over.ogg");
         }
         catch (final IOException e) {
             Log.v("Sounds Load","Exception:" + e.getMessage());
@@ -3299,7 +3307,7 @@ public class ResourceManager {
     /* Loads Android resources from the "res" directory
      */
     public Resources loadAndroidRes(){
-        return context.getResources();
+        return this.context.getResources();
     }
 
     /* Loads fonts resources
@@ -3308,54 +3316,54 @@ public class ResourceManager {
         FontFactory.setAssetBasePath("fonts/");
 
         // Small = 64
-        fontSmall = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
-                pEngine.getTextureManager(), 512, 512, activity.getAssets(), "go3v2.ttf",
+        this.fontSmall = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
+                pEngine.getTextureManager(), 512, 512, this.activity.getAssets(), "go3v2.ttf",
                 64f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
-        fontSmall.load();
+        this.fontSmall.load();
 
         // Medium = 96
-        fontMedium = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
-                pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "go3v2.ttf",
+        this.fontMedium = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
+                pEngine.getTextureManager(), 1024, 1024, this.activity.getAssets(), "go3v2.ttf",
                 96f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
-        fontMedium.load();
+        this.fontMedium.load();
 
         // Big = 128
-        fontBig = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
-                pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "go3v2.ttf",
+        this.fontBig = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
+                pEngine.getTextureManager(), 1024, 1024, this.activity.getAssets(), "go3v2.ttf",
                 128f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
-        fontBig.load();
+        this.fontBig.load();
 
         // XBig = 192
-        fontXBig = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
-                pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "go3v2.ttf",
+        this.fontXBig = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
+                pEngine.getTextureManager(), 1024, 1024, this.activity.getAssets(), "go3v2.ttf",
                 192f, true, android.graphics.Color.WHITE, 3, android.graphics.Color.RED);
-        fontXBig.load();
+        this.fontXBig.load();
 
         // CharacterIntroScene fonts
-        fontLatinChrName = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
-                pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "DejaVuSans.ttf",
+        this.fontLatinChrName = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
+                pEngine.getTextureManager(), 1024, 1024, this.activity.getAssets(), "DejaVuSans.ttf",
                 160f, true, android.graphics.Color.BLACK, 3, android.graphics.Color.WHITE);
-        fontLatinChrName.load();
-        fontJPChrName = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
-                pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "sazanami-gothic.ttf",
+        this.fontLatinChrName.load();
+        this.fontJPChrName = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
+                pEngine.getTextureManager(), 1024, 1024, this.activity.getAssets(), "sazanami-gothic.ttf",
                 128f, true, android.graphics.Color.BLUE, 3, android.graphics.Color.WHITE);
-        fontJPChrName.load();
-        fontLatinChrInfo = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
-                pEngine.getTextureManager(), 1024, 1024, activity.getAssets(), "DejaVuSans.ttf",
+        this.fontJPChrName.load();
+        this.fontLatinChrInfo = FontFactory.createStrokeFromAsset(pEngine.getFontManager(),
+                pEngine.getTextureManager(), 1024, 1024, this.activity.getAssets(), "DejaVuSans.ttf",
                 80f, true, android.graphics.Color.BLACK, 3, android.graphics.Color.WHITE);
-        fontLatinChrInfo.load();
+        this.fontLatinChrInfo.load();
     }
 
     /* If an unloadFonts() method is necessary, we can provide one
      */
     public synchronized void unloadFonts(){
-        fontSmall.unload();
-        fontMedium.unload();
-        fontBig.unload();
-        fontXBig.unload();
-        fontLatinChrName.unload();
-        fontJPChrName.unload();
-        fontLatinChrInfo.unload();
+        this.fontSmall.unload();
+        this.fontMedium.unload();
+        this.fontBig.unload();
+        this.fontXBig.unload();
+        this.fontLatinChrName.unload();
+        this.fontJPChrName.unload();
+        this.fontLatinChrInfo.unload();
     }
 }
         //if (AAA == null) {
