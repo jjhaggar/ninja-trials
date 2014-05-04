@@ -1,6 +1,10 @@
 # Ninja Trials
 
 
+**Como puedes ver, los commits de este proyecto se han detenido en diciembre de 2013, pero no así el proyecto. Aún lo estamos desarrollando, y puedes seguir su progreso en nuestro blog [aquí](http://madgeargames.blogspot.com.es/ "MadGearGames")**
+
+--
+
 Ninja Trials es un juego para Android al estilo de la vieja escuela, desarrollado específicamente para [Ouya](https://www.ouya.tv/ "Ouya console"), utilizando [AndEngine](https://github.com/nicolasgramlich/AndEngine " AndEngine por Nicolas Gramlich ").
 
 El juego consta de varios minijuegos, todos ellos de manejo sencillo, como pulsar repetidamente un botón lo más rápido posible, o presionar un botón en un momento preciso.
